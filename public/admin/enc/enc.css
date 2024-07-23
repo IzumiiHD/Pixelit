@@ -1,0 +1,159 @@
+
+body {
+  font-family: 'Pixelify Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #B011C2;
+  color: #fff;
+  padding: 10px 0;
+}
+
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+/* Header links styled as buttons */
+header nav ul li a {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 5px; /* Add some margin to separate buttons */
+  border-radius: 5px;
+  background-color: #8E038D; /* Darker default background color */
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+header nav ul li a:hover {
+  background-color: #67005B; /* Darker hover background color */
+}
+
+#requests h2 {
+  margin: 0; /* Remove default margin */
+  padding: 10px; /* Add padding to the header */
+  background-color: #B011C2; /* Header background color */
+  color: #fff; /* Header text color */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  text-align: center; /* Center-align header content */
+  margin-bottom: 10px;
+}
+
+section {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+section input[type="text"],
+section button {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  width: calc(100% - 22px);
+}
+
+section input[type="text"]:focus {
+  outline: none;
+  border-color: #B011C2;
+}
+
+.overlay-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #D240DC; /* Blue */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+h1 {
+  margin-top: 30px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 8px 16px; /* Decrease padding to make the buttons less chunky */
+  font-size: 14px; /* Reduce font size */
+  border: none;
+  border-radius: 3px; /* Smaller border radius */
+  background-color: #B011C2; /* Blue color for the buttons */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+  margin: 5px; /* Add margin to create spacing between buttons */
+}
+
+button:hover {
+  background-color: #8E038D; /* Darker blue color on hover */
+}
+
+
+
+#requests {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px 0;
+  margin-bottom: 100px;
+}
+
+footer {
+  background-color: #B011C2;
+  color: #fff;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}

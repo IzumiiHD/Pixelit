@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../img/favicon.ico">
+<title>News</title>
+<style>
+body {
+  font-family: Pixelify Sans;
+  color: white;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #b011c2;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: purple;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #F9F9F9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #7F00FF;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+  .news-container {
+    width: 75%;
+    background: linear-gradient(
+      to right,
+      #b011c2,
+      #8e038d
+    ); /* Added gradient background */
+    border-radius: 30px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin: 50px auto; /* Center the leaderboard */
+    color: #fff;
+  }
+
+  .bg_img {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: 50%;
+    left: 50%;
+    z-index: -9999;
+    background-size: 550px;
+    background-position: -100px -100px;
+    background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
+    transform: translate(-50%, -50%) rotate(15deg);
+    opacity: 0.1;
+  }
+</style>
+</head>
+  <body style="background-color: #800097; overflow: hidden">
+    <img alt="Blooks Background" class="bg_img" />
+<div class="navbar">
+  <a href="../site/index.html"><i class="fa-solid fa-house"></i> Home</a>
+  <div class="dropdown">
+    <button class="dropbtn"><i class="fa-solid fa-bars"></i> 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="../site/news.html"><i class="fa-solid fa-newspaper"></i> News </a>
+      <a href="../site/login.html"><i class="fa-solid fa-right-to-bracket"></i> Login </a>
+      <a href="../site/register.html"><i class="fa-solid fa-user-plus"></i> Register </a>
+      <a href="../site/credits.html"><i class="fa-solid fa-circle-user"></i> Credits </a>
+      <a href="../site/faq.html"><i class="fa-solid fa-person-circle-question"></i> FAQ </a>
+      <a href="../site/termsofservice.html"><i class="fa-solid fa-bookmark"></i> TOS </a>
+    </div>
+  </div> 
+</div>
+    </header>
+    <center>
+      <h1 style="color: white;">News <i class="fa-solid fa-newspaper"></i></h1>
+    </center>
+    <div id="container">
+      <div class="news-container">
+        <center>
+          <h1 class="news-header">
+            Loading... <i class="fa-solid fa-newspaper"></i>
+          </h1>
+        </center>
+        <div class="new-post">
+          <center>
+            <div class="content">
+              Loading...
+            </div>
+          </center>
+          <div class="authour">
+            Authour: Loading... <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="date">
+            Date: 0/0/0000 <i class="fa-solid fa-calendar-days"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="../javascript/news.js"></script>
+    <script src="../api/mainpage.js"></script>
+  </body>
+</html>

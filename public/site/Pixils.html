@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Pixels</title>
+    <link rel="icon" type="image/png" href="../img/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 0;
+        font-family: Pixelify Sans;
+        background-color: #FFFF;
+        color: white;
+      }
+
+      header {
+        background-color: #b011c2;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+      }
+
+      header nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      header nav ul li {
+        display: inline-block;
+        margin-right: 20px;
+      }
+
+      header nav ul li a {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 0 5px; /* Add some margin to separate buttons */
+        border-radius: 5px;
+        background-color: #8e038d; /* Darker default background color */
+        color: #fff;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      header nav ul li a:hover {
+        background-color: #67005b; /* Darker hover background color */
+      }
+
+      .container {
+        width: 80%;
+        background-color: #8e038d;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        margin: 20px auto;
+      }
+
+      .pack {
+        margin-bottom: 20px;
+      }
+
+      .pack h2 {
+        margin-bottom: 10px;
+      }
+
+      .items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .item {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        background-color: #222;
+        border: 2px solid #666;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+      }
+
+      .item img {
+        max-width: 80%;
+        max-height: 80%;
+      }
+
+      .badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: #f00;
+        color: white;
+        border-radius: 50%;
+        padding: 5px 8px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .bg_img {
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: 50%;
+        left: 50%;
+        z-index: -9999;
+        background-size: 550px;
+        background-position: -100px -100px;
+        background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
+        transform: translate(-50%, -50%) rotate(15deg);
+        opacity: 0.1;
+      }
+    </style>
+  </head>
+  <body style="background-color: #800097; overflow: hidden">
+    <img alt="Blooks Background" class="bg_img" />
+  <body>
+    <header>
+      <center>
+        <nav>
+          <ul>
+            <li>
+              <a href="../site/index.html"
+                >Home <i class="fa-solid fa-house-chimney-user"></i
+              ></a>
+            </li>
+            <li>
+              <a href="../site/dashboard.html"
+                >Dashboard <i class="fa-solid fa-chart-bar"></i
+              ></a>
+            </li>
+            <li>
+              <a href="../site/leaderboard.html"
+                >Leaderboard <i class="fa-solid fa-medal"></i
+              ></a>
+            </li>
+            <li>
+              <a href="../site/chat.html"
+                >Chat <i class="fa fa-comments"></i
+              ></a>
+            </li>
+            <li>
+              <a href="../site/market.html"
+                >Market <i class="fa-solid fa-shop"></i
+              ></a>
+            </li>
+            <li>
+              <a href="../site/Pixils.html"
+                >Pixels <i class="fa-solid fa-suitcase"></i
+              ></a>
+            </li>
+            <li>
+              <a href="../site/index.html"
+                >Logout <i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i> 
+              </a>
+            </li>
+            <li>
+              <a href="../admin/enc/enc.html"
+                >Admin <i class="fa-solid fa-user-tie"></i
+              ></a>
+            </li>
+          </ul>
+        </nav>
+      </center>
+    </header>
+    <center>
+      <div style="padding-left: 16px">
+        <h1>Pixels</h1>
+      </div>
+    </center>
+    <div class="container">
+      <div class="pack">
+        <h2> Pack</h2>
+        <div class="items">
+          <div class="item">
+            <img src="lock-icon.png" alt="Locked" />
+            <div class="badge">2</div>
+          </div>
+          <!-- More items... -->
+        </div>
+      </div>
+      <div class="pack">
+        <h2> Pack</h2>
+        <div class="items">
+          <div class="item">
+            <img src="lock-icon.png" alt="Locked" />
+            <div class="badge">3</div>
+          </div>
+          <!-- More items... -->
+        </div>
+      </div>
+      <div class="pack">
+        <h2> Pack</h2>
+        <div class="items">
+          <div class="item">
+            <img src="lock-icon.png" alt="Locked" />
+            <div class="badge">1</div>
+          </div>
+          <!-- More items... -->
+        </div>
+      </div>
+      <div class="pack">
+        <h2> Pack</h2>
+        <div class="items">
+          <div class="item">
+            <img src="lock-icon.png" alt="Locked" />
+            <div class="badge">5</div>
+          </div>
+          <!-- More items... -->
+        </div>
+      </div>
+      <div class="pack">
+        <h2> Pack</h2>
+        <div class="items">
+          <div class="item">
+            <img src="lock-icon.png" alt="Locked" />
+            <div class="badge">4</div>
+          </div>
+          <!-- More items... -->
+        </div>
+      </div>
+      <div class="pack">
+        <h2> Pack</h2>
+        <div class="items">
+          <div class="item">
+            <img src="lock-icon.png" alt="Locked" />
+            <div class="badge">6</div>
+          </div>
+          <!-- More items... -->
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="../javascript/loggedin.js"></script>
+    <script src="/javascript/pixils.js"></script>
+  </body>
+</html>
