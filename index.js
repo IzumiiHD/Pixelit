@@ -57,15 +57,13 @@ const io = new Server(server, { pingInterval: 2000, pingTimeout: 5000 });
 const port = 3000;
 
 const fs = require("fs");
-const fileName = "./accounts.json";
-let accounts = require(fileName);
-const jsonData1 = fs.readFileSync(fileName, "utf8");
-accounts = JSON.parse(jsonData1);
+//const jsonData1 = fs.readFileSync(fileName, "utf8");
+//accounts = JSON.parse(jsonData1);
 
-const rFileName = "./requests.json";
+//const rFileName = "./requests.json";
 
-const jsonData = fs.readFileSync(rFileName, "utf8");
-requests = JSON.parse(jsonData);
+//const jsonData = fs.readFileSync(rFileName, "utf8");
+//requests = JSON.parse(jsonData);
 
 const chat = require("./chat.json");
 
