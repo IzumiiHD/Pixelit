@@ -57,15 +57,6 @@ const io = new Server(server, { pingInterval: 2000, pingTimeout: 5000 });
 const port = 3000;
 
 const fs = require("fs");
-//const jsonData1 = fs.readFileSync(fileName, "utf8");
-//accounts = JSON.parse(jsonData1);
-
-//const rFileName = "./requests.json";
-
-//const jsonData = fs.readFileSync(rFileName, "utf8");
-//requests = JSON.parse(jsonData);
-
-const chat = require("./chat.json");
 
 const encpass = process.env["encpass"]; // encryption password
 function encrypt(text, pass) {
@@ -205,7 +196,6 @@ io.on("connection", (socket) => {
     const chat = JSON.parse(jsonData1);*/
     const d = new Date();
     d.setHours(d.getHours() - 4);
-    const messageId = Object.keys(chat).length;
     const user = await users.findOne({ username: name });
     const chatmessage = {
       sender: name,
@@ -226,9 +216,6 @@ io.on("connection", (socket) => {
     fs.writeFile(fileName, stringifySafe(accounts), function writeJSON(err) {
       if (err) return console.log(err);
     });*/
-    fs.writeFile("./chat.json", stringifySafe(chat), function writeJSON(err) {
-      if (err) return console.log(err);
-    });
     io.emit("chatupdate", "get");
   });
   socket.on("getChat", async () => {
