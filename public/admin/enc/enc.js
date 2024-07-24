@@ -31,12 +31,11 @@ dec.onclick = () => {
   decrypted.value = decrypt(todec.value, keyd.value)
 }
 
-const admins = ["admin" , "IzumiiHD"]
-/*
+const admins = ["admin", "IzumiiHD", "iamgamedude"]
+
 window.onload = () => {
   document.body.style.pointerEvents = "none"
   if (admins.includes(sessionStorage.username)) {
-    alert("You are an admin!")
     socket.emit("login", sessionStorage.username, sessionStorage.password)
     socket.on("login", (res) => {
       if (res == true) {
@@ -45,17 +44,15 @@ window.onload = () => {
         socket.emit("getrequests")
       }
       else {
-        alert("not an admin")
         window.location = "../site/dashboard.html"
       }
     })
   }
   else {
-    alert("not an admin")
     window.location = "../site/dashboard.html"
   }
 }
-*/
+
 let accountRequests
 
 function renderAccountRequests() {

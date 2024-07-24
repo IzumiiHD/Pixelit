@@ -1,7 +1,6 @@
-const admins = ["IzumiiHD", "iamgamedude" , "admin"]
+//const admins = ["IzumiiHD", "iamgamedude" , "admin" , "Packman28"]
 
-window.onload = () => {  "SOUNDGOD",
-
+window.onload = () => {
   document.body.style.pointerEvents = "none";
   if (admins.includes(sessionStorage.username)) {
     socket.emit("login", sessionStorage.username, sessionStorage.password);
@@ -18,4 +17,3 @@ window.onload = () => {  "SOUNDGOD",
     window.location = "/site/dashboard.html";
   }
 };
-w

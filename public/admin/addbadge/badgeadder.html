@@ -109,39 +109,6 @@
       </ul>
     </div>
 
-    <script>
-      // Function to add a new badge
-      function addBadge(event) {
-        event.preventDefault();
-        const badgeNameInput = document.getElementById("badge-name");
-        const badgeImageInput = document.getElementById("badge-image");
-        const badgeName = badgeNameInput.value.trim();
-        const badgeImage = badgeImageInput.value.trim();
-
-        if (badgeName !== "" && badgeImage !== "") {
-          const badgeList = document.getElementById("badge-list");
-          const listItem = document.createElement("li");
-          listItem.innerHTML = `
-            <img src="${badgeImage}" alt="${badgeName}" width="16" height="16">
-            <span>${badgeName}</span>
-            <button onclick="removeBadge(this)">Remove</button>
-          `;
-          badgeList.appendChild(listItem);
-          badgeNameInput.value = "";
-          badgeImageInput.value = "";
-        }
-      }
-
-      // Function to remove a badge
-      function removeBadge(button) {
-        const listItem = button.parentNode;
-        listItem.parentNode.removeChild(listItem);
-      }
-
-      document
-        .getElementById("badge-form")
-        .addEventListener("submit", addBadge);
-    </script>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="/api/verify2.js"></script>
     <script src="./badgeadd.js"></script>

@@ -2,6 +2,7 @@ const admins = [
   "IzumiiHD",
   "iamgamedude",
   "admin",
+  "Packman28",
 ];
 
 const socket = io();

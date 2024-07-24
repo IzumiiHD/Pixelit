@@ -1,4 +1,4 @@
-const admins = ["IzumiiHD", "iamgamedude" , "admin"]
+const admins = ["IzumiiHD", "iamgamedude" , "admin" , "Packman28"]
 
 window.onload = () => {
   document.body.style.pointerEvents = "none";
