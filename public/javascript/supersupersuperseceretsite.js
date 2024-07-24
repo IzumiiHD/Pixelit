@@ -1,1 +1,0 @@
-window.alert ('This is a super secret site. If you have found this page, You will get an automatic blacklist :D')

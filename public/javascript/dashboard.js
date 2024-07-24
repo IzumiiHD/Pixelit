@@ -35,7 +35,7 @@ function renderBadges(badges) {
   badges.forEach((badge) => {
     const badgeElement = document.createElement("div");
     badgeElement.classList.add("badge");
-    badgeElement.innerHTML = `<img src="${badge.image}" alt="${badge.name}">`;
+    badgeElement.innerHTML = `<img class="badge" src="${badge.image}" alt="${badge.name}">`;
     badgeContainer.appendChild(badgeElement);
   });
 }
