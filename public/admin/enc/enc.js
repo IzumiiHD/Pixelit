@@ -31,7 +31,7 @@ dec.onclick = () => {
   decrypted.value = decrypt(todec.value, keyd.value)
 }
 
-const admins = ["admin", "IzumiiHD", "iamgamedude"]
+const admins = ["IzumiiHD", "iamgamedude", "admin", "Packman28" , "Buenar" , "ThatPlanet"];
 
 window.onload = () => {
   document.body.style.pointerEvents = "none"
@@ -44,12 +44,12 @@ window.onload = () => {
         socket.emit("getrequests")
       }
       else {
-        window.location = "../site/dashboard.html"
+        window.location = "../../site/dashboard.html"
       }
     })
   }
   else {
-    window.location = "../site/dashboard.html"
+    window.location = "../../site/dashboard.html"
   }
 }
 
