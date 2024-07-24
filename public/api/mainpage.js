@@ -2,7 +2,7 @@
   return document.getElementById(id);
 }*/
 
-const admins = ["IzumiiHD", "iamgamedude" , "Packman28"]
+const admins = ["IzumiiHD", "iamgamedude" , "Packman28" , "ThatPlanet" , "Buenar"]
 
 document.getElementById("admin").style.display = "none";
 

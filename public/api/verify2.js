@@ -3,6 +3,8 @@ const admins = [
   "iamgamedude",
   "admin",
   "Packman28",
+  "Buenar",
+  "ThatPlanet",
 ];
 
 const socket = io();
