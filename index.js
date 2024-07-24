@@ -5,7 +5,7 @@ const stringifySafe = require("json-stringify-safe");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
 
-const admins = ["IzumiiHD", "iamgamedude", "admin", "Packman28"];
+const admins = ["IzumiiHD", "iamgamedude", "admin", "Packman28" , "Buenar" , "ThatPlanet"];
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
