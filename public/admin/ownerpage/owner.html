@@ -19,7 +19,7 @@
     <link href="../enc/enc.css" rel="stylesheet" />
   </head>
   <body>
-    <body style="background-color: #800097">
+    <body style="background-color: #800097; overflow: hidden">
       <img alt="Blooks Background" class="bg_img" />
         <div class="navbar">
           <div class="dropdown">
@@ -200,69 +200,69 @@
     <center>
       <h1>Owner Panel</h1>
 
-      <a href="../rarity/rarityeditor.html"
-        ><button
-          class="button"
-          style="
-            width: auto;
-            font-size: 25px;
-            border-radius: 5px;
-            background-color: #b011c2;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-          "
-        >
-          Rarity Editor <i class="fa-solid fa-star"></i></button
-      ></a>
+      <br>
+      <br>
+      <br>
 
-      <a href="../pack/packeditor.html"
-        ><button
-          class="button"
-          style="
-            width: auto;
-            font-size: 25px;
-            border-radius: 5px;
-            background-color: #b011c2;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-          "
-        >
-          Pack Editor <i class="fa-solid fa-shop"></i></button
-      ></a>
 
-      <a href="../badge/badgeeditor.html"
-        ><button
-          class="button"
-          style="
-            width: auto;
-            font-size: 25px;
-            border-radius: 5px;
-            background-color: #b011c2;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-          "
-        >
-          Badge Editor <i class="fa-solid fa-ribbon"></i></button
-      ></a>
+      <button
+        class="button"
+        style="
+          width: 240px;
+          font-size: 18px;
+          border-radius: 5px;
+          background-color: #b011c2;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          box-shadow: #000 4px 0 10px;
+        "
+        onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='#000 6px 0 10px'"
+        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='#000 4px 0 10px'"
+        onclick="window.location.href='../pack/packeditor.html'"
+      >
+        Pack Editor <i class="fa-solid fa-shop"></i></button>
 
-      <a href="../news/newsedit.html"
-        ><button
-          class="button"
-          style="
-            width: auto;
-            font-size: 25px;
-            border-radius: 5px;
-            background-color: #b011c2;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-          "
-        >
-          News Editor <i class="fa-solid fa-newspaper"></i></button
-      ></a>
+      <br>
+
+      <button
+        class="button"
+        style="
+          width: 240px;
+          font-size: 18px;
+          border-radius: 5px;
+          background-color: #b011c2;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          box-shadow: #000 4px 0 10px;
+        "
+        onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='#000 6px 0 10px'"
+        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='#000 4px 0 10px'"
+        onclick="window.location.href='../badge/badgeeditor.html'"
+      >
+        Badge Editor <i class="fa-solid fa-ribbon"></i></button>
+
+      <br>
+
+
+      <button
+        class="button"
+        style="
+          width: 240px;
+          font-size: 18px;
+          border-radius: 5px;
+          background-color: #b011c2;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          box-shadow: #000 4px 0 10px;
+        "
+        onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='#000 6px 0 10px'"
+        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='#000 4px 0 10px'"
+        onclick="window.location.href='../news/newsedit.html'"
+      >
+        News Editor <i class="fa-solid fa-newspaper"></i></button>
     </center>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="../api/verify2.js"></script>

@@ -312,6 +312,7 @@
         src="../img/blooks/defaultBlook.png"
         alt="Blook"
         class="center"
+        draggable="false"
         style="
           display: block;
           margin-left: auto;
@@ -320,15 +321,23 @@
           border-radius: 10px;
         "
       />
+      
+      <br>
+      <br>
+      
       <div class="box-container">
-        <div class="box box1">
+        <div class="box box1" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
           <div class="text">
             <h3 style="color: #fff" >PixelCoins: <span id="tokens"></span> <i class="fa-solid fa-coins"></i></h3>
           </div>
         </div>
 
         <button
-          style="width:auto; font-size:25px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor"
+          style="width:auto; font-size:25px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+"
+          id="viewplayer"
+          onmouseover="this.style.transform='scale(1.1)'"
+          onmouseout="this.style.transform='scale(1)'"
         >
           View Player <i class="fa-solid fa-magnifying-glass"></i>
         </button>
@@ -351,9 +360,12 @@
             padding: 10px 20px;
             pointer-events: auto;
             cursor: pointer;
+            box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
           "
           id="spin"
           onclick="spins()"
+          onmouseover="this.style.transform='scale(1.1)';"
+          onmouseout="this.style.transform='scale(1)';"
         >
           Claim Tokens <i class="fa-solid fa-star"></i>
         </button>
@@ -368,5 +380,12 @@
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="/javascript/dashboard.js"></script>
     <!--<script src="../api/mainpage.js"></script>-->
+    <script> 
+      document.getElementById('viewplayer').addEventListener('click', function() {
+        var username = prompt("What user do you want to search up?");
+        // Code to search for the specified username
+        window.alert("Username: " + username);
+      });
+    </script>
   </body>
 </html>
