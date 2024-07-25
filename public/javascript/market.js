@@ -104,6 +104,6 @@ socket.on("openPack", (info) => {
   console.log(blook);
   console.log("opened pack");
   alert(
-    `opened pack ${pack} and got ${blook.name}, which is a ${blook.rarity} and has ${blook.chance}% chance`,
+    `Opened pack ${pack} and got ${blook.name}, which is a ${blook.rarity} and has ${blook.chance}% chance`,
   );
 });
