@@ -21,7 +21,7 @@ if (admins.includes(sessionStorage.username)) {
 }*/
 
 if (sessionStorage.loggedin == "true") {
-  username.innerHTML = "Username: " + sessionStorage.username;
+  username.innerHTML = " " + sessionStorage.username;
   updateTokens();
 } else {
 }

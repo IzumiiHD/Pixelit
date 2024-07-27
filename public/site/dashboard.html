@@ -265,15 +265,21 @@
 
       .centered {
         position: absolute;
-        top: 50%;
+        top: 20%;
         left: 50%;
+        position: relative;
+        text-align: center;
         transform: translate(-50%, -50%);
       }
 
       .badge {
         display: inline-block;
-        height: 100px;
-        width: 100px;
+        height: 50px;
+        width: 50px;
+      }
+
+      .badgeDisplayContainer{
+        border-radius:7px;background-color:#9a49aa;width:100%;padding:30px 15px 16px;box-shadow:inset 0 -6px #0003;box-sizing:border-box;position:relative}._blookUsageRow_1c2jf_490{display:flex;flex-direction:row;align-items:center;justify-content:space-between;width:100%;height:45px}
       }
     </style>
   </head>
@@ -298,30 +304,42 @@
     </div>
 
     <div style="padding-left: 8px">
+      </br>
+      </br>
+      </br>
       <center>
-        <h2 style="color: #fff" id="username">Username</h2>
-        <h2 style="color: #fff" id="badges">Badges: <div id="badges"></div></h2>
-      </center>
+        <h2 style="color: #fff" id="username">username</h2> 
+        <div class="centered" style="color: #fff" ><h2>Role: Common</h2></div>
+        <div class="badgeDisplayContainer" style="color: #fff">
 
-      <div class="container">
-        <img src="../img/banner/techChip.svg" alt="Snow" style="width:15%;">
-        <div class="centered" style="color: #fff" >Role</div>
-      </div>
+          
+        </div>
+          <div class="container">
+          <img src="../img/banner/techChip.svg" alt="techChipBanner" draggable="false" style="height: 50%; width: 18%; position: relative; left: 0%; top: 75%; right: 50%;">
+          <img
+            src="../img/blooks/defaultBlook.png"
+            alt="Blook"
+            class="center"
+            draggable="false"
+            style="
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+              border-radius: 10px;
+              height: 25%; 
+              width: 5%; 
+              position: relative; 
+              left: 0%; 
+              top: 50%; 
+              right: 60%;
+            "
+          />
+        </div>
+        </br>
+        </br>
+        <h2 style="color: #fff" ><div draggable="false" id="badges"</div></h2>
+      </center>
         
-      <img
-        src="../img/blooks/defaultBlook.png"
-        alt="Blook"
-        class="center"
-        draggable="false"
-        style="
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 5%;
-          border-radius: 10px;
-        "
-      />
-      
       <br>
       <br>
       
