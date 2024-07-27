@@ -172,7 +172,7 @@ io.on("connection", (socket) => {
       .toArray();
     io.emit("requests", requests);
   });
-  socket.on("addAccount", async (name, pass, accepted) => {
+  socket.on("addAccount", async (name, pass, salt, accepted) => {
     //if (accepted) {
     await client.connect();
     const db = client.db(db_name);
@@ -187,6 +187,7 @@ io.on("connection", (socket) => {
         await users.insertOne({
           username: name,
           password: pass,
+          salt: salt,
           tokens: 0,
           spinned: 0,
           pfp: "logo.png",

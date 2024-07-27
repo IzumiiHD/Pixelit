@@ -86,7 +86,7 @@ function renderAccountRequests() {
       acceptButton.classList.add("button", "accept");
       acceptButton.textContent = "Accept";
       acceptButton.addEventListener("click", () => {
-        handleRequest({username: request.username, password: request.password}, true);
+        handleRequest({username: request.username, password: request.password, salt: request.salt}, true);
         socket.emit("getrequests")
       });
 
@@ -94,7 +94,7 @@ function renderAccountRequests() {
       declineButton.classList.add("button", "decline");
       declineButton.textContent = "Decline";
       declineButton.addEventListener("click", () => {
-        handleRequest({username: request.username, password: request.password}, false);
+        handleRequest({username: request.username, password: request.password, salt: request.salt}, false);
         socket.emit("getrequests")
       });
 
@@ -117,7 +117,7 @@ socket.on("requests", (requests) => {
 
 
 function handleRequest(request, accepted) {
-  socket.emit("addAccount", request.username, request.password, accepted);
+  socket.emit("addAccount", request.username, request.password, request.salt, accepted);
   socket.emit("getrequests")
 }
 
