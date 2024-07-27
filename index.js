@@ -5,7 +5,14 @@ const stringifySafe = require("json-stringify-safe");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
 
-const admins = ["IzumiiHD", "iamgamedude", "admin", "Packman28" , "Buenar" , "ThatPlanet"];
+const admins = [
+  "IzumiiHD",
+  "iamgamedude",
+  "admin",
+  "Packman28",
+  "Buenar",
+  "ThatPlanet",
+];
 
 const db_name = "pixelit";
 
@@ -27,11 +34,7 @@ async function run() {
     const packs = await client.db("pixelit").collection("packs").find().toArray()
     console.log(packs[0].blooks)*/
 
-    requests = await client
-      .db(db_name)
-      .collection("requests")
-      .find()
-      .toArray();
+    requests = await client.db(db_name).collection("requests").find().toArray();
     //console.log(requests);
 
     console.log(
@@ -75,7 +78,9 @@ function generatePasswordHash(password, salt) {
   let passwordWordArray = CryptoJS.enc.Utf8.parse(password);
   const saltWordArray = CryptoJS.enc.Hex.parse(salt);
   passwordWordArray.concat(saltWordArray);
-  return CryptoJS.HmacSHA256(passwordWordArray, encpass).toString(CryptoJS.enc.Hex);
+  return CryptoJS.HmacSHA256(passwordWordArray, encpass).toString(
+    CryptoJS.enc.Hex,
+  );
 }
 
 function generateSalt() {
@@ -85,7 +90,7 @@ function generateSalt() {
 function validatePassword(password, saved_hash, salt) {
   const generated_hash = generatePasswordHash(password, salt);
   return generated_hash == saved_hash;
-} 
+}
 
 function rand(min, max) {
   return /*Math.floor(*/ Math.random() * (max - min + 1) /*)*/ + min;
@@ -614,36 +619,30 @@ io.on("connection", (socket) => {
     io.to(socket.id).emit("getBadges", badgeese);
   });
   socket.on("getUserBadges", async (name) => {
-    await client.connect()
+    await client.connect();
     const user = await users.findOne({ username: name });
     if (user === null) return;
-    io.to(socket.id).emit("getUserBadges", user.badges)
-  })
-  socket.on('addBadge', async (data) => {
-    await client.connect()
+    io.to(socket.id).emit("getUserBadges", user.badges);
+  });
+  socket.on("addBadge", async (data) => {
+    await client.connect();
     const { username, badge } = data;
-    await users.updateOne(
-      { username },
-      { $addToSet: { badges: badge } }
-    );
-    const updatedUser = await users.find().toArray()
-    io.emit('badgeUpdate', updatedUser);
+    await users.updateOne({ username }, { $addToSet: { badges: badge } });
+    const updatedUser = await users.find().toArray();
+    io.emit("badgeUpdate", updatedUser);
   });
 
-  socket.on('removeBadge', async (data) => {
-    await client.connect()
+  socket.on("removeBadge", async (data) => {
+    await client.connect();
     const { username, badge } = data;
-    await users.updateOne(
-      { username },
-      { $pull: { badges: badge } }
-    );
-    const updatedUser = await users.find().toArray()
-    io.emit('badgeUpdate', updatedUser);
+    await users.updateOne({ username }, { $pull: { badges: badge } });
+    const updatedUser = await users.find().toArray();
+    io.emit("badgeUpdate", updatedUser);
   });
   socket.on("createBadge", async (badge) => {
-    await client.connect()
-    await badges.insertOne(badge)
-  })
+    await client.connect();
+    await badges.insertOne(badge);
+  });
   socket.on("deleteBadge", async (badge) => {
     await client.connect();
     await badges.deleteOne(badge);
