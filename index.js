@@ -7,6 +7,8 @@ const uri = process.env["mongoURL"];
 
 const admins = ["IzumiiHD", "iamgamedude", "admin", "Packman28" , "Buenar" , "ThatPlanet"];
 
+const db_name = "pixelit";
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -21,12 +23,12 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("pixelit").command({ ping: 1 }); /*
+    await client.db(db_name).command({ ping: 1 }); /*
     const packs = await client.db("pixelit").collection("packs").find().toArray()
     console.log(packs[0].blooks)*/
 
     requests = await client
-      .db("pixelit")
+      .db(db_name)
       .collection("requests")
       .find()
       .toArray();
@@ -42,7 +44,7 @@ async function run() {
 }
 run().catch(console.dir);
 
-const db = client.db("pixelit");
+const db = client.db(db_name);
 const users = db.collection("users");
 const badges = db.collection("badges");
 const news = db.collection("news");
@@ -68,6 +70,22 @@ function decrypt(text, pass) {
   var decrypted = CryptoJS.AES.decrypt(text, pass).toString(CryptoJS.enc.Utf8);
   return decrypted;
 }
+
+function generatePasswordHash(password, salt) {
+  let passwordWordArray = CryptoJS.enc.Utf8.parse(password);
+  const saltWordArray = CryptoJS.enc.Hex.parse(salt);
+  passwordWordArray.concat(saltWordArray);
+  return CryptoJS.HmacSHA256(passwordWordArray, encpass).toString(CryptoJS.enc.Hex);
+}
+
+function generateSalt() {
+  return CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
+}
+
+function validatePassword(password, saved_hash, salt) {
+  const generated_hash = generatePasswordHash(password, salt);
+  return generated_hash == saved_hash;
+} 
 
 function rand(min, max) {
   return /*Math.floor(*/ Math.random() * (max - min + 1) /*)*/ + min;
@@ -97,11 +115,11 @@ io.on("connection", (socket) => {
     try {
       //console.log(`login ${name} ${pass}`);
       await client.connect();
-      const db = client.db("pixelit");
+      const db = client.db(db_name);
       const collection = db.collection("users");
       const user = await collection.findOne({ username: name });
       if (user !== null) {
-        if (decrypt(user.password, encpass) == pass) {
+        if (validatePassword(pass, user.password, user.salt)) {
           io.to(socket.id).emit("login", true);
         } else {
           io.to(socket.id).emit("login", false);
@@ -116,8 +134,8 @@ io.on("connection", (socket) => {
   socket.on("register", async (name, pass, reason) => {
     await client.connect();
     //ping
-    await client.db("pixelit").command({ ping: 1 });
-    const db = client.db("pixelit");
+    await client.db(db_name).command({ ping: 1 });
+    const db = client.db(db_name);
     const users = db.collection("users");
     const userRequests = db.collection("requests");
     const user = await users.findOne({ username: name });
@@ -126,9 +144,11 @@ io.on("connection", (socket) => {
       const request = await userRequests.findOne({ username: name });
       if (request === null) {
         console.log("adding request");
+        const salt = generateSalt();
         await userRequests.insertOne({
           username: name,
-          password: encrypt(pass, encpass),
+          password: generatePasswordHash(pass, salt),
+          salt: salt,
           tokens: 0,
           spinned: 0,
           reason: reason,
@@ -139,9 +159,9 @@ io.on("connection", (socket) => {
   socket.on("getrequests", async () => {
     await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("pixelit").command({ ping: 1 });
+    await client.db(db_name).command({ ping: 1 });
     const requests = await client
-      .db("pixelit")
+      .db(db_name)
       .collection("requests")
       .find()
       .toArray();
@@ -150,7 +170,7 @@ io.on("connection", (socket) => {
   socket.on("addAccount", async (name, pass, accepted) => {
     //if (accepted) {
     await client.connect();
-    const db = client.db("pixelit");
+    const db = client.db(db_name);
     const users = db.collection("users");
     const userRequests = db.collection("requests");
     //const epass = encrypt(pass, encpass);
@@ -259,7 +279,7 @@ io.on("connection", (socket) => {
     };
     const sender = await users.findOne({ username: info.author });
     if (
-      decrypt(sender.password, encpass) == info.pass &&
+      validatePassword(info.pass, sender.password, sender.salt) &&
       admins.includes(info.author)
     ) {
       await news.insertOne(newsPost);
@@ -278,7 +298,7 @@ io.on("connection", (socket) => {
     //console.log(user);
     const person = await users.findOne({ username: user.name });
     if (
-      decrypt(person.password, encpass) == user.pass &&
+      validatePassword(user.pass, person.password, person.salt) &&
       admins.includes(user.name)
     ) {
       try {
@@ -319,7 +339,7 @@ io.on("connection", (socket) => {
     };*/
     const person = await users.findOne({ username: user.name });
     if (
-      decrypt(person.password, encpass) == user.pass &&
+      validatePassword(user.pass, person.password, person.salt) &&
       admins.includes(user.name)
     ) {
       await packs
@@ -374,7 +394,7 @@ io.on("connection", (socket) => {
     //console.log(user);
     const person = await users.findOne({ username: user.name });
     if (
-      decrypt(person.password, encpass) == user.pass &&
+      validatePassword(user.pass, person.password, person.salt) &&
       admins.includes(user.name)
     ) {
       await packs
@@ -411,7 +431,7 @@ io.on("connection", (socket) => {
     };*/
     const person = await users.findOne({ username: user.name });
     if (
-      decrypt(person.password, encpass) == user.pass &&
+      validatePassword(user.pass, person.password, person.salt) &&
       admins.includes(user.name)
     ) {
       await packs
@@ -464,7 +484,7 @@ io.on("connection", (socket) => {
     if (person === null) return;
 
     // Validate password
-    if (decrypt(person.password, encpass) != user.pass) {
+    if (!validatePassword(user.pass, person.password, person.salt)) {
       console.log("False password");
       return;
     }
