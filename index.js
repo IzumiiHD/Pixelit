@@ -4,7 +4,19 @@ const CryptoJS = require("crypto-js");
 const stringifySafe = require("json-stringify-safe");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
-
+function formatDateTime(dateTime) {
+  const options = { 
+      year: 'numeric', 
+      month: 'numeric', 
+      day: 'numeric', 
+      hour: 'numeric', 
+      minute: 'numeric', 
+      hour12: true 
+  };
+  return dateTime.toLocaleString(undefined, options);
+}
+const timezoneOffset = new Date().getTimezoneOffset();
+const localTime = new Date(Date.now() - (timezoneOffset * 60 * 1000));
 const admins = [
   "IzumiiHD",
   "iamgamedude",
@@ -150,6 +162,7 @@ io.on("connection", (socket) => {
       if (request === null) {
         console.log("adding request");
         const salt = generateSalt();
+        const timezone = formatDateTime(localTime)
         await userRequests.insertOne({
           username: name,
           password: generatePasswordHash(pass, salt),
@@ -157,7 +170,7 @@ io.on("connection", (socket) => {
           tokens: 0,
           spinned: 0,
           reason: reason,
-          date: date()
+          date: timezone,
         });
       } else console.log("request exists");
     } else console.log("user exists");
@@ -197,7 +210,6 @@ io.on("connection", (socket) => {
           sent: 0,
           packs: await packs.find().toArray(),
           badges: [],
-          date: date()
         });
       }
       //io.to(socket.id).emit("addAccount", "success");

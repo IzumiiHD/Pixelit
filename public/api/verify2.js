@@ -5,6 +5,7 @@ const admins = [
   "Packman28",
   "Buenar",
   "ThatPlanet",
+  "SOUNDGOD",
 ];
 
 const socket = io();
