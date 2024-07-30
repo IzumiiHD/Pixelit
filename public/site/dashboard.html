@@ -299,103 +299,137 @@
       <div class="title_p" id="title_p">Pixelit</div>
     </div>
 
-    <div style="padding-left: 8px">
       </br>
       </br>
       </br>
-      <center>
-        <h2 style="color: #fff" id="username">Username</h2> 
-         <h2 id="date"></h2>
-        <div class="centered" id="role" style="color: #fff" ><h2>Role: Common</h2></div>
-        <div class="container">
-          <img src="../img/banner/techChip.svg" alt="techChipBanner" draggable="false" style="height: 50%; width: 18%; position: relative; left: 0%; top: 75%; right: 50%;">
-          <img
-            src="../img/blooks/defaultBlook.png"
-            alt="Blook"
-            class="center"
-            draggable="false"
-            style="
-              display: block;
-              margin-left: auto;
-              margin-right: auto;
-              border-radius: 10px;
-              height: 25%; 
-              width: 5%; 
-              position: relative; 
-              left: 0%; 
-              top: 50%; 
-              right: 60%;
-            "
-          />
+        
+        <div
+          style="width: 700px; height: 480px; font-size: 18px; border-radius: 20px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans;
+        "
+        >    
+          <h1 style="color: #fff; text-shadow: #000 1px 0 13px;">Status</h1>     
+          <h2>
+            <a href="https://discord.gg/ccARpDEKHU"
+              ><i class="fa-brands fa-discord fa-bounce" style="color: #5865f2"></i
+            ></a>
+            <a href="https://twitter.com/IzumiHD"
+              ><i class="fa-brands fa-twitter fa-bounce" style="color: #1da1f2"></i
+            ></a>
+            <a href="https://www.youtube.com/@technoscootalo/featured"
+              ><i class="fa-brands fa-youtube fa-bounce" style="color: red"></i
+            ></a>
+          </h2>
+          <h3 style="color: #fff; text-shadow: #000 1px 0 13px;" id="username">Username</h3> 
+          <h3 style="color: #fff; text-shadow: #000 1px 0 13px;" id="role">Common</h3>
+          <h3 style="color: #fff; text-shadow: #000 1px 0 13px;" id="date">Date</h3>
+          <div class="container">
+            <img src="../img/banner/techChip.svg" alt="techChipBanner" draggable="false" style="height: 50%; width: 50%; position: relative; left: -26%; top: 75%; right:0%;" />
+            <img
+              src="../img/blooks/defaultBlook.png"
+              alt="Blook"
+              class="center"
+              draggable="false"
+              style="
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 10px;
+                height: 13%; 
+                width: 13%; 
+                position: relative; 
+                left: -43%; 
+                top: 25%; 
+              "
+            />
+          </div>
+        </div>   
+    </br>
+    </br>
+    </br>
+    </br>
+
+
+        <div
+          style="width: 700px; height: 150px; font-size: 18px; border-radius: 20px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans;
+        "
+        >
+          <h2 style="color: #fff" ><div draggable="false" id="badges"</div></h2>
         </div>
-        </br>
-        </br>
-        <h2 style="color: #fff" ><div draggable="false" id="badges"</div></h2>
-      </center>
         
       <br>
       <br>
-      
-      <div class="box-container">
-        <div class="box box1" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
-          <div class="text">
-            <h3 style="color: #fff" >Tokens: <span id="tokens"></span> <i class="fa-solid fa-coins"></i></h3>
-          </div>
-        </div>
-
+    
         <button
-          style="width:auto; font-size:18px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans;
-"
+          style="width:auto; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
+          position: absolute;
+          top: 35%;
+          left: 50%;
+        "
           id="viewplayer"
-          onmouseover="this.style.transform='scale(1.1)'"
-          onmouseout="this.style.transform='scale(1)'"
+          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
         >
           View Player <i class="fa-solid fa-magnifying-glass"></i>
         </button>
-
-        <div class="box box2" style="background-color: #b011c2">
-          <div class="text">
-            <h3 style="color: #fff" >Packs Opened: <span id="packs"></span> <i class="fa-solid fa-box-open"></i></h3>
-          </div>
-        </div>
 
         <button
           pointer
           style="
             width: auto;
-            font-size: 18px;
+            font-size: 20px;
             border-radius: 5px;
             background-color: #b011c2;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 15px 30px;
             pointer-events: auto;
             cursor: pointer;
             box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
             font-family: Pixelify Sans;
+            top: 20%;
+            left: 50%;
+            position: absolute;
           "
           id="spin"
           onclick="spins()"
-          onmouseover="this.style.transform='scale(1.1)';"
-          onmouseout="this.style.transform='scale(1)';"
+          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
         >
           Claim Tokens <i class="fa-solid fa-star"></i>
         </button>
 
-        <div class="box box3" style="background-color: #b011c2;">
+    <div class="statistics">
+      <div style="height: 50%; width: 50%; position: absolute; left: 75%; top: 20%;">
+        <div class="box box1" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
           <div class="text">
-            <h3 style="color: #fff" >Messages: <span id="messages"></span> <i class="fa-solid fa-comments"></i></hh3>
+            <h3 style="color: #fff" >Tokens: <span id="tokens"></span> <i class="fa-solid fa-coins"></i></h3>
+          </div>
+        </div>
+      </div>
+
+      <div style="height: 50%; width: 50%; position: absolute; left: 75%; top: 35%;">
+            <div class="box box2" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
+            <div class="text">
+              <h3 style="color: #fff" >Packs Opened: <span id="packs"></span> <i class="fa-solid fa-box-open"></i></h3>
+            </div>
+          </div>
+
+        <div style="height: 50%; width: 50%; position: absolute; left: 1%; top: 30%;">
+            <div class="box box3" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
+            <div class="text">
+              <h3 style="color: #fff" >Messages: <span id="messages"></span> <i class="fa-solid fa-comments"></i></h3>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    
     <h3
       style="
         color: #fff;
         position: absolute;
-        top: 85%;
-        left: 48%;
-        right: 7%;
+        top: 75%;
+        left: 75%;
         text-shadow: #000 1px 0 13px;
       "
     >
