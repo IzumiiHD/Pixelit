@@ -157,6 +157,7 @@ io.on("connection", (socket) => {
           tokens: 0,
           spinned: 0,
           reason: reason,
+          date: date()
         });
       } else console.log("request exists");
     } else console.log("user exists");
@@ -196,6 +197,7 @@ io.on("connection", (socket) => {
           sent: 0,
           packs: await packs.find().toArray(),
           badges: [],
+          date: date()
         });
       }
       //io.to(socket.id).emit("addAccount", "success");
@@ -253,8 +255,8 @@ io.on("connection", (socket) => {
   socket.on("spin", async (name) => {
     await client.connect();
     const user = await users.findOne({ username: name });
-    if (Date.now() - user.spinned >= 3600000) {
-      const gained = Math.floor(10 + Math.random() * 500);
+    if (user.spinned === null || Date.now() - user.spinned >= 3600000) {
+      const gained = Math.floor(500 + Math.random() * 1500);
       await users.updateOne(
         { username: name },
         { $set: { tokens: user.tokens + gained } },
@@ -656,8 +658,4 @@ server.listen(port, () => {
   console.log(process.env["mongoURL"]);
 });
 //3.6 mil ms in an hour
-console.log("server did load");
-
-("I'm also on meth");
-("I love crack");
-("W drug dealer");
+console.log("Server loaded");

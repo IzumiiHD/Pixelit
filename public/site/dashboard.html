@@ -305,7 +305,8 @@
       </br>
       <center>
         <h2 style="color: #fff" id="username">Username</h2> 
-        <div class="centered" style="color: #fff" ><h2>Role: Common</h2></div>
+         <h2 id="date"></h2>
+        <div class="centered" id="role" style="color: #fff" ><h2>Role: Common</h2></div>
         <div class="container">
           <img src="../img/banner/techChip.svg" alt="techChipBanner" draggable="false" style="height: 50%; width: 18%; position: relative; left: 0%; top: 75%; right: 50%;">
           <img
@@ -338,7 +339,7 @@
       <div class="box-container">
         <div class="box box1" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
           <div class="text">
-            <h3 style="color: #fff" >PixelCoins: <span id="tokens"></span> <i class="fa-solid fa-coins"></i></h3>
+            <h3 style="color: #fff" >Tokens: <span id="tokens"></span> <i class="fa-solid fa-coins"></i></h3>
           </div>
         </div>
 
@@ -388,6 +389,17 @@
         </div>
       </div>
     </div>
+    <h3
+      style="
+        color: #fff;
+        position: absolute;
+        top: 85%;
+        left: 48%;
+        right: 7%;
+        text-shadow: #000 1px 0 13px;
+      "
+    >
+    </h3>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="/javascript/dashboard.js"></script>
     <!--<script src="../api/mainpage.js"></script>-->

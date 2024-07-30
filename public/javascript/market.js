@@ -61,6 +61,7 @@ function createPackElement(pack) {
 
   // Append center element to divBox
   divBox.appendChild(centerElem);
+  divBox.id = pack.name;
 
   // Add onclick event listener to divBox
   divBox.addEventListener("click", () => {
@@ -103,6 +104,7 @@ socket.on("openPack", (info) => {
   console.log(pack);
   console.log(blook);
   console.log("opened pack");
+  document.getElementById(pack).style.pointerEvents = "auto";
   alert(
     `Opened pack ${pack} and got ${blook.name}, which is a ${blook.rarity} and has ${blook.chance}% chance`,
   );
