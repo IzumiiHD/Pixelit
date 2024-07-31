@@ -268,7 +268,7 @@ io.on("connection", (socket) => {
     await client.connect();
     const user = await users.findOne({ username: name });
     if (user.spinned === null || Date.now() - user.spinned >= 3600000) {
-      const gained = Math.floor(500 + Math.random() * 1500);
+      const gained = Math.floor(500 + Math.random() * 1000);
       await users.updateOne(
         { username: name },
         { $set: { tokens: user.tokens + gained } },
