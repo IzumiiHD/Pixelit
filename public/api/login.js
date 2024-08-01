@@ -24,7 +24,7 @@ function login(event) {
   const uv = uname.value
   const pv = psw.value
   ge("id01").style.display = "none"
-  socket.emit("login", uv, pv)
+  
 }
 
 socket.on("login", (res) => {
