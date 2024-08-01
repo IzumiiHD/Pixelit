@@ -5,26 +5,28 @@ const stringifySafe = require("json-stringify-safe");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
 function formatDateTime(dateTime) {
-  const options = { 
-      year: 'numeric', 
-      month: 'numeric', 
-      day: 'numeric', 
-      hour: 'numeric', 
-      minute: 'numeric', 
-      hour12: true 
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
   };
   return dateTime.toLocaleString(undefined, options);
 }
 const session = require("express-session");
-app.use(session({
-    name: "cookie", 
-    secret: process.env['cookieSecret'],
+app.use(
+  session({
+    name: "cookie",
+    secret: process.env["cookieSecret"],
     resave: false,
     saveUninitialized: true,
-    cookie: {maxAge:  3 * 24 * 60 * 60 * 1000}
-}));
+    cookie: { maxAge: 3 * 24 * 60 * 60 * 1000 },
+  }),
+);
 const timezoneOffset = new Date().getTimezoneOffset();
-const localTime = new Date(Date.now() - (timezoneOffset * 60 * 1000));
+const localTime = new Date(Date.now() - timezoneOffset * 60 * 1000);
 const admins = [
   "IzumiiHD",
   "iamgamedude",
@@ -34,7 +36,7 @@ const admins = [
   "ThatPlanet",
   "SOUNDGOD",
 ];
-const router = require('./routes.js');
+const router = require("./routes.js");
 app.use(router);
 const db_name = "pixelit";
 
@@ -172,7 +174,7 @@ io.on("connection", (socket) => {
       if (request === null) {
         console.log("adding request");
         const salt = generateSalt();
-        const timezone = formatDateTime(localTime)
+        const timezone = formatDateTime(localTime);
         await userRequests.insertOne({
           username: name,
           password: generatePasswordHash(pass, salt),
@@ -196,7 +198,7 @@ io.on("connection", (socket) => {
       .toArray();
     io.emit("requests", requests);
   });
-  socket.on("addAccount", async (name, pass, salt, accepted) => {
+  socket.on("addAccount", async (name, pass, salt, accepted, user) => {
     //if (accepted) {
     await client.connect();
     const db = client.db(db_name);
@@ -204,32 +206,38 @@ io.on("connection", (socket) => {
     const userRequests = db.collection("requests");
     //const epass = encrypt(pass, encpass);
 
-    const request = await userRequests.findOne({ username: name });
-    if (request !== null) {
-      await userRequests.deleteOne({ username: name });
-      if (accepted == true) {
-        await users.insertOne({
-          username: name,
-          password: pass,
-          salt: salt,
-          tokens: 0,
-          spinned: 0,
-          pfp: "logo.png",
-          banner: "defaultBanner.png",
-          role: "Common",
-          sent: 0,
-          packs: await packs.find().toArray(),
-          badges: [],
-        });
+    const person = await users.findOne({ username: user.name });
+    if (
+      validatePassword(user.pass, person.password, person.salt) &&
+      admins.includes(user.name)
+    ) {
+      const request = await userRequests.findOne({ username: name });
+      if (request !== null) {
+        await userRequests.deleteOne({ username: name });
+        if (accepted == true) {
+          await users.insertOne({
+            username: name,
+            password: pass,
+            salt: salt,
+            tokens: 0,
+            spinned: 0,
+            pfp: "logo.png",
+            banner: "defaultBanner.png",
+            role: "Common",
+            sent: 0,
+            packs: await packs.find().toArray(),
+            badges: [],
+          });
+        }
+        //io.to(socket.id).emit("addAccount", "success");
+        //io.to(socket.id).emit("requests", userRequests);
+      } else {
+        console.log("e");
       }
-      //io.to(socket.id).emit("addAccount", "success");
-      //io.to(socket.id).emit("requests", userRequests);
-    } else {
-      console.log("e");
-    }
-    //}
-    /*console.log(stringifySafe(accounts))
+      //}
+      /*console.log(stringifySafe(accounts))
     console.log(stringifySafe(requests))*/
+    }
   });
   socket.on("getTokens", async (name) => {
     await client.connect();

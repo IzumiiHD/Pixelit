@@ -1,0 +1,156 @@
+body {
+  font-family: Pixelify Sans;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+.bg_img {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: 50%;
+  left: 50%;
+  z-index: -9999;
+  background-size: 550px;
+  background-position: -100px -100px;
+  background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
+  transform: translate(-50%, -50%) rotate(15deg);
+  opacity: 0.1;
+}
+.navbar {
+  overflow: hidden;
+  background-color: #b011c2;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: #000 4px 0 20px;
+}
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  text-shadow: #000 1px 0 13px;
+}
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: purple;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+.dropdown-content a:hover {
+  background-color: #d800ff;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #800097;
+  text-align: center;
+  padding: 10px 0;
+  box-shadow: #000 4px 0 20px;
+}
+.footer a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+.title_p {
+  margin-left: 92%;
+  position: absolute;
+  top: 1%;
+  font-size: 26px;
+  color: #fff;
+  text-shadow: #000 1px 0 13px;
+}
+
+h1 {
+margin-top: 30px;
+text-align: center;
+}
+
+form {
+max-width: 600px;
+margin: 0 auto;
+padding: 20px;
+border: 1px solid #ccc;
+border-radius: 5px;
+background-color: #fff;
+}
+
+label {
+display: block;
+margin-bottom: 10px;
+}
+
+input[type="text"],
+textarea {
+width: calc(100% - 22px);
+padding: 10px;
+font-size: 16px;
+border-radius: 5px;
+border: 1px solid #ccc;
+margin-bottom: 10px;
+}
+
+input[type="submit"] {
+padding: 10px 20px;
+font-size: 16px;
+border: none;
+border-radius: 5px;
+background-color: #b011c2;
+color: #fff;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+background-color: #8e038d;
+}
+
+textarea {
+height: 200px;
+}
+
+@media screen and (max-width: 768px) {
+form {
+  width: 90%;
+}
+}
