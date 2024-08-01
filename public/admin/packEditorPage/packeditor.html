@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="icon" type="image/png" href="../img/favicon.ico" />
+        <title>Pixelit Pack Manager</title>
+        <link href="../enc/enc.css" rel="stylesheet" />
+        <link href="../packEditorPage/packeditor.css" rel="stylesheet" />
+    </head>
+    <body>
+            <body style="background-color: #800097">
+              <img alt="Blooks Background" class="bg_img" />
+                <div class="navbar">
+                  <div class="dropdown">
+                    </button>
+                    <div > 
+                    <div> 
+                      <a href="../../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
+                        <a href="../../site/admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
+                      <a href="../ownerPanelPage/owner.html"><i class="fa-solid fa-crown"></i></a>
+                    </div>
+                  </div> 
+                </div>
+                <div class="title_p" id="title_p">Pixelit</div>
+              </div>
+        <center>
+            <h1>Pixelit Pack Manager</h1>
+
+            <div class="container">
+                <div class="form-group">
+                    <label for="packName">Pack Name:</label>
+                    <input
+                        type="text"
+                        id="packName"
+                        placeholder="Enter pack name"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="packUrl">Image URL for Pack:</label>
+                    <input
+                        type="text"
+                        id="packUrl"
+                        placeholder="Enter image URL for pack"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="packCost">Cost of the Pack:</label>
+                    <input
+                        type="number"
+                        id="packCost"
+                        placeholder="Enter the cost of the pack"
+                    />
+                </div>
+                <button onclick="createPack()">Create Pack</button>
+            </div>
+
+            <div id="packs">
+                <!-- Packs will be dynamically added here -->
+            </div>
+
+            <!--<button onclick="createPack()">Create Pack</button>-->
+        </center>
+        <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+        <script src="/api/verify2.js"></script>
+        <script src="./addPack.js"></script>
+    </body>
+</html>
