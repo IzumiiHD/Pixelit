@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,22 +14,27 @@
       href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
       rel="stylesheet"
     />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, 
-        initial-scale=1.0"
-    />
     <link rel="icon" type="image/png" href="../img/favicon.ico" />
-    <title>Market</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Auction</title>
     <style>
       body {
         font-family: Pixelify Sans;
         color: white;
         margin: 0;
         padding: 0;
+      }
+      .bg_img {
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: 50%;
+        left: 50%;
+        z-index: -9999;
+        background-size: 550px;
+        background-position: -100px -100px;
+        background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
+        transform: translate(-50%, -50%) rotate(15deg);
+        opacity: 0.1;
       }
       .navbar {
         overflow: hidden;
@@ -143,35 +148,6 @@
         overflow-x: hidden;
         transition: all 0.5s ease-in-out;
       }
-      .box-container {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 50px;
-      }
-      .nav {
-        min-height: 91vh;
-        width: 250px;
-        background-color: var(--background-color2);
-        position: absolute;
-        top: 0px;
-        left: 00;
-        box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow: hidden;
-        padding: 30px 0 20px 10px;
-      }
-      .navcontainer {
-        height: calc(100vh - 70px);
-        width: 250px;
-        position: relative;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        transition: all 0.5s ease-in-out;
-      }
       .navcontainer::-webkit-scrollbar {
         display: none;
       }
@@ -214,8 +190,8 @@
         background-color: var(--Border-color);
       }
       .box {
-        height: 400px;
-        width: 250px;
+        height: 55px;
+        width: 275px;
         border-radius: 20px;
         box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
         padding: 20px;
@@ -224,14 +200,26 @@
         justify-content: space-around;
         cursor: pointer;
         transition: transform 0.3s ease-in-out;
-        background-color: #b011c2;
       }
       .box:hover {
         transform: scale(1.08);
       }
 
+      .box:nth-child(1) {
+        background-color: var(--one-use-color);
+      }
+      .box:nth-child(2) {
+        background-color: var(--two-use-color);
+      }
+      .box:nth-child(3) {
+        background-color: var(--one-use-color);
+      }
+      .box:nth-child(4) {
+        background-color: var(--two-use-color);
+      }
+
       .box .text {
-        color: white;
+        color: black;
       }
       .topic {
         font-size: 13px;
@@ -239,92 +227,109 @@
         letter-spacing: 1px;
       }
 
-      img {
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 5px;
-        width: 150px;
-      }
-      #animationCanvas {
-        display: none;
-        margin: 0;
-        border: 2px solid black; /* Optional border for the canvas */
-        border-radius: 5px; /* Optional border radius */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional box shadow */
-        position: fixed;
+      .body {
+        background-size: 300px;
+        background-image: url("pixil-frame-0.pn");
       }
 
-      .bg_img {
+      .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 10%;
+        size: 10%;
+      }
+
+      .button {
+        font-family: Pixelify Sans;
+        display: inline-block;
+        padding: 8px 12px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #b011c2;
+        color: #fff;
+        margin-right: 5px;
+      }
+
+      /* Make sure that padding behaves as expected */
+      * {
+        box-sizing: border-box;
+      }
+
+      .container {
+        position: relative;
+        text-align: center;
+        color: white;
+      }
+
+      .centered {
         position: absolute;
-        width: 200%;
-        height: 200%;
-        top: 50%;
+        top: 20%;
         left: 50%;
-        z-index: -9999;
-        background-size: 550px;
-        background-position: -100px -100px;
-        background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
-        transform: translate(-50%, -50%) rotate(15deg);
-        opacity: 0.1;
+        position: relative;
+        text-align: center;
+        transform: translate(-50%, -50%);
       }
-      </style>
-      </head>
-  <body>
-    <body style="background-color: #800097; overflow: hidden">
+
+      .badge {
+        display: inline-block;
+        height: 100px;
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body style="background-color: #800097; overflow: hidden">
     <img alt="Blooks Background" class="bg_img" />
-    <canvas id="animationCanvas"></canvas>
-        <div class="navbar">
-          <div class="dropdown">
-            </button>
-            <div > 
-            <div> 
-                <a href="../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-                <a href="../site/chat.html"><i class="fa-solid fa-comment"></i></a>
-                <a href="../site/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
-                <a href="../site/market.html"><i class="fa-solid fa-store"></i></a>
-                <a href="../site/Pixils.html"><i class="fa-solid fa-suitcase"></i></a>
-                <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
-                <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
-                <a href="../site/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
-            </div>
-          </div> 
-        </div>
-        <div class="title_p" id="title_p">Pixelit</div>
-      </div>
-      <div style="padding-left: 16px">
-      <center>
-        <h2>Tokens: <span id="tokens"></span></h2>
-      </center>
-      <div class="box-container" id="packContainer">
-        <!--<div class="box box1">
-          <div class="text">
-            <h2>Pack Container</h2>
+      <div class="navbar">
+        <div class="dropdown">
+          </button>
+          <div > 
+          <div> 
+              <a href="../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
+              <a href="../site/chat.html"><i class="fa-solid fa-comment"></i></a>
+              <a href="../site/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
+              <a href="../site/market.html"><i class="fa-solid fa-store"></i></a>
+              <a href="../site/Pixils.html"><i class="fa-solid fa-suitcase"></i></a> 
+              <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
+              <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
+              <a href="../site/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
           </div>
-        </div>
-
-        <div class="box box2">
-          <center>
-            <div class="text">
-              <h2>Debug Pack - $30</h2>
-              <img
-                src="/img/packs/debugpackwrapper.png"
-                alt="Pack 1"
-                style="width: 250px"
-              />
-            </div>
-          </center>
-        </div>
-
-        <div class="box box3">
-          <div class="text">
-            <h2>Pack Container</h2>
-          </div>
-        </div>-->
+        </div> 
       </div>
+      <div class="title_p" id="title_p">Pixelit</div>
     </div>
+
+      </br>
+      </br>
+    <html>
+      <body>
+        <div
+          style="width: 270px; height: 780px; font-size: 18px; border-radius: 20px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; display: flex; flex-direction: column;
+        "
+        >
+        <h1 style="color: #fff; text-shadow: #000 1px 0 13px;">My bids: </h1> 
+        </div>
+
+
+        <div
+          style="width: 800px; height: 780px; font-size: 18px; border-radius: 20px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; display: flex; flex-direction: column; left: 50%; rigth: 50%; top: 9%;  position: absolute;
+        "
+        >
+        <h1 style="color: #fff; text-shadow: #000 1px 0 13px;">Recent Listings: </h1> 
+        </div>
+
+        <div class="statistics">
+          <div style="height: 50%; width: 50%; position: absolute; left: 25%; top: 50%;">
+            <div class="box box1" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
+              <div class="text">
+                <h3 style="color: #fff" >Tokens: <span id="tokens"></span> <i class="fa-solid fa-coins"></i></h3>
+              </div>
+            </div>
+          </div>
+      </body>
+    </html>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-    <script src="/api/mainpage.js"></script>
-    <script src="/javascript/loggedin.js"></script>
-    <script src="/javascript/market.js"></script>
-  </body>
-</html>
+    <script src="/javascript/auction.js"></script>
+
+      

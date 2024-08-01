@@ -278,8 +278,8 @@
         width: 100px;
       }
        .background{
-         width: 100%;
-         height: 100%;
+         width: 100vw;
+         height: 100vh;
          position: absolute;
          top: 0;
          left: 0;
@@ -292,7 +292,73 @@
         display: flex;
         flex-flow: column;
         overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y: hidden;
+      }
+
+      .inputContainer{
+        position: relative;
+        top: 0%;
+        width: 100%;
+        height: 55px;
+        left: 0;
+        border-right: none;
+        color: black;
+        font-family: 'Pixelify Sans';
+      }
+      #sendMsg{
+        width: 100%;
+        height: 100%;
+        background: #621e7d;
+        border-right: none;
+        left: 0;
+        position: relative;
+        border-bottom: none;
+        color: black !important;
+        font-family: 'Pixelify Sans';
+      }
+      .chatContainer{
+        width: 100%;
+        overflow: auto;
+        position: relative;
+        overflow-y: scroll;
+        height: calc(100% - 55px);
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .message{
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        margin-left: 6px;
+        gap: 12px;
+      }
+      .pfp img{
+        width: 65px;
+        height: auto;
+        border-radius: 12px;
+      }
+      .messageContainer{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .usernameAndBadges{
+        display: flex;
+        gap: 5px;
+      }
+      .username{
+        font-size: 23px;
+      }
+      .badge{
+        width: 25px;
+        height: auto;
+      }
+      .badges{
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
       }
     </style>
   </head>
@@ -308,7 +374,8 @@
               <a href="../site/chat.html"><i class="fa-solid fa-comment"></i></a>
               <a href="../site/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
               <a href="../site/market.html"><i class="fa-solid fa-store"></i></a>
-              <a href="../site/Pixils.html"><i class="fa-solid fa-suitcase"></i></a>              
+              <a href="../site/Pixils.html"><i class="fa-solid fa-suitcase"></i></a> 
+              <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
               <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
               <a href="../site/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
           </div>
@@ -317,7 +384,26 @@
       <div class="title_p" id="title_p">Pixelit</div>
     </div>
       <div class="profileBody">
-        <div class="inputContainer"><input type="text" id="sendMsg"></div>
+        <div class="chatContainer">
+          <br>
+          <div class="message">
+            <div class="pfp"><img src="../img/blooks/defaultBlook.png" alt="pfp" draggable="false" style=" filter: drop-shadow(0 0 5px rgba(0, 0, 0, .5));
+" /></div>
+            <div class="messageContainer">
+              <div class="usernameAndBadges"><div class="username">SOUNDGOD</div><div class="badges"><img src="../img/badges/Admin.png" draggable="false" class="badge"></div></div>
+              <div class="messageText">Wsgggg!</div>
+            </div>
+          </div>
+          <div class="message">
+            <div class="pfp"><img src="../img/blooks/defaultBlook.png" alt="pfp"  draggable="false" style=" filter: drop-shadow(0 0 5px rgba(0, 0, 0, .5));
+"/></div>
+            <div class="messageContainer">
+              <div class="usernameAndBadges"><div class="username">Kibby123</div><div class="badges"><img src="../img/badges/Admin.png" draggable="false" class="badge"><img src="../img/badges/Artist.png" draggable="false" class="badge"></div></div>
+              <div class="messageText">HIII</div>
+            </div>
+          </div>
+        </div>
+        <div class="inputContainer"><input type="text" id="sendMsg" placeholder="Type your message..."></div>
       </div>
     </div>
   </body>

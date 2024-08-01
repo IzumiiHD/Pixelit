@@ -1,4 +1,4 @@
-function ge(id) {
+/*function ge(id) {
   return document.getElementById(id);
 }
 
@@ -85,3 +85,8 @@ function sendm(e) {
 send.addEventListener("click", (e) => {
   sendm(e)
 })
+*/
+const socket = io();
+function get(id) {
+  return document.getElementById(id);
+}

@@ -15,6 +15,14 @@ function formatDateTime(dateTime) {
   };
   return dateTime.toLocaleString(undefined, options);
 }
+const session = require("express-session");
+app.use(session({
+    name: "cookie", 
+    secret: process.env['cookieSecret'],
+    resave: false,
+    saveUninitialized: true,
+    cookie: {maxAge:  3 * 24 * 60 * 60 * 1000}
+}));
 const timezoneOffset = new Date().getTimezoneOffset();
 const localTime = new Date(Date.now() - (timezoneOffset * 60 * 1000));
 const admins = [
@@ -24,8 +32,10 @@ const admins = [
   "Packman28",
   "Buenar",
   "ThatPlanet",
+  "SOUNDGOD",
 ];
-
+const router = require('./routes.js');
+app.use(router);
 const db_name = "pixelit";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version

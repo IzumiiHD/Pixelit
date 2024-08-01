@@ -7,6 +7,7 @@ if (localStorage.loggedin == "true") {
 function ge(id) {
   return document.getElementById(id);
 }
+const user = {username: '', tokens: 0, spinned: 0, role: '', packs:[],badges:[], send: 0,packsOpened:0}
 const username = ge("username");
 const tokens = ge("tokens");
 const sent = ge("messages");
