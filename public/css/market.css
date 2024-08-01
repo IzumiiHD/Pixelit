@@ -4,19 +4,6 @@ body {
   margin: 0;
   padding: 0;
 }
-.bg_img {
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  top: 50%;
-  left: 50%;
-  z-index: -9999;
-  background-size: 550px;
-  background-position: -100px -100px;
-  background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
-  transform: translate(-50%, -50%) rotate(15deg);
-  opacity: 0.1;
-}
 .navbar {
   overflow: hidden;
   background-color: #b011c2;
@@ -129,6 +116,35 @@ body {
   overflow-x: hidden;
   transition: all 0.5s ease-in-out;
 }
+.box-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+.nav {
+  min-height: 91vh;
+  width: 250px;
+  background-color: var(--background-color2);
+  position: absolute;
+  top: 0px;
+  left: 00;
+  box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 30px 0 20px 10px;
+}
+.navcontainer {
+  height: calc(100vh - 70px);
+  width: 250px;
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  transition: all 0.5s ease-in-out;
+}
 .navcontainer::-webkit-scrollbar {
   display: none;
 }
@@ -171,8 +187,8 @@ body {
   background-color: var(--Border-color);
 }
 .box {
-  height: 55px;
-  width: 275px;
+  height: 400px;
+  width: 250px;
   border-radius: 20px;
   box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
   padding: 20px;
@@ -181,26 +197,14 @@ body {
   justify-content: space-around;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
+  background-color: #b011c2;
 }
 .box:hover {
   transform: scale(1.08);
 }
 
-.box:nth-child(1) {
-  background-color: var(--one-use-color);
-}
-.box:nth-child(2) {
-  background-color: var(--two-use-color);
-}
-.box:nth-child(3) {
-  background-color: var(--one-use-color);
-}
-.box:nth-child(4) {
-  background-color: var(--two-use-color);
-}
-
 .box .text {
-  color: black;
+  color: white;
 }
 .topic {
   font-size: 13px;
@@ -208,136 +212,31 @@ body {
   letter-spacing: 1px;
 }
 
-.body {
-  background-size: 300px;
-  background-image: url("pixil-frame-0.pn");
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
+#animationCanvas {
+  display: none;
+  margin: 0;
+  border: 2px solid black; /* Optional border for the canvas */
+  border-radius: 5px; /* Optional border radius */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional box shadow */
+  position: fixed;
 }
 
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 10%;
-  size: 10%;
-}
-
-.button {
-  font-family: Pixelify Sans;
-  display: inline-block;
-  padding: 8px 12px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  background-color: #b011c2;
-  color: #fff;
-  margin-right: 5px;
-}
-
-/* Make sure that padding behaves as expected */
-* {
-  box-sizing: border-box;
-}
-
-.container {
-  position: relative;
-  text-align: center;
-  color: white;
-}
-
-.centered {
+.bg_img {
   position: absolute;
-  top: 20%;
+  width: 200%;
+  height: 200%;
+  top: 50%;
   left: 50%;
-  position: relative;
-  text-align: center;
-  transform: translate(-50%, -50%);
-}
-
-.badge {
-  display: inline-block;
-  height: 100px;
-  width: 100px;
-}
- .background{
-   width: 100vw;
-   height: 100vh;
-   position: absolute;
-   top: 0;
-   left: 0;
- }
-.profileBody{
-  width: 100%;
-  height: calc(100% - 4.52vh);
-  position: absolute;
-  top: 4.52vh;
-  display: flex;
-  flex-flow: column;
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
-
-.inputContainer{
-  position: relative;
-  top: 0%;
-  width: 100%;
-  height: 55px;
-  left: 0;
-  border-right: none;
-  color: black;
-  font-family: 'Pixelify Sans';
-}
-#sendMsg{
-  width: 100%;
-  height: 100%;
-  background: #621e7d;
-  border-right: none;
-  left: 0;
-  position: relative;
-  border-bottom: none;
-  color: black !important;
-  font-family: 'Pixelify Sans';
-}
-.chatContainer{
-  width: 100%;
-  overflow: auto;
-  position: relative;
-  overflow-y: scroll;
-  height: calc(100% - 55px);
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.message{
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  margin-left: 6px;
-  gap: 12px;
-}
-.pfp img{
-  width: 65px;
-  height: auto;
-  border-radius: 12px;
-}
-.messageContainer{
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.usernameAndBadges{
-  display: flex;
-  gap: 5px;
-}
-.username{
-  font-size: 23px;
-}
-.badge{
-  width: 25px;
-  height: auto;
-}
-.badges{
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
+  z-index: -9999;
+  background-size: 550px;
+  background-position: -100px -100px;
+  background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
+  transform: translate(-50%, -50%) rotate(15deg);
+  opacity: 0.1;
 }

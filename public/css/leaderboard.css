@@ -100,14 +100,99 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
-.img {
+.box-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+.nav {
+  min-height: 91vh;
+  width: 250px;
+  background-color: var(--background-color2);
+  position: absolute;
+  top: 0px;
+  left: 00;
+  box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 30px 0 20px 10px;
+}
+.navcontainer {
+  height: calc(100vh - 70px);
+  width: 250px;
   position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.leaderboard-container {
+  width: 75%;
+  background: linear-gradient(
+    to right,
+    #b011c2,
+    #8e038d
+  ); /* Added gradient background */
+  border-radius: 30px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin: 50px auto; /* Center the leaderboard */
+  color: #fff;  
+}
+
+.lb-header {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.lb-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Added a semi-transparent background */
+  margin-bottom: 10px;
+}
+
+.lb-entry:nth-child(even) {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Alternate background color */
+}
+
+.name {
+  flex-grow: 1;
+  font-weight: bold;
+}
+
+.score {
+  flex-shrink: 0;
+}
+
+.bg_img {
+  position: absolute;
+  width: 200%;
+  height: 200%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: #000 4px 0 20px;
+  z-index: -9999;
+  background-size: 550px;
+  background-position: -100px -100px;
+  background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
+  transform: translate(-50%, -50%) rotate(15deg);
+  opacity: 0.1;
 }
