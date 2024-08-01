@@ -7,6 +7,15 @@ if (localStorage.loggedin == "true") {
 function ge(id) {
   return document.getElementById(id);
 }
+function renderBadges(badges) {
+  const badgeContainer = ge("badges");
+  badges.forEach((badge) => {
+    const badgeElement = document.createElement("div");
+    badgeElement.classList.add("badge");
+    badgeElement.innerHTML = `<img class="badge" src="${badge.image}" alt="${badge.name}">`;
+    badgeContainer.appendChild(badgeElement);
+  });
+}
 const user = {'username': 'username', 'uid': 0, 'tokens': 0, 'packs': [], 'pfp': '/img/blooks/logo.png','banner': '/img/banner/defaultBanner.svg', 'badges': [], 'role': 'Common','spinned': 0,'stats': {'sent':0,'packsOpened': 0}}
 const username = ge("username");
 const tokens = ge("tokens");
@@ -39,6 +48,7 @@ fetch("/user")
   ge("banner").src = `../img/banner/${user.banner}`;
   ge("role").innerHTML = user.role;
   ge("username").innerHTML = user.username
+  rednerBadges(user.badges)
 })
 .catch(error => {
   console.error('There was a problem with the fetch operation:', error);
@@ -63,16 +73,6 @@ if (sessionStorage.loggedin == "true") {
 
 function updateTokens() {
   socket.emit("getTokens", sessionStorage.username);
-}
-
-function renderBadges(badges) {
-  const badgeContainer = ge("badges");
-  badges.forEach((badge) => {
-    const badgeElement = document.createElement("div");
-    badgeElement.classList.add("badge");
-    badgeElement.innerHTML = `<img class="badge" src="${badge.image}" alt="${badge.name}">`;
-    badgeContainer.appendChild(badgeElement);
-  });
 }
 
 socket.on("tokens", (tokensr, sentr, packsOpenedr) => {

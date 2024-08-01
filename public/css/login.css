@@ -72,6 +72,9 @@ body {
 .dropdown-content a:hover {
   background-color: #d800ff;
 }
+.dropdown-content a:last-child:hover{
+  border-radius: 0 0 10px 10px;
+}
 .dropdown:hover .dropdown-content {
   display: block;
 }
