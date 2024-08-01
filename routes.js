@@ -3,7 +3,8 @@ const router = express.Router();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
 const db_name = "pixelit";
-
+const CryptoJS = require("crypto-js");
+const stringifySafe = require("json-stringify-safe");
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -71,43 +72,48 @@ function validatePassword(password, saved_hash, salt) {
 }
 router.get('/user' , async (req,res)=>{
   const session = req.session
-  if (session.loggedIn){
-    res.send("hiiiii")
+  if(session.loggedIn){
+  const db = client.db(db_name)
+  const collection = db.collection("users")
+  const user = await collection.findOne({username: session.username})
+  if (user){
+    res.status(200).send({'username': user.username, 'uid': user._id, 'tokens': user.tokens, 'packs': user.packs, 'pfp': user.pfp,'banner': user.banner, 'badges': user.badges, 'role': user.role,'spinned': user.spinned,'stats': {'sent':user.sent,'packsOpened': user.packsOpened}})
+  }
   }else{
-    res.send("login to view this page")
+    res.status(500).send("you are not logged in")
   }
 })
-router.post('/login', async (req,res)=>{
+router.post('/login', async (req, res) => {
   try {
-    //console.log(`login ${name} ${pass}`);
     await client.connect();
     const db = client.db(db_name);
     const collection = db.collection("users");
-    const name = req.body.name;
-    const pass = req.body.name;
+    const name = req.body.username;
+    const pass = req.body.password;
     const user = await collection.findOne({ username: name });
-    if (user !== null) {
+    if (user) {
       if (validatePassword(pass, user.password, user.salt)) {
         req.session.loggedIn = true;
         req.session.username = user.username;
-        req.session.password = user.password;
         req.session.tokens = user.tokens;
         req.session.uid = user._id;
         req.session.packs = user.packs;
-        req.session.stats = {'sent': user.sent, 'packsOpened': user.packsOpened}
+        req.session.stats = { 'sent': user.sent, 'packsOpened': user.packsOpened };
         req.session.pfp = user.pfp;
         req.session.banner = user.banner;
         req.session.badges = user.badges;
         req.session.spinned = user.spinned;
-        res.statusCode(200);
+        res.sendStatus(200);
       } else {
-        res.statusCode(500).send("password incorrect");
+        res.status(500).send("Password incorrect");
       }
     } else {
-      res.statusCode(500).send("User not found");
+      res.status(500).send("User not found");
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    res.status(502).send("Server error");
   }
-})
+});
+
 module.exports = router;

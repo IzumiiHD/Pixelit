@@ -7,12 +7,42 @@ if (localStorage.loggedin == "true") {
 function ge(id) {
   return document.getElementById(id);
 }
-const user = {username: '', tokens: 0, spinned: 0, role: '', packs:[],badges:[], send: 0,packsOpened:0}
+const user = {'username': 'username', 'uid': 0, 'tokens': 0, 'packs': [], 'pfp': '/img/blooks/logo.png','banner': '/img/banner/defaultBanner.svg', 'badges': [], 'role': 'Common','spinned': 0,'stats': {'sent':0,'packsOpened': 0}}
 const username = ge("username");
 const tokens = ge("tokens");
 const sent = ge("messages");
 const spin = ge("spin");
 const packsOpened = ge("packs");
+fetch("/user")
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok ' + response.statusText);
+  }
+  return response.json();
+})
+.then(data => {
+  user.username = data.username;
+  user.uid = data.uid;
+  user.tokens = data.tokens;
+  user.packs = data.packs;
+  user.pfp = data.pfp;
+  user.banner = data.banner;
+  user.badges = data.badges;
+  user.role = data.role;
+  user.spinned = data.spinned;
+  user.stats = data.stats;
+  username.innerHTML = user.username;
+  tokens.innerHTML = user.tokens;
+  sent.innerHTML = user.stats.sent;
+  packsOpened.innerHTML = user.stats.packsOpened;
+  ge("pfp").src = `../img/blooks/${user.pfp}`;
+  ge("banner").src = `../img/banner/${user.banner}`;
+  ge("role").innerHTML = user.role;
+  ge("username").innerHTML = user.username
+})
+.catch(error => {
+  console.error('There was a problem with the fetch operation:', error);
+});
 /*
 const admins = ["admin" , "IzumiiHD"]
 

@@ -4,6 +4,8 @@ const CryptoJS = require("crypto-js");
 const stringifySafe = require("json-stringify-safe");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 function formatDateTime(dateTime) {
   const options = {
     year: "numeric",

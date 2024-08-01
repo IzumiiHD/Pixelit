@@ -20,31 +20,33 @@ window.onload = () => {
 
 
 function login(event) {
-  event.preventDefault()
-  const uv = uname.value
-  const pv = psw.value
-  ge("id01").style.display = "none"
-  
-}
-
-socket.on("login", (res) => {
-  if (res == true) {
-    alert("Sucessfully logged in!")
-    sessionStorage.username = uname.value
-    sessionStorage.password = psw.value
-    sessionStorage.loggedin = true
-    sessionStorage.rem = rem.checked
-    localStorage = sessionStorage
-    if (sessionStorage.rem == "false") {
-      uname.value = ""
-      psw.value = ""
+  event.preventDefault();
+  const uv = uname.value;
+  const pv = psw.value;
+  ge("id01").style.display = "none";
+  const requestBody = {
+    username: uv,
+    password: pv
+  };
+  fetch('/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestBody)
+  })
+  .then(response => {
+    if (response.status === 200) {
+      window.location.href = '/site/dashboard.html';
+    } else if (response.status === 500) {
+      return response.text().then(text => {
+        alert(text);
+      });
+    } else {
+      console.error('Unexpected response status:', response.status);
     }
-    window.location.href = "/site/dashboard.html"
-  } else if(res == false) {
-    alert("Incorrect username or password")
-  }
-  else {
-    alert("Account Does not exist")
-  }
-  console.log(sessionStorage)
-})
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
+}
