@@ -1,5 +1,4 @@
 # Pixelit
 
-Welcome to Pixelit, The first Blooket private server to use pixel art! An Open Source Blooket Server Created In NodeJS
-
+The very first blooket private server to use pixel art created in Javascript
 Created by IzumiiHD, Iamgamedude, Buenar, SOUNDGOD, ThatPlanet and Packman28.
