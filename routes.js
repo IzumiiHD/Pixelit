@@ -14,6 +14,19 @@ const client = new MongoClient(uri, {
   },
 });
 let requests;
+function formatDateTime(dateTime) {
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  return dateTime.toLocaleString(undefined, options);
+}
+const timezoneOffset = new Date().getTimezoneOffset();
+const localTime = new Date(Date.now() - timezoneOffset * 60 * 1000);
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
@@ -115,5 +128,35 @@ router.post('/login', async (req, res) => {
     res.status(502).send("Server error!");
   }
 });
+router.post('/register', async (req,res) =>{
+  try{
+  await client.connect();
+  const db = client.db(db_name);
+  const users = db.collection("users");
+  const userRequests = db.collection("requests");
+  const user = await users.findOne({ username: req.body.username });
 
+  if (user === null) {
+    const request = await userRequests.findOne({ username: req.body.username });
+    if (request === null) {
+      console.log("adding request");
+      const salt = generateSalt();
+      const timezone = formatDateTime(localTime);
+      await userRequests.insertOne({
+        username: req.body.username,
+        password: generatePasswordHash(req.body.password, salt),
+        salt: salt,
+        tokens: 0,
+        spinned: 0,
+        reason: req.body.reason,
+        date: timezone,
+      });
+      res.sendStatus(200);
+    } else{ res.status(500).send("request has already been sent!") };
+  } else{ res.status(500).send("user already exists!") };
+  }catch (err){
+   console.error(err)
+   res.status(502).send("Server Error!")
+  }
+})
 module.exports = router;

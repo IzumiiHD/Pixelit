@@ -4,6 +4,7 @@ const CryptoJS = require("crypto-js");
 const stringifySafe = require("json-stringify-safe");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
+const axios = require("axios")
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 function formatDateTime(dateTime) {
@@ -141,53 +142,6 @@ io.on("connection", (socket) => {
   console.log("a user connected");
   socket.on("disconnect", () => {
     console.log("user disconnected");
-  });
-  socket.on("login", async (name, pass) => {
-    try {
-      //console.log(`login ${name} ${pass}`);
-      await client.connect();
-      const db = client.db(db_name);
-      const collection = db.collection("users");
-      const user = await collection.findOne({ username: name });
-      if (user !== null) {
-        if (validatePassword(pass, user.password, user.salt)) {
-          io.to(socket.id).emit("login", true);
-        } else {
-          io.to(socket.id).emit("login", false);
-        }
-      } else {
-        io.to(socket.id).emit("login", "not found");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  });
-  socket.on("register", async (name, pass, reason) => {
-    await client.connect();
-    //ping
-    await client.db(db_name).command({ ping: 1 });
-    const db = client.db(db_name);
-    const users = db.collection("users");
-    const userRequests = db.collection("requests");
-    const user = await users.findOne({ username: name });
-
-    if (user === null) {
-      const request = await userRequests.findOne({ username: name });
-      if (request === null) {
-        console.log("adding request");
-        const salt = generateSalt();
-        const timezone = formatDateTime(localTime);
-        await userRequests.insertOne({
-          username: name,
-          password: generatePasswordHash(pass, salt),
-          salt: salt,
-          tokens: 0,
-          spinned: 0,
-          reason: reason,
-          date: timezone,
-        });
-      } else console.log("request exists");
-    } else console.log("user exists");
   });
   socket.on("getrequests", async () => {
     await client.connect();

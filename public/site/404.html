@@ -16,30 +16,38 @@
   <link rel="icon" type="image/png" href="../img/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/404.css"> <!-- Link to your CSS file -->
+  <style>
+  </style>
   <html>
   </head>
-    <body style="background-color: #800097; overflow: hidden">
+    <body style="background: #800097; overflow: hidden">
       <img alt="Blooks Background" class="bg_img" />
-    <center>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <div style="text-align: center;">        
-        <h1 style="color: white;">Oops!</h1>
-        <h1 style="color: white;">Im sorry, but we could not find what you were looking for!</h1>
-        <h1 style="color: white;"><i class="fa-solid fa-question fa-spin"></i></h1>
-        <h2 style="color: white;">Page not found</h2>
-        <a href="../site/index.html" style="color: white;">Get back on track <i class="fa-solid fa-computer"></i></button></a>
+      
+      <div class="errorBox">
+        <div class="errNum"><h1>Oops!</h1></div>
+          <img src="../img/blooks/blooksOG/" alt="errorImg" class="errorImg" draggable="false" style="width: 40%; height: 40%; border-raduis: 10px;">
+      </br>
+        <h3>
+          Sorry, We coudn't find the page you're looking for.
+        </h3>
+        <h3>
+          Get back on Track
+        </h3>
+        
+        <button
+          style="width:auto; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
+          position: absolute;
+          top: 87%;
+          left: 45%;
+        "
+          id="viewplayer"
+          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+        >
+          
+          Home
+        </button>
+        </div> 
       </div>
-    </center>
     </body>
+<script src="../javascript/404.js"></script>
