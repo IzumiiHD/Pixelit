@@ -104,7 +104,7 @@ body {
 
 #requests h2 {
   margin: 0; /* Remove default margin */
-  padding: 10px; /* Add padding to the header */
+  padding: 5px; /* Add padding to the header */
   background-color: #B011C2; /* Header background color */
   color: #fff; /* Header text color */
   border-radius: 5px; /* Add border radius for rounded corners */

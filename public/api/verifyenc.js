@@ -1,19 +1,32 @@
-//const admins = ["IzumiiHD", "iamgamedude" , "admin" , "Packman28" , "ThatPlanet" , "Buenar" , "SOUNDGOD"]
-
 window.onload = () => {
   document.body.style.pointerEvents = "none";
-  if (admins.includes(sessionStorage.username)) {
-    socket.emit("login", sessionStorage.username, sessionStorage.password);
-    socket.on("login", (res) => {
-      if (res == true) {
-        ge("overlay").style.display = "none";
-        document.body.style.pointerEvents = "auto";
-        socket.emit("getrequests");
-      } else {
-        window.location = "/site/dashboard.html";
-      }
-    });
-  } else {
-    window.location = "/site/dashboard.html";
-  }
+  fetch('/user', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+  .then(response => {
+    if (response.status === 200) {
+      return response.json();
+    } else if (response.status === 500) {
+      return response.text().then(text => {
+        alert(text);
+      });
+    } else {
+      console.error('Unexpected response status:', response.status);
+      throw new Error('Unexpected response status');
+    }
+  })
+  .then(data => {
+    if (['Owner', 'Admin', 'Mod' , 'Trial Staff'].includes(data.role)) {
+      document.getElementById("overlay").style.display = "none";
+      document.body.style.pointerEvents = "auto";
+    } else {
+      window.location.href = '/site/dashboard.html1';
+    }
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
 };

@@ -30,15 +30,6 @@ app.use(
 );
 const timezoneOffset = new Date().getTimezoneOffset();
 const localTime = new Date(Date.now() - timezoneOffset * 60 * 1000);
-const admins = [
-  "IzumiiHD",
-  "iamgamedude",
-  "admin",
-  "Packman28",
-  "Buenar",
-  "ThatPlanet",
-  "SOUNDGOD",
-];
 const router = require("./routes.js");
 app.use(router);
 const db_name = "pixelit";
@@ -142,17 +133,6 @@ io.on("connection", (socket) => {
   console.log("a user connected");
   socket.on("disconnect", () => {
     console.log("user disconnected");
-  });
-  socket.on("getrequests", async () => {
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db(db_name).command({ ping: 1 });
-    const requests = await client
-      .db(db_name)
-      .collection("requests")
-      .find()
-      .toArray();
-    io.emit("requests", requests);
   });
   socket.on("addAccount", async (name, pass, salt, accepted, user) => {
     //if (accepted) {

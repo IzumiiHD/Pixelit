@@ -9,6 +9,7 @@ function ge(id) {
 }
 function renderBadges(badges) {
   const badgeContainer = ge("badges");
+  badgeContainer.style.display = "block";
   badges.forEach((badge) => {
     const badgeElement = document.createElement("div");
     badgeElement.classList.add("badge");

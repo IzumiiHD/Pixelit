@@ -1,5 +1,3 @@
-const admins = ["IzumiiHD", "iamgamedude" , "admin" , "Packman28" , "ThatPlanet" , "Buenar" , "SOUNDGOD"]
-
 window.onload = () => {
   document.body.style.pointerEvents = "none";
   if (admins.includes(sessionStorage.username)) {

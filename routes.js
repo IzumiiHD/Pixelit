@@ -159,4 +159,28 @@ router.post('/register', async (req,res) =>{
    res.status(502).send("Server Error!")
   }
 })
+router.get("/requests", async (req,res)=>{
+  await client.connect();
+  if(req.session.loggedIn){
+  const db = client.db(db_name);
+  const collection = db.collection("users");
+  const user = await collection.findOne({username: req.session.username})
+  if(user){
+    if(['Owner', 'Admin','Mod','Trial Staff'].includes(user.role)){
+  const requests = await client
+    .db(db_name)
+    .collection("requests")
+    .find()
+    .toArray();
+  res.status(200).send(requests);
+  }else{
+      res.status(500).send("You're not a staff member")
+  }
+  }else{
+    res.status(500).send("The account your under does not exist")
+  }
+}else{
+    res.status(500).send("You're not logged in")
+}
+})
 module.exports = router;

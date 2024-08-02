@@ -19,7 +19,7 @@
     <link href="enc.css" rel="stylesheet" />
   </head>
   <body>
-    <body style="background-color: #800097">
+    <body style="background-color: #800097;">
       <img alt="Blooks Background" class="bg_img" />
       <div class="navbar">
         <div class="dropdown">
@@ -129,64 +129,19 @@
         </div>
       </div>
       <center>
-        <h1>
-          <h1 style="color: white">Admin Panel</h1>
-          <section id="encryption">
-            <h2>Encryption/Decryption</h2>
-            <div>
-              <h3>Encryption</h3>
-              <label for="toenc">Text to Encrypt:</label><br />
-              <input
-                type="text"
-                id="toenc"
-                placeholder="Enter text to encrypt"
-              /><br />
-              <label for="key">Encryption Key:</label><br />
-              <input
-                type="text"
-                id="key"
-                placeholder="Enter encryption key"
-              /><br />
-              <button id="enc">Encrypt</button><br />
-              <input
-                type="text"
-                id="encrypted"
-                placeholder="Encrypted text"
-                readonly
-              /><br /><br />
-
-              <h3>Decryption</h3>
-              <label for="todec">Text to Decrypt:</label><br />
-              <input
-                type="text"
-                id="todec"
-                placeholder="Enter text to decrypt"
-              /><br />
-              <label for="keyd">Decryption Key:</label><br />
-              <input
-                type="text"
-                id="keyd"
-                placeholder="Enter decryption key"
-              /><br />
-              <button id="dec">Decrypt</button><br />
-              <input
-                type="text"
-                id="decrypted"
-                placeholder="Decrypted text"
-                readonly
-              /><br /><br />
-            </div>
-          </section>
-
+        <h1 style="font-family: Pixelify Sans; color: white;">
+          Form Panel
+        </h1>
+      </center>
+      <center>
           <section id="requests">
             <hr />
             <h1>Requests:</h1>
           </section>
-
           <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
           <script src="./enc.js"></script>
-          <!--<script src="/api/verifyenc.js"></script>-->
+        <script src="../../api/verifyenc.js"></script>
         </h1>
       </center>
     </body>

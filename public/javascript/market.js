@@ -87,15 +87,39 @@ function renderPacks(packs) {
 
 socket.emit("getPacks");
 socket.emit("getTokens", sessionStorage.username);
+window.onload = () => {
+  document.body.style.pointerEvents = "none";
+  fetch('/user', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+  .then(response => {
+    if (response.status === 200) {
+      return response.json(); // Parse JSON data
+    } else if (response.status === 500) {
+      return response.text().then(text => {
+        alert(text);
+      });
+    } else {
+      console.error('Unexpected response status:', response.status);
+      throw new Error('Unexpected response status');
+    }
+  })
+  .then(data => {
+    document.getElementById("tokens").innerHTML = data.tokens;
+
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
+};
 
 // Call renderPacks function with the packs array
 socket.on("getPacks", (packs) => {
   if (packs === "get") return;
   renderPacks(packs);
-});
-
-socket.on("tokens", (tokens) => {
-  document.getElementById("tokens").innerHTML = tokens;
 });
 
 socket.on("openPack", (info) => {
