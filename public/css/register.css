@@ -191,7 +191,7 @@ span.psw {
 
 .close:hover,
 .close:focus {
- color: red;
+ color: #050505;
  cursor: pointer;
 }
 

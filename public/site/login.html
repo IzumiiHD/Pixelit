@@ -33,14 +33,14 @@
       <div>
           <h2 style="color: white;">Login Panel</h2>
         <title>Login</title>
-        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto; font-size:18px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor; font-family: Pixelify Sans">Login Form</button>
+        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto; font-size:18px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor; font-family: Pixelify Sans">Login Sheet</button>
     </div>
     <div id="id01" class="modal">
 
     <form class="modal-content animate" onsubmit="login(event)">
       <div class="imgcontainer">
         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <img src="../img/UserLoginLogo.png" alt="Avatar" class="avatar">
+        <img src="../img/UserLoginLogo.png" alt="Avatar" class="avatar" draggable="false">
       </div>
 
       <div class="container">
@@ -50,13 +50,13 @@
         <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
 
-        <button type="submit" id="submit">Jump In</button>
+        <button type="submit" id="submit" style="font-size:25px; font-family: Pixelify Sans; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor">Jump In</button>
         <label>
           <input type="checkbox" checked="checked" name="remember" id="remember"> Remember me
         </label>
       </div>
       <div class="container" style="background-color:#F1F1F1F1">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn" style="font-size:25px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; font-family: Pixelify Sans; cursor">Cancel</button>
         <span class="psw">Forgot your password?, Please contact an owner <a href="https://discord.gg/ccARpDEKHU">here</a> </span>
       </div>
     </form>

@@ -149,7 +149,7 @@ img.avatar {
 }
 
 .container {
-  padding: 16px;
+  padding: 8px;
 }
 
 span.psw {
@@ -206,7 +206,7 @@ span.psw {
 
 .close:hover,
 .close:focus {
-  color: red;
+  color: #050505;
   cursor: pointer;
 }
 
