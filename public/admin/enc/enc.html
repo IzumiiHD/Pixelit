@@ -2,150 +2,193 @@
   <head>
     <title>Admin</title>
     <link rel="icon" type="image/png" href="../img/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="enc.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="enc.css" rel="stylesheet" />
   </head>
   <body>
     <body style="background-color: #800097">
       <img alt="Blooks Background" class="bg_img" />
-        <div class="navbar">
-          <div class="dropdown">
-            </button>
-            <div > 
-            <div> 
-              <a href="../../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-              <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
-              <a href="../ownerPanelPage/owner.html"><i class="fa-solid fa-crown"></i></a>
+      <div class="navbar">
+        <div class="dropdown">
+          <div>
+            <div>
+              <a href="../../site/dashboard.html"
+                ><i class="fa-solid fa-chart-column"><i></i></i
+              ></a>
+              <a href="../admin/enc/enc.html"
+                ><i class="fa-solid fa-wrench"></i
+              ></a>
+              <a href="../ownerPanelPage/owner.html"
+                ><i class="fa-solid fa-crown"></i
+              ></a>
             </div>
-          </div> 
+          </div>
         </div>
         <div class="title_p" id="title_p">Pixelit</div>
       </div>
-    <style>
-       body {
-        font-family: Pixelify Sans;
-      }
-      .overlay-container {
-        position: fixed;
-        display: flex;
-        justify-content: center;
-        align-items:center;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,1);
-        font-family: Pixelify Sans;
+      <style>
+        body {
+          font-family: Pixelify Sans;
+        }
+        .overlay-container {
+          position: fixed;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 1);
+          font-family: Pixelify Sans;
+        }
+        .overlay-content {
+          position: absolute;
+          justify-content: center;
+          align-items: center;
+          font-size: 50px;
+          color: white;
+          background-color: rgb(30, 30, 30);
+          padding: 20px;
+          font-family: Pixelify Sans;
+        }
+        .loader {
+          border: 8px solid #f3f3f3; /* Light grey */
+          border-top: 8px solid #d240dc; /* purple */
+          border-radius: 50%;
+          width: 25px;
+          height: 25px;
+          animation: spin 2s linear infinite;
+          font-family: Pixelify Sans;
+        }
 
-      }
-      .overlay-content {
-        position: absolute;
-        justify-content: center;
-        align-items:center;
-        font-size: 50px;
-        color: white;
-        background-color: rgb(30, 30, 30);
-        padding:20px;
-        font-family: Pixelify Sans;
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+          font-family: Pixelify Sans;
+        }
 
-      }
-      .loader {
-        border: 8px solid #f3f3f3; /* Light grey */
-        border-top: 8px solid #D240DC; /* purple */
-        border-radius: 50%;
-        width: 25px;
-        height: 25px;
-        animation: spin 2s linear infinite;
-        font-family: Pixelify Sans;
+        .account-request {
+          font-family: Pixelify Sans;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 20px;
+          margin: 10px;
+          width: 300px;
+        }
+        .attribute {
+          margin-bottom: 10px;
+        }
+        .button {
+          font-family: Pixelify Sans;
+          display: inline-block;
+          padding: 8px 12px;
+          cursor: pointer;
+          border: none;
+          border-radius: 5px;
+          background-color: #b011c2;
+          color: #fff;
+          margin-right: 5px;
+        }
+        .button:hover {
+          font-family: Pixelify Sans;
+          background-color: #8e038d;
+        }
+        .footer {
+          font-family: Pixelify Sans;
+        }
+        /* Styling for the "no account requests found" message */
+        .no-requests-message {
+          padding: 10px;
+          background-color: #f2f2f2;
+          color: #333;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          text-align: center;
+        }
+      </style>
+      <div class="overlay-container" id="overlay">
+        <div class="overlay-content">
+          Verifying Connection...
+          <div class="loader" style="display: inline-block"></div>
+        </div>
+      </div>
+      <center>
+        <h1>
+          <h1 style="color: white">Admin Panel</h1>
+          <section id="encryption">
+            <h2>Encryption/Decryption</h2>
+            <div>
+              <h3>Encryption</h3>
+              <label for="toenc">Text to Encrypt:</label><br />
+              <input
+                type="text"
+                id="toenc"
+                placeholder="Enter text to encrypt"
+              /><br />
+              <label for="key">Encryption Key:</label><br />
+              <input
+                type="text"
+                id="key"
+                placeholder="Enter encryption key"
+              /><br />
+              <button id="enc">Encrypt</button><br />
+              <input
+                type="text"
+                id="encrypted"
+                placeholder="Encrypted text"
+                readonly
+              /><br /><br />
 
-      }
+              <h3>Decryption</h3>
+              <label for="todec">Text to Decrypt:</label><br />
+              <input
+                type="text"
+                id="todec"
+                placeholder="Enter text to decrypt"
+              /><br />
+              <label for="keyd">Decryption Key:</label><br />
+              <input
+                type="text"
+                id="keyd"
+                placeholder="Enter decryption key"
+              /><br />
+              <button id="dec">Decrypt</button><br />
+              <input
+                type="text"
+                id="decrypted"
+                placeholder="Decrypted text"
+                readonly
+              /><br /><br />
+            </div>
+          </section>
 
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-        font-family: Pixelify Sans;
+          <section id="requests">
+            <hr />
+            <h1>Requests:</h1>
+          </section>
 
-      }
-      
-      .account-request {
-        font-family: Pixelify Sans;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 20px;
-        margin: 10px;
-        width: 300px;
-      }
-      .attribute {
-        margin-bottom: 10px;
-      }
-      .button {
-        font-family: Pixelify Sans;
-        display: inline-block;
-        padding: 8px 12px;
-        cursor: pointer;
-        border: none;
-        border-radius: 5px;
-        background-color: #B011C2;
-        color: #fff;
-        margin-right: 5px;
-      }
-      .button:hover {
-        font-family: Pixelify Sans;
-        background-color: #8E038D;
-      }
-      .footer {
-        font-family: Pixelify Sans;
-      }
-      /* Styling for the "no account requests found" message */
-      .no-requests-message {
-        padding: 10px;
-        background-color: #f2f2f2;
-        color: #333;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        text-align: center;
-      }
-    </style>
-    <div class="overlay-container" id="overlay">
-      <div class="overlay-content">Verifying Connection... <div class="loader" style="display: inline-block;"></div></div>
-    </div>
-<center>
-  <h1>
-    <h1 style="color: white;">
-      Admin Panel
-    </h1>
-  <section id="encryption">
-    <h2>Encryption/Decryption</h2>
-    <div>
-      <h3>Encryption</h3>
-      <label for="toenc">Text to Encrypt:</label><br>
-      <input type="text" id="toenc" placeholder="Enter text to encrypt"><br>
-      <label for="key">Encryption Key:</label><br>
-      <input type="text" id="key" placeholder="Enter encryption key"><br>
-      <button id="enc">Encrypt</button><br>
-      <input type="text" id="encrypted" placeholder="Encrypted text" readonly><br><br>
-
-      <h3>Decryption</h3>
-      <label for="todec">Text to Decrypt:</label><br>
-      <input type="text" id="todec" placeholder="Enter text to decrypt"><br>
-      <label for="keyd">Decryption Key:</label><br>
-      <input type="text" id="keyd" placeholder="Enter decryption key"><br>
-      <button id="dec">Decrypt</button><br>
-      <input type="text" id="decrypted" placeholder="Decrypted text" readonly><br><br>
-    </div>
-  </section>
-
-  <section id="requests">
-  <hr>
-    <h1>Requests:</h1>
-  </section>
-
-  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
-  <script src="./enc.js"></script>
-  <!--<script src="/api/verifyenc.js"></script>-->
+          <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+          <script src="./enc.js"></script>
+          <!--<script src="/api/verifyenc.js"></script>-->
+        </h1>
+      </center>
+    </body>
   </body>
-</center>
 </html>

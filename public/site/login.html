@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../css/login.css"> <!-- Link to your CSS file -->
 <title>Login</title>
 </head>
-  <body style="background-color: #800097">
+  <body style="background-color: #800097; overflow: hidden">
     <img alt="Blooks Background" class="bg_img" /> 
 
     
@@ -61,24 +61,20 @@
       </div>
     </form>
     </div>
-
-    <script>
-    // Get the modal
-    var modal = document.getElementById('id01');
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
-    }
-    </script>
-
-    <footer>
-    <p style="color: white;">2024</p>
-    </footer>
-    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-    <script src="/api/login.js"></script>
   </center>
   </body>
   </html>
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+      modal.style.display = "none";
+  }
+}
+</script>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="/api/login.js"></script>

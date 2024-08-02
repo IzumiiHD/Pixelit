@@ -17,7 +17,7 @@
    <link rel="stylesheet" href="../css/register.css"> <!-- Link to your CSS file -->
  <center>
    </head>
-   <body style="background-color: #800097">
+    <body style="background-color: #800097; overflow: hidden">
      <img alt="Blooks Background" class="bg_img" />
      <div class="navbar">
        <a href="../site/index.html"><i class="fa-solid fa-house"></i></a>
@@ -68,22 +68,15 @@
        </div>
      </form>
    </div>
+</body>
+<script>
+      // Get the modal
+      var modal = document.getElementById('id01');
 
-   <script>
-   // Get the modal
-   var modal = document.getElementById('id01');
-
-   // When the user clicks anywhere outside of the modal, close it
-   window.onclick = function(event) {
-       if (event.target == modal) {
-           modal.style.display = "none";
-       }
-   }
-   </script>
-
-    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-    <script src="../api/register.js"></script>
-  </body>
-   <footer>
-   <p style="color: white;" >2024</p>
-   </footer>
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+</script>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="../api/register.js"></script>

@@ -105,14 +105,14 @@ router.post('/login', async (req, res) => {
         req.session.spinned = user.spinned;
         res.sendStatus(200);
       } else {
-        res.status(500).send("Password incorrect");
+        res.status(500).send("Password is incorrect!");
       }
     } else {
-      res.status(500).send("User not found");
+      res.status(500).send("User not found!");
     }
   } catch (err) {
     console.error(err);
-    res.status(502).send("Server error");
+    res.status(502).send("Server error!");
   }
 });
 

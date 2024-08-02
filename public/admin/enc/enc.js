@@ -117,7 +117,7 @@ socket.on("requests", (requests) => {
 
 
 function handleRequest(request, accepted) {
-  socket.emit("addAccount", request.username, request.password, request.salt, accepted);
+  socket.emit("addAccount", request.username, request.password, request.salt, accepted, {name: sessionStorage.username, pass: sessionStorage.password});
   socket.emit("getrequests")
 }
 

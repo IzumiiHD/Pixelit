@@ -19,3 +19,7 @@ body {
   transform: translate(-50%, -50%) rotate(15deg);
   opacity: 0.1;
 }
+
+img {
+  border-raduis: 5px;
+}
