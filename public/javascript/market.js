@@ -1,22 +1,3 @@
-// Sample array of pack objects
-/*const packs = [
-  {
-    name: "Pack 1",
-    cost: "$10",
-    image: "/img/packs/debugpackwrapper.png",
-  },
-  {
-    name: "Pack 2",
-    cost: "$15",
-    image: "/img/packs/pack2.png",
-  },
-  {
-    name: "Pack 3",
-    cost: "$20",
-    image: "/img/packs/pack3.png",
-  },
-];*/
-
 const socket = io();
 
 const c = document.getElementById("animationCanvas");
@@ -89,7 +70,7 @@ socket.emit("getPacks");
 socket.emit("getTokens", sessionStorage.username);
 window.onload = () => {
   document.body.style.pointerEvents = "none";
-  fetch('/user', {
+  fetch('/api/user', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'

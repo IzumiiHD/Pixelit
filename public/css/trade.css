@@ -7,7 +7,7 @@ body {
   overflow-y: auto;
 }
 .bg_img {
-  position: absolute;
+  position: fixed;
   width: 200%;
   height: 200%;
   top: 50%;

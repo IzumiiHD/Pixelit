@@ -6,7 +6,7 @@ body {
   overflow-x: hidden;
 }
 .bg_img {
-  position: absolute;
+  position: fixed;
   width: 200%;
   height: 200%;
   top: 50%;

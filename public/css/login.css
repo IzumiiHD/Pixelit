@@ -173,7 +173,7 @@ span.psw {
 }
 
 .bg_img {
-  position: absolute;
+  position: fixed;
   width: 200%;
   height: 200%;
   top: 50%;
@@ -213,7 +213,8 @@ span.psw {
 /* Add Zoom Animation */
 .animate {
   -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s
+  animation: animat  position: absolute;
+ezoom 0.6s
 }
 
 @-webkit-keyframes animatezoom {
