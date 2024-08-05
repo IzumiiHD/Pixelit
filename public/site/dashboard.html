@@ -63,7 +63,7 @@
       ">    
         <h1 style="color: #fff; text-shadow: #000 1px 0 13px;">Status</h1> 
       <div class="container" style="display: flex;justify-content: center;align-items: center;gap: 12px;/* margin-top: 16px; */">
-        <img id="pfp" src="../img/blooks/defaultBlook.png" alt="Blook" draggable="false" style="
+        <img id="pfp" src="../img/blooks/defaultBlook.png" alt="defaultBlook" draggable="false" style="
             display: block;
             /* margin-left: auto; */
             /* margin-right: auto; */
@@ -87,7 +87,7 @@
           cursor: pointer;
           font-family: Pixelify Sans !important;
           ">
-        <img id="banner" src="../img/banner/defaultBanner.svg" alt="techChipBanner" draggable="false" style="
+        <img id="banner" src="../img/banner/defaultBanner.svg" alt="DefaultBanner" draggable="false" style="
           position: absolute;
           top: 0;
           left: 0;
@@ -100,6 +100,7 @@
           <div style="color: #fff;text-shadow: #000 1px 0 13px;position: relative;z-index: 2;" id="role">Common</div>
         </div>
       </div>
+      <h2 style="color: #fff" ><div draggable="false" id="badges"</div></h2>
         <h2>
           <a href="https://discord.gg/ccARpDEKHU"><i class="fa-brands fa-discord fa-bounce" style="color: #5865f2"></i></a>
           <a href="https://twitter.com/IzumiHD"><i class="fa-brands fa-twitter fa-bounce" style="color: #1da1f2"></i></a>
@@ -118,7 +119,23 @@
           style="width: 700px; height: 150px; font-size: 18px; border-radius: 20px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px;
         "
         >
-          <h2 style="color: #fff" ><div draggable="false" id="badges"</div></h2>
+          <center>
+            <h3>
+              To Recieve our latest news posts, Please check out
+            </h3>
+            <button
+              style="width:auto; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
+              position: absolute;
+              top: 79%;
+              left: 17%;
+            "
+              id="viewplayer"
+              onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+              onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+            >
+              News  <i class="fa-solid fa-newspaper"></i>
+            </button>
+          </center>
         </div>
 
       <br>
@@ -202,16 +219,17 @@
       </div>
     </div>
 
-    <h3
+    <h1
       style="
         color: #fff;
         position: absolute;
         top: 75%;
-        left: 75%;
+        left: 63%;
         text-shadow: #000 1px 0 13px;
       "
     >
-    </h3>
+      Welcome to the Dashboard
+    </h1>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="/javascript/dashboard.js"></script>
     <script src="/api/notLoggedIn.js"></script>

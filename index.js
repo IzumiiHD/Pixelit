@@ -449,8 +449,7 @@ io.on("connection", (socket) => {
       const blook = b;
       //console.log("Current blook:", blook); // Log current blook
 
-      ("I am on crack");
-
+      
       if (
         randnum >= currentchance &&
         randnum <= currentchance + Number(blook.chance)

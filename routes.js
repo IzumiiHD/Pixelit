@@ -226,23 +226,23 @@ router.post("/addAccount", async (req, res) => {
             tokens: 0,
             spinned: 0,
             pfp: "logo.png",
-            banner: "defaultBanner.png",
+            banner: "defaultBanner.svg",
             role: "Common",
             sent: 0,
             packs: await packs.find().toArray(),
             badges: [],
           });
         }
-        res.status(200).send("user accepted");
+        res.status(200).send("User accepted");
       } else {
         res.status(500).send("The request doesnt exist.");
       }
     } else {
       await userRequests.deleteOne({ username: req.body.username });
-      res.status(200).send("user declined");
+      res.status(200).send("User declined");
     }
   } else {
-    res.status(200).send("you dont exist or you are not a staff member");
+    res.status(200).send("You dont exist or you are not a staff member");
   }
 });
 module.exports = router;
