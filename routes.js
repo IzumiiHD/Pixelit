@@ -83,20 +83,33 @@ function validatePassword(password, saved_hash, salt) {
   const generated_hash = generatePasswordHash(password, salt);
   return generated_hash == saved_hash;
 }
-router.get('/user' , async (req,res)=>{
-  const session = req.session
-  if(session.loggedIn){
-  const db = client.db(db_name)
-  const collection = db.collection("users")
-  const user = await collection.findOne({username: session.username})
-  if (user){
-    res.status(200).send({'username': user.username, 'uid': user._id, 'tokens': user.tokens, 'packs': user.packs, 'pfp': user.pfp,'banner': user.banner, 'badges': user.badges, 'role': user.role,'spinned': user.spinned,'stats': {'sent':user.sent,'packsOpened': user.packsOpened}})
+router.get("/user", async (req, res) => {
+  const session = req.session;
+  if (session.loggedIn) {
+    const db = client.db(db_name);
+    const collection = db.collection("users");
+    const user = await collection.findOne({ username: session.username });
+    if (user) {
+      res
+        .status(200)
+        .send({
+          username: user.username,
+          uid: user._id,
+          tokens: user.tokens,
+          packs: user.packs,
+          pfp: user.pfp,
+          banner: user.banner,
+          badges: user.badges,
+          role: user.role,
+          spinned: user.spinned,
+          stats: { sent: user.sent, packsOpened: user.packsOpened },
+        });
+    }
+  } else {
+    res.status(500).send("you are not logged in");
   }
-  }else{
-    res.status(500).send("you are not logged in")
-  }
-})
-router.post('/login', async (req, res) => {
+});
+router.post("/login", async (req, res) => {
   try {
     await client.connect();
     const db = client.db(db_name);
@@ -111,7 +124,7 @@ router.post('/login', async (req, res) => {
         req.session.tokens = user.tokens;
         req.session.uid = user._id;
         req.session.packs = user.packs;
-        req.session.stats = { 'sent': user.sent, 'packsOpened': user.packsOpened };
+        req.session.stats = { sent: user.sent, packsOpened: user.packsOpened };
         req.session.pfp = user.pfp;
         req.session.banner = user.banner;
         req.session.badges = user.badges;
@@ -128,62 +141,68 @@ router.post('/login', async (req, res) => {
     res.status(502).send("Server error!");
   }
 });
-router.post('/register', async (req,res) =>{
-  try{
-  await client.connect();
-  const db = client.db(db_name);
-  const users = db.collection("users");
-  const userRequests = db.collection("requests");
-  const user = await users.findOne({ username: req.body.username });
+router.post("/register", async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db(db_name);
+    const users = db.collection("users");
+    const userRequests = db.collection("requests");
+    const user = await users.findOne({ username: req.body.username });
 
-  if (user === null) {
-    const request = await userRequests.findOne({ username: req.body.username });
-    if (request === null) {
-      console.log("adding request");
-      const salt = generateSalt();
-      const timezone = formatDateTime(localTime);
-      await userRequests.insertOne({
+    if (user === null) {
+      const request = await userRequests.findOne({
         username: req.body.username,
-        password: generatePasswordHash(req.body.password, salt),
-        salt: salt,
-        tokens: 0,
-        spinned: 0,
-        reason: req.body.reason,
-        date: timezone,
       });
-      res.sendStatus(200);
-    } else{ res.status(500).send("request has already been sent!") };
-  } else{ res.status(500).send("user already exists!") };
-  }catch (err){
-   console.error(err)
-   res.status(502).send("Server Error!")
+      if (request === null) {
+        console.log("adding request");
+        const salt = generateSalt();
+        const timezone = formatDateTime(localTime);
+        await userRequests.insertOne({
+          username: req.body.username,
+          password: generatePasswordHash(req.body.password, salt),
+          salt: salt,
+          tokens: 0,
+          spinned: 0,
+          reason: req.body.reason,
+          date: timezone,
+        });
+        res.sendStatus(200);
+      } else {
+        res.status(500).send("request has already been sent!");
+      }
+    } else {
+      res.status(500).send("user already exists!");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(502).send("Server Error!");
   }
-})
-router.get("/requests", async (req,res)=>{
+});
+router.get("/requests", async (req, res) => {
   await client.connect();
-  if(req.session.loggedIn){
-  const db = client.db(db_name);
-  const collection = db.collection("users");
-  const user = await collection.findOne({username: req.session.username})
-  if(user){
-    if(['Owner', 'Admin','Moderator','Helper'].includes(user.role)){
-  const requests = await client
-    .db(db_name)
-    .collection("requests")
-    .find()
-    .toArray();
-  res.status(200).send(requests);
-  }else{
-      res.status(500).send("You're not a staff member")
+  if (req.session.loggedIn) {
+    const db = client.db(db_name);
+    const collection = db.collection("users");
+    const user = await collection.findOne({ username: req.session.username });
+    if (user) {
+      if (["Owner", "Admin", "Moderator", "Helper"].includes(user.role)) {
+        const requests = await client
+          .db(db_name)
+          .collection("requests")
+          .find()
+          .toArray();
+        res.status(200).send(requests);
+      } else {
+        res.status(500).send("You're not a staff member");
+      }
+    } else {
+      res.status(500).send("The account your under does not exist");
+    }
+  } else {
+    res.status(500).send("You're not logged in");
   }
-  }else{
-    res.status(500).send("The account your under does not exist")
-  }
-}else{
-    res.status(500).send("You're not logged in")
-}
-})
-router.post("/addAccount", async (req,res)=>{
+});
+router.post("/addAccount", async (req, res) => {
   await client.connect();
   const db = client.db(db_name);
   const users = db.collection("users");
@@ -191,36 +210,39 @@ router.post("/addAccount", async (req,res)=>{
   //const epass = encrypt(pass, encpass);
 
   const person = await users.findOne({ username: req.session.username });
-  if(person && ["Owner","Admin","Moderator","Helper"].includes(person.role)){
+  if (
+    person &&
+    ["Owner", "Admin", "Moderator", "Helper"].includes(person.role)
+  ) {
     const request = await userRequests.findOne({ username: req.body.username });
-  if(req.body.accepted){
-    if (request !== null) {
-      if (req.body.accepted == true) {
-        await userRequests.deleteOne({ username: req.body.username });
-        await users.insertOne({
-          username: req.body.username,
-          password: req.body.password,
-          salt: req.body.salt,
-          tokens: 0,
-          spinned: 0,
-          pfp: "logo.png",
-          banner: "defaultBanner.png",
-          role: "Common",
-          sent: 0,
-          packs: await packs.find().toArray(),
-          badges: [],
-        });
+    if (req.body.accepted) {
+      if (request !== null) {
+        if (req.body.accepted == true) {
+          await userRequests.deleteOne({ username: req.body.username });
+          await users.insertOne({
+            username: req.body.username,
+            password: req.body.password,
+            salt: req.body.salt,
+            tokens: 0,
+            spinned: 0,
+            pfp: "logo.png",
+            banner: "defaultBanner.png",
+            role: "Common",
+            sent: 0,
+            packs: await packs.find().toArray(),
+            badges: [],
+          });
+        }
+        res.status(200).send("user accepted");
+      } else {
+        res.status(500).send("The request doesnt exist.");
       }
-     res.status(200).send("user accepted")
     } else {
-      res.status(500).send("The request doesnt exist.")
+      await userRequests.deleteOne({ username: req.body.username });
+      res.status(200).send("user declined");
     }
-}else{
-  await userRequests.deleteOne({ username: req.body.username });
-    res.status(200).send("user declined")
-}
-  }else{
-    res.status(200).send("you dont exist or you are not a staff member")
+  } else {
+    res.status(200).send("you dont exist or you are not a staff member");
   }
-})
+});
 module.exports = router;
