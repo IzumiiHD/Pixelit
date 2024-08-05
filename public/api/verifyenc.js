@@ -19,11 +19,11 @@ window.onload = () => {
     }
   })
   .then(data => {
-    if (['Owner', 'Admin', 'Mod' , 'Trial Staff'].includes(data.role)) {
+    if (['Owner', 'Admin', 'Moderator' , 'Trial Staff'].includes(data.role)) {
       document.getElementById("overlay").style.display = "none";
       document.body.style.pointerEvents = "auto";
     } else {
-      window.location.href = '/site/dashboard.html1';
+      window.location.href = '/';
     }
   })
   .catch(error => {

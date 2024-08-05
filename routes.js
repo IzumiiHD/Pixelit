@@ -166,7 +166,7 @@ router.get("/requests", async (req,res)=>{
   const collection = db.collection("users");
   const user = await collection.findOne({username: req.session.username})
   if(user){
-    if(['Owner', 'Admin','Mod','Trial Staff'].includes(user.role)){
+    if(['Owner', 'Admin','Moderator','Helper'].includes(user.role)){
   const requests = await client
     .db(db_name)
     .collection("requests")
@@ -182,5 +182,45 @@ router.get("/requests", async (req,res)=>{
 }else{
     res.status(500).send("You're not logged in")
 }
+})
+router.post("/addAccount", async (req,res)=>{
+  await client.connect();
+  const db = client.db(db_name);
+  const users = db.collection("users");
+  const userRequests = db.collection("requests");
+  //const epass = encrypt(pass, encpass);
+
+  const person = await users.findOne({ username: req.session.username });
+  if(person && ["Owner","Admin","Moderator","Helper"].includes(person.role)){
+    const request = await userRequests.findOne({ username: req.body.username });
+  if(req.body.accepted){
+    if (request !== null) {
+      if (req.body.accepted == true) {
+        await userRequests.deleteOne({ username: req.body.username });
+        await users.insertOne({
+          username: req.body.username,
+          password: req.body.password,
+          salt: req.body.salt,
+          tokens: 0,
+          spinned: 0,
+          pfp: "logo.png",
+          banner: "defaultBanner.png",
+          role: "Common",
+          sent: 0,
+          packs: await packs.find().toArray(),
+          badges: [],
+        });
+      }
+     res.status(200).send("user accepted")
+    } else {
+      res.status(500).send("The request doesnt exist.")
+    }
+}else{
+  await userRequests.deleteOne({ username: req.body.username });
+    res.status(200).send("user declined")
+}
+  }else{
+    res.status(200).send("you dont exist or you are not a staff member")
+  }
 })
 module.exports = router;

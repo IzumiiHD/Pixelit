@@ -49,7 +49,7 @@ fetch("/user")
   ge("banner").src = `../img/banner/${user.banner}`;
   ge("role").innerHTML = user.role;
   ge("username").innerHTML = user.username
-  rednerBadges(user.badges)
+  renderBadges(user.badges)
 })
 .catch(error => {
   console.error('There was a problem with the fetch operation:', error);

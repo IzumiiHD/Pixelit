@@ -1,38 +1,40 @@
 function ge(id) {
-  return document.getElementById(id)
+  return document.getElementById(id);
 }
 
-const socket = io()
-
-const toenc = ge("toenc")
-const key = ge("key")
-const enc = ge("enc")
-const encrypted = ge("encrypted")
-
-const todec = ge("todec")
-const keyd = ge("keyd")
-const dec = ge("dec")
-const decrypted = ge("decrypted")
-
-function encrypt(text, pass) {
-   var encrypted = CryptoJS.AES.encrypt(text, pass);
-   return encrypted
-}
-
-function decrypt(text, pass) {
-  var decrypted = CryptoJS.AES.decrypt(text, pass).toString(CryptoJS.enc.Utf8);
-  return decrypted
-}
-
-enc.onclick = () => {
-  encrypted.value = encrypt(toenc.value, key.value)
-}
-dec.onclick = () => {
-  decrypted.value = decrypt(todec.value, keyd.value)
-}
+const socket = io();
 
 
-let accountRequests
+let accountRequests;
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.body.style.pointerEvents = "none";
+  fetch("/requests", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else if (response.status === 500) {
+        return response.text().then((text) => {
+          alert(text);
+        });
+      } else {
+        console.error("Unexpected response status:", response.status);
+        throw new Error("Unexpected response status");
+      }
+    })
+    .then((data) => {
+      accountRequests = data;
+      renderAccountRequests();
+    })
+    .catch((error) => {
+      console.error("There was a problem with the fetch operation:", error);
+    });
+})
 
 function renderAccountRequests() {
   const container = document.getElementById("requests");
@@ -65,16 +67,30 @@ function renderAccountRequests() {
       acceptButton.classList.add("button", "accept");
       acceptButton.textContent = "Accept";
       acceptButton.addEventListener("click", () => {
-        handleRequest({username: request.username, password: request.password, salt: request.salt}, true);
-        socket.emit("getrequests")
+        handleRequest(
+          {
+            username: request.username,
+            password: request.password,
+            salt: request.salt,
+          },
+          true,
+        );
+        socket.emit("getrequests");
       });
 
       const declineButton = document.createElement("button");
       declineButton.classList.add("button", "decline");
       declineButton.textContent = "Decline";
       declineButton.addEventListener("click", () => {
-        handleRequest({username: request.username, password: request.password, salt: request.salt}, false);
-        socket.emit("getrequests")
+        handleRequest(
+          {
+            username: request.username,
+            password: request.password,
+            salt: request.salt,
+          },
+          false,
+        );
+        socket.emit("getrequests");
       });
 
       div.appendChild(usernameDiv);
@@ -88,23 +104,61 @@ function renderAccountRequests() {
   }
 }
 
-socket.on("requests", (requests) => {
-  accountRequests = requests;
-  renderAccountRequests();
-  console.log(requests)
-});
-
 
 function handleRequest(request, accepted) {
-  socket.emit("addAccount", request.username, request.password, request.salt, accepted, {name: sessionStorage.username, pass: sessionStorage.password});
-  socket.emit("getrequests")
+  const formBody = {'username': request.username, 'password': request.password, 'salt': request.salt, 'accepted': accepted}
+  fetch('/addAccount', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formBody)
+  })
+  .then(response => {
+    if (response.status === 200) {
+      fetch("/requests", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else if (response.status === 500) {
+            return response.text().then((text) => {
+              alert(text);
+            });
+          } else {
+            console.error("Unexpected response status:", response.status);
+            throw new Error("Unexpected response status");
+          }
+        })
+        .then((data) => {
+          accountRequests = data;
+          renderAccountRequests();
+        })
+        .catch((error) => {
+          console.error("There was a problem with the fetch operation:", error);
+        });
+    } else if (response.status === 500) {
+      return response.text().then(text => {
+        alert(text);
+      });
+    } else {
+      console.error('Unexpected response status:', response.status);
+    }
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
 }
 
 // Function to create the "no account requests found" div
 function createNoRequestsDiv(parentDiv) {
   // Create the "no account requests found" div element
-  const noRequestsDiv = document.createElement('div');
-  noRequestsDiv.textContent = 'No account requests found';
-  noRequestsDiv.classList.add('no-requests-message'); // Add CSS class for styling
+  const noRequestsDiv = document.createElement("div");
+  noRequestsDiv.textContent = "No account requests found";
+  noRequestsDiv.classList.add("no-requests-message"); // Add CSS class for styling
   parentDiv.appendChild(noRequestsDiv);
 }

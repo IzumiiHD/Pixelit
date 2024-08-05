@@ -134,3 +134,6 @@ body {
   border: 5px solid gray;
   margin: 0;
 }
+h3. {
+  text-align: center;
+}

@@ -134,47 +134,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });
-  socket.on("addAccount", async (name, pass, salt, accepted, user) => {
-    //if (accepted) {
-    await client.connect();
-    const db = client.db(db_name);
-    const users = db.collection("users");
-    const userRequests = db.collection("requests");
-    //const epass = encrypt(pass, encpass);
-
-    const person = await users.findOne({ username: user.name });
-    if (
-      validatePassword(user.pass, person.password, person.salt) &&
-      admins.includes(user.name)
-    ) {
-      const request = await userRequests.findOne({ username: name });
-      if (request !== null) {
-        await userRequests.deleteOne({ username: name });
-        if (accepted == true) {
-          await users.insertOne({
-            username: name,
-            password: pass,
-            salt: salt,
-            tokens: 0,
-            spinned: 0,
-            pfp: "logo.png",
-            banner: "defaultBanner.png",
-            role: "Common",
-            sent: 0,
-            packs: await packs.find().toArray(),
-            badges: [],
-          });
-        }
-        //io.to(socket.id).emit("addAccount", "success");
-        //io.to(socket.id).emit("requests", userRequests);
-      } else {
-        console.log("e");
-      }
-      //}
-      /*console.log(stringifySafe(accounts))
-    console.log(stringifySafe(requests))*/
-    }
-  });
   socket.on("getTokens", async (name) => {
     await client.connect();
     const user = await users.findOne({ username: name });
