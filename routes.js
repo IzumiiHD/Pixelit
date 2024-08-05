@@ -202,6 +202,26 @@ router.get("/requests", async (req, res) => {
     res.status(500).send("You're not logged in");
   }
 });
+
+router.get("/Owner", async (req, res) => {
+  await client.connect();
+  if (req.session.loggedIn) {
+    const db = client.db(db_name);
+    const collection = db.collection("users");
+    const user = await collection.findOne({ username: req.session.username });
+    if (user) {
+      if (["Owner"].includes(user.role)) {
+        res.status(200).send({ message: "Welcome to the Owner Panel Page" });
+      } else {
+        res.status(500).send("You're not a staff member");
+      }
+    } else {
+      res.status(500).send("The account your under does not exist");
+    }
+  } else {
+    res.status(500).send("You're not logged in");
+  }
+});
 router.post("/addAccount", async (req, res) => {
   await client.connect();
   const db = client.db(db_name);
@@ -245,4 +265,31 @@ router.post("/addAccount", async (req, res) => {
     res.status(200).send("You dont exist or you are not a staff member");
   }
 });
+
+router.post('/changePfp', async (req,res)=>{
+  
+  router.post('/changePfp', async (req, res) => {
+      const session = req.session;
+      if (session && session.loggedIn) {
+          try {
+              const db = client.db(db_name);
+              const users = db.collection('users');
+              const result = await users.updateOne(
+                  { username: session.username }, 
+                  { $set: { pfp: req.body.pfp } }
+              );
+              if (result.modifiedCount > 0) {
+                  res.status(200).send({ message: 'Profile picture updated successfully.' });
+              } else {
+                  res.status(500).send({ message: 'Failed to update profile picture.' });
+              }
+          } catch (error) {
+              console.error('Error updating profile picture:', error);
+              res.status(500).send({ message: 'Internal server error.' });
+          }
+      } else {
+          res.status(401).send({ message: 'You must be logged in to change your profile picture.' });
+      }
+  });
+  
 module.exports = router;
