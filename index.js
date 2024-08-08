@@ -5,6 +5,9 @@ const stringifySafe = require("json-stringify-safe");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
 const axios = require("axios");
+
+//const stringifySafe = require("json-stringify-safe");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 function formatDateTime(dateTime) {
@@ -180,21 +183,19 @@ io.on("connection", (socket) => {
   socket.on("spin", async (name) => {
     await client.connect();
     const user = await users.findOne({ username: name });
-    if (user.spinned === null || Date.now() - user.spinned >= 3600000) {
+    if (
+      user &&
+      (!user.hasOwnProperty("spinned") ||
+        typeof user.spinned !== "number" ||
+        Date.now() - user.spinned >= 3600000)
+    ) {
       const gained = Math.floor(500 + Math.random() * 1000);
       await users.updateOne(
         { username: name },
-        { $set: { tokens: user.tokens + gained } },
+        { $inc: { tokens: gained, spinned: Date.now() } },
       );
-      await users.updateOne(
-        { username: name },
-        { $set: { spinned: Date.now() } },
-      );
-      /*fs.writeFile(fileName, stringifySafe(accounts), function writeJSON(err) {
-        if (err) return console.log(err);
-      });*/
       io.to(socket.id).emit("spinned", gained);
-      console.log(name + " gained " + gained + " tokens!");
+      console.log(`${name} gained ${gained} tokens!`);
     }
   });
   socket.on("getNews", async () => {
@@ -449,7 +450,6 @@ io.on("connection", (socket) => {
       const blook = b;
       //console.log("Current blook:", blook); // Log current blook
 
-      
       if (
         randnum >= currentchance &&
         randnum <= currentchance + Number(blook.chance)

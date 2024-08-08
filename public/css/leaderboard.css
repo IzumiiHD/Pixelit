@@ -6,8 +6,8 @@ body {
 }
 .bg_img {
   position: fixed;
-  width: 200%;
-  height: 200%;
+  width: 250%;
+  height: 250%;
   top: 50%;
   left: 50%;
   z-index: -9999;
@@ -131,7 +131,7 @@ body {
 }
 
 .leaderboard-container {
-  width: 75%;
+  width: 50%;
   background: linear-gradient(
     to right,
     #b011c2,

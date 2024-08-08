@@ -4,7 +4,17 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
 const db_name = "pixelit";
 const CryptoJS = require("crypto-js");
-const stringifySafe = require("json-stringify-safe");
+
+const rateLimit = require('express-rate-limit')
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 15, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  message: "Too many requests, please try again after 15 minutes",
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -141,7 +151,7 @@ router.post("/login", async (req, res) => {
     res.status(502).send("Server error!");
   }
 });
-router.post("/register", async (req, res) => {
+/*router.post("/register", limiter, async (req, res) => {
   try {
     await client.connect();
     const db = client.db(db_name);
@@ -177,7 +187,7 @@ router.post("/register", async (req, res) => {
     console.error(err);
     res.status(502).send("Server Error!");
   }
-});
+});*/
 router.get("/requests", async (req, res) => {
   await client.connect();
   if (req.session.loggedIn) {
@@ -192,26 +202,6 @@ router.get("/requests", async (req, res) => {
           .find()
           .toArray();
         res.status(200).send(requests);
-      } else {
-        res.status(500).send("You're not a staff member");
-      }
-    } else {
-      res.status(500).send("The account your under does not exist");
-    }
-  } else {
-    res.status(500).send("You're not logged in");
-  }
-});
-
-router.get("/Owner", async (req, res) => {
-  await client.connect();
-  if (req.session.loggedIn) {
-    const db = client.db(db_name);
-    const collection = db.collection("users");
-    const user = await collection.findOne({ username: req.session.username });
-    if (user) {
-      if (["Owner"].includes(user.role)) {
-        res.status(200).send({ message: "Welcome to the Owner Panel Page" });
       } else {
         res.status(500).send("You're not a staff member");
       }
@@ -265,31 +255,4 @@ router.post("/addAccount", async (req, res) => {
     res.status(200).send("You dont exist or you are not a staff member");
   }
 });
-
-router.post('/changePfp', async (req,res)=>{
-  
-  router.post('/changePfp', async (req, res) => {
-      const session = req.session;
-      if (session && session.loggedIn) {
-          try {
-              const db = client.db(db_name);
-              const users = db.collection('users');
-              const result = await users.updateOne(
-                  { username: session.username }, 
-                  { $set: { pfp: req.body.pfp } }
-              );
-              if (result.modifiedCount > 0) {
-                  res.status(200).send({ message: 'Profile picture updated successfully.' });
-              } else {
-                  res.status(500).send({ message: 'Failed to update profile picture.' });
-              }
-          } catch (error) {
-              console.error('Error updating profile picture:', error);
-              res.status(500).send({ message: 'Internal server error.' });
-          }
-      } else {
-          res.status(401).send({ message: 'You must be logged in to change your profile picture.' });
-      }
-  });
-  
 module.exports = router;
