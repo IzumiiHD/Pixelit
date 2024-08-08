@@ -3,6 +3,7 @@
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -124,7 +125,7 @@
         "
         >
           <center>
-            <h3  style="text-shadow: #000 1px 0 13px;">
+            <h3 style="text-shadow: #000 1px 0 13px;">
               To recieve our latest news posts, please check out
             </h3>
             <button
@@ -146,7 +147,7 @@
       <br>
 
         <button
-          style="width:auto; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
+          style="width:200px; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
           position: absolute;
           top: 50%;
           left: 50%;
@@ -155,11 +156,11 @@
           onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
           onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
         >
-          View Player <i class="fa-solid fa-magnifying-glass"></i>
+          View Account<i class="fa-solid fa-magnifying-glass"></i>
         </button>
 
         <button
-          style="width:auto; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
+          style="width:200px; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
           position: absolute;
           top: 35%;
           left: 50%;
@@ -173,22 +174,7 @@
 
         <button
           pointer
-          style="
-            width: auto;
-            font-size: 20px;
-            border-radius: 5px;
-            background-color: #B011C2;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            pointer-events: auto;
-            cursor: pointer;
-            box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
-            font-family: Pixelify Sans;
-            top: 20%;
-            left: 50%;
-            position: absolute;
-          "
+          style="width:200px; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; pointer-events: auto; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; position: absolute; top: 20%; left: 50%;"
           id="spin"
           onclick="spins()"
           onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
@@ -196,27 +182,53 @@
         >
           Claim Tokens <i class="fa-solid fa-star"></i>
         </button>
+    
+    <div style="
+      width: 550px;
+      height: 480px;
+      font-size: 18px;
+      border-radius: 20px;
+      background-color: #6f057a;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor;
+      box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+      font-family: Pixelify Sans;
+      margin-left: 45px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 13%;
+      left: 66%;
+      ">
+        <h1 style="text-shadow: #000 1px 0 13px; position: absolute; top: 0%; left: 30%;">Information</h1>
+      </div>
 
     <div class="statistics">
-      <div style="height: 50%; width: 50%; position: absolute; left: 75%; top: 20%;">
+      <div style="height: 50%; width: 50%; position: absolute; left: 75%; top: 25%;">
         <div class="box box1" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
           <div class="text">
-            <h3 style="color: #fff" >Tokens: <span id="tokens"></span> <i class="fa-solid fa-coins"></i></h3>
+            <h3 style="color: #fff">
+              Tokens: <span id="tokens"></span>
+            </h3>
           </div>
         </div>
       </div>
 
-      <div style="height: 50%; width: 50%; position: absolute; left: 75%; top: 35%;">
+      <div style="height: 50%; width: 50%; position: absolute; left: 75%; top: 40%;">
             <div class="box box2" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
             <div class="text">
-              <h3 style="color: #fff" >Packs Opened: <span id="packs"></span> <i class="fa-solid fa-box-open"></i></h3>
+              <h3 style="color: #fff" >Packs Opened: <span id="packs"></span></h3>
             </div>
           </div>
 
-        <div style="height: 50%; width: 50%; position: absolute; left: 1%; top: 30%;">
+        <div style="height: 50%; width: 50%; position: absolute; left: 0.5%; top: 30%;">
             <div class="box box3" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
             <div class="text">
-              <h3 style="color: #fff" >Messages: <span id="messages"></span> <i class="fa-solid fa-comments"></i></h3>
+              <h3 style="color: #fff" >Messages Sent: <span id="messages"></span></h3>
             </div>
           </div>
         </div>
@@ -227,7 +239,7 @@
       style="
         color: #fff;
         position: absolute;
-        top: 75%;
+        top: 80%;
         left: 60%;
         text-shadow: #000 1px 0 13px;
       "
@@ -238,29 +250,16 @@
     <script src="/javascript/dashboard.js"></script>
     <script src="/api/notLoggedIn.js"></script>
     <!--<script src="../api/mainpage.js"></script>-->
-    <script> 
-        <script type="text/javascript">
-          function addSpinEffectToImage(imgId) {
-            let img = document.getElementById(imgId);
-            if (img) {
-              img.addEventListener('mouseover', function() {
-                this.style.transition = 'transform 1s';
-                this.style.transform = 'rotate(360deg)';
-              });
-              img.addEventListener('mouseout', function() {
-                this.style.transition = 'none';
-                this.style.transform = 'rotate(0deg)';
-              });
-            }
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const badgesContainer = document.getElementById('badges');
+        if (badgesContainer) {
+          const badgeImages = badgesContainer.getElementsByTagName('img');
+          for (let img of badgeImages) {
+            img.style.margin = '5px';
           }
-
-          // Add spin effect to badges
-          addSpinEffectToImage('badges');
-          // Add spin effect to all images
-          Array.prototype.forEach.call(document.querySelectorAll('img'), function(img) {
-            addSpinEffectToImage(img.id);
-          });
-        </script>
-      </script>
+        }
+      });
+    </script>
   </body>
 </html>
