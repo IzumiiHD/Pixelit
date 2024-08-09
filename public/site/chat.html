@@ -14,55 +14,116 @@
       href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
       rel="stylesheet"
     />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="../img/favicon.ico" />
-    <link rel="stylesheet" href="../css/chat.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="../css/chat.css" />
+    <!-- Link to your CSS file -->
     <title>Chat</title>
-    <style>
-    </style>
+    <style></style>
   </head>
-  <body style="background-color: #800097;">
+  <body style="background-color: #800097">
     <div class="background">
-    <img alt="Blooks Background" class="bg_img" />
+      <img alt="Blooks Background" class="bg_img" />
       <div class="navbar">
         <div class="dropdown">
-          </button>
-          <div > 
-          <div> 
-              <a href="../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-              <a href="../site/chat.html"><i class="fa-solid fa-comment"></i></a>
-              <a href="../site/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
+          <div>
+            <div>
+              <a href="../site/dashboard.html"
+                ><i class="fa-solid fa-chart-column"></i
+              ></a>
+              <a href="../site/chat.html"
+                ><i class="fa-solid fa-comment"></i
+              ></a>
+              <a href="../site/leaderboard.html"
+                ><i class="fa-solid fa-trophy"></i
+              ></a>
               <a href="../site/404.html"><i class="fa-solid fa-store"></i></a>
-              <a href="../site/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
-              <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
-              <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
-              <a href="../site/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
+              <a href="../site/pixels.html"
+                ><i class="fa-solid fa-suitcase"></i
+              ></a>
+              <a href="../site/auction.html"
+                ><i class="fa-solid fa-gavel"></i
+              ></a>
+              <a href="../admin/enc/enc.html"
+                ><i class="fa-solid fa-wrench"></i
+              ></a>
+              <a href="../site/index.html"
+                ><i
+                  class="fa-solid fa-right-from-bracket"
+                  onclick="sessionStorage.clear(); location.reload(); "
+                ></i
+              ></a>
+            </div>
           </div>
-        </div> 
+        </div>
+        <div class="title_p" id="title_p">Pixelit</div>
       </div>
-      <div class="title_p" id="title_p">Pixelit</div>
-    </div>
       <div class="profileBody">
         <div class="chatContainer">
-          <br>
+          <br />
           <div class="message">
-            <div class="pfp"><img src="../img/blooks/logo.png" alt="pfp" draggable="false" style=" filter: drop-shadow(0 0 5px rgba(0, 0, 0, .5));
-" /></div>
+            <div class="pfp">
+              <img
+                src="../img/blooks/logo.png"
+                alt="pfp"
+                draggable="false"
+                style="filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5))"
+              />
+            </div>
             <div class="messageContainer">
-              <div class="usernameAndBadges"><div class="username">SOUNDGOD</div><div class="badges"><img src="../img/badges/Admin.png" draggable="false" class="badge"></div></div>
+              <div class="usernameAndBadges">
+                <div class="username">SOUNDGOD</div>
+                <div class="badges">
+                  <img
+                    src="../img/badges/Admin.png"
+                    draggable="false"
+                    class="badge"
+                  />
+                </div>
+              </div>
               <div class="messageText">Wsgggg!</div>
             </div>
           </div>
           <div class="message">
-            <div class="pfp"><img src="../img/blooks/logo.png" alt="pfp"  draggable="false" style=" filter: drop-shadow(0 0 5px rgba(0, 0, 0, .5));
-"/></div>
+            <div class="pfp">
+              <img
+                src="../img/blooks/logo.png"
+                alt="pfp"
+                draggable="false"
+                style="filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5))"
+              />
+            </div>
             <div class="messageContainer">
-              <div class="usernameAndBadges"><div class="username">Kibby123</div><div class="badges"><img src="../img/badges/Admin.png" draggable="false" class="badge"><img src="../img/badges/Artist.png" draggable="false" class="badge"></div></div>
+              <div class="usernameAndBadges">
+                <div class="username">Kibby123</div>
+                <div class="badges">
+                  <img
+                    src="../img/badges/Admin.png"
+                    draggable="false"
+                    class="badge"
+                  /><img
+                    src="../img/badges/Artist.png"
+                    draggable="false"
+                    class="badge"
+                  />
+                </div>
+              </div>
               <div class="messageText">HIII</div>
             </div>
           </div>
         </div>
-        <div class="inputContainer"><input type="text" id="sendMsg" placeholder="Type your message..."></div>
+        <div class="inputContainer">
+          <form autocomplete="off" onsubmit="send(e)">
+            <input
+              type="text"
+              id="sendMsg"
+              placeholder="Type your message..."
+            />
+            <button type="submit">Send</button>
+          </form>
+        </div>
       </div>
     </div>
+    <script src="/javascript/chat.js"></script>
   </body>
 </html>

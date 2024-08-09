@@ -4,7 +4,17 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
 const db_name = "pixelit";
 const CryptoJS = require("crypto-js");
-const stringifySafe = require("json-stringify-safe");
+
+const rateLimit = require('express-rate-limit')
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 15, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  message: "Too many requests, please try again after 15 minutes",
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -141,7 +151,7 @@ router.post("/login", async (req, res) => {
     res.status(502).send("Server error!");
   }
 });
-/*router.post("/register", async (req, res) => {
+/*router.post("/register", limiter, async (req, res) => {
   try {
     await client.connect();
     const db = client.db(db_name);

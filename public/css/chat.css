@@ -182,36 +182,6 @@ body {
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
 }
-.box:hover {
-  transform: scale(1.08);
-}
-
-.box:nth-child(1) {
-  background-color: var(--one-use-color);
-}
-.box:nth-child(2) {
-  background-color: var(--two-use-color);
-}
-.box:nth-child(3) {
-  background-color: var(--one-use-color);
-}
-.box:nth-child(4) {
-  background-color: var(--two-use-color);
-}
-
-.box .text {
-  color: black;
-}
-.topic {
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 1px;
-}
-
-.body {
-  background-size: 300px;
-  background-image: url("pixil-frame-0.pn");
-}
 
 .center {
   display: block;
