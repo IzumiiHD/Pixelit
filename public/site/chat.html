@@ -59,8 +59,8 @@
         <div class="title_p" id="title_p">Pixelit</div>
       </div>
       <div class="profileBody">
+        <br />
         <div class="chatContainer">
-          <br />
           <div class="message">
             <div class="pfp">
               <img
@@ -113,14 +113,14 @@
           </div>
         </div>
         <div class="inputContainer">
-          <form autocomplete="off" onsubmit="send(e)">
+          <form autocomplete="off" id="send">
             <input
               type="text"
               id="sendMsg"
               placeholder="Type your message..."
             />
-            <button type="submit">Send</button>
-          </form>
+            <div style="display: flex; justify-content: flex-end;">
+              <button type="submit" class="send" style="width:auto; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: 'Pixelify Sans'; pointer-events: auto; position: absolute; bottom: 0px; left: 95%;">Send</button>
         </div>
       </div>
     </div>

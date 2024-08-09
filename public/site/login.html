@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -7,72 +8,91 @@
   <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../img/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-  <link rel="stylesheet" href="../css/login.css"> <!-- Link to your CSS file -->
+  <link rel="stylesheet" href="../css/styles.css"> <!-- Link to your CSS file -->
 <title>Login</title>
 </head>
-  <body style="background-color: #800097;">
-    <img alt="Blooks Background" class="bg_img" /> 
-<body style="background-color:white;">
-  <div class="navbar">
-    <a href="../site/index.html"><i class="fa-solid fa-house"></i></a>
-    <div class="dropdown">
-      <button class="dropbtn"><i class="fa-solid fa-bars"></i> 
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a href="../site/news.html"><i class="fa-solid fa-newspaper"></i> News </a>
-        <a href="../site/credits.html"><i class="fa-solid fa-users"></i> Credits </a>
-        <a href="../site/login.html"><i class="fa-solid fa-right-to-bracket"></i> Login </a>
-        <a href="../site/register.html"><i class="fa-solid fa-user-plus"></i> Register </a>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+    <style>
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+        }
+    </style>
+      <body style="background-color: #800097;">
+        <img alt="Blooks Background" class="bg_img" /> 
+    <body style="background-color:white;">
+      <div class="navbar">
+        <a href="../site/index.html"><i class="fa-solid fa-house"></i></a>
+        <div class="dropdown">
+          <button class="dropbtn"><i class="fa-solid fa-bars"></i> 
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="../site/news.html"><i class="fa-solid fa-newspaper"></i> News </a>
+            <a href="../site/credits.html"><i class="fa-solid fa-users"></i> Credits </a>
+            <a href="../site/login.html"><i class="fa-solid fa-right-to-bracket"></i> Login </a>
+            <a href="../site/register.html"><i class="fa-solid fa-user-plus"></i> Register </a>
+          </div>
+        </div> 
       </div>
-    </div> 
-  </div>
-  <center>
-    <body>
-      <div>
-          <h2 style="color: white;">Login Panel</h2>
-        <title>Login</title>
-        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto; font-size:18px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor; font-family: Pixelify Sans">Login Sheet</button>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        <div style="
+              width: 500px;
+              height: 485px;
+              font-size: 18px;
+              border-radius: 20px;
+              background-color: #6f057a;
+              color: white;
+              border: none;
+              padding: 10px 20px;
+              box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+              font-family: Pixelify Sans;
+              margin: 0 auto;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              ">    
+            <form onsubmit="login(event)">
+            <center><h1 style="position: absolute; top: 23%; left: 0%; width: 100%;">Login</h1></center>
+            <div class="form-group">
+                <label for="uname"><i class="fa-solid fa-user"></i> Username:</label>
+                <input type="text" placeholder="Enter Username" name="uname" id="uname" required style="font-family: 'Pixelify Sans';">
+            </div>
+            </br>
+            </br>
+            <div class="form-group">
+                <label for="password"><i class="fa-solid fa-lock"></i> Password:</label>
+                <input type="password" placeholder="Enter Password" name="psw" id="psw" required style="font-family: 'Pixelify Sans';">
+            </br>
+            </br>
+            </div>
+                <label>
+                  <input type="checkbox" checked="checked" name="remember" id="remember"> Remember me
+                </label>
+            <div style="text-align: center;">
+                <button type="submit" id="submit" style="width:auto; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer; 
+                      position: absolute;
+                      top: 68.5%;
+                      left: 47%;
+                    " onmouseover="this.style.transform='scale(1.1)';" 
+                        onmouseout="this.style.transform='scale(1)';" type="submit">Hop in!</button>
+            </div>
+        </form>
     </div>
-    <div id="id01" class="modal">
-
-    <form class="modal-content animate" onsubmit="login(event)">
-      <div class="imgcontainer">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <img src="../img/UserLoginLogo.png" alt="Avatar" class="avatar" draggable="false">
-      </div>
-
-      <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
-
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
-
-        <button type="submit" id="submit" style="font-size:25px; font-family: Pixelify Sans; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; cursor">Jump In</button>
-        <label>
-          <input type="checkbox" checked="checked" name="remember" id="remember"> Remember me
-        </label>
-      </div>
-      <div class="container" style="background-color:#F1F1F1F1">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn" style="font-size:25px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 10px 20px; font-family: Pixelify Sans; cursor">Cancel</button>
-        <span class="psw">Forgot your password?, Please contact an owner <a href="https://discord.gg/ccARpDEKHU">here</a> </span>
-      </div>
-    </form>
-    </div>
-  </center>
-  </body>
-  </html>
-<script>
-// Get the modal
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-      modal.style.display = "none";
-  }
-}
-</script>
+</body>
+</html>
 <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 <script src="/api/login.js"></script>

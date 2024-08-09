@@ -23,7 +23,6 @@ function login(event) {
   event.preventDefault();
   const uv = uname.value;
   const pv = psw.value;
-  ge("id01").style.display = "none";
   const requestBody = {
     username: uv,
     password: pv

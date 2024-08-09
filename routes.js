@@ -310,29 +310,4 @@ router.post("/changePfp", async (req, res) => {
   }
 });
 
-router.post("/message", async (req, res) => {
-  const session = req.session;
-  if (session && session.loggedIn) {
-    try {
-      const db = client.db(db_name);
-      const users = db.collection("users");
-      const chat = db.collection("chat");
-      if (result.modifiedCount > 0) {
-        res
-          .status(200)
-          .send({ message: "Profile picture updated successfully." });
-      } else {
-        res.status(500).send({ message: "Failed to update profile picture." });
-      }
-    } catch (error) {
-      console.error("Error updating profile picture:", error);
-      res.status(500).send({ message: "Internal server error." });
-    }
-  } else {
-    res.status(401).send({
-      message: "You must be logged in to change your profile picture.",
-    });
-  }
-});
-
 module.exports = router;

@@ -152,8 +152,8 @@ io.on("connection", (socket) => {
     const user = await users.findOne({ username: name });
     const chatmessage = {
       sender: name,
-      message: encrypt(message, "chat"),
-      timestamp: `${d.getHours()}:${d.getMinutes()}---${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`,
+      message,
+      timestamp: formatDateTime(localTime),
     };
     //chat[messageId] = chatmessage;
     await chatm.insertOne(chatmessage);

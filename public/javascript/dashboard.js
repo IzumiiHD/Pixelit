@@ -123,7 +123,7 @@ socket.on("getUserBadges", (badges) => {
 // Add event listener to badges for 360 spin on hover
 document.addEventListener("DOMContentLoaded", () => {
   const badgeElements = document.querySelectorAll(".badge");
-  badgeElements.forEach(badge => {
+  badgeElements.forEach((badge) => {
     badge.addEventListener("mouseenter", () => {
       badge.style.transition = "transform 0.5s";
       badge.style.transform = "rotate(360deg)";
