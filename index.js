@@ -4,9 +4,6 @@ const CryptoJS = require("crypto-js");
 const stringifySafe = require("json-stringify-safe");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
-const axios = require("axios");
-
-//const stringifySafe = require("json-stringify-safe");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
