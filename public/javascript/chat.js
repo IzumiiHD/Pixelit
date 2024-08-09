@@ -2,7 +2,7 @@ function ge(id) {
   return document.getElementById(id);
 }
 
-console.log("HI");
+console.log("Chat loaded");
 
 function send(ev) {
   ev.preventDefaut();

@@ -5,7 +5,7 @@ const uri = process.env["mongoURL"];
 const db_name = "pixelit";
 const CryptoJS = require("crypto-js");
 
-const rateLimit = require('express-rate-limit')
+const rateLimit = require("express-rate-limit");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -100,20 +100,18 @@ router.get("/user", async (req, res) => {
     const collection = db.collection("users");
     const user = await collection.findOne({ username: session.username });
     if (user) {
-      res
-        .status(200)
-        .send({
-          username: user.username,
-          uid: user._id,
-          tokens: user.tokens,
-          packs: user.packs,
-          pfp: user.pfp,
-          banner: user.banner,
-          badges: user.badges,
-          role: user.role,
-          spinned: user.spinned,
-          stats: { sent: user.sent, packsOpened: user.packsOpened },
-        });
+      res.status(200).send({
+        username: user.username,
+        uid: user._id,
+        tokens: user.tokens,
+        packs: user.packs,
+        pfp: user.pfp,
+        banner: user.banner,
+        badges: user.badges,
+        role: user.role,
+        spinned: user.spinned,
+        stats: { sent: user.sent, packsOpened: user.packsOpened },
+      });
     }
   } else {
     res.status(500).send("you are not logged in");
@@ -256,22 +254,24 @@ router.post("/addAccount", async (req, res) => {
   }
 });
 
-router.post('/changePassword', async (req, res) => {
+router.post("/changePassword", async (req, res) => {
   await client.connect();
   const db = client.db(db_name);
   const users = db.collection("users");
 
   const user = await users.findOne({ username: req.session.username });
 
-  if (
-    user &&
-    user.role == "Owner"
-  ) {
+  if (user && user.role == "Owner") {
     const person = await users.findOne({ username: req.body.username });
     if (person != null) {
-      users.updateOne({ username: req.body.username }, {
-        $set : { password: generatePasswordHash(req.body.new_password, person.salt) }
-      });
+      users.updateOne(
+        { username: req.body.username },
+        {
+          $set: {
+            password: generatePasswordHash(req.body.new_password, person.salt),
+          },
+        },
+      );
       res.status(200).send("OK");
     } else {
       res.status(404).send("Not Found");
@@ -281,29 +281,58 @@ router.post('/changePassword', async (req, res) => {
   }
 });
 
-  
-  router.post('/changePfp', async (req, res) => {
-      const session = req.session;
-      if (session && session.loggedIn) {
-          try {
-              const db = client.db(db_name);
-              const users = db.collection('users');
-              const result = await users.updateOne(
-                  { username: session.username }, 
-                  { $set: { pfp: req.body.pfp } }
-              );
-              if (result.modifiedCount > 0) {
-                  res.status(200).send({ message: 'Profile picture updated successfully.' });
-              } else {
-                  res.status(500).send({ message: 'Failed to update profile picture.' });
-              }
-          } catch (error) {
-              console.error('Error updating profile picture:', error);
-              res.status(500).send({ message: 'Internal server error.' });
-          }
+router.post("/changePfp", async (req, res) => {
+  const session = req.session;
+  if (session && session.loggedIn) {
+    try {
+      await client.connect();
+      const db = client.db(db_name);
+      const users = db.collection("users");
+      const result = await users.updateOne(
+        { username: session.username },
+        { $set: { pfp: req.body.pfp } },
+      );
+      if (result.modifiedCount > 0) {
+        res
+          .status(200)
+          .send({ message: "Profile picture updated successfully." });
       } else {
-          res.status(401).send({ message: 'You must be logged in to change your profile picture.' });
+        res.status(500).send({ message: "Failed to update profile picture." });
       }
-  });
+    } catch (error) {
+      console.error("Error updating profile picture:", error);
+      res.status(500).send({ message: "Internal server error." });
+    }
+  } else {
+    res.status(401).send({
+      message: "You must be logged in to change your profile picture.",
+    });
+  }
+});
+
+router.post("/message", async (req, res) => {
+  const session = req.session;
+  if (session && session.loggedIn) {
+    try {
+      const db = client.db(db_name);
+      const users = db.collection("users");
+      const chat = db.collection("chat");
+      if (result.modifiedCount > 0) {
+        res
+          .status(200)
+          .send({ message: "Profile picture updated successfully." });
+      } else {
+        res.status(500).send({ message: "Failed to update profile picture." });
+      }
+    } catch (error) {
+      console.error("Error updating profile picture:", error);
+      res.status(500).send({ message: "Internal server error." });
+    }
+  } else {
+    res.status(401).send({
+      message: "You must be logged in to change your profile picture.",
+    });
+  }
+});
 
 module.exports = router;
