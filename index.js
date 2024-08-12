@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const CryptoJS = require("crypto-js");
-const stringifySafe = require("json-stringify-safe");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
 
@@ -82,15 +81,6 @@ const port = 3000;
 const fs = require("fs");
 
 const encpass = process.env["encpass"]; // encryption password
-function encrypt(text, pass) {
-  var encrypted = CryptoJS.AES.encrypt(text, pass).toString();
-  return encrypted;
-}
-
-function decrypt(text, pass) {
-  var decrypted = CryptoJS.AES.decrypt(text, pass).toString(CryptoJS.enc.Utf8);
-  return decrypted;
-}
 
 function generatePasswordHash(password, salt) {
   let passwordWordArray = CryptoJS.enc.Utf8.parse(password);
@@ -101,10 +91,6 @@ function generatePasswordHash(password, salt) {
   );
 }
 
-function generateSalt() {
-  return CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
-}
-
 function validatePassword(password, saved_hash, salt) {
   const generated_hash = generatePasswordHash(password, salt);
   return generated_hash == saved_hash;
@@ -113,21 +99,11 @@ function validatePassword(password, saved_hash, salt) {
 function rand(min, max) {
   return /*Math.floor(*/ Math.random() * (max - min + 1) /*)*/ + min;
 }
-/*
-file.key = "new value";
-
-fs.writeFile(fileName, JSON.stringify(file), function writeJSON(err) {
-  if (err) return console.log(err);
-  console.log(JSON.stringify(file, null, 2));
-  console.log('writing to ' + fileName);
-});
-*/
 
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/site/index.html");
-});
+app.get("/", (_, res) =>
+    res.sendFile(__dirname + "/public/site/index.html"));
 
 io.on("connection", (socket) => {
   console.log("a user connected");
