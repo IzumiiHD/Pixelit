@@ -4,6 +4,13 @@ function escapeHTML(str) {
     return div.innerHTML;
 }
 
+function parseMessage(str) {
+    const safe_str = escapeHTML(str); // remove all HTML tags from the message (leaves just plaintext and markdown)
+    const parsed = marked.parse(safe_str); // parse markdown into HTML
+    const sanitized = DOMPurify.sanitize(parsed); // remove any unsafe HTML tags from parsed markdown
+    return sanitized;
+}
+
 //----------------------------Variables-----------------------------------------
 function ge(id) {
     return document.getElementById(id);
@@ -76,7 +83,7 @@ function createMessageHTML(message) {
                         ${badgesHTML}
                     </div>
                 </div>
-                <div class="messageText">${escapeHTML(message.msg)}</div>
+                <div class="messageText">${parseMessage(message.msg)}</div>
             </div>
         </div>
     `;
