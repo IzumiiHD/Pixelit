@@ -124,27 +124,6 @@ ge("send").addEventListener("keydown", (e) => {
         socket.emit("message", msg);
         e.target.value = "";
     }
-<<<<<<< HEAD
-});
-
-socket.emit("getChat");
-
-socket.on("chatupdate", (data) => {
-    if (data === "get") {
-        socket.emit("getChat");
-        return;
-    }
-    data.forEach(function (v) {
-        delete v._id;
-    });
-    if (data == messages) {
-        console.log("No new messages");
-        return;
-    }
-    messages = data;
-    updateMessages(messages);
-=======
->>>>>>> 46bd04d (the most up to date version of the pixelit code (git pane fixed))
 });
 
 socket.emit("getChat");
