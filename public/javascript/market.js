@@ -1,4 +1,4 @@
-const socket = io();
+//const socket = io();
 
 const c = document.getElementById("animationCanvas");
 const ctx = c.getContext("2d");
@@ -46,11 +46,53 @@ function createPackElement(pack) {
 
   // Add onclick event listener to divBox
   divBox.addEventListener("click", () => {
-    socket.emit("openPack", pack, {
-      name: sessionStorage.username,
-      pass: sessionStorage.password,
-    });
     divBox.style.pointerEvents = "none";
+    fetch("/openPack?pack=" + pack.name, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Pack opened successfully");
+          divBox.style.pointerEvents = "auto";
+          return response.json();
+        } else {
+          console.log("Failed to open pack");
+          divBox.style.pointerEvents = "auto";
+        }
+      })
+      .then((data) => {
+        alert(`You have opened the ${data.pack} and got ${data.blook.name}!`);
+        fetch("/user", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              return response.json(); // Parse JSON data
+            } else if (response.status === 500) {
+              return response.text().then((text) => {
+                alert(text);
+              });
+            } else {
+              console.error("Unexpected response status:", response.status);
+              throw new Error("Unexpected response status");
+            }
+          })
+          .then((data) => {
+            document.getElementById("tokens").innerHTML = data.tokens;
+          })
+          .catch((error) => {
+            console.error(
+              "There was a problem with the fetch operation:",
+              error,
+            );
+          });
+      });
   });
 
   return divBox;
@@ -66,39 +108,62 @@ function renderPacks(packs) {
   });
 }
 
-socket.emit("getPacks");
-socket.emit("getTokens", sessionStorage.username);
+//socket.emit("getPacks");
+//socket.emit("getTokens", sessionStorage.username);
 window.onload = () => {
-  document.body.style.pointerEvents = "none";
-  fetch('/api/user', {
-    method: 'GET',
+  //document.body.style.pointerEvents = "none";
+  fetch("/user", {
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
   })
-  .then(response => {
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json(); // Parse JSON data
+      } else if (response.status === 500) {
+        return response.text().then((text) => {
+          alert(text);
+        });
+      } else {
+        console.error("Unexpected response status:", response.status);
+        throw new Error("Unexpected response status");
+      }
+    })
+    .then((data) => {
+      document.getElementById("tokens").innerHTML = data.tokens;
+    })
+    .catch((error) => {
+      console.error("There was a problem with the fetch operation:", error);
+    });
+};
+
+fetch("/packs", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
+})
+  .then((response) => {
     if (response.status === 200) {
       return response.json(); // Parse JSON data
     } else if (response.status === 500) {
-      return response.text().then(text => {
-        alert(text);
-      });
+      const text = response.text();
+      alert(text);
     } else {
-      console.error('Unexpected response status:', response.status);
-      throw new Error('Unexpected response status');
+      console.error("Unexpected response status:", response.status);
+      throw new Error("Unexpected response status");
     }
   })
-  .then(data => {
-    document.getElementById("tokens").innerHTML = data.tokens;
-
+  .then(async (data) => {
+    renderPacks(data);
   })
-  .catch(error => {
-    console.error('There was a problem with the fetch operation:', error);
+  .catch((error) => {
+    console.error("There was a problem with the fetch operation:", error);
   });
-};
 
 // Call renderPacks function with the packs array
-socket.on("getPacks", (packs) => {
+/*socket.on("getPacks", (packs) => {
   if (packs === "get") return;
   renderPacks(packs);
 });
@@ -114,3 +179,4 @@ socket.on("openPack", (info) => {
     `Opened pack ${pack} and got ${blook.name}, which is a ${blook.rarity} and has ${blook.chance}% chance`,
   );
 });
+*/

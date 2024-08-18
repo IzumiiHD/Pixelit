@@ -187,10 +187,18 @@ body {
   gap: 20px;
   transition: all 0.1s ease-in-out;
 }
-.nav-option:hover {
-  border-left: 5px solid #a2a2a2;
-  background-color: #dadada;
+
+.boxToken {
+  height: 55px;
+  width: 275px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   cursor: pointer;
+  background-color: #6f057a;
 }
 .nav-img {
   height: 30px;
@@ -214,33 +222,22 @@ body {
   background-color: var(--Border-color);
 }
 .box {
-  height: 400px;
+  height: 350px;
   width: 250px;
-  border-radius: 20px;
+  border-radius: 5px;
   box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
   padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-  background-color: #b011c2;
+  background-color: #6f057a;
 }
 .box:hover {
-  transform: scale(1.08);
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
 }
-
-.box .text {
-  color: white;
-}
-.topic {
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 1px;
-}
-
 img {
-  border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;
   width: 150px;

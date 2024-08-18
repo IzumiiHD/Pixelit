@@ -2,7 +2,32 @@ const socket = io();
 
 const leaderboardContainer = document.getElementById("lbc");
 
-socket.emit("getAccounts");
+fetch("/users", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  }
+}).then(response => {
+  if (response.ok) {
+    return response.json();
+  } else {
+    console.error(response.statusText);
+  }
+}).then(data => {
+  renderLeaderboard(data.users);
+  /*const users = data.users;
+  const sortedUsers = users.sort((a, b) => b.tokens - a.tokens);
+  const topUsers = sortedUsers.slice(0, 10);
+  const leaderboardHTML = topUsers.map(user => {
+    return `<div class="leaderboard-item">
+      <div class="leaderboard-rank">${topUsers.indexOf(user) + 1}</div>
+      <div class="leaderboard-username">${user.username}</div>
+      <div class="leaderboard-tokens">${user.tokens}</div>
+    </div>`;
+  }).join("");
+  leaderboardContainer.innerHTML = leaderboardHTML;*/
+})
+
 
 function renderLeaderboard(users) {
   try {
@@ -37,7 +62,8 @@ function renderLeaderboard(users) {
       '<div class="lb-entry"><div class="name">Error</div><div class="score">Failed to load leaderboard</div></div>';
   }
 }
-
+/*
 socket.on("getAccounts", (accounts) => {
   renderLeaderboard(accounts);
 });
+*/

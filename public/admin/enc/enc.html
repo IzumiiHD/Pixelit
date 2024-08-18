@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Admin</title>
+    <title>Staff Panel</title>
     <link rel="icon" type="image/png" href="../img/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,20 +19,20 @@
     <link href="enc.css" rel="stylesheet" />
   </head>
   <body>
-    <body style="background-color: #800097;">
+    <body style="background-color: #800097">
       <img alt="Blooks Background" class="bg_img" />
       <div class="navbar">
         <div class="dropdown">
           <div>
             <div>
-              <a href="../../site/dashboard.html"
+              <a href="/site/dashboard.html"
                 ><i class="fa-solid fa-chart-column"><i></i></i
               ></a>
-              <a href="../admin/enc/enc.html"
+              <a href="/admin/enc/enc.html"
                 ><i class="fa-solid fa-wrench"></i
               ></a>
               <a href="../ownerPanelPage/owner.html"
-                ><i class="fa-solid fa-crown"></i
+                ><i class="fa-solid fa-code"></i
               ></a>
             </div>
           </div>
@@ -129,20 +129,17 @@
         </div>
       </div>
       <center>
-        <h1 style="font-family: Pixelify Sans; color: white;">
-          Form Panel
-        </h1>
+        <h1 style="font-family: Pixelify Sans; color: white">Staff Panel</h1>
       </center>
       <center>
-          <section id="requests">
-            <hr />
-            <h1>Requests:</h1>
-          </section>
-          <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
-          <script src="./enc.js"></script>
-        <script src="../../api/verifyenc.js"></script>
-        </h1>
+        <section id="requests">
+          <hr />
+          <h1>Requests:</h1>
+        </section>
+        <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+        <script src="./enc.js"></script>
+        <script src="/api/verifyenc.js"></script>
       </center>
     </body>
   </body>

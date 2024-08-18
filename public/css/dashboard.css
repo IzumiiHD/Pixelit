@@ -174,7 +174,7 @@ body {
 .box {
   height: 55px;
   width: 275px;
-  border-radius: 20px;
+  border-radius: 5px;
   box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
   padding: 20px;
   display: flex;
@@ -258,4 +258,6 @@ body {
   display: inline-block;
   height: 60px;
   width: 60px;
+  user-drag: none;
+  -webkit-user-drag: none;
 }

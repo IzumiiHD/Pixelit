@@ -126,7 +126,7 @@ body {
   width: 250px;
   position: relative;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: auto;
   transition: all 0.5s ease-in-out;
 }
 .navcontainer::-webkit-scrollbar {
@@ -256,7 +256,7 @@ body {
   color: black;
   font-family: 'Pixelify Sans';
 }
-#sendMsg{
+.sendInput{
   width: 150%;
   height: 120%;
   background: #621e7d;
@@ -278,6 +278,7 @@ body {
   overflow: auto;
   position: relative;
   overflow-y: scroll;
+  overflow-x: auto;
   height: calc(100% - 55px);
   -ms-overflow-style: none;
   scrollbar-width: none;

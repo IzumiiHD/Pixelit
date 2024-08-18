@@ -1,11 +1,17 @@
 {
   "files": {
-    "public/javascript/dashboard.js": [
+    "public/javascript/trade.js": [
       {
-        "id": "a29735c9-da93-46b1-8d04-f06f5857e2d8",
-        "line": 26,
-        "version": 1708,
-        "index": 648
+        "id": "a372c302-ff81-4f5c-ab14-bb2c4be6b2d7",
+        "line": 18,
+        "version": 61,
+        "index": 547
+      },
+      {
+        "id": "2a621011-63c8-43cc-9859-00a8fcac941e",
+        "line": 20,
+        "version": 61,
+        "index": 617
       }
     ]
   }

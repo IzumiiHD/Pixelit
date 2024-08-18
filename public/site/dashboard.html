@@ -25,14 +25,15 @@
         <div class="dropdown">
           <div > 
           <div> 
-              <a href="../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-              <a href="../site/chat.html"><i class="fa-solid fa-comment"></i></a>
-              <a href="../site/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
-              <a href="../site/404.html"><i class="fa-solid fa-store"></i></a>
-              <a href="../site/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
-              <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
-              <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
-              <a href="../site/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
+            <a href="../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
+            <a href="../site/chat.html"><i class="fa-solid fa-comment"></i></a>
+            <a href="../site/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
+            <a href="../site/market.html"><i class="fa-solid fa-store"></i></a>
+            <a href="../site/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
+            <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
+            <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
+            <a href="../site/settings.html"><i class="fa-solid fa-gear"></i></a>
+            <a href="../site/news.html"><i class="fa-solid fa-newspaper"></i></a>
           </div>
         </div> 
       </div>
@@ -47,7 +48,7 @@
       width: 700px;
       height: 480px;
       font-size: 18px;
-      border-radius: 20px;
+      border-radius: 5px;
       background-color: #6f057a;
       color: white;
       border: none;
@@ -67,7 +68,7 @@
             display: block;
             /* margin-left: auto; */
             /* margin-right: auto; */
-            border-radius: 10px;
+            border-radius: 5px;
             height: auto;
             width: 13%;
             /* position: relative; */
@@ -76,8 +77,8 @@
             filter: drop-shadow(0 0 5px rgba(0, 0, 0, .5));
             cursor: pointer;
           "
-          onmouseover="this.style.transform='scale(1.1)';" 
-          onmouseout="this.style.transform='scale(1)';"
+          onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
           >
         <div class="banner-container" style="
           width: 311px;
@@ -89,12 +90,15 @@
           outline: none;
           cursor: pointer;
           font-family: Pixelify Sans !important;
-          ">
+          "
+          onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          >
         <img id="banner" src="../img/banner/defaultBanner.svg" alt="DefaultBanner" draggable="false" style="
           position: absolute;
           cursor: pointer;
-          top: 0;
-          left: 0;
+          top: -1%;
+          left: 0%;
           /* z-index: -1; */
           width: 100%;
           height: 100%;
@@ -102,17 +106,17 @@
           "
           >
           <div style="color: #fff;text-shadow: white;position: relative;z-index: 2;text-align: center;font-size: 20px;/* font-family: nunito; */font-weight: bold;/* color: initial; */margin-top: 7%;" id="username">username</div> 
-          <div style="color: #fff;text-shadow: #000 1px 0 13px;position: relative;z-index: 2;" id="role">Common</div>
+          <div style="color: #fff;text-shadow: #000 1px 0 13px;position: relative;z-index: 2;" id="role">role</div>
         </div>
       </div>
       <h2 style="color: #fff" ><div draggable="false" id="badges" onmouseover="this.style.cursor='pointer';"></div></h2>
-        <h2>
-          <a href="https://discord.gg/ccARpDEKHU"><i class="fa-brands fa-discord fa-bounce" style="color: #5865f2"></i></a>
-          <a href="https://twitter.com/IzumiHD"><i class="fa-brands fa-twitter fa-bounce" style="color: #1da1f2"></i></a>
-          <a href="https://www.youtube.com/@technoscootalo/featured"><i class="fa-brands fa-youtube fa-bounce" style="color: red"></i></a>
-          <a href="https://github.com/IzumiiHD/Pixelit"><i class="fa-brands fa-github fa-bounce" style="color: white"></i></a>
-        </h2>
-        <h3 style="color: #fff; text-shadow: #000 1px 0 13px;" id="date">date</h3>
+      <h3 style="color: #fff; text-shadow: #000 1px 0 13px;" id="date">date</h3>
+      <h2>
+        <a href="https://discord.gg/ccARpDEKHU"><i class="fa-brands fa-discord fa-bounce" style="color: #5865f2"></i></a>
+        <a href="https://twitter.com/IzumiHD"><i class="fa-brands fa-twitter fa-bounce" style="color: #1da1f2"></i></a>
+        <a href="https://www.youtube.com/@technoscootalo/featured"><i class="fa-brands fa-youtube fa-bounce" style="color: red"></i></a>
+        <a href="https://github.com/IzumiiHD/Pixelit"><i class="fa-brands fa-github fa-bounce" style="color: white"></i></a>
+      </h2>
       </div>  
     </br>
     </br>
@@ -121,7 +125,8 @@
 
 
         <div
-          style="width: 700px; height: 150px; font-size: 18px; border-radius: 20px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px;
+          style="width: 700px; height: 150px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px;
+
         "
         >
           <center>
@@ -131,8 +136,8 @@
             <button
               style="width:auto; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
               position: absolute;
-              top: 79%;
-              left: 17%;"
+              top: 80%;
+              left: 16.5%;"
               id="viewplayer"
               onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
               onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
@@ -150,10 +155,10 @@
           style="width:200px; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
           position: absolute;
           top: 50%;
-          left: 50%;
+          left: 48%;
         "
-          id="viewplayer"
-          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          id="viewaccount"
+          onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
           onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
         >
           View Account<i class="fa-solid fa-magnifying-glass"></i>
@@ -163,10 +168,10 @@
           style="width:200px; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
           position: absolute;
           top: 35%;
-          left: 50%;
+          left: 48%;
         "
           id="viewplayer"
-          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
           onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
         >
           Trade Player <i class="fa-solid fa-handshake"></i>
@@ -174,10 +179,10 @@
 
         <button
           pointer
-          style="width:200px; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; pointer-events: auto; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; position: absolute; top: 20%; left: 50%;"
+          style="width:200px; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; pointer-events: auto; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; position: absolute; top: 20%; left: 48%;"
           id="spin"
           onclick="spins()"
-          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
           onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
         >
           Claim Tokens <i class="fa-solid fa-star"></i>
@@ -187,7 +192,7 @@
       width: 550px;
       height: 480px;
       font-size: 18px;
-      border-radius: 20px;
+      border-radius: 5px;
       background-color: #6f057a;
       color: white;
       border: none;
@@ -250,13 +255,5 @@
     <script src="/javascript/dashboard.js"></script>
     <script src="/api/notLoggedIn.js"></script>
     <!--<script src="../api/mainpage.js"></script>-->
-    <script> 
-          document.getElementById("viewPlayer").addEventListener("click", function() {
-            let viewPlayerId = prompt("Enter the View Player ID:");
-            if (viewPlayerId) {
-              window.alert("View Player ID: " + viewPlayerId);
-            }
-          });
-    </script>
   </body>
 </html>

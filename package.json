@@ -12,6 +12,7 @@
     "express-session": "^1.18.0",
     "json-stringify-safe": "^5.0.1",
     "mongodb": "^6.8.0",
+    "mongoose": "^8.5.3",
     "socket.io": "^4.7.5"
   },
   "scripts": {

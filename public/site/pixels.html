@@ -18,37 +18,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Pixels</title>
     <link rel="icon" type="image/png" href="../img/favicon.ico" />
-    <link rel="stylesheet" href="../css/pixels.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="../css/pixels.css" />
+    <!-- Link to your CSS file -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body style="background-color: #800097; overflow: hidden;">
+  <body style="background-color: #800097; overflow: hidden">
     <img alt="Blooks Background" class="bg_img" />
-        <div class="navbar">
-          <div class="dropdown">
-            </button>
-            <div > 
-            <div> 
-                <a href="../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-                <a href="../site/chat.html"><i class="fa-solid fa-comment"></i></a>
-                <a href="../site/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
-                <a href="../site/404.html"><i class="fa-solid fa-store"></i></a>
-                <a href="../site/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
-                <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
-                <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
-                <a href="../site/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
-            </div>
-          </div> 
+    <div class="navbar">
+      <div class="dropdown">
+        <div>
+          <div>
+            <a href="../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
+            <a href="../site/chat.html"><i class="fa-solid fa-comment"></i></a>
+            <a href="../site/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
+            <a href="../site/market.html"><i class="fa-solid fa-store"></i></a>
+            <a href="../site/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
+            <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
+            <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
+            <a href="../site/settings.html"><i class="fa-solid fa-gear"></i></a>
+            <a href="../site/news.html"><i class="fa-solid fa-newspaper"></i></a>
+          </div>
         </div>
-        <div class="title_p" id="title_p">Pixelit</div>
       </div>
+      <div class="title_p" id="title_p">Pixelit</div>
+    </div>
     <center>
       <div style="padding-left: 16px">
-        <h1>Pixels</h1>
       </div>
     </center>
     <div class="container">
       <div class="pack">
-        <h2> Pack</h2>
+        <h2>Pack</h2>
         <div class="items">
           <div class="item">
             <img src="../img/lock-icon.png" alt="Locked" />
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="pack">
-        <h2> Pack</h2>
+        <h2>Pack</h2>
         <div class="items">
           <div class="item">
             <img src="../img/lock-icon.png" alt="Locked" />
@@ -68,17 +68,17 @@
         </div>
       </div>
       <div class="pack">
-        <h2> Pack</h2>
+        <h2>Pack</h2>
         <div class="items">
           <div class="item">
             <img src="../img/lock-icon.png" alt="Locked" />
             <div class="badge">0</div>
           </div>
-          <!-- More items... -->
+        <!-- More items... -->
         </div>
       </div>
       <div class="pack">
-        <h2> Pack</h2>
+        <h2>Pack</h2>
         <div class="items">
           <div class="item">
             <img src="../img/lock-icon.png" alt="Locked" />
@@ -87,29 +87,24 @@
           <!-- More items... -->
         </div>
       </div>
-      <div class="pack">
-        <h2> Pack</h2>
-        <div class="items">
-          <div class="item">
-            <img src="../img/lock-icon.png" alt="Locked" />
-            <div class="badge">0</div>
-          </div>
-          <!-- More items... -->
-        </div>
       </div>
-      <div class="pack">
-        <h2> Pack</h2>
-        <div class="items">
-          <div class="item">
-            <img src="../img/lock-icon.png" alt="Locked" />
-            <div class="badge">0</div>
-          </div>
-          <!-- More items... -->
+    <div class="blook-details">
+      <center>
+        <h1 id="blook-name">Select a Blook</h1>
+        <img
+          id="blook-image"
+          src=""
+          alt="Blook Image"
+          draggable="false"
+          style="display: none; width: 120px; height: 120px"
+        />
+        <h3 id="blook-rarity"></h3>
+        <h3 id="blook-owned"></h3>
+        <button id="set-pfp" style="width:300px; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; pointer-events: auto; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; display: none; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(0.95)';" onmouseout="this.style.transform='scale(1)';">Set Profile Picture <i class="fa-solid fa-image-portrait"></i></button>
+        <button id="sell-blook" style="width:300px; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; pointer-events: auto; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; display: none; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(0.95)';" onmouseout="this.style.transform='scale(1)';">Sell Blook <i class="fa-solid fa-dollar-sign"></i></button>
         </div>
-      </div>
-    </div>
+      </center>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-    <script src="../javascript/loggedin.js"></script>
     <script src="/javascript/pixels.js"></script>
   </body>
 </html>

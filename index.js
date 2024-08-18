@@ -4,6 +4,7 @@ const CryptoJS = require("crypto-js");
 const stringifySafe = require("json-stringify-safe");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
+const axios = require("axios");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,6 +35,11 @@ const router = require("./routes.js");
 app.use(router);
 const db_name = "pixelit";
 
+const byte = (str) => {
+  let size = new Blob([str]).size;
+  return size;
+};
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -58,9 +64,8 @@ async function run() {
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!",
     );
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+  } catch (e) {
+    console.log(e);
   }
 }
 run().catch(console.dir);
@@ -135,7 +140,7 @@ io.on("connection", (socket) => {
     console.log("user disconnected");
   });
   socket.on("getTokens", async (name) => {
-    await client.connect();
+    //await client.connect();
     const user = await users.findOne({ username: name });
     if (user === null) return;
     //console.log(user)
@@ -143,42 +148,68 @@ io.on("connection", (socket) => {
     //accounts = JSON.parse(jsonData1);
     io.to(socket.id).emit("tokens", user.tokens, user.sent, user.packsOpened);
   });
-  socket.on("message", async (name, message) => {
-    await client.connect(); /*
-    const jsonData1 = fs.readFileSync("./chat.json", "utf8");
-    const chat = JSON.parse(jsonData1);*/
-    const d = new Date();
-    d.setHours(d.getHours() - 4);
-    const user = await users.findOne({ username: name });
-    const chatmessage = {
-      sender: name,
-      message,
-      timestamp: formatDateTime(localTime),
-    };
-    //chat[messageId] = chatmessage;
-    await chatm.insertOne(chatmessage);
-    await users.updateOne(
-      { username: name },
-      { $set: { sent: user.sent + 1 } },
-    );
-    await users.updateOne(
-      { username: name },
-      { $set: { tokens: user.tokens + 1 } },
-    );
-    /*accounts[name].tokens += 1;
-    fs.writeFile(fileName, stringifySafe(accounts), function writeJSON(err) {
-      if (err) return console.log(err);
-    });*/
-    io.emit("chatupdate", "get");
+  socket.on("message", async (message) => {
+    try {
+      //await client.connect();
+
+      if (byte(message) > 1000 || message.trim() === "") {
+        return;
+      }
+
+      const cookief = socket.handshake.headers.cookie;
+
+      const response = await axios.get(
+        "https://pixelit.replit.app/user",
+        {
+          headers: {
+            Cookie: cookief,
+          },
+          validateStatus: function (status) {
+            return (status >= 200 && status < 300) || status === 500; // Ignore 500 errors
+          },
+          withCredentials: true,
+        },
+      );
+
+      if (response.status !== 500) {
+        const name = response.data.username;
+        const d = new Date();
+        d.setHours(d.getHours() - 4);
+        const user = await users.findOne({ username: name });
+        const chatmessage = {
+          sender: name,
+          msg: message,
+          badges: user.badges,
+          pfp: user.pfp,
+        };
+
+        await chatm.insertOne(chatmessage);
+        await users.updateOne(
+          { username: name },
+          { $set: { sent: user.sent + 1 } },
+        );
+        await users.updateOne(
+          { username: name },
+          { $set: { tokens: user.tokens + 1 } },
+        );
+
+        io.emit("chatupdate", "get");
+      } else {
+        socket.emit("error", response.data);
+      }
+    } catch (error) {
+      console.error("Error during message handling:", error);
+    }
   });
+
   socket.on("getChat", async () => {
-    await client.connect();
+    //await client.connect();
     //const jsonData1 = fs.readFileSync("./chat.json", "utf8");
     //const chat = JSON.parse(jsonData1);
     socket.emit("chatupdate", await chatm.find().toArray());
   });
   socket.on("spin", async (name) => {
-    await client.connect();
+    //await client.connect();
     const user = await users.findOne({ username: name });
     if (
       user &&
@@ -196,12 +227,12 @@ io.on("connection", (socket) => {
     }
   });
   socket.on("getNews", async () => {
-    await client.connect();
+    //await client.connect();
     const newsPosts = await news.find().toArray();
     io.to(socket.id).emit("getNews", newsPosts);
   });
   socket.on("newspost", async (info) => {
-    await client.connect();
+    //await client.connect();
     const newsPost = {
       title: info.title,
       content: info.content,
@@ -218,7 +249,7 @@ io.on("connection", (socket) => {
     }
   });
   socket.on("addPack", async (pack, user) => {
-    await client.connect();
+    //await client.connect();
     const newpack = {
       name: pack.name,
       image: pack.image,
@@ -260,7 +291,7 @@ io.on("connection", (socket) => {
     } else console.log("addpack verification denied " + user.name);
   });
   socket.on("addBlook", async (blook, user) => {
-    await client.connect();
+    //await client.connect();
     //const parent = blook.parent;
     /*const blook = {
       name: blook.name,
@@ -314,13 +345,13 @@ io.on("connection", (socket) => {
     } else console.log("addblook verification denied " + user.name);
   });
   socket.on("removePack", async (pack, user) => {
-    await client.connect(); /*
+    //await client.connect(); /*
     const newpack = {
       name: pack.name,
       image: pack.image,
       cost: pack.cost,
       blooks: [],
-    };*/
+    };
     //console.log(pack);
     //console.log(user);
     const person = await users.findOne({ username: user.name });
@@ -352,7 +383,7 @@ io.on("connection", (socket) => {
     } else console.log("removepack verification denied " + user.name);
   });
   socket.on("removeBlook", async (blook, user) => {
-    await client.connect();
+    //await client.connect();
     //const parent = blook.parent;
     /*const blook = {
       name: blook.name,
@@ -400,12 +431,12 @@ io.on("connection", (socket) => {
     } else console.log("removeblook verification denied " + user.name);
   });
   socket.on("getPacks", async () => {
-    await client.connect();
+    //await client.connect();
     const packsArray = await packs.find().toArray();
     io.to(socket.id).emit("getPacks", packsArray);
   });
   socket.on("openPack", async (opack, user) => {
-    await client.connect();
+    //await client.connect();
     //console.log("openpackreq");
 
     // Retrieve user data from MongoDB
@@ -524,32 +555,32 @@ io.on("connection", (socket) => {
     }
   });
   socket.on("getUserPacks", async (name) => {
-    await client.connect();
+    //await client.connect();
     const user = await users.findOne({ username: name });
     if (user === null) return;
     //console.log(user.packs)
     io.to(socket.id).emit("getUserPacks", user.packs);
   });
   socket.on("getAccounts", async () => {
-    await client.connect();
+    //await client.connect();
     const accounts = await users.find().toArray();
 
     io.to(socket.id).emit("getAccounts", accounts);
   });
   socket.on("getBadges", async () => {
-    await client.connect();
+    //await client.connect();
     const badgeese = await badges.find().toArray();
 
     io.to(socket.id).emit("getBadges", badgeese);
   });
   socket.on("getUserBadges", async (name) => {
-    await client.connect();
+    //await client.connect();
     const user = await users.findOne({ username: name });
     if (user === null) return;
     io.to(socket.id).emit("getUserBadges", user.badges);
   });
   socket.on("addBadge", async (data) => {
-    await client.connect();
+    //await client.connect();
     const { username, badge } = data;
     await users.updateOne({ username }, { $addToSet: { badges: badge } });
     const updatedUser = await users.find().toArray();
@@ -557,18 +588,18 @@ io.on("connection", (socket) => {
   });
 
   socket.on("removeBadge", async (data) => {
-    await client.connect();
+    //await client.connect();
     const { username, badge } = data;
     await users.updateOne({ username }, { $pull: { badges: badge } });
     const updatedUser = await users.find().toArray();
     io.emit("badgeUpdate", updatedUser);
   });
   socket.on("createBadge", async (badge) => {
-    await client.connect();
+    //await client.connect();
     await badges.insertOne(badge);
   });
   socket.on("deleteBadge", async (badge) => {
-    await client.connect();
+    //await client.connect();
     await badges.deleteOne(badge);
     await users.updateMany({}, { $pull: { badges: badge } });
   });

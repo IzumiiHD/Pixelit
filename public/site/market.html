@@ -16,66 +16,52 @@
     />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="../img/favicon.ico" />
     <title>Market</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="../css/market.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="../css/market.css" />
+    <!-- Link to your CSS file -->
   </head>
   <body>
-    <body style="background-color: #800097;">
+    <body style="background-color: #800097">
       <img alt="Blooks Background" class="bg_img" />
-        <div class="navbar">
-          <div class="dropdown">
-            <div > 
-            <div> 
-                <a href="../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-                <a href="../site/chat.html"><i class="fa-solid fa-comment"></i></a>
-                <a href="../site/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
-                <a href="../site/404.html"><i class="fa-solid fa-store"></i></a>
-                <a href="../site/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
-                <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
-                <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
-                <a href="../site/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
+      <div class="navbar">
+        <div class="dropdown">
+          <div>
+            <div>
+              <a href="../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
+              <a href="../site/chat.html"><i class="fa-solid fa-comment"></i></a>
+              <a href="../site/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
+              <a href="../site/market.html"><i class="fa-solid fa-store"></i></a>
+              <a href="../site/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
+              <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
+              <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
+              <a href="../site/settings.html"><i class="fa-solid fa-gear"></i></a>
+              <a href="../site/news.html"><i class="fa-solid fa-newspaper"></i></a>
             </div>
-          </div> 
+          </div>
         </div>
         <div class="title_p" id="title_p">Pixelit</div>
       </div>
       <canvas id="animationCanvas"></canvas>
+    </br>
+    </br>
       <div style="padding-left: 16px">
-      <center>
-        <h2>Tokens: <span id="tokens"></span></h2>
-      </center>
-      <div class="box-container" id="packContainer">
-        <!--<div class="box box1">
-          <div class="text">
-            <h2>Pack Container</h2>
+          <div class="boxToken" style="position: absolute; left: 3.5%;">
+            <h2>Tokens: <span id="tokens"></span></h2>
           </div>
-        </div>
-
-        <div class="box box2">
-          <center>
-            <div class="text">
-              <h2>Debug Pack - $30</h2>
-              <img
-                src="/img/packs/debugpackwrapper.png"
-                alt="Pack 1"
-                style="width: 250px"
-              />
-            </div>
-          </center>
-        </div>
-
-        <div class="box box3">
-          <div class="text">
-            <h2>Pack Container</h2>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+          <div class="packContainer" id="packContainer" style="display: flex; flex-wrap: nowrap; gap: 3%;">
+              <div onmouseover="this.style.transform='scale(0.95)'; this.style.transition='transform 0.3s ease';" onmouseout="this.style.transform='scale(1)';"></div>
           </div>
-        </div>-->
-      </div>
-    </div>
-    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-    <script src="/javascript/loggedin.js"></script>
-    <script src="/javascript/market.js"></script>
+          <script src="/javascript/market.js"></script>
+    </body>
   </body>
 </html>

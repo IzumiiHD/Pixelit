@@ -33,17 +33,57 @@ function createPack() {
         removePackButton.textContent = "Remove Pack";
         removePackButton.classList.add("button"); // Add button class
         removePackButton.onclick = function () {
-            socket.emit("removePack", pack, {
-                name: sessionStorage.username,
-                pass: sessionStorage.password,
-            });
+            fetch("/removePack", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: pack.name,
+                }),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        console.log(response.statusText);
+                    }
+                })
+                .then((data) => {
+                    renderPacks(data.packs);
+                });
             packDiv.parentNode.removeChild(packDiv); // Remove the packDiv
         };
         packDiv.appendChild(removePackButton);
 
         document.getElementById("packs").appendChild(packDiv);
 
-        socket.emit(
+        fetch("/addPack", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: packName,
+                image: packUrl,
+                cost: packCost,
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    console.log(response);
+                    console.log("Pack added successfully");
+                } else {
+                    console.log(response.statusText);
+                }
+            })
+            .then((data) => {
+                renderPacks(data.packs);
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+        /*socket.emit(
             "addPack",
             {
                 name: packName,
@@ -51,7 +91,7 @@ function createPack() {
                 image: packUrl,
             },
             { name: sessionStorage.username, pass: sessionStorage.password },
-        );
+        );*/
         console.log("Added pack");
     }
 }
@@ -68,8 +108,10 @@ function addBlook(packDiv, packName) {
     imageUrlInput.type = "text";
     imageUrlInput.placeholder = "Enter image URL for blook";
 
-    var blookRarityInput = document.createElement("input");
-    blookRarityInput.type = "text";
+    var blookRarityInput = document.createElement("select");
+    //blookRarityInput.type = "text";
+    blookRarityInput.innerHTML =
+        "<option value='common'>Common</option><option value='uncommon'>Uncommon</option><option value='rare'>Rare</option><option value='epic'>Epic</option><option value='legendary'>Legendary</option><option value='chroma'>Chroma</option><option value='mystical'>Mystical</option>";
     blookRarityInput.placeholder =
         "Enter the rarity of the blook (common, uncommon, rare)";
 
@@ -80,8 +122,7 @@ function addBlook(packDiv, packName) {
 
     var blookColorInput = document.createElement("input");
     blookColorInput.type = "text";
-    blookColorInput.placeholder =
-        "Enter the color of this blook (hexadecimal)";
+    blookColorInput.placeholder = "Enter the color of this blook (hexadecimal)";
 
     var addButton = document.createElement("button");
     addButton.textContent = "Add This Blook";
@@ -112,18 +153,33 @@ function addBlook(packDiv, packName) {
             removeButton.textContent = "Remove";
             removeButton.classList.add("button"); // Add button class
             removeButton.onclick = function () {
-                socket.emit("removeBlook", blook, {
-                    name: sessionStorage.username,
-                    pass: sessionStorage.password,
+                fetch("/removeBlook", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: blook.name,
+                        parent: pack.name,
+                    }),
+                }).then((response) => {
+                    if (response.ok) {
+                        console.log("blook added successfully");
+                    } else {
+                        console.log(response.statusText);
+                    }
                 });
                 packDiv.removeChild(blookDiv);
             };
             blookDiv.appendChild(removeButton);
 
             packDiv.appendChild(blookDiv);
-            socket.emit(
-                "addBlook",
-                {
+            fetch("/addBlook", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
                     name: blookNameInput.value,
                     image: imageUrlInput.value,
                     rarity: blookRarityInput.value,
@@ -131,12 +187,31 @@ function addBlook(packDiv, packName) {
                     parent: packName,
                     owned: 0,
                     color: blookColor,
-                },
-                {
-                    name: sessionStorage.username,
-                    pass: sessionStorage.password,
-                },
-            );
+                }),
+            }).then((response) => {
+                if (response.ok) {
+                    console.log(response);
+                    console.log("Blook added successfully");
+                } else {
+                    console.log(response.statusText);
+                }
+            });
+            // socket.emit(
+            //     "addBlook",
+            //     {
+            //         name: blookNameInput.value,
+            //         image: imageUrlInput.value,
+            //         rarity: blookRarityInput.value,
+            //         chance: blookChanceInput.value,
+            //         parent: packName,
+            //         owned: 0,
+            //         color: blookColor,
+            //     },
+            //     {
+            //         name: sessionStorage.username,
+            //         pass: sessionStorage.password,
+            //     },
+            // );
         }
     };
 
@@ -191,15 +266,34 @@ function renderPacks(packsArray) {
         };
         packDiv.appendChild(addBlookButton);*/
 
-        // Create a button to remove the pack
+        // // Create a button to remove the pack
         var removePackButton = document.createElement("button");
         removePackButton.textContent = "Remove Pack";
         removePackButton.classList.add("button"); // Add button class
         removePackButton.onclick = function () {
-            socket.emit("removePack", pack, {
-                name: sessionStorage.username,
-                pass: sessionStorage.password,
-            });
+            fetch("/removePack", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: pack.name,
+                }),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        console.log(response.statusText);
+                    }
+                })
+                .then((data) => {
+                    renderPacks(data.packs);
+                });
+            // socket.emit("removePack", pack, {
+            //     name: sessionStorage.username,
+            //     pass: sessionStorage.password,
+            // });
             packDiv.parentNode.removeChild(packDiv); // Remove the packDiv
         };
         packDiv.appendChild(removePackButton);
@@ -228,10 +322,26 @@ function renderPacks(packsArray) {
             removeButton.textContent = "Remove";
             removeButton.classList.add("button"); // Add button class
             removeButton.onclick = function () {
-                socket.emit("removeBlook", blook, {
-                    name: sessionStorage.username,
-                    pass: sessionStorage.password,
+                fetch("/removeBlook", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: blook.name,
+                        parent: pack.name,
+                    }),
+                }).then((response) => {
+                    if (response.ok) {
+                        console.log("blook added successfully");
+                    } else {
+                        console.log(response.statusText);
+                    }
                 });
+                // socket.emit("removeBlook", blook, {
+                //     name: sessionStorage.username,
+                //     pass: sessionStorage.password,
+                // });
                 packDiv.removeChild(blookDiv);
             };
             blookDiv.appendChild(removeButton);
@@ -247,6 +357,24 @@ function renderPacks(packsArray) {
     });
 }
 
+fetch("/packs", {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+    },
+})
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            console.log(response.statusText);
+        }
+    })
+    .then((data) => {
+        renderPacks(data);
+    });
+
+/*
 socket.emit("getPacks");
 
 socket.on("getPacks", (packsArray) => {
@@ -256,3 +384,4 @@ socket.on("getPacks", (packsArray) => {
     }
     renderPacks(packsArray);
 });
+*/

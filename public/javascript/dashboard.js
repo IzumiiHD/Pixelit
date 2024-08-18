@@ -57,9 +57,24 @@ fetch("/user")
     sent.innerHTML = user.stats.sent;
     packsOpened.innerHTML = user.stats.packsOpened;
     ge("pfp").src = `/img/blooks/${user.pfp}`;
+    ge("pfp").onerror = function () {
+      if (this.src == user.pfp) return
+      ge("pfp").src = user.pfp;
+    }
+    //if (ge("pfp"))
     ge("banner").src = `/img/banner/${user.banner}`;
     ge("role").innerHTML = user.role;
-    ge("username").innerHTML = user.username;
+    const usernameElement = ge("username");
+    usernameElement.innerHTML = user.username;
+    if (user.role === "Owner") {
+        const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+        let colorIndex = 0;
+        setInterval(() => {
+            usernameElement.style.transition = "color 0.5s ease";
+            usernameElement.style.color = colors[colorIndex];
+            colorIndex = (colorIndex + 1) % colors.length;
+        }, 500);
+    }
     renderBadges(user.badges);
   })
   .catch((error) => {
@@ -101,13 +116,24 @@ socket.on("tokens", (tokensr, sentr, packsOpenedr) => {
 
 function spins() {
   //console.log("spinning")
-  socket.emit("spin", sessionStorage.username);
+  fetch("/spin", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.error(response.statusText);
+      }
+    })
+    .then((data) => {
+      tokens.innerHTML = data.tokens;
+      alert(data.msg);
+    });
 }
-
-socket.on("spinned", (gained) => {
-  socket.emit("getTokens", sessionStorage.username);
-  alert("You gained " + gained + " tokens!");
-});
 
 socket.emit("getUserBadges", sessionStorage.username);
 
@@ -118,19 +144,4 @@ socket.on("getUserBadges", (badges) => {
   }
   console.log(badges);
   renderBadges(badges);
-});
-
-// Add event listener to badges for 360 spin on hover
-document.addEventListener("DOMContentLoaded", () => {
-  const badgeElements = document.querySelectorAll(".badge");
-  badgeElements.forEach((badge) => {
-    badge.addEventListener("mouseenter", () => {
-      badge.style.transition = "transform 0.5s";
-      badge.style.transform = "rotate(360deg)";
-    });
-    badge.addEventListener("mouseleave", () => {
-      badge.style.transition = "transform 0.5s";
-      badge.style.transform = "rotate(0deg)";
-    });
-  });
 });

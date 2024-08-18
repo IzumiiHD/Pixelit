@@ -22,45 +22,29 @@
     <style></style>
   </head>
   <body style="background-color: #800097">
-    <div class="background">
+    <div class="background" style="z-index: -100;">
       <img alt="Blooks Background" class="bg_img" />
-      <div class="navbar">
-        <div class="dropdown">
+    </div>
+    <div class="navbar">
+      <div class="dropdown">
+        <div>
           <div>
-            <div>
-              <a href="../site/dashboard.html"
-                ><i class="fa-solid fa-chart-column"></i
-              ></a>
-              <a href="../site/chat.html"
-                ><i class="fa-solid fa-comment"></i
-              ></a>
-              <a href="../site/leaderboard.html"
-                ><i class="fa-solid fa-trophy"></i
-              ></a>
-              <a href="../site/404.html"><i class="fa-solid fa-store"></i></a>
-              <a href="../site/pixels.html"
-                ><i class="fa-solid fa-suitcase"></i
-              ></a>
-              <a href="../site/auction.html"
-                ><i class="fa-solid fa-gavel"></i
-              ></a>
-              <a href="../admin/enc/enc.html"
-                ><i class="fa-solid fa-wrench"></i
-              ></a>
-              <a href="../site/index.html"
-                ><i
-                  class="fa-solid fa-right-from-bracket"
-                  onclick="sessionStorage.clear(); location.reload(); "
-                ></i
-              ></a>
-            </div>
+            <a href="../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
+            <a href="../site/chat.html"><i class="fa-solid fa-comment"></i></a>
+            <a href="../site/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
+            <a href="../site/market.html"><i class="fa-solid fa-store"></i></a>
+            <a href="../site/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
+            <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
+            <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
+            <a href="../site/settings.html"><i class="fa-solid fa-gear"></i></a>
+            <a href="../site/news.html"><i class="fa-solid fa-newspaper"></i></a>
           </div>
         </div>
-        <div class="title_p" id="title_p">Pixelit</div>
       </div>
+      <div class="title_p" id="title_p">Pixelit</div>
       <div class="profileBody">
         <br />
-        <div class="chatContainer">
+        <div class="chatContainer" id="chatContainer">
           <div class="message">
             <div class="pfp">
               <img
@@ -113,17 +97,16 @@
           </div>
         </div>
         <div class="inputContainer">
-          <form autocomplete="off" id="send">
-            <input
-              type="text"
-              id="sendMsg"
-              placeholder="Type your message..."
-            />
-            <div style="display: flex; justify-content: flex-end;">
-              <button type="submit" class="send" style="width:auto; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: 'Pixelify Sans'; pointer-events: auto; position: absolute; bottom: 0px; left: 95%;">Send</button>
+          <input
+            type="text"
+            class="sendInput"
+            id="send"
+            placeholder="Type your message..."
+          />
+          <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+          <script src="/javascript/chat.js"></script>
         </div>
       </div>
     </div>
-    <script src="/javascript/chat.js"></script>
   </body>
 </html>
