@@ -1,5 +1,3 @@
-// Settings.js 
-
 const today = new Date();
 const dateOptions = {
   year: "numeric",
