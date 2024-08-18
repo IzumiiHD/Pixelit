@@ -58,8 +58,7 @@ function generatePacksHTML(packsData) {
     pack.blooks.forEach((blook) => {
       const itemDiv = document.createElement("div");
       itemDiv.classList.add("item");
-      itemDiv.style.border = "2px solid " + blook.color || "#666";
-
+      // No border is applied to itemDiv
       const img = document.createElement("img");
       img.src = blook.owned > 0 ? blook.image : "/img/lock-icon.png"; // Show blook image if owned, else lock icon
       img.alt = blook.owned > 0 ? blook.name : "Locked";
