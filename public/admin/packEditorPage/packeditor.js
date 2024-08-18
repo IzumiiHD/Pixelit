@@ -102,11 +102,11 @@ function addBlook(packDiv, packName) {
 
     var blookNameInput = document.createElement("input");
     blookNameInput.type = "text";
-    blookNameInput.placeholder = "Enter blook name";
+    blookNameInput.placeholder = "Enter blook name (e.g. Packman28)";
 
     var imageUrlInput = document.createElement("input");
     imageUrlInput.type = "text";
-    imageUrlInput.placeholder = "Enter image URL for blook";
+    imageUrlInput.placeholder = "Enter image URL for blook (e.g. OG/Packman28.png)";
 
     var blookRarityInput = document.createElement("select");
     //blookRarityInput.type = "text";
@@ -118,7 +118,7 @@ function addBlook(packDiv, packName) {
     var blookChanceInput = document.createElement("input");
     blookChanceInput.type = "text";
     blookChanceInput.placeholder =
-        "Enter the chance of getting this blook (in percentage)";
+        "Enter the chance of getting this blook (in percentage, without the percentage sign)";
 
     var blookColorInput = document.createElement("input");
     blookColorInput.type = "text";
@@ -250,7 +250,7 @@ function renderPacks(packsArray) {
 
         // Create an img element for the pack image
         var packImg = document.createElement("img");
-        packImg.src = pack.image;
+        packImg.src = `/img/packs/${pack.image}`;
         packImg.alt = pack.name;
         packDiv.appendChild(packImg);
 
@@ -306,7 +306,7 @@ function renderPacks(packsArray) {
 
             // Create an img element for the blook image
             var blookImg = document.createElement("img");
-            blookImg.src = blook.imageUrl;
+            blookImg.src = `/img/blooks/${blook.imageUrl}`;
             blookImg.alt = blook.name;
             blookDiv.appendChild(blookImg);
 

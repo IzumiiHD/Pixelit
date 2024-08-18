@@ -28,7 +28,7 @@ function createPackElement(pack) {
 
   // Create img element for pack image
   const imgElem = document.createElement("img");
-  imgElem.src = pack.image;
+  imgElem.src = `/img/packs/${pack.image}`;
   imgElem.alt = pack.name;
   imgElem.style.width = "250px";
 

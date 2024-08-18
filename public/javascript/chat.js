@@ -71,10 +71,9 @@ function createMessageHTML(message) {
             <div class="pfp">
                 <img
                     src="/img/blooks/${escapeHTML(message.pfp)}"
-                    alt="pfp"
                     draggable="false"
                     style="filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5))"
-                    onerror="this.src='/img/blooks/logo.png'"
+                    onerror="this.src='/img/blooks/logo.png';"
                 />
             </div>
             <div class="messageContainer">

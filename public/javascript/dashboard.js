@@ -57,10 +57,7 @@ fetch("/user")
     sent.innerHTML = user.stats.sent;
     packsOpened.innerHTML = user.stats.packsOpened;
     ge("pfp").src = `/img/blooks/${user.pfp}`;
-    ge("pfp").onerror = function () {
-      if (this.src == user.pfp) return
-      ge("pfp").src = user.pfp;
-    }
+    ge("pfp").onerror = function () {this.src="/img/blooks/logo.png";}
     //if (ge("pfp"))
     ge("banner").src = `/img/banner/${user.banner}`;
     ge("role").innerHTML = user.role;
