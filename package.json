@@ -1,5 +1,5 @@
 {
-  "name": "pixelit-nodejs-rewrite",
+  "name": "pixelit-rewrite",
   "version": "1.0.0",
   "description": "The first Blooket private server to use pixel art!",
   "main": "index.js",
