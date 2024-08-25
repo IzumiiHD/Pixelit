@@ -694,4 +694,80 @@ router.post("/removeBlook", async (req, res) => {
   res.status(200).send("Removed blook");
 });
 
+// Badge-related Routes from badgeeditor.js
+router.get("/getAccounts", async (req, res) => {
+  try {
+    const usersList = await users.find().toArray();
+    res.status(200).json(usersList);
+  } catch (err) {
+    res.status(500).send("Error retrieving users");
+  }
+});
+router.get("/getBadges", async (req, res) => {
+  try {
+    const badgesList = await badges.find().toArray();
+    res.status(200).json(badgesList);
+  } catch (err) {
+    res.status(500).send("Error retrieving badges");
+  }
+});
+router.post("/addBadge", async (req, res) => {
+  const { username, badge } = req.body;
+  try {
+    const user = await users.findOne({ username });
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    if (!user.badges.includes(badge.name)) {
+      await users.updateOne(
+        { username },
+        { $push: { badges: badge.name } }
+      );
+      res.status(200).json({ success: true });
+    } else {
+      res.status(400).json({ success: false, msg: "User already has this badge!" });
+    }
+  } catch (err) {
+    res.status(500).send("Error adding badge");
+  }
+});
+router.post("/removeBadge", async (req, res) => {
+  const { username, badge } = req.body;
+  try {
+    const user = await users.findOne({ username });
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    if (user.badges.includes(badge.name)) {
+      await users.updateOne(
+        { username },
+        { $pull: { badges: badge.name } }
+      );
+      res.status(200).json({ success: true });
+    } else {
+      res.status(400).json({ success: false, msg: "User does not have this badge!" });
+    }
+  } catch (err) {
+    res.status(500).send("Error removing badge");
+  }
+});
+// Update socket.io handlers (if socket.io is used elsewhere)
+const io = require('socket.io')(/* server instance */);
+io.on('connection', (socket) => {
+  socket.on('getAccounts', async () => {
+    const accounts = await users.find().toArray();
+    socket.emit('getAccounts', accounts);
+  });
+  socket.on('getBadges', async () => {
+    const badgesList = await badges.find().toArray();
+    socket.emit('getBadges', badgesList);
+  });
+  socket.on('badgeUpdate', async () => {
+    const updatedUsers = await users.find().toArray();
+    io.emit('badgeUpdate', updatedUsers);
+  });
+});
+module.exports = router;
+
+
 module.exports = router;

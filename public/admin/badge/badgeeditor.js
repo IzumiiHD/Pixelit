@@ -1,21 +1,3 @@
-// Array of users with their badges
-let usersWithBadges = [
-    { username: "user1", badges: [] },
-    { username: "user2", badges: ["Badge1"] },
-    { username: "user3", badges: ["Badge2", "Badge3"] },
-    { username: "user4", badges: ["Badge4"] },
-    { username: "user5", badges: ["Badge5"] },
-];
-
-// Array of available badges with images
-let availableBadges = [
-    { name: "Badge1", image: "badge1.png" },
-    { name: "Badge2", image: "badge2.png" },
-    { name: "Badge3", image: "badge3.png" },
-    { name: "Badge4", image: "badge4.png" },
-    { name: "Badge5", image: "badge5.png" },
-];
-
 // Function to generate user list with badges
 function generateUserList(usersArray) {
     const userList = document.getElementById("userList");
@@ -60,10 +42,26 @@ function generateUserList(usersArray) {
                     (badge) => badge.name === selectedBadge,
                 );
                 if (badge) {
-                    socket.emit("addBadge", { username: user.username, badge });
-                    user.badges.push(badge);
+                    fetch("/addBadge", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json"},
+                        body: JSON.stringify({ username: user.username, badge }),
+                    })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            console.error(response.statusText);
+                        }
+                    })
+                    .then((data) => {
+                        if (data.success) {
+                            filterUsers(document.getElementById("searchInput").value);
+                        } else {
+                            alert(data.msg); 
+                        }
+                    });
                 }
-                filterUsers(document.getElementById("searchInput").value);
             } else {
                 alert("User already has this badge!");
             }
@@ -73,8 +71,8 @@ function generateUserList(usersArray) {
         const removeDropdown = document.createElement("select");
         user.badges.forEach((badge) => {
             const option = document.createElement("option");
-            option.value = badge.name;
-            option.textContent = badge.name;
+            option.value = badge;
+            option.textContent = badge;
             removeDropdown.appendChild(option);
         });
         userElement.appendChild(removeDropdown);
@@ -82,25 +80,34 @@ function generateUserList(usersArray) {
         removeButton.textContent = "Remove Badge";
         removeButton.addEventListener("click", function () {
             const selectedBadge = removeDropdown.value;
-            const badge = user.badges.find(
-                    (badge) => badge.name === selectedBadge,
-                );
-            if (!badge) {
-                alert("User does not have this badge!");
-                return
-            }
-            const index = user.badges.indexOf(badge);
-            if (index !== -1) {
-                user.badges.splice(index, 1);
+            if (user.badges.includes(selectedBadge)) {
+                user.badges = user.badges.filter(badge => badge !== selectedBadge);
+                const badge = availableBadges.find(
+                        (badge) => badge.name === selectedBadge,
+                    );
                 if (badge) {
-                    socket.emit("removeBadge", {
-                        username: user.username,
-                        badge: badge,
+                    fetch("/removeBadge", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ username: user.username, badge }),
+                    })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            console.error(response.statusText);
+                        }
+                    })
+                    .then((data) => {
+                        if (data.success) {
+                            filterUsers(document.getElementById("searchInput").value);
+                        } else {
+                            alert(data.msg);
+                        }
                     });
                 }
-                filterUsers(document.getElementById("searchInput").value);
             } else {
-                alert("Badge not found!");
+                alert("User does not have this badge!");
             }
         });
         userElement.appendChild(removeButton);
