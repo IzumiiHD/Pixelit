@@ -4,8 +4,11 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
 const db_name = "pixelit";
 const CryptoJS = require("crypto-js");
-
 const rateLimit = require("express-rate-limit");
+const Stripe = require("stripe");
+const bodyParser = require("body-parser");
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -751,23 +754,30 @@ router.post("/removeBadge", async (req, res) => {
     res.status(500).send("Error removing badge");
   }
 });
-// Update socket.io handlers (if socket.io is used elsewhere)
-const io = require('socket.io')(/* server instance */);
-io.on('connection', (socket) => {
-  socket.on('getAccounts', async () => {
-    const accounts = await users.find().toArray();
-    socket.emit('getAccounts', accounts);
-  });
-  socket.on('getBadges', async () => {
-    const badgesList = await badges.find().toArray();
-    socket.emit('getBadges', badgesList);
-  });
-  socket.on('badgeUpdate', async () => {
-    const updatedUsers = await users.find().toArray();
-    io.emit('badgeUpdate', updatedUsers);
-  });
-});
-module.exports = router;
 
+// Body parser middleware to handle JSON requests
+router.use(bodyParser.json());
+
+// Create a checkout session for "Pixelit Plus"
+router.post("/create-checkout-session", async (req, res) => {
+  const { priceId } = req.body;
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      mode: 'subscription', // Use 'payment' for one-time payments
+      success_url: `${req.headers.origin}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.origin}/cancelled.html`,
+    });
+    res.status(200).json({ id: session.id });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 module.exports = router;
