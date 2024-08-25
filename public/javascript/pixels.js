@@ -78,7 +78,7 @@ function generatePacksHTML(packsData) {
 
         // Update the details section
         blookName.textContent = name;
-        blookImage.src = `/img/blooks/${imageSrc}`;
+        blookImage.src = imageSrc;
         blookImage.style.display = "block";
         blookRarity.textContent = `Rarity: ${rarity}`;
         blookOwned.textContent = `Owned: ${owned}`;

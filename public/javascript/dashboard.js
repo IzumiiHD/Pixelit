@@ -64,13 +64,16 @@ fetch("/user")
     const usernameElement = ge("username");
     usernameElement.innerHTML = user.username;
     if (user.role === "Owner") {
-        const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
-        let colorIndex = 0;
-        setInterval(() => {
-            usernameElement.style.transition = "color 0.5s ease";
-            usernameElement.style.color = colors[colorIndex];
-            colorIndex = (colorIndex + 1) % colors.length;
-        }, 500);
+        usernameElement.style.background = "url('/img/rainbow.gif')";
+        usernameElement.style.backgroundClip = "text";
+        usernameElement.style.webkitBackgroundClip = "text";
+        usernameElement.style.color = "transparent";
+    }
+    if (user.role === "Owner") {
+        ge("role").style.background = "url('/img/rainbow.gif')";
+        ge("role").style.backgroundClip = "text";
+        ge("role").style.webkitBackgroundClip = "text";
+        ge("role").style.color = "transparent";
     }
     renderBadges(user.badges);
   })
@@ -141,4 +144,10 @@ socket.on("getUserBadges", (badges) => {
   }
   console.log(badges);
   renderBadges(badges);
+});
+
+ge("banner").parentElement.addEventListener("click", () => {
+  if (user.role === "Common") {
+    alert("You do not have permission to change your banner.");
+  }
 });

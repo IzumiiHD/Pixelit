@@ -7,12 +7,17 @@ const socket = io()
 let username = ge("uname")
 let password = ge("psw")
 let reason = ge("rea")
+let age = ge("age")
+let discord = ge("discord")
+
 
 function register(event) {
   event.preventDefault()
   const requestBody = {
     username: username.value,
     password: password.value,
+    age: age.value,
+    discord: discord.value,
     reason: reason.value
   };
   fetch('/register', {

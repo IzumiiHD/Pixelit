@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       }
     })
     .then((data) => {
-      accountRequests = data.slice(0, 10); // Allow only 10 requests to be displayed
+      accountRequests = data.slice(0, 50); // Allow only 50 requests to be displayed
       renderAccountRequests();
     })
     .catch((error) => {
