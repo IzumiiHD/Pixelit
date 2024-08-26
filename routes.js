@@ -54,7 +54,6 @@ async function run() {
 
     requests = await client.db(db_name).collection("requests").find().toArray();
     //console.log(requests);
-
   } catch {
     console.log("mongodb connection error");
   } /*finally {
@@ -303,7 +302,7 @@ router.post("/changePfp", async (req, res) => {
       const pack = session.packs.find((pack) => pack.name == body.parent);
       if (!pack || pack === null) return;
       const blook = pack.blooks.find((blook) => blook.name == body.name);
-      console.log(blook)
+      console.log(blook);
       if (session.pfp == blook.image) {
         res
           .status(200)
@@ -479,53 +478,6 @@ router.get("/openPack", async (req, res) => {
     }
   }
 });
-
-router.get('/spins', async (req, res) => {
-  if (!req.session.loggedIn) {
-    return res.status(401).send('You must be logged in to spin.');
-  }
-
-
-  
-  try {
-    const username = req.session.username;
-    const user = await users.findOne({ username: username });
-
-    if (!user) {
-      return res.status(404).send('User not found.');
-    }
-
-    const now = Date.now();
-    const lastSpinTime = user.lastSpinTime;
-
-    const ONE_HOUR = 60 * 60 * 1000; // One hour in milliseconds
-const possibleTokens = [500, 600, 700, 800, 900, 1000];
-    
-    if (lastSpinTime && (now - lastSpinTime) < ONE_HOUR) {
-      const timeLeft = Math.ceil((ONE_HOUR - (now - lastSpinTime)) / 1000 / 60);
-      return res.status(429).send({ msg: `You can spin again in ${timeLeft} minute(s).` });
-    }
-
-    // Calculate earned tokens
-    const earnedTokens = possibleTokens[Math.floor(Math.random() * possibleTokens.length)];
-    
-    // Update user tokens, spinned count, and last spin time
-    await users.updateOne(
-      { username: username },
-      { 
-        $set: { lastSpinTime: now },
-        $inc: { tokens: earnedTokens, spinned: 1 }
-      }
-    );
-
-    // Send response back to the client
-    res.status(200).send({ tokens: earnedTokens, msg: `You have earned ${earnedTokens} tokens!` });
-  } catch (error) {
-    console.error('Error in /spins route:', error);
-    res.status(500).send('Internal server error.');
-  }
-});
-
 
 router.get("/users", async (req, res) => {
   const session = req.session;
@@ -740,13 +692,12 @@ router.post("/addBadge", async (req, res) => {
       return res.status(404).send("User not found");
     }
     if (!user.badges.includes(badge.name)) {
-      await users.updateOne(
-        { username },
-        { $push: { badges: badge.name } }
-      );
+      await users.updateOne({ username }, { $push: { badges: badge.name } });
       res.status(200).json({ success: true });
     } else {
-      res.status(400).json({ success: false, msg: "User already has this badge!" });
+      res
+        .status(400)
+        .json({ success: false, msg: "User already has this badge!" });
     }
   } catch (err) {
     res.status(500).send("Error adding badge");
@@ -760,16 +711,41 @@ router.post("/removeBadge", async (req, res) => {
       return res.status(404).send("User not found");
     }
     if (user.badges.includes(badge.name)) {
-      await users.updateOne(
-        { username },
-        { $pull: { badges: badge.name } }
-      );
+      await users.updateOne({ username }, { $pull: { badges: badge.name } });
       res.status(200).json({ success: true });
     } else {
-      res.status(400).json({ success: false, msg: "User does not have this badge!" });
+      res
+        .status(400)
+        .json({ success: false, msg: "User does not have this badge!" });
     }
   } catch (err) {
     res.status(500).send("Error removing badge");
+  }
+});
+
+router.get("/claim", async (req, res) => {
+  const session = req.session;
+  if (session == null || !session.loggedIn) return;
+
+  const user = await users.findOne({ username: req.session.username });
+
+  if (date.now() - user.spinned < 1000 * 60 * 60) {
+    const tokenValues = [
+      500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000,
+    ];
+    const randomIndex = Math.floor(Math.random() * tokenValues.length);
+    const tokensWon = tokenValues[randomIndex];
+
+    const result = await users.updateOne(
+      { username: session.username },
+      { $inc: { tokens: tokensWon }, $set: { spinned: Date.now() } },
+    );
+    if (result.modifiedCount > 0) {
+      console.log("Tokens won:", tokensWon);
+      res.status(200).send({ tokens: tokensWon });
+    }
+  } else {
+    res.status(500).send(`Wait for ${date.now() - user.spinned }`)
   }
 });
 
@@ -781,14 +757,14 @@ router.post("/create-checkout-session", async (req, res) => {
   const { priceId } = req.body;
   try {
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ["card"],
       line_items: [
         {
           price: priceId,
           quantity: 1,
         },
       ],
-      mode: 'subscription', // Use 'payment' for one-time payments
+      mode: "subscription", // Use 'payment' for one-time payments
       success_url: `${req.headers.origin}/success.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/cancelled.html`,
     });

@@ -8,53 +8,14 @@ function ge(id) {
   return document.getElementById(id);
 }
 
-// Define the possibleTokens Array and spins Function
-const possibleTokens = [500, 600, 700, 800, 900, 1000];
-const ONE_HOUR = 60 * 60 * 1000; // One hour in milliseconds
-
-function spins() {
-  const user = getUserFromSession(); // Retrieve user data from session/local storage
-  const now = Date.now();
-
-  if (!user || typeof user.tokens !== 'number') { // Ensure user and tokens are valid
-    console.error("Invalid user data or tokens");
-    return;
-  }
-
-  if (user.lastSpinTime && (now - user.lastSpinTime) < ONE_HOUR) {
-    const timeLeft = Math.ceil((ONE_HOUR - (now - user.lastSpinTime)) / 1000 / 60);
-    alert(`You can spin again in ${timeLeft} minute(s).`);
-    return;
-  }
-
-  // Perform token claiming logic if the user is allowed to spin
-  const earnedTokens = possibleTokens[Math.floor(Math.random() * possibleTokens.length)];
-  user.tokens = (user.tokens || 0) + earnedTokens;
-  user.spinned = (user.spinned || 0) + 1;
-  user.lastSpinTime = now;
-
-  updateUserInSession(user); // Update the user data in session/local storage
-
-  console.log("User data after spin:", user); // Debugging log
-
-  // Update the UI
-  document.getElementById('tokens').innerText = user.tokens;
-  alert(`You have earned ${earnedTokens} tokens!`);
-}
-
-// Helper functions
-function getUserFromSession() {
-  const user = JSON.parse(localStorage.getItem('user'));
-  console.log("User data retrieved from storage:", user); // Debugging log
-  return user || { tokens: 0, spinned: 0 }; // Ensure valid user object with default values
-}
-
-function updateUserInSession(user) {
-  localStorage.setItem('user', JSON.stringify(user));
-}
-
-// Event listener for the spin button
-document.getElementById('spin').addEventListener('click', spins);
+ge("spin").addEventListener("click", () => {
+  const tokenValues = [500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000];
+  const randomIndex = Math.floor(Math.random() * tokenValues.length);
+  const tokensWon = tokenValues[randomIndex];
+  user.tokens += tokensWon;
+  tokens.innerHTML = user.tokens;
+  alert(`Congratulations! You claimed ${tokensWon} tokens!`);
+});
 
 // Function to render badges
 function renderBadges(badges) {
@@ -181,4 +142,19 @@ ge("banner").parentElement.addEventListener("click", () => {
   if (user.role === "Common") {
     alert("You do not have permission to change your banner.");
   }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/user')  // Adjust this to your actual API endpoint
+    .then(response => response.json())
+    .then(data => {
+      const userRole = data.role;
+      const allowedRoles = ['Owner', 'Admin', 'Moderator', 'Helper'];
+      if (allowedRoles.includes(userRole)) {
+        document.getElementById('wrench-icon').style.display = 'inline';
+      }
+    })
+  .catch(error => {
+   console.error('Error fetching user role:', error);
+    });
 });
