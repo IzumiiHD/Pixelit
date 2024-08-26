@@ -745,7 +745,7 @@ router.get("/claim", async (req, res) => {
       res.status(200).send({ tokens: tokensWon });
     }
   } else {
-    res.status(500).send(`Wait for ${date.now() - user.spinned }`)
+    res.status(500).send(`Wait for ${(date.now() - user.spinned / 3600000).toFixed(2)} hours before claiming again`)
   }
 });
 
