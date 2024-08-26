@@ -11,8 +11,8 @@ function ge(id) {
 ge("spin").addEventListener("click", () => {
   /*const tokenValues = [500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000];
   const randomIndex = Math.floor(Math.random() * tokenValues.length);
-  const tokensWon = tokenValues[randomIndex];
-  user.tokens += tokensWon;*/
+  const tokensWon = tokenValues[randomIndex];*/
+  user.tokens += tokensWon;
   tokens.innerHTML = user.tokens;
   alert(`Congratulations! You claimed ${tokensWon} tokens!`);
 });
