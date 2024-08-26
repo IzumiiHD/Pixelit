@@ -26,7 +26,7 @@
           <a href="../site/market.html"><i class="fa-solid fa-store"></i></a>
           <a href="../site/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
           <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
-          <a href="../admin/enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
+        <a id="wrench-icon" href="../admin/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
           <a href="../site/settings.html"><i class="fa-solid fa-gear"></i></a>
           <a href="../site/news.html"><i class="fa-solid fa-newspaper"></i></a>
           </div>
@@ -114,3 +114,18 @@
       </div>
   </body>
    <script src="/javascript/settings.js"></script>
+  <script> document.addEventListener('DOMContentLoaded', function() {
+        fetch('/user')  // Adjust this to your actual API endpoint
+          .then(response => response.json())
+          .then(data => {
+            const userRole = data.role;
+            const allowedRoles = ['Owner', 'Admin', 'Moderator', 'Helper'];
+            if (allowedRoles.includes(userRole)) {
+              document.getElementById('wrench-icon').style.display = 'inline';
+            }
+          })
+        .catch(error => {
+         console.error('Error fetching user role:', error);
+          });
+      });
+  </script>

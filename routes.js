@@ -9,7 +9,6 @@ const Stripe = require("stripe");
 const bodyParser = require("body-parser");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 15, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
@@ -56,9 +55,6 @@ async function run() {
     requests = await client.db(db_name).collection("requests").find().toArray();
     //console.log(requests);
 
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!",
-    );
   } catch {
     console.log("mongodb connection error");
   } /*finally {
@@ -484,30 +480,52 @@ router.get("/openPack", async (req, res) => {
   }
 });
 
-router.get("/spin", async (req, res) => {
-  const session = req.session;
-  if (session && session.loggedIn) {
-    const name = session.username;
-    const user = await users.findOne({ username: name });
-    if (
-      user &&
-      (!user.hasOwnProperty("spinned") ||
-        typeof user.spinned !== "number" ||
-        Date.now() - user.spinned >= 3600000)
-    ) {
-      const gained = Math.floor(500 + Math.random() * 800);
-      await users.updateOne(
-        { username: name },
-        { $inc: { tokens: gained, spinned: Date.now() } },
-      );
-      console.log(`${name} gained ${gained} tokens!`);
-      res.status(200).send({
-        msg: `Claimed ${gained} tokens!`,
-        tokens: user.tokens + gained,
-      });
+router.get('/spins', async (req, res) => {
+  if (!req.session.loggedIn) {
+    return res.status(401).send('You must be logged in to spin.');
+  }
+
+
+  
+  try {
+    const username = req.session.username;
+    const user = await users.findOne({ username: username });
+
+    if (!user) {
+      return res.status(404).send('User not found.');
     }
+
+    const now = Date.now();
+    const lastSpinTime = user.lastSpinTime;
+
+    const ONE_HOUR = 60 * 60 * 1000; // One hour in milliseconds
+const possibleTokens = [500, 600, 700, 800, 900, 1000];
+    
+    if (lastSpinTime && (now - lastSpinTime) < ONE_HOUR) {
+      const timeLeft = Math.ceil((ONE_HOUR - (now - lastSpinTime)) / 1000 / 60);
+      return res.status(429).send({ msg: `You can spin again in ${timeLeft} minute(s).` });
+    }
+
+    // Calculate earned tokens
+    const earnedTokens = possibleTokens[Math.floor(Math.random() * possibleTokens.length)];
+    
+    // Update user tokens, spinned count, and last spin time
+    await users.updateOne(
+      { username: username },
+      { 
+        $set: { lastSpinTime: now },
+        $inc: { tokens: earnedTokens, spinned: 1 }
+      }
+    );
+
+    // Send response back to the client
+    res.status(200).send({ tokens: earnedTokens, msg: `You have earned ${earnedTokens} tokens!` });
+  } catch (error) {
+    console.error('Error in /spins route:', error);
+    res.status(500).send('Internal server error.');
   }
 });
+
 
 router.get("/users", async (req, res) => {
   const session = req.session;
