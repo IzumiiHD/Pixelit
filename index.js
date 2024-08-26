@@ -208,24 +208,7 @@ io.on("connection", (socket) => {
     //const chat = JSON.parse(jsonData1);
     socket.emit("chatupdate", await chatm.find().toArray());
   });
-  socket.on("spin", async (name) => {
-    //await client.connect();
-    const user = await users.findOne({ username: name });
-    if (
-      user &&
-      (!user.hasOwnProperty("spinned") ||
-        typeof user.spinned !== "number" ||
-        Date.now() - user.spinned >= 3600000)
-    ) {
-      const gained = Math.floor(500 + Math.random() * 1000);
-      await users.updateOne(
-        { username: name },
-        { $inc: { tokens: gained, spinned: Date.now() } },
-      );
-      io.to(socket.id).emit("spinned", gained);
-      console.log(`${name} gained ${gained} tokens!`);
-    }
-  });
+  
   socket.on("getNews", async () => {
     //await client.connect();
     const newsPosts = await news.find().toArray();
