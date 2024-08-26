@@ -64,7 +64,10 @@ function createPackElement(pack) {
         }
       })
       .then((data) => {
-        alert(`You have opened the ${data.pack} and got ${data.blook.name}!`);
+        const packInfoDiv = document.createElement('div');
+        packInfoDiv.classList.add('pack-info');
+        const marketLogs = document.getElementById('marketLogs');
+        marketLogs.innerHTML += `<br>You have opened the ${data.pack} and got ${data.blook.name}!`;
         fetch("/user", {
           method: "GET",
           headers: {

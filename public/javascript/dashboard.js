@@ -14,7 +14,7 @@ ge("spin").addEventListener("click", () => {
   const tokensWon = tokenValues[randomIndex];*/
   user.tokens += tokensWon;
   tokens.innerHTML = user.tokens;
-  alert(`Congratulations! You claimed ${tokensWon} tokens!`);
+  alert(`Congratulations!, You claimed ${tokensWon} tokens!`);
 });
 
 // Function to render badges
@@ -84,12 +84,35 @@ fetch("/user")
         usernameElement.style.backgroundClip = "text";
         usernameElement.style.webkitBackgroundClip = "text";
         usernameElement.style.color = "transparent";
-    }
-    if (user.role === "Owner") {
         ge("role").style.background = "url('/img/rainbow.gif')";
         ge("role").style.backgroundClip = "text";
         ge("role").style.webkitBackgroundClip = "text";
         ge("role").style.color = "transparent";
+    }
+    if (user.role === "Plus") {
+      usernameElement.style.color = "blue";
+      ge("role").style.color = "blue";
+
+    }
+    if (user.role === "Tester") {
+      usernameElement.style.color = "#24e2d8";
+      ge("role").style.color = "#24e2d8";
+
+    }
+    if (user.role === "Helper") {
+      usernameElement.style.color = "#1973a0";
+      ge("role").style.color = "#1973a0";
+
+    }
+    if (user.role === "Moderator") {
+      usernameElement.style.color = "#710879";
+      ge("role").style.color = "#710879";
+
+    }
+    if (user.role === "Admin") {
+      usernameElement.style.color = "#bd0404";
+      ge("role").style.color = "#bd0404";
+
     }
     renderBadges(user.badges);
   })
@@ -97,7 +120,6 @@ fetch("/user")
     console.error("There was a problem with the fetch operation:", error);
   });
 
-// Welcome message based on session
 if (sessionStorage.loggedin == "true") {
   username.innerHTML = " " + sessionStorage.username;
   updateTokens();

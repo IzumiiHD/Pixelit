@@ -17,3 +17,4 @@ document.getElementById('buy-button').addEventListener('click', async () => {
     console.error(result.error.message);
   }
 });
+
