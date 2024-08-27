@@ -16,7 +16,7 @@ function ge(id) {
     return document.getElementById(id);
 }
 
-const socket = io();
+const socket = io('https://pixelit.replit.app/site/chat.html');
 
 console.log("Chat has been successfully loaded!");
 
@@ -115,7 +115,7 @@ ge("send").addEventListener("keydown", (e) => {
             e.target.value = "";
             return;
         }
-        if (byte(msg) > 1000) {
+        if (byte(msg) > 500) {
             alert("Message is too long!");
             e.target.value = "";
             return;
@@ -149,19 +149,4 @@ socket.on("chatupdate", (data) => {
     }
     messages = data;
     updateMessages(messages);
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  fetch('/user')  // Adjust this to your actual API endpoint
-    .then(response => response.json())
-    .then(data => {
-      const userRole = data.role;
-      const allowedRoles = ['Owner', 'Admin', 'Moderator', 'Helper'];
-      if (allowedRoles.includes(userRole)) {
-        document.getElementById('wrench-icon').style.display = 'inline';
-      }
-    })
-  .catch(error => {
-   console.error('Error fetching user role:', error);
-    });
 });

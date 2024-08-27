@@ -264,10 +264,10 @@ body {
   left: 0;
   position: relative;
   border-bottom: none;
-  color: black !important;
+  color: #fff !important;
   font-family: 'Pixelify Sans';
   padding: 20px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 5px rgb(255, 255, 255, 0.3);
   border-radius: 8px;
   overflow: hidden;
   display: flex;
@@ -278,7 +278,7 @@ body {
   overflow: auto;
   position: relative;
   overflow-y: scroll;
-  overflow-x: auto;
+  overflow-x: hidden;
   height: calc(100% - 55px);
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -290,7 +290,7 @@ body {
   justify-content: left;
   align-items: center;
   margin-left: 6px;
-  gap: 12px;
+  gap: 10px;
 }
 .pfp img{
   width: 65px;
@@ -300,14 +300,14 @@ body {
 .messageContainer{
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
 }
 .usernameAndBadges{
   display: flex;
   gap: 5px;
 }
 .username{
-  font-size: 23px;
+  font-size: 20px;
 }
 .badge{
   width: 25px;
@@ -316,5 +316,5 @@ body {
 .badges{
   display: flex;
   flex-direction: row;
-  gap: 12px;
+  gap: 3px;
 }

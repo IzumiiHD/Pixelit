@@ -9,9 +9,16 @@ function ge(id) {
 }
 
 ge("spin").addEventListener("click", () => {
-  /*const tokenValues = [500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000];
-  const randomIndex = Math.floor(Math.random() * tokenValues.length);
-  const tokensWon = tokenValues[randomIndex];*/
+  const now = new Date().getTime();
+  const oneHour = 60 * 60 * 1000;
+  const lastSpinTime = localStorage.getItem('lastSpinTime');
+  if (lastSpinTime && (now - lastSpinTime < oneHour)) {
+    const remainingTime = Math.ceil((oneHour - (now - lastSpinTime)) / 60000);
+    alert(`You have already claimed your tokens, please wait ${remainingTime} minutes to claim it again.`);
+    return;
+  }
+  localStorage.setItem('lastSpinTime', now);
+  const tokensWon = Math.floor(Math.pow(Math.random(), 2.5) * 6) * 100 + 500;
   user.tokens += tokensWon;
   tokens.innerHTML = user.tokens;
   alert(`Congratulations!, You claimed ${tokensWon} tokens!`);

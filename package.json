@@ -16,6 +16,7 @@
     "marked": "^14.0.0",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.3",
+    "node-cache": "^5.1.2",
     "socket.io": "^4.7.5",
     "stripe": "^16.8.0"
   },
