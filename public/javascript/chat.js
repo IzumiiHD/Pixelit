@@ -1,12 +1,14 @@
+// Utility function to escape HTML
 function escapeHTML(str) {
     const div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
 }
 
+// Parse and sanitize the message
 function parseMessage(str) {
-    const safe_str = escapeHTML(str); // remove all HTML tags from the message (leaves just plaintext and markdown)
-    const parsed = marked.parse(safe_str); // parse markdown into HTML
+    const safeStr = escapeHTML(str); // remove all HTML tags from the message (leaves just plaintext and markdown)
+    const parsed = marked.parse(safeStr); // parse markdown into HTML
     const sanitized = DOMPurify.sanitize(parsed); // remove any unsafe HTML tags from parsed markdown
     return sanitized;
 }
@@ -16,8 +18,7 @@ function ge(id) {
     return document.getElementById(id);
 }
 
-const socket = io('https://pixelit.replit.app/site/chat.html');
-
+const socket = io();
 console.log("Chat has been successfully loaded!");
 
 let messages = [];
@@ -25,18 +26,17 @@ let users = [
     {
         username: "Pixelit",
         pfp: "/img/blooks/logo.png",
-        badges: ["/img/blooks/logo.png", "e"],
+        badges: ["/img/blooks/logo.png", "e"]
     },
 ];
 
 let username, pfp, badges;
 
+// Fetch user data
 fetch("/user")
     .then((response) => {
         if (!response.ok) {
-            throw new Error(
-                "Network response was not ok " + response.statusText,
-            );
+            throw new Error("Network response was not ok " + response.statusText);
         }
         return response.json();
     })
@@ -51,20 +51,12 @@ fetch("/user")
 
 //--------------------------Functions-------------------------------------------
 
+// Efficient DOM update for messages
 function createMessageHTML(message) {
     const username = escapeHTML(message.sender);
-
-    const badgesHTML = message.badges
-        .map(
-            (badge) => `
-        <img
-            src="${escapeHTML(badge.image)}"
-            draggable="false"
-            class="badge"
-        />
-    `,
-        )
-        .join("");
+    const badgesHTML = (message.badges || []).map(
+        badge => `<img src="${escapeHTML(badge.image)}" draggable="false" class="badge" />`
+    ).join("");
 
     return `
         <div class="message">
@@ -79,9 +71,7 @@ function createMessageHTML(message) {
             <div class="messageContainer">
                 <div class="usernameAndBadges">
                     <div class="username">${username}</div>
-                    <div class="badges">
-                        ${badgesHTML}
-                    </div>
+                    <div class="badges">${badgesHTML}</div>
                 </div>
                 <div class="messageText">${parseMessage(message.msg)}</div>
             </div>
@@ -89,64 +79,67 @@ function createMessageHTML(message) {
     `;
 }
 
+// Batch update messages to reduce reflows
 function updateMessages(messages) {
     const messagesContainer = ge("chatContainer");
-    messagesContainer.innerText = "";
+    const fragment = document.createDocumentFragment();
 
-    messages.forEach((message) => {
-        const messageHTML = createMessageHTML(message);
-        messagesContainer.innerHTML += messageHTML;
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    messages.forEach(message => {
+        const messageHTML = document.createElement('div');
+        messageHTML.innerHTML = createMessageHTML(message);
+        fragment.appendChild(messageHTML);
     });
+
+    messagesContainer.innerHTML = ""; // Clear existing content
+    messagesContainer.appendChild(fragment); // Append batched updates
+    messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to bottom
 }
 
-const byte = (str) => {
-    let size = new Blob([str]).size;
-    return size;
-};
+// Utility to get byte size of a string
+const byte = (str) => new Blob([str]).size;
 
-//------------------------Socket io thingies-----------------------------------
+//------------------------Socket io handlers-----------------------------------
 
+// Handle send message action
 ge("send").addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
         e.preventDefault();
-        const msg = e.target.value;
-        if (msg.trim() === "") {
+        const msg = e.target.value.trim();
+        if (msg === "") {
             e.target.value = "";
             return;
         }
-        if (byte(msg) > 500) {
+        if (byte(msg) > 1000) {
             alert("Message is too long!");
             e.target.value = "";
             return;
         }
-        const chatmessage = {
-            sender: username,
-            msg,
-            badges: badges,
-            pfp: pfp,
-        };
-        messages.push(chatmessage);
+        const chatMessage = { sender: username, msg, badges, pfp };
+        messages.push(chatMessage);
         updateMessages(messages);
         socket.emit("message", msg);
         e.target.value = "";
     }
 });
 
+// Initial fetch of chat messages
 socket.emit("getChat");
 
+// Handle chat updates
 socket.on("chatupdate", (data) => {
     if (data === "get") {
         socket.emit("getChat");
         return;
     }
-    data.forEach(function (v) {
-        delete v._id;
-    });
-    if (data == messages) {
-        console.log("No new messages");
-        return;
+
+    // Create a set of existing message ids to prevent duplicate messages
+    const existingMessagesSet = new Set(messages.map(msg => msg._id));
+
+    // Check if there are new messages
+    if (JSON.stringify(data) !== JSON.stringify(messages)) {
+        // Filter out duplicate messages
+        data = data.filter(msg => !existingMessagesSet.has(msg._id));
+        messages = messages.concat(data);
+        updateMessages(messages);
     }
-    messages = data;
-    updateMessages(messages);
 });
