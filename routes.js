@@ -774,4 +774,31 @@ router.post("/create-checkout-session", async (req, res) => {
   }
 });
 
+router.post("/updateBanner", async (req, res) => {
+  const session = req.session;
+
+  // Ensure the user is authenticated
+  if (!session || !session.loggedIn) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  try {
+    const db = client.db(db_name);
+    const users = db.collection("users");
+
+    // Update the user's banner
+    const result = await users.updateOne(
+      { username: session.username },
+      { $set: { banner: req.body.banner } }
+    );
+
+    // Check if the update was successful
+    if (result.modifiedCount > 0) {
+      return res.status(200).json({ success: true, message: "Banner updated successfully." });
+    } else {
+      return res.status(500).json({ success: false, message: "Failed to update banner." });
+    }
+  } catch (error) {
+    console.error("Error updating banner:", error
+
 module.exports = router;
