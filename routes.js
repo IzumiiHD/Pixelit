@@ -723,31 +723,45 @@ router.post("/removeBadge", async (req, res) => {
   }
 });
 
-router.get("/claim", async (req, res) => {
-  const session = req.session;
-  if (session == null || !session.loggedIn) return;
-
+router.get('/claim', async (req, res) => {
+  const db = client.db("pixelti");
+  const users = db.collection('users');
   const user = await users.findOne({ username: req.session.username });
 
-  if (date.now() - user.spinned < 1000 * 60 * 60) {
-    const tokenValues = [
-      500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000,
-    ];
-    const randomIndex = Math.floor(Math.random() * tokenValues.length);
-    const tokensWon = tokenValues[randomIndex];
+  const claimedTokens = parseInt(req.query.tokens, 10); // Get the claimed tokens from the request query
 
-    const result = await users.updateOne(
-      { username: session.username },
-      { $inc: { tokens: tokensWon }, $set: { spinned: Date.now() } },
+  if (isNaN(claimedTokens) || claimedTokens <= 0) {
+    res.status(400).send('Invalid token value');
+    return;
+  }
+
+  if (user && validateUserClaim(user)) {
+    const updatedUser = await users.updateOne(
+      { username: user.username },
+      { $set: { claimed: true }, $inc: { tokens: claimedTokens } } // Increment tokens
     );
-    if (result.modifiedCount > 0) {
-      console.log("Tokens won:", tokensWon);
-      res.status(200).send({ tokens: tokensWon });
+
+    if (updatedUser.modifiedCount > 0) {
+      res.status(200).send('Claim successful');
+    } else {
+      res.status(500).send('Claim update failed');
     }
+  } else if (!user) {
+    res.status(404).send('User not found');
   } else {
-    res.status(500).send(`Wait for ${(date.now() - user.spinned / 3600000).toFixed(2)} hours before claiming again`)
+    res.status(400).send('Claim invalid');
   }
 });
+
+function validateUserClaim(user) {
+  // Add your logic to determine whether a user can claim
+  return !user.claimed;
+}
+
+function validateUserClaim(user) {
+  // Add your logic to determine whether a user can claim
+  return !user.claimed;
+}
 
 // Body parser middleware to handle JSON requests
 router.use(bodyParser.json());
@@ -761,7 +775,7 @@ router.post("/create-checkout-session", async (req, res) => {
       line_items: [
         {
           price: priceId,
-          quantity: 1,
+          quantity: 999,
         },
       ],
       mode: "subscription", // Use 'payment' for one-time payments

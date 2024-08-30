@@ -8,21 +8,22 @@ function ge(id) {
   return document.getElementById(id);
 }
 
-ge("spin").addEventListener("click", () => {
-  const now = new Date().getTime();
-  const oneHour = 60 * 60 * 1000;
-  const lastSpinTime = localStorage.getItem('lastSpinTime');
-  if (lastSpinTime && (now - lastSpinTime < oneHour)) {
-    const remainingTime = Math.ceil((oneHour - (now - lastSpinTime)) / 60000);
-    alert(`You have already claimed your tokens, please wait ${remainingTime} minutes to claim it again.`);
-    return;
+
+async function claimTokens() {
+  const tokensToClaim = 10; // Example token value to claim
+
+  const response = await fetch(`/claim?tokens=${tokensToClaim}`, {
+    method: 'GET',
+    credentials: 'include', // Include cookies if you're using sessions
+  });
+
+  if (response.ok) {
+    const result = await response.text();
+    alert(result);
+  } else {
+    alert('Error claiming tokens');
   }
-  localStorage.setItem('lastSpinTime', now);
-  const tokensWon = Math.floor(Math.pow(Math.random(), 2.5) * 6) * 100 + 500;
-  user.tokens += tokensWon;
-  tokens.innerHTML = user.tokens;
-  alert(`Congratulations!, You claimed ${tokensWon} tokens!`);
-});
+}
 
 // Function to render badges
 function renderBadges(badges) {

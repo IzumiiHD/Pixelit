@@ -32,9 +32,9 @@
             <a href="../site/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
             <a href="../site/auction.html"><i class="fa-solid fa-gavel"></i></a>
             <a id="wrench-icon" href="../admin/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
-            <a href="../site/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
             <a href="../site/settings.html"><i class="fa-solid fa-gear"></i></a>
             <a href="../site/news.html"><i class="fa-solid fa-newspaper"></i></a>
+            <a href="../site/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
           </div>
         </div> 
       </div>
@@ -132,19 +132,19 @@
         >
           <center>
             <h3 style="text-shadow: #000 1px 0 13px;">
-              To recieve our latest news posts, please check out
+              Read our latest article by clicking the button below
             </h3>
             <button
               style="width:auto; font-size:20px; border-radius:5px; background-color: #B011C2; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
               position: absolute;
               top: 80%;
-              left: 16.5%;"
+              left: 18%;"
               id="viewplayer"
               onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
               onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
               onclick="window.location.href='../site/news.html';"
             >
-              News  <i class="fa-solid fa-newspaper"></i>
+              <i class="fa-solid fa-newspaper"></i>
             </button>
           </center>
         </div>
@@ -210,7 +210,7 @@
       top: 13%;
       left: 66%;
       ">
-        <h1 style="text-shadow: #000 1px 0 13px; position: absolute; top: 0%; left: 30%;">Information</h1>
+        <h1 style="text-shadow: #000 1px 0 13px; position: absolute; top: 0%; left: 30%;">Statistics</h1>
       </div>
 
     <div class="statistics">
@@ -221,6 +221,7 @@
               Tokens: <span id="tokens"></span>
             </h3>
           </div>
+          <img src="../img/dashboard/token.svg" alt="Unlocked Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px;" />
         </div>
       </div>
 
@@ -231,6 +232,7 @@
                 Packs Opened: <span id="packs"></span>
               </h3>
             </div>
+              <img src="../img/dashboard/unlocked.png" alt="Unlocked Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px; transform: rotate(20deg);" />
           </div>
 
         <div style="height: 50%; width: 50%; position: absolute; left: 0.5%; top: 30%;">
@@ -238,7 +240,7 @@
             <div class="text">
               <h3 style="color: #fff" >Messages Sent: <span id="messages"></span></h3>
             </div>
-          </div>
+              <img src="../img/dashboard/speech.png" alt="Unlocked Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px; transform: rotate(20deg);"/>
         </div>
       </div>
     </div>
@@ -248,7 +250,7 @@
         color: #fff;
         position: absolute;
         top: 80%;
-        left: 60%;
+        left: 55%;
         text-shadow: #000 1px 0 13px;
       "
     >
@@ -256,7 +258,6 @@
     </h1>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="/javascript/dashboard.js"></script>
-    <script src="/api/notLoggedIn.js"></script>
     <!--<script src="../api/mainpage.js"></script>-->
   </body>
 </html>

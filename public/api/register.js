@@ -8,7 +8,6 @@ let username = ge("uname")
 let password = ge("psw")
 let reason = ge("rea")
 let age = ge("age")
-let discord = ge("discord")
 
 
 function register(event) {
@@ -18,7 +17,6 @@ function register(event) {
     password: password.value,
     age: age.value,
     discord: discord.value,
-    reason: reason.value
   };
   fetch('/register', {
     method: 'POST',
@@ -41,6 +39,3 @@ function register(event) {
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
   });
-  ge('id01').style.display='none' 
-  socket.emit("getrequests")
-}
