@@ -9,21 +9,16 @@ function ge(id) {
 }
 
 
-async function claimTokens() {
-  const tokensToClaim = 10; // Example token value to claim
-
-  const response = await fetch(`/claim?tokens=${tokensToClaim}`, {
-    method: 'GET',
-    credentials: 'include', // Include cookies if you're using sessions
+function addSpinClickListener() {
+  ge("spin").addEventListener("click", () => {
+    const tokensWon = Math.floor(Math.pow(Math.random(), 2.5) * 6) * 100 + 500
+    user.tokens += tokensWon;
+    tokens.innerHTML = user.tokens;
+    alert(`Congratulations! You claimed ${tokensWon} tokens!`);
   });
-
-  if (response.ok) {
-    const result = await response.text();
-    alert(result);
-  } else {
-    alert('Error claiming tokens');
-  }
 }
+
+addSpinClickListener();
 
 // Function to render badges
 function renderBadges(badges) {
@@ -113,8 +108,8 @@ fetch("/user")
 
     }
     if (user.role === "Moderator") {
-      usernameElement.style.color = "#710879";
-      ge("role").style.color = "#710879";
+      usernameElement.style.color = "#bb1bc7";
+      ge("role").style.color = "#bb1bc7";
 
     }
     if (user.role === "Admin") {

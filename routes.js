@@ -723,69 +723,60 @@ router.post("/removeBadge", async (req, res) => {
   }
 });
 
-router.get('/claim', async (req, res) => {
-  const db = client.db("pixelti");
-  const users = db.collection('users');
-  const user = await users.findOne({ username: req.session.username });
-
-  const claimedTokens = parseInt(req.query.tokens, 10); // Get the claimed tokens from the request query
-
-  if (isNaN(claimedTokens) || claimedTokens <= 0) {
-    res.status(400).send('Invalid token value');
-    return;
-  }
-
-  if (user && validateUserClaim(user)) {
-    const updatedUser = await users.updateOne(
-      { username: user.username },
-      { $set: { claimed: true }, $inc: { tokens: claimedTokens } } // Increment tokens
-    );
-
-    if (updatedUser.modifiedCount > 0) {
-      res.status(200).send('Claim successful');
-    } else {
-      res.status(500).send('Claim update failed');
-    }
-  } else if (!user) {
-    res.status(404).send('User not found');
-  } else {
-    res.status(400).send('Claim invalid');
-  }
-});
-
-function validateUserClaim(user) {
-  // Add your logic to determine whether a user can claim
-  return !user.claimed;
-}
-
-function validateUserClaim(user) {
-  // Add your logic to determine whether a user can claim
-  return !user.claimed;
-}
-
 // Body parser middleware to handle JSON requests
 router.use(bodyParser.json());
 
-// Create a checkout session for "Pixelit Plus"
-router.post("/create-checkout-session", async (req, res) => {
-  const { priceId } = req.body;
+const express = require('express');
+const app = express();
+app.use(express.static('public'));
+app.use(express.json());
+
+app.post('/create-checkout-session', async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
+      payment_method_types: ['card'],
       line_items: [
         {
-          price: priceId,
-          quantity: 999,
+          price: 'your_price_id',
+          quantity: 1,
         },
       ],
-      mode: "subscription", // Use 'payment' for one-time payments
-      success_url: `${req.headers.origin}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.origin}/cancelled.html`,
+      mode: 'payment',
+      success_url: `${req.headers.origin}/success.html`,
+      cancel_url: `${req.headers.origin}/cancel.html`,
     });
-    res.status(200).json({ id: session.id });
+    res.json({ sessionId: session.id });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error creating checkout session:', error);
+    res.status(500).json({ error: 'Failed to create checkout session' });
   }
 });
 
+app.post('/update-user-role', async (req, res) => {
+  const { username, role } = req.body;
+  try {
+    // Here you would update the user's role in your database
+    // This is just a placeholder implementation
+    const success = await updateUserRoleInDatabase(username, role);
+    if (success) {
+      res.json({ message: 'Role updated successfully' });
+    } else {
+      res.status(400).json({ message: 'Failed to update role' });
+    }
+  } catch (error) {
+    console.error('Error updating user role:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+async function updateUserRoleInDatabase(username, role) {
+  // Implement your database update logic here
+  // Return true if successful, false otherwise
+  // This is just a placeholder
+  console.log(`Updating role for ${username} to ${role}`);
+  return true;
+}
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 module.exports = router;
