@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../css/auction.css"> <!-- Link to your CSS file -->
     <title>Auction</title>
   </head>
-  <body style="background-color: #800097;">
+  <body style="background-color: #800097; overflow: hidden;">
     <img alt="Blooks Background" class="bg_img" />
       <div class="navbar">
         <div class="dropdown">
@@ -44,28 +44,57 @@
       </br>
     <html>
       <body>
-        <div
-          style="width: 80%; height: 300px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px;  position: absolute; top: 10%; left: 0%;
-        "
-        >
-        <h1 style="color: #fff; text-shadow: #000 1px 0 13px;">Auction Items</h1>
-          
-          <div class="information">
-            <div style="height: 50%; width: 30px; position: absolute; right: 0%; top: 0%; left: 102%;">
-              <div class="box box1" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
-                <div class="text">
-                    <h3 style="color: #fff;">Tokens: <span id="tokens"></span></h3>
-                </div>
-                <img src="../img/dashboard/token.svg" alt="Unlocked Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px;" />
+        
+        <div class="auction-list" draggable="false"
+          style="width: 80%; height: 370px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; position: absolute; top: 10%; left: 0%; overflow: auto; scrollbar-width: thin; scrollbar-color: #b011c2 #6f057a;">
+          <h2 style="color: #fff; text-shadow: #000 1px 0 13px;">Auction Items</h2>
+          <ul id="auction-list" style="list-style-type:none; padding: 0;">
+            <li style="background-color:#800097; margin:10px; padding:10px; border-radius:5px;">
+              <div style="display: flex; align-items: center; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
+                  <img src="../img/blooks/OG/Berry.png" alt="Berry" style="width:50px; height:50px;">
+                  <div style="margin-left: 10px;">
+                      <div>Pixel: Berry</div>
+                      <div>Bid Price: $100</div>
+                      <div>Date Listed: 2023-04-01</div>
+                  </div>
               </div>
-            </div>
+            </li>
+            <li style="background-color:#800097; margin:10px; padding:10px; border-radius:5px;">
+              <div style="display: flex; align-items: center; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
+                  <img src="../img/blooks/OG/SOUNDGOD.png" alt="SOUNDGOD" style="width:50px; height:50px;">
+                  <div style="margin-left: 10px;">
+                      <div>Pixel: SOUNDGOD</div>
+                      <div>Bid Price: $150</div>
+                      <div>Date Listed: 2023-04-02</div>
+                  </div>
+              </div>
+            </li>
+            <li style="background-color:#800097; margin:10px; padding:10px; border-radius:5px;">
+              <div style="display: flex; align-items: center; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
+                  <img src="../img/blooks/OG/IzumiiHD.png" alt="IzumiiHD" style="width:50px; height:50px;">
+                  <div style="margin-left: 10px;">
+                      <div>Pixel: IzumiiHD</div>
+                      <div>Bid Price: $200</div>
+                      <div>Date Listed: 2023-04-03</div>
+              </div>
+          </ul>
         </div>
 
-          <div
-            style="width: 100%; height: 300px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans;  position: absolute; top: 110%; left: 0%;
-          "
-          >
-          <h1 style="color: #fff; text-shadow: #000 1px 0 13px;">Recent Auctions</h1> 
+        <div class="information">
+          <div style="height: 50%; width: 30px; position: absolute; right: 0%; top: 0%; left: 102%;">
+            <div class="box box1" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
+              <div class="text">
+                  <h3 style="color: #fff;">Tokens: <span id="tokens"></span></h3>
+              </div>
+              <img src="../img/dashboard/token.svg" alt="Unlocked Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px;" />
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="width: 80%; height: 370px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px;  position: absolute; top: 55%; left: 0%; overflow: auto;">
+          <h1 style="color: #fff; text-shadow: #000 1px 0 13px;">Recent Auctions</h1>
+        </div>
             
   </body>
   </html> 

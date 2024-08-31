@@ -1,5 +1,3 @@
-
-
 // Function to add a new badge
 function addBadge(event) {
   event.preventDefault();

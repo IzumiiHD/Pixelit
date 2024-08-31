@@ -310,6 +310,11 @@ router.post("/changePfp", async (req, res) => {
         return;
       }
       if (blook && blook.owned >= 1) {
+        // Disallow profile pictures in base64 format
+        if (blook.image.startsWith("data:image")) {
+          res.status(400).send({ message: "Base64 images are not allowed." });
+          return;
+        }
         const result = await users.updateOne(
           { username: session.username },
           { $set: { pfp: blook.image } },
@@ -667,61 +672,7 @@ router.post("/removeBlook", async (req, res) => {
   res.status(200).send("Removed blook");
 });
 
-// Badge-related Routes from badgeeditor.js
-router.get("/getAccounts", async (req, res) => {
-  try {
-    const usersList = await users.find().toArray();
-    res.status(200).json(usersList);
-  } catch (err) {
-    res.status(500).send("Error retrieving users");
-  }
-});
-router.get("/getBadges", async (req, res) => {
-  try {
-    const badgesList = await badges.find().toArray();
-    res.status(200).json(badgesList);
-  } catch (err) {
-    res.status(500).send("Error retrieving badges");
-  }
-});
-router.post("/addBadge", async (req, res) => {
-  const { username, badge } = req.body;
-  try {
-    const user = await users.findOne({ username });
-    if (!user) {
-      return res.status(404).send("User not found");
-    }
-    if (!user.badges.includes(badge.name)) {
-      await users.updateOne({ username }, { $push: { badges: badge.name } });
-      res.status(200).json({ success: true });
-    } else {
-      res
-        .status(400)
-        .json({ success: false, msg: "User already has this badge!" });
-    }
-  } catch (err) {
-    res.status(500).send("Error adding badge");
-  }
-});
-router.post("/removeBadge", async (req, res) => {
-  const { username, badge } = req.body;
-  try {
-    const user = await users.findOne({ username });
-    if (!user) {
-      return res.status(404).send("User not found");
-    }
-    if (user.badges.includes(badge.name)) {
-      await users.updateOne({ username }, { $pull: { badges: badge.name } });
-      res.status(200).json({ success: true });
-    } else {
-      res
-        .status(400)
-        .json({ success: false, msg: "User does not have this badge!" });
-    }
-  } catch (err) {
-    res.status(500).send("Error removing badge");
-  }
-});
+module.exports = router;
 
 // Body parser middleware to handle JSON requests
 router.use(bodyParser.json());
