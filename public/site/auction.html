@@ -46,7 +46,7 @@
       <body>
         
         <div class="auction-list" draggable="false"
-          style="width: 80%; height: 370px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; position: absolute; top: 10%; left: 0%; overflow: auto; scrollbar-width: thin; scrollbar-color: #b011c2 #6f057a;">
+          style="width: 80%; height: 370px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; position: absolute; top: 10%; left: 0%; overflow-y: scroll; scrollbar-width: thin; scrollbar-color: #b011c2 #6f057a;">
           <h2 style="color: #fff; text-shadow: #000 1px 0 13px;">Auction Items</h2>
           <ul id="auction-list" style="list-style-type:none; padding: 0;">
             <li style="background-color:#800097; margin:10px; padding:10px; border-radius:5px;">
@@ -81,21 +81,28 @@
         </div>
 
         <div class="information">
-          <div style="height: 50%; width: 30px; position: absolute; right: 0%; top: 0%; left: 102%;">
-            <div class="box box1" style="background-color: #b011c2;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
+          <div style="height: 50%; width: 50px; position: absolute; right: 0%; top: 10%; left: 85%;">
+            <div class="box box1" style="background-color: #800097;" onmouseover="this.style.transform='scale(0.95)' " onmouseout="this.style.transform='scale(1)'">
               <div class="text">
                   <h3 style="color: #fff;">Tokens: <span id="tokens"></span></h3>
               </div>
-              <img src="../img/dashboard/token.svg" alt="Unlocked Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px;" />
+              <img src="../img/dashboard/token.png" alt="tokens" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px;" />
+
             </div>
           </div>
         </div>
 
         <div
-          style="width: 80%; height: 370px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px;  position: absolute; top: 55%; left: 0%; overflow: auto;">
-          <h1 style="color: #fff; text-shadow: #000 1px 0 13px;">Recent Auctions</h1>
+          style="width: 80%; height: 370px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; position: absolute; top: 55%; left: 0%; overflow-y: scroll; scrollbar-width: thin; scrollbar-color: #b011c2 #6f057a;">
+          <h2 style="color: #fff; text-shadow: #000 1px 0 13px;">Recent Auctions</h2>
         </div>
-            
+
+<button style="background-color: #800097; color: white; border: none; padding: 20px 40px; border-radius: 5px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); position: absolute; top: 80%; left: 10%; font-family: 'Pixelify Sans'; font-size: 24px; transition: transform 0.3s ease; position: absolute; top: 20%; left: 93.2%;" onmouseover="this.style.transform='scale(0.95)'" onmouseout="this.style.transform='scale(1)'" onclick="addAuction()">
+  <i class="fa-solid fa-plus" style="font-size: 32px;"></i>
+</button>
+<button style="background-color: #800097; color: white; border: none; padding: 20px 40px; border-radius: 5px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); position: absolute; top: 80%; left: 10%; font-family: 'Pixelify Sans'; font-size: 24px; transition: transform 0.3s ease; position: absolute; top: 20%; left: 85%;" onmouseover="this.style.transform='scale(0.95)'" onmouseout="this.style.transform='scale(1)'" onclick="searchBlook()">
+  <i class="fa-solid fa-search" style="font-size: 32px;"></i>
+</button>
   </body>
   </html> 
   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>

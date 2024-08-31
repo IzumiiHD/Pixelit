@@ -310,11 +310,6 @@ router.post("/changePfp", async (req, res) => {
         return;
       }
       if (blook && blook.owned >= 1) {
-        // Disallow profile pictures in base64 format
-        if (blook.image.startsWith("data:image")) {
-          res.status(400).send({ message: "Base64 images are not allowed." });
-          return;
-        }
         const result = await users.updateOne(
           { username: session.username },
           { $set: { pfp: blook.image } },
@@ -672,62 +667,111 @@ router.post("/removeBlook", async (req, res) => {
   res.status(200).send("Removed blook");
 });
 
-module.exports = router;
+// Badge-related Routes from badgeeditor.js
+router.get("/getAccounts", async (req, res) => {
+  try {
+    const usersList = await users.find().toArray();
+    res.status(200).json(usersList);
+  } catch (err) {
+    res.status(500).send("Error retrieving users");
+  }
+});
+router.get("/getBadges", async (req, res) => {
+  try {
+    const badgesList = await badges.find().toArray();
+    res.status(200).json(badgesList);
+  } catch (err) {
+    res.status(500).send("Error retrieving badges");
+  }
+});
+router.post("/addBadge", async (req, res) => {
+  const { username, badge } = req.body;
+  try {
+    const user = await users.findOne({ username });
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    if (!user.badges.includes(badge.name)) {
+      await users.updateOne({ username }, { $push: { badges: badge.name } });
+      res.status(200).json({ success: true });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, msg: "User already has this badge!" });
+    }
+  } catch (err) {
+    res.status(500).send("Error adding badge");
+  }
+});
+router.post("/removeBadge", async (req, res) => {
+  const { username, badge } = req.body;
+  try {
+    const user = await users.findOne({ username });
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    if (user.badges.includes(badge.name)) {
+      await users.updateOne({ username }, { $pull: { badges: badge.name } });
+      res.status(200).json({ success: true });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, msg: "User does not have this badge!" });
+    }
+  } catch (err) {
+    res.status(500).send("Error removing badge");
+  }
+});
+
+router.get("/claim", async (req, res) => {
+  const session = req.session;
+  if (session == null || !session.loggedIn) return;
+
+  const user = await users.findOne({ username: req.session.username });
+
+  if (date.now() - user.spinned < 1000 * 60 * 60) {
+    const tokenValues = [
+      500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000,
+    ];
+    const randomIndex = Math.floor(Math.random() * tokenValues.length);
+    const tokensWon = tokenValues[randomIndex];
+
+    const result = await users.updateOne(
+      { username: session.username },
+      { $inc: { tokens: tokensWon }, $set: { spinned: Date.now() } },
+    );
+    if (result.modifiedCount > 0) {
+      console.log("Tokens won:", tokensWon);
+      res.status(200).send({ tokens: tokensWon });
+    }
+  } else {
+    res.status(500).send(`Wait for ${(date.now() - user.spinned / 3600000).toFixed(2)} hours before claiming again`)
+  }
+});
 
 // Body parser middleware to handle JSON requests
 router.use(bodyParser.json());
 
-const express = require('express');
-const app = express();
-app.use(express.static('public'));
-app.use(express.json());
-
-app.post('/create-checkout-session', async (req, res) => {
+// Create a checkout session for "Pixelit Plus"
+router.post("/create-checkout-session", async (req, res) => {
+  const { priceId } = req.body;
   try {
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ["card"],
       line_items: [
         {
-          price: 'your_price_id',
+          price: priceId,
           quantity: 1,
         },
       ],
-      mode: 'payment',
-      success_url: `${req.headers.origin}/success.html`,
-      cancel_url: `${req.headers.origin}/cancel.html`,
+      mode: "subscription", // Use 'payment' for one-time payments
+      success_url: `${req.headers.origin}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.origin}/cancelled.html`,
     });
-    res.json({ sessionId: session.id });
+    res.status(200).json({ id: session.id });
   } catch (error) {
-    console.error('Error creating checkout session:', error);
-    res.status(500).json({ error: 'Failed to create checkout session' });
+    res.status(500).json({ error: error.message });
   }
 });
 
-app.post('/update-user-role', async (req, res) => {
-  const { username, role } = req.body;
-  try {
-    // Here you would update the user's role in your database
-    // This is just a placeholder implementation
-    const success = await updateUserRoleInDatabase(username, role);
-    if (success) {
-      res.json({ message: 'Role updated successfully' });
-    } else {
-      res.status(400).json({ message: 'Failed to update role' });
-    }
-  } catch (error) {
-    console.error('Error updating user role:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
-async function updateUserRoleInDatabase(username, role) {
-  // Implement your database update logic here
-  // Return true if successful, false otherwise
-  // This is just a placeholder
-  console.log(`Updating role for ${username} to ${role}`);
-  return true;
-}
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 module.exports = router;

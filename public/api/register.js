@@ -15,8 +15,8 @@ function register(event) {
   const requestBody = {
     username: username.value,
     password: password.value,
+    reason: reason.value,
     age: age.value,
-    discord: discord.value,
   };
   fetch('/register', {
     method: 'POST',
@@ -39,3 +39,6 @@ function register(event) {
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
   });
+  ge('id01').style.display='none' 
+  socket.emit("getrequests")
+}
