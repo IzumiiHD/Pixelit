@@ -6,6 +6,34 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env["mongoURL"];
 const axios = require("axios");
 
+const path = require('path');
+// Serve static files
+app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public', 'site')));
+// URL rewriting middleware
+app.use((req, res, next) => {
+  if (req.path.startsWith('/site/')) {
+    req.url = req.url.replace('/site', '');
+  }
+  if (req.path.endsWith('.html')) {
+    res.redirect(301, req.path.slice(0, -5));
+  } else {
+    next();
+  }
+});
+// Handle requests for pages without .html extension
+app.get('*', (req, res) => {
+  let filePath = path.join(__dirname, 'public', 'site', `${req.path}.html`);
+  if (req.path === '/') {
+    filePath = path.join(__dirname, 'public', 'site', 'home.html');
+  }
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      res.status(404).sendFile(path.join(__dirname, 'public', 'site', '404.html'));
+    }
+  });
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 function formatDateTime(dateTime) {
@@ -131,7 +159,7 @@ fs.writeFile(fileName, JSON.stringify(file), function writeJSON(err) {
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/site/index.html");
+  res.sendFile(__dirname + "/public/site/home.html");
 });
 
 io.on("connection", (socket) => {

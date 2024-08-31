@@ -1,5 +1,6 @@
-{pkgs}: {
+{ pkgs }: {
   deps = [
-    pkgs.openssh
+    pkgs.nodejs
+    pkgs.nodejs-16_x
   ];
 }
