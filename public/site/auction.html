@@ -25,11 +25,11 @@
         <div class="dropdown">
           <a href="/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
           <a href="/chat.html"><i class="fa-solid fa-comment"></i></a>
-          <a href="/leaderboard.html"i class="fa-solid fa-trophy"></i></a>
+          <a href="/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
           <a href="/market.html"><i class="fa-solid fa-store"></i></a>
           <a href="/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
           <a href="/auction.html"><i class="fa-solid fa-gavel"></i></a>
-          <a id="wrench-icon" href="../admin/enc/enc" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
+          <a id="wrench-icon" href="../admin/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
           <a href="/settings.html"><i class="fa-solid fa-gear"></i></a>
           <a href="/news.html"><i class="fa-solid fa-newspaper"></i></a>
           <a href="/store.html"><i class="fa-solid fa-shop"></i></a>
@@ -48,36 +48,62 @@
         <div class="auction-list" draggable="false"
           style="width: 80%; height: 370px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; position: absolute; top: 10%; left: 0%; overflow-y: scroll; scrollbar-width: thin; scrollbar-color: #b011c2 #6f057a;">
           <h2 style="color: #fff; text-shadow: #000 1px 0 13px;">Auction Items</h2>
-          <ul id="auction-list" style="list-style:none; padding:0;">
-            <li style="background-color:#800097; margin:10px; padding:10px; border-radius:5px;">
-              <div style="display:flex; align-items:center; transition:transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
-                <img src="../img/blooks/OG/Berry.png" alt="Berry" style="width:50px; height:50px;">
-                <div style="margin-left:10px;">
-                  <div>Pixel: Berry</div>
-                  <div>Bid Price: $100</div>
-                  <div>Date Listed: 2023-04-01</div>
+          <div id="auction-list" style="list-style:none; padding:0;">
+            <div style="display:flex; flex-wrap:wrap;">
+              <div style="background-color:#800097; margin:5px; padding:8px; border-radius:5px; width:22%;">
+                <div style="display:flex; align-items:center; transition:transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
+                  <img src="../img/blooks/OG/Berry.png" alt="Berry" style="width:50px; height:50px;">
+                  <div style="margin-left:10px;">
+                    <div>Pixel: Berry</div>
+                    <div>Bid Price: $100</div>
+                    <div>Date Listed: 2023-04-01</div>
+                  </div>
                 </div>
               </div>
-            </li>
-            <li style="background-color:#800097; margin:10px; padding:10px; border-radius:5px;">
-              <div style="display: flex; align-items: center; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
-                  <img src="../img/blooks/OG/SOUNDGOD.png" alt="SOUNDGOD" style="width:50px; height:50px;">
-                  <div style="margin-left: 10px;">
-                      <div>Pixel: SOUNDGOD</div>
-                      <div>Bid Price: $150</div>
-                      <div>Date Listed: 2023-04-02</div>
-                  </div>
+              <div style="background-color:#800097; margin:5px; padding:8px; border-radius:5px; width:22%;">
+                <div style="display: flex; align-items: center; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(0.9)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
+                    <img src="../img/blooks/OG/SOUNDGOD.png" alt="SOUNDGOD" style="width:50px; height:50px;">
+                    <div style="margin-left: 10px;">
+                        <div>Pixel: SOUNDGOD</div>
+                        <div>Bid Price: $150</div>
+                        <div>Date Listed: 2023-04-02</div>
+                    </div>
+                </div>
               </div>
-            </li>
-            <li style="background-color:#800097; margin:10px; padding:10px; border-radius:5px;">
-              <div style="display: flex; align-items: center; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
-                  <img src="../img/blooks/OG/IzumiiHD.png" alt="IzumiiHD" style="width:50px; height:50px;">
-                  <div style="margin-left: 10px;">
-                      <div>Pixel: IzumiiHD</div>
-                      <div>Bid Price: $200</div>
-                      <div>Date Listed: 2023-04-03</div>
+              <div style="background-color:#800097; margin:5px; padding:8px; border-radius:5px; width:22%;">
+                <div style="display: flex; align-items: center; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
+                    <img src="../img/blooks/OG/IzumiiHD.png" alt="IzumiiHD" style="width:50px; height:50px;">
+                    <div style="margin-left: 10px;">
+                        <div>Pixel: IzumiiHD</div>
+                        <div>Bid Price: $200</div>
+                        <div>Date Listed: 2023-04-03</div>
+                    </div>
+                </div>
               </div>
-          </ul>
+              <div style="background-color:#800097; margin:5px; padding:8px; border-radius:5px; width:22%;">
+                <div style="display: flex; align-items: center; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
+                    <img src="../img/blooks/OG/Solid_Snake.png" alt="Solid_Snake" style="width:50px; height:50px;">
+                    <div style="margin-left: 10px;">
+                        <div>Pixel: Solid_Snake</div>
+                        <div>Bid Price: $250</div>
+                        <div>Date Listed: 2023-04-04</div>
+                    </div>
+                </div>
+              </div>
+              <div style="background-color:#800097; margin:5px; padding:8px; border-radius:5px; width:22%;">
+                <div style="display: flex; align-items: center; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
+                    <img src="../img/blooks/Tech/Camera.png" alt="Camera" style="width:50px; height:50px;">
+                    <div style="margin-left: 10px;">
+                        <div>Pixel: Camera</div>
+                        <div>Bid Price: $300</div>
+                        <div>Date Listed: 2023-04-05</div>
+                    </div>
+                </div>
+              </div>
+            </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="information">

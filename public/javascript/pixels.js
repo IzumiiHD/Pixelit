@@ -52,6 +52,9 @@ function generatePacksHTML(packsData) {
     packTitle.textContent = pack.name;
     packDiv.appendChild(packTitle);
 
+    packTitle.style.borderBottom = "3px solid white";
+    packTitle.style.borderRadius = "2px";
+    packDiv.appendChild(packTitle);
     const itemsDiv = document.createElement("div");
     itemsDiv.classList.add("items");
 
