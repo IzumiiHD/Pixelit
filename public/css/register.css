@@ -7,8 +7,8 @@
  }
 .bg_img {
   position: absolute;
-width: 250%;
-height: 250%;
+   width: 250%;
+   height: 250%;
   top: 50%;
   left: 50%;
   z-index: -9999;
@@ -108,21 +108,94 @@ height: 250%;
    color: #fff;
    text-shadow: #000 1px 0 13px;
  }
-   /* Media query for mobile devices */
-   @media screen and (max-width: 768px) {
-     body {
-       font-size: 16px;
-       line-height: 1.4;
-     }
-     .container {
-       width: 0%;
-       height: 0%;
-     }
-      .navbar {
-        overflow: hidden;
-        background-color: #b011c2;
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
-        box-shadow: #000 4px 0 20px;
-      }
+/* MOBILE UI */
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+  }
+  .navbar {
+    overflow: hidden;
+    background-color: #b011c2;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: #000 4px 0 20px;
+    width: 127.5%;
+  }
+  .navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    text-shadow: #000 1px 0 13px;
+  }
+    .navbar a:hover,
+    .dropdown:hover .dropbtn {
+      background-color: purple;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+    .dropdown-content a:hover {
+      background-color: #d800ff;
+    }
+   .dropdown-content a:last-child:hover{
+     border-radius: 0 0 10px 10px;
+   }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  .title_p {
+    font-size: 24px;
+    margin-left: auto;
+    margin-right: 0;
+    text-align: right;
+    position: absolute;
+    right: 1;
+    top: 10px;
+  }
+   .container {
+        width: 0px;
+        height: 0px;
+        font-size: 18px;
+        border-radius: 5px;
+        background-color: #6f057a;
+        color: white;
+        padding: 10px 20px;
+        box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+        font-family: Pixelify Sans;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+   }
 }
