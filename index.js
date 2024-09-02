@@ -21,9 +21,10 @@ app.use((req, res, next) => {
     next();
   }
 });
-    
+
+
 // Handle requests for pages without .html extension
-//app.get('*', (req, res) => {
+  .get('*', (req, res) => {
 //  let filePath = path.join(__dirname, 'public', 'site', `${req.path}.html`);
 //  if (req.path === '/') {
 //    filePath = path.join(__dirname, 'public', 'site', 'home.html');
