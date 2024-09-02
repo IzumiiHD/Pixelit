@@ -108,28 +108,30 @@ body {
 /* Media query for mobile devices */
 @media screen and (max-width: 768px) {
   body {
-    font-size: 16px;
-    line-height: 1.4;
+    font-size: 18px;
+    line-height: 1.6;
   }
 
   .container {
-    width: 95%;
-    padding: 10px;
+    width: 100%;
+    padding: 15px;
   }
 
   h1, h2, h3 {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
   /* Navbar adjustments */
   .navbar {
     flex-direction: column;
+    align-items: center;
   }
 
   .navbar a {
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: 12px;
+    text-align: center;
   }
 
   /* Content adjustments */
@@ -139,21 +141,21 @@ body {
 
   .sidebar, .content-area {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
 
   /* Form adjustments */
   input[type="text"], input[type="email"], textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
   }
 
   /* Button adjustments */
   .button {
     display: block;
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     text-align: center;
   }
 
@@ -169,21 +171,21 @@ body {
   }
 
   td, th {
-    padding: 8px;
+    padding: 10px;
   }
 
   .footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #800097;
-  text-align: center;
-  padding: 10px 0;
-  box-shadow: #000 4px 0 20px;
-}
-.footer a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-}
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #800097;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: #000 4px 0 20px;
+  }
+  .footer a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+  }
 }

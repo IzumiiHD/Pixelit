@@ -37,7 +37,7 @@ function login(event) {
   .then(response => {
     if (response.status === 200) {
       sessionStorage.setItem("loggedIn", true);
-      window.location.href = '/dashboard';
+      window.location.href = '/dashboard.html';
     } else if (response.status === 500) {
       return response.text().then(text => {
         alert(text);

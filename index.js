@@ -21,18 +21,20 @@ app.use((req, res, next) => {
     next();
   }
 });
+    
 // Handle requests for pages without .html extension
-app.get('*', (req, res) => {
-  let filePath = path.join(__dirname, 'public', 'site', `${req.path}.html`);
-  if (req.path === '/') {
-    filePath = path.join(__dirname, 'public', 'site', 'home.html');
-  }
-  res.sendFile(filePath, (err) => {
-    if (err) {
-      res.status(404).sendFile(path.join(__dirname, 'public', 'site', '404.html'));
-    }
-  });
-});
+//app.get('*', (req, res) => {
+//  let filePath = path.join(__dirname, 'public', 'site', `${req.path}.html`);
+//  if (req.path === '/') {
+//    filePath = path.join(__dirname, 'public', 'site', 'home.html');
+//  }
+//  res.sendFile(filePath, (err) => {
+//    if (err) {
+//      res.status(404).sendFile(path.join(__dirname, 'public', 'site', '404.html'));
+//    }
+//  });
+//});
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -159,7 +161,7 @@ fs.writeFile(fileName, JSON.stringify(file), function writeJSON(err) {
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/site/home.html");
+  res.sendFile(__dirname + "/home.");
 });
 
 io.on("connection", (socket) => {
@@ -202,7 +204,7 @@ io.on("connection", (socket) => {
       if (response.status !== 500) {
         const name = response.data.username;
         const d = new Date();
-        d.setHours(d.getHours() - 4);
+        d.setHours(d.getHours() - 4); // todo: don't hardwire timezone
         const user = await users.findOne({ username: name });
         const chatmessage = {
           sender: name,
