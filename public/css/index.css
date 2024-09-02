@@ -104,3 +104,86 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .container {
+    width: 95%;
+    padding: 10px;
+  }
+
+  h1, h2, h3 {
+    margin-bottom: 15px;
+  }
+
+  /* Navbar adjustments */
+  .navbar {
+    flex-direction: column;
+  }
+
+  .navbar a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+  }
+
+  /* Content adjustments */
+  .main-content {
+    flex-direction: column;
+  }
+
+  .sidebar, .content-area {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* Form adjustments */
+  input[type="text"], input[type="email"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  /* Button adjustments */
+  .button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+  }
+
+  /* Image adjustments */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Table adjustments */
+  table {
+    font-size: 14px;
+  }
+
+  td, th {
+    padding: 8px;
+  }
+
+  .footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #800097;
+  text-align: center;
+  padding: 10px 0;
+  box-shadow: #000 4px 0 20px;
+}
+.footer a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+}

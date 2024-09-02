@@ -246,4 +246,55 @@ span.psw {
    text-align: center;
    color: white;
  }
+   /* Existing styles remain unchanged */
+
+   /* Media query for mobile devices */
+   @media screen and (max-width: 768px) {
+     body {
+       font-size: 16px;
+       line-height: 1.4;
+     }
+
+     .container {
+       width: 95%;
+       padding: 10px;
+       margin: 0 auto;
+     }
+
+     h1, h2, h3 {
+       margin-bottom: 15px;
+       text-align: center;
+     }
+
+     /* Form adjustments */
+     form {
+       width: 100%;
+       max-width: 400px;
+       margin: 0 auto;
+     }
+
+     .form-group {
+       margin-bottom: 15px;
+     }
+
+     label {
+       display: block;
+       margin-bottom: 5px;
+     }
+
+     input[type="text"],
+     input[type="email"],
+     input[type="password"],
+     select {
+       width: 100%;
+       padding: 10px;
+       font-size: 16px;
+       border: 1px solid #ccc;
+       border-radius: 4px;
+     }
+
+     /* Button adjustments */
+     .button, button, input[type="submit"] {
+       display: block;
+       width: 100%;
 }
