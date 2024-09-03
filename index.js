@@ -21,13 +21,14 @@ app.use((req, res, next) => {
     next();
   }
 });
+
     
 // Handle requests for pages without .html extension
 //app.get('*', (req, res) => {
 //  let filePath = path.join(__dirname, 'public', 'site', `${req.path}.html`);
-//  if (req.path === '/') {
-//    filePath = path.join(__dirname, 'public', 'site', 'home.html');
-//  }
+//app.get('/', (req, res) => {
+//  res.sendFile(path.join(__dirname, 'public', 'site', 'home.html'));
+//});
 //  res.sendFile(filePath, (err) => {
 //    if (err) {
 //      res.status(404).sendFile(path.join(__dirname, 'public', 'site', '404.html'));
