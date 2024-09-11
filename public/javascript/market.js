@@ -22,15 +22,15 @@ function createPackElement(pack) {
   const h2Elem = document.createElement("h2");
   h2Elem.textContent = pack.name;
 
-  // Create paragraph element for pack cost
-  const pElem = document.createElement("p");
-  pElem.textContent = "Cost: " + pack.cost;
-
   // Create img element for pack image
   const imgElem = document.createElement("img");
   imgElem.src = `/img/packs/${pack.image}`;
   imgElem.alt = pack.name;
   imgElem.style.width = "250px";
+
+  // Create paragraph element for pack cost
+  const pElem = document.createElement("p");
+  pElem.textContent = "Cost: " + pack.cost;
 
   // Append h2, p, and img elements to divText
   divText.appendChild(h2Elem);

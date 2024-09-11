@@ -30,12 +30,12 @@
           <div > 
           <div> 
             <a href="/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-            <a href="/chat.html"><i class="fa-solid fa-comment"></i></a>
+            <a href="/chat.html"><i class="fa-solid fa-comments"></i></a>
             <a href="/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
             <a href="/market.html"><i class="fa-solid fa-store"></i></a>
             <a href="/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
             <a href="/auction.html"><i class="fa-solid fa-gavel"></i></a>
-            <a id="wrench-icon" href="../admin/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
+            <a id="wrench-icon" href="../panel/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
             <a href="/settings.html"><i class="fa-solid fa-gear"></i></a>
             <a href="/news.html"><i class="fa-solid fa-newspaper"></i></a>
             <a href="/store.html"><i class="fa-solid fa-shop"></i></a>
@@ -47,49 +47,23 @@
     </div>
   </br>
   </br>
-    <div class="leaderboard-container">
-      <h1 class="lb-header">Leaderboard</h1>
-      <div id="lbc">
-        <div class="lb-entry">
-          <div class="name">user</div>
-          <div class="score">0</div>
+  </br>
+  </br>
+  </br>
+    <div class="podium">
+      <div class="podium-2nd" style="transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
+        <div class="podium-person" id="podium-person-2" style="font-size: 16px;">2nd - username</div>
+        <div class="podium-metal silver" style="position: relative;">
+          <img id="podium-img-2" src="img/blooks/console.png" alt="Logo" style="width: 200px; height: 200px; border-radius: 5px; position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%);">
         </div>
-        <div class="lb-entry">
-          <div class="name">user</div>
-          <div class="score">0</div>
-        </div>
-        <div class="lb-entry">
-          <div class="name">user</div>
-          <div class="score">0</div>
-        </div>
-        <div class="lb-entry">
-          <div class="name">user</div>
-          <div class="score">0</div>
-        </div>
-        <div class="lb-entry">
-          <div class="name">user</div>
-          <div class="score">0</div>
-        </div>
-        <div class="lb-entry">
-          <div class="name">user</div>
-          <div class="score">0</div>
-        </div>
-        <div class="lb-entry">
-          <div class="name">user</div>
-          <div class="score">0</div>
-        </div>
-        <div class="lb-entry">
-          <div class="name">user</div>
-          <div class="score">0</div>
-        </div>
-        <div class="lb-entry">
-          <div class="name">user</div>
-          <div class="score">0</div>
-        </div>
-        <div class="lb-entry">
-          <div class="name">user</div>
-          <div class="score">0</div>
-        </div>
+      </div>
+      <div class="podium-1st" style="transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
+        <div class="podium-person" id="podium-person-1" style="font-size: 18px;">1st - username</div>
+        <div class="podium-metal gold" style="position: relative;"><img id="podium-img-1" src="img/blooks/OG/IzumiiHD.png" alt="Logo" style="width: 200px; height: 200px; border-radius: 5px; position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%);"></div>
+      </div>
+      <div class="podium-3rd" style="transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
+        <div class="podium-person" id="podium-person-3" style="font-size: 14px;">3rd - username</div>
+        <div class="podium-metal bronze" style="position: relative;"><img id="podium-img-3" src="img/logo.png" alt="Logo" style="width: 200px; height: 200px; border-radius: 5px; position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%);"></div>
       </div>
     </div>
   </body>

@@ -29,12 +29,12 @@
         <div>
           <div>
             <a href="/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-            <a href="/chat.html"><i class="fa-solid fa-comment"></i></a>
+            <a href="/chat.html"><i class="fa-solid fa-comments"></i></a>
             <a href="/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
             <a href="/market.html"><i class="fa-solid fa-store"></i></a>
             <a href="/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
             <a href="/auction.html"><i class="fa-solid fa-gavel"></i></a>
-            <a id="wrench-icon" href="../admin/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
+            <a id="wrench-icon" href="../panel/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
             <a href="/settings.html"><i class="fa-solid fa-gear"></i></a>
             <a href="/news.html"><i class="fa-solid fa-newspaper"></i></a>
             <a href="/store.html"><i class="fa-solid fa-shop"></i></a>
@@ -103,8 +103,34 @@
         <h3 id="blook-rarity"></h3>
         <h3 id="blook-owned"></h3>
         <button id="set-pfp" style="width:300px; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; pointer-events: auto; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; display: none; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(0.95)';" onmouseout="this.style.transform='scale(1)';">Set Profile Picture <i class="fa-solid fa-image-portrait"></i></button>
-        <button id="sell-blook" style="width:300px; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; pointer-events: auto; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; display: none; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(0.95)';" onmouseout="this.style.transform='scale(1)';">Sell Blook <i class="fa-solid fa-dollar-sign"></i></button>
+        <button id="sell-blook" style="width:300px; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; pointer-events: auto; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; display: none; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(0.95)';" onmouseout="this.style.transform='scale(1)';">
+          Sell Pixel <i class="fa-solid fa-dollar-sign"></i>
+        </button>
+</button>
         </div>
+    <div id="sellModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Sell Pixel</h2>
+        <h3>Are you sure you want to sell this Pixel?</h3>
+        <div class="pixel-info">
+          <img id="modalPixelImage" src="" alt="Pixel Image">
+          <div class="pixel-details">
+            <p id="modalPixelName"></p>
+            <p id="modalPixelRarity"></p>
+          </div>
+        </div>
+        <div class="button-group">
+          <button id="confirmSell">Yes</button>
+          
+          <label for="sellAmount" style="font-size: 1.5em;">Amount:</label>
+          <input type="number" id="sellAmount" min="1" />
+          <span></span>
+          <span id="totalBlooksOwned"></span>
+          <button id="cancelSell">No</button>
+        </div>
+      </div>
+    </div>
       </center>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="/javascript/pixels.js"></script>

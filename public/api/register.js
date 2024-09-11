@@ -6,8 +6,8 @@ const socket = io()
 
 let username = ge("uname")
 let password = ge("psw")
-let reason = ge("rea")
 let age = ge("age")
+let reason = ge("rea")
 
 
 function register(event) {
@@ -15,8 +15,8 @@ function register(event) {
   const requestBody = {
     username: username.value,
     password: password.value,
-    reason: reason.value,
     age: age.value,
+    reason: reason.value,
   };
   fetch('/register', {
     method: 'POST',

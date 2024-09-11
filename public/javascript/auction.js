@@ -9,7 +9,65 @@ function ge(id) {
 }
 
 function addAuction() {
-  alert('work in progress');
+  
+  const modal = document.createElement('div');
+  modal.style.width = '500px';
+  modal.style.height = '700px';
+  modal.style.fontSize = '18px';
+  modal.style.borderRadius = '5px';
+  modal.style.backgroundColor = '#6f057a';
+  modal.style.color = 'white';
+  modal.style.border = 'none';
+  modal.style.padding = '10px 20px';
+  modal.style.boxShadow = '3px 3px 10px rgba(0, 30, 87, 0.751)';
+  modal.style.fontFamily = 'Pixelify Sans';
+  modal.style.display = 'flex';
+  modal.style.flexDirection = 'column';
+  modal.style.justifyContent = 'center';
+  modal.style.alignItems = 'center';
+  modal.style.position = 'fixed';
+  modal.style.top = '50%';
+  modal.style.left = '50%';
+  modal.style.transform = 'translate(-50%, -50%)';
+
+  const modalOverlay = document.createElement('div');
+  modalOverlay.style.position = 'fixed';
+  modalOverlay.style.top = '0';
+  modalOverlay.style.left = '0';
+  modalOverlay.style.width = '100%';
+  modalOverlay.style.height = '100%';
+  modalOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+  document.body.appendChild(modalOverlay);
+  
+  // Create a close button for the modal
+  const closeButton = document.createElement('button');
+  closeButton.innerHTML = '<i class="fas fa-times"></i>';
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '10px';
+  closeButton.style.right = '10px';
+  closeButton.style.fontSize = '26px';
+  closeButton.style.cursor = 'pointer';
+  closeButton.style.background = 'none';
+  closeButton.style.border = 'none';
+  closeButton.addEventListener('click', () => {
+    document.body.removeChild(modal);
+    document.body.removeChild(modalOverlay);
+  });
+  
+  closeButton.addEventListener('mouseover', () => {
+    closeButton.style.transition = 'color 0.3s ease';
+    closeButton.style.color = 'red';
+  });
+  closeButton.addEventListener('mouseout', () => {
+    closeButton.style.transition = 'color 0.3s ease';
+    closeButton.style.color = '';
+  });
+
+  // Attach the close button to the modal
+  modal.appendChild(closeButton);
+
+  // Append the modal to the body
+  document.body.appendChild(modal);
 }
 
 function searchBlook() {
@@ -45,7 +103,7 @@ function searchBlook() {
   searchWrapper.style.transform = 'translate(-50%, -50%)';
 
   const searchText = document.createElement('div');
-  searchText.innerText = 'What Blook do you want to search for?';
+  searchText.innerText = 'What Pixel do you want to search for?';
   searchText.style.fontSize = '24px';
 
   const searchInput = document.createElement('input');
@@ -82,6 +140,33 @@ function searchBlook() {
   modalOverlay.appendChild(searchWrapper);
 }
 
+window.onload = () => {
+  //document.body.style.pointerEvents = "none";
+  fetch("/user", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json(); // Parse JSON data
+      } else if (response.status === 500) {
+        return response.text().then((text) => {
+          alert(text);
+        });
+      } else {
+        console.error("Unexpected response status:", response.status);
+        throw new Error("Unexpected response status");
+      }
+    })
+    .then((data) => {
+      document.getElementById("tokens").innerHTML = data.tokens;
+    })
+    .catch((error) => {
+      console.error("There was a problem with the fetch operation:", error);
+    });
+};
 
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/user')  // Adjust this to your actual API endpoint

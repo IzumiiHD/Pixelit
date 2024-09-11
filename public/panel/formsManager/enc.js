@@ -59,6 +59,10 @@ function renderAccountRequests() {
       passwordDiv.classList.add("attribute");
       passwordDiv.innerHTML = `<strong>Password:</strong> ${"*".repeat(request.password.length)}`;
 
+      const ageDiv = document.createElement("div");
+      ageDiv.classList.add("attribute");
+      ageDiv.innerHTML = `<strong>Age:</strong> ${request.age}`;
+
       const reasonDiv = document.createElement("div");
       reasonDiv.classList.add("attribute");
       reasonDiv.innerHTML = `<strong>Reason:</strong> ${request.reason}`;

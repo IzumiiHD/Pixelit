@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title>Panel</title>
+    <link rel="icon" type="image/png" href="../img/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="enc.css" rel="stylesheet" />
+  </head>
+  <body>
+    <body style="background-color: #800097">
+      <img alt="Blooks Background" class="bg_img" />
+      <div class="navbar">
+        <div class="dropdown">
+          <div>
+            <div>
+              <a href="../../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
+              <a href="../enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
+              <a href="../ownerPanelPage/owner.html"><i class="fa-solid fa-code"></i></a>
+              <a href="/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="title_p" id="title_p">Pixelit</div>
+      </div>
+      <div class="overlay-container" id="overlay">
+        <div class="overlay-content">
+          Verifying Connection...
+          <div class="loader" style="display: inline-block"></div>
+        </div>
+      </div>
+      <center>
+        <h1 style="font-family: Pixelify Sans; color: white; ">Welcome to the Panel</h1>
+      <center>
+        <button style="font-family: Pixelify Sans; background-color: #b011c2; color: white; border: none; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 18px; margin: 4px 2px; cursor: pointer; width: 240px; border-radius: 5px; box-shadow: #000 4px 0 10px; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+          onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='#000 6px 0 10px'"
+          onmouseout="this.style.transform='scale(1)';this.style.boxShadow='#000 4px 0 10px'"
+          onclick="window.location.href='../formsManager/forms.html'">
+          Forms Manager <i class='fa-solid fa-file'></i>
+        </button>
+
+        <div id="server-stats" style="background-color: #800097; cursor: pointer; font-family: Pixelify Sans; color: white; text-shadow: 2px 2px #000000; border-radius: 10px; padding: 15px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); margin-top: 20px; width: 80%; max-width: 600px; margin-left: auto; margin-right: auto; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0px 6px 12px rgba(0, 0, 0, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0px 4px 8px rgba(0, 0, 0, 0.2)';" onclick="document.getElementById('modal-overlay').style.display='block'; document.getElementById('server-stats-modal').style.display='block';">
+          <p style="margin: 10px 0; font-size: 18px;">Latency: <span id="latency">loading...</span></p>
+          <p style="margin: 10px 0; font-size: 18px;">Speed: <span id="speed">loading...</span></p>
+        </div>
+        <div id="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000;">
+        </div>
+        <div id="server-stats-modal" style="display: none; background-color: #800097; font-family: Pixelify Sans; color: white; text-shadow: 2px 2px #000000; border-radius: 10px; padding: 15px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); margin: auto; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001;">
+          <p style="margin: 10px 0; font-size: 18px;">Latency: <span id="latency">loading...</span></p>
+          <p style="margin: 10px 0; font-size: 18px;">Speed: <span id="speed">loading...</span></p>
+          <button onclick="document.getElementById('modal-overlay').style.display='none'; document.getElementById('server-stats-modal').style.display='none';" style="font-family: Pixelify Sans; background-color: #b011c2; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; margin-top: 10px;">Exit</button>
+        </div>
+        
+        <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+        <script src="/api/verifyenc.js"></script>
+      </center>
+    </body>
+  </body>
+</html>

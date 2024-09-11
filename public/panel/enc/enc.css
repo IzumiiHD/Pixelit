@@ -196,8 +196,6 @@ button:hover {
   background-color: #8E038D; /* Darker blue color on hover */
 }
 
-
-
 #requests {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -213,5 +211,87 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+  text-align: center;
+}
+
+body {
+  font-family: Pixelify Sans;
+}
+.overlay-container {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 1);
+  font-family: Pixelify Sans;
+}
+.overlay-content {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  color: white;
+  background-color: rgb(30, 30, 30);
+  padding: 20px;
+  font-family: Pixelify Sans;
+}
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #d240dc; /* purple */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+  font-family: Pixelify Sans;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+  font-family: Pixelify Sans;
+}
+
+.account-request {
+  font-family: Pixelify Sans;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 10px;
+  width: 300px;
+}
+.attribute {
+  margin-bottom: 10px;
+}
+.button {
+  font-family: Pixelify Sans;
+  display: inline-block;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #b011c2;
+  color: #fff;
+  margin-right: 5px;
+}
+.button:hover {
+  font-family: Pixelify Sans;
+  background-color: #8e038d;
+}
+.footer {
+  font-family: Pixelify Sans;
+}
+/* Styling for the "no account requests found" message */
+.no-requests-message {
+  padding: 10px;
+  background-color: #f2f2f2;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   text-align: center;
 }

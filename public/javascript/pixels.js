@@ -1,3 +1,33 @@
+if (localStorage.loggedin == "true") {
+  sessionStorage = localStorage;
+}
+
+window.onload = () => {
+  //document.body.style.pointerEvents = "none";
+  fetch("/user", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json(); // Parse JSON data
+      } else if (response.status === 500) {
+        return response.text().then((text) => {
+          alert(text);
+        });
+      } else {
+        console.error("Unexpected response status:", response.status);
+        throw new Error("Unexpected response status");
+      }
+    })
+    .catch((error) => {
+      console.error("There was a problem with the fetch operation:", error);
+    });
+};
+
+  
 const blookItems = document.querySelectorAll(".item");
 const blookName = document.getElementById("blook-name");
 const blookImage = document.getElementById("blook-image");
@@ -69,13 +99,33 @@ function generatePacksHTML(packsData) {
       const badge = document.createElement("div");
       badge.classList.add("badge");
       badge.textContent = blook.owned;
+      if (blook.rarity === "uncommon") {
+        badge.style.backgroundColor = "#4bc22e";
+      }
+      if (blook.rarity === "rare") {
+        badge.style.backgroundColor = "blue";
+      }
+      if (blook.rarity === "epic") {
+        badge.style.backgroundColor = "#be0000";
+      }
+      if (blook.rarity === "legendary") {
+        badge.style.backgroundColor = "#ff910f";
+      }
+      if (blook.rarity === "chroma") {
+        badge.style.backgroundColor = "#00ccff";
+      }
+      if (blook.rarity === "mystical") {
+        badge.style.backgroundColor = "#9935dd";
+      }
+
+      
 
       itemDiv.appendChild(img);
       itemDiv.appendChild(badge);
       itemDiv.addEventListener("click", () => {
         const name = blook.name || "Unknown Blook";
         const imageSrc = blook.image;
-        const rarity = blook.rarity || "Common";
+        const rarity = blook.rarity || "Uncommon";
         const owned = blook.owned || "0";
         if (owned <= 0) return
 
@@ -83,7 +133,19 @@ function generatePacksHTML(packsData) {
         blookName.textContent = name;
         blookImage.src = imageSrc;
         blookImage.style.display = "block";
-        blookRarity.textContent = `Rarity: ${rarity}`;
+        blookRarity.innerHTML = rarity === 'uncommon' 
+          ? `<span style='color: #4bc22e;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`
+          : rarity === 'rare'
+          ? `<span style='color: blue;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`
+          : rarity === 'epic'
+          ? `<span style='color: #be0000;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`
+          : rarity === 'legendary'
+          ? `<span style='color: #ff910f;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`
+          : rarity === 'chroma'
+          ? `<span style='color: #00ccff;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`
+          : rarity === 'mystical'
+          ? `<span style='color: #9935dd;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`
+          : `${rarity.charAt(0).toUpperCase() + rarity.slice(1)}`;
         blookOwned.textContent = `Owned: ${owned}`;
         setPfpButton.style.display = "block";
         sellButton.style.display = "block";
@@ -106,16 +168,6 @@ function generatePacksHTML(packsData) {
           }).then(data => {
             alert(data.message)
           })
-          //alert(`Set ${name} as PFP`);
-          // Emit an event to the backend if necessary
-          // socket.emit('setPfp', { name });
-        };
-
-        sellButton.onclick = () => {
-          // Handle selling
-          alert(`Sell ${name}`);
-          // Emit an event to the backend if necessary
-          // socket.emit('sellBlook', { name });
         };
       });
       itemsDiv.appendChild(itemDiv);
@@ -143,12 +195,14 @@ fetch("/user", {
     const packs = data.packs;
     generatePacksHTML(packs);
   });
+
 /*socket.emit("getUserPacks", sessionStorage.username)
 
 socket.on("getUserPacks", (packs) => {
   console.log(packs)
   generatePacksHTML(packs)
 })*/
+
 // Call the function to generate HTML on page load
 //window.onload = generatePacksHTML;
 
@@ -166,3 +220,81 @@ document.addEventListener('DOMContentLoaded', function() {
    console.error('Error fetching user role:', error);
     });
 });
+
+// Get modal elements
+const modal = document.getElementById("sellModal");
+const closeBtn = document.getElementsByClassName("close")[0];
+const confirmSellBtn = document.getElementById("confirmSell");
+const cancelSellBtn = document.getElementById("cancelSell");
+const modalPixelImage = document.getElementById("modalPixelImage");
+const modalPixelName = document.getElementById("modalPixelName");
+const modalPixelRarity = document.getElementById("modalPixelRarity");
+
+// Function to open the modal
+function openModal(name, imageSrc, rarity) {
+  modalPixelImage.src = imageSrc;
+  modalPixelName.textContent = name;
+  if (rarity === 'uncommon') {
+    modalPixelRarity.innerHTML = `<span style='color: 4bc22e;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
+  } else if (rarity === 'rare') {
+    modalPixelRarity.innerHTML = `<span style='color: blue;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
+  } else if (rarity === 'epic') {
+    modalPixelRarity.innerHTML = `<span style='color: #be0000;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
+  } else if (rarity === 'legendary') {
+    modalPixelRarity.innerHTML = `<span style='color: #ff910f;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
+  } else if (rarity === 'chroma') {
+    modalPixelRarity.innerHTML = `<span style='color: #00ccff;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
+  } else if (rarity === 'mystical') {
+    modalPixelRarity.innerHTML = `<span style='color: #9935dd;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
+  } else {
+    modalPixelRarity.textContent = rarity.charAt(0).toUpperCase() + rarity.slice(1);
+  }
+  modal.style.display = "block";
+}
+
+// Function to close the modal
+function closeModal() {
+  modal.style.display = "none";
+}
+
+// Close modal when clicking on <span> (x)
+closeBtn.onclick = closeModal;
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    closeModal();
+  }
+}
+
+// Cancel selling
+cancelSellBtn.onclick = closeModal;
+
+// Confirm selling
+confirmSellBtn.onclick = function() {
+  const name = modalPixelName.textContent;
+  fetch('/sellBlook', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert(data.message);
+    closeModal();
+    // You might want to refresh the pixel inventory here
+  })
+  .catch(error => {
+    console.error('Error selling blook:', error);
+  });
+};
+
+// Modify the existing sell button click handler
+sellButton.onclick = () => {
+  const name = blookName.textContent;
+  const imageSrc = blookImage.src;
+  const rarity = blookRarity.textContent;
+  openModal(name, imageSrc, rarity);
+};

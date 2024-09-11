@@ -1,7 +1,7 @@
 {
   "name": "pixelit-rewrite",
-  "version": "1.0.0",
-  "description": "The first Blooket private server to use pixel art!",
+  "version": "1.0.1",
+  "description": "The very first Blooket private server with pixel art blooks and badges!",
   "main": "index.js",
   "dependencies": {
     "axios": "^1.7.3",

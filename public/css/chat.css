@@ -32,6 +32,11 @@ body {
   padding: 14px 16px;
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar a:hover {
+  transform: rotate(360deg);
 }
 .dropdown {
   float: left;
@@ -47,10 +52,7 @@ body {
   font-family: inherit;
   margin: 0;
 }
-.navbar a:hover,
-.dropdown:hover .dropbtn {
-  background-color: purple;
-}
+
 .dropdown-content {
   display: none;
   position: absolute;

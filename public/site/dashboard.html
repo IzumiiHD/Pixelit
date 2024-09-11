@@ -3,7 +3,7 @@
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -26,12 +26,12 @@
           <div > 
           <div> 
             <a href="/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-            <a href="/chat.html"><i class="fa-solid fa-comment"></i></a>
+            <a href="/chat.html"><i class="fa-solid fa-comments"></i></a>
             <a href="/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
             <a href="/market.html"><i class="fa-solid fa-store"></i></a>
             <a href="/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
             <a href="/auction.html"><i class="fa-solid fa-gavel"></i></a>
-            <a id="wrench-icon" href="../admin/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
+            <a id="wrench-icon" href="../panel/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
             <a href="/settings.html"><i class="fa-solid fa-gear"></i></a>
             <a href="/news.html"><i class="fa-solid fa-newspaper"></i></a>
             <a href="/store.html"><i class="fa-solid fa-shop"></i></a>
@@ -46,23 +46,7 @@
       </br>
       </br>
 
-    <div style="
-      width: 700px;
-      height: 480px;
-      font-size: 18px;
-      border-radius: 5px;
-      background-color: #6f057a;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor;
-      box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
-      font-family: Pixelify Sans;
-      margin-left: 45px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    <div style="width: 700px; height: 480px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
       ">    
         <h1 style="color: #fff; text-shadow: #000 1px 0 13px;">Profile</h1> 
       <div class="container" style="display: flex;justify-content: center;align-items: center;gap: 12px;/* margin-top: 16px; */">
@@ -96,12 +80,11 @@
           onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
           onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
           >
-        <img id="banner" src="../img/banner/defaultBanner.svg" alt="DefaultBanner" draggable="false" style="
+        <img id="banner" src="../img/banner/pixelitBanner.png" alt="pixelitBanner" draggable="false" style="
           position: absolute;
           cursor: pointer;
           top: -1%;
           left: 0%;
-          /* z-index: -1; */
           width: 100%;
           height: 100%;
           filter: drop-shadow(0 0 5px rgba(0, 0, 0, .5));
@@ -114,10 +97,10 @@
       <h2 style="color: #fff" ><div draggable="false" id="badges" onmouseover="this.style.cursor='pointer';"></div></h2>
       <h3 style="color: #fff; text-shadow: #000 1px 0 13px;" id="date">loading...</h3>
       <h2>
-        <a href="https://discord.gg/ccARpDEKHU" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-discord fa-bounce" style="color: #5865f2; text-shadow: 1px 1px 2px black;"></i></a>
-        <a href="https://twitter.com/IzumiHD" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-twitter fa-bounce" style="color: #1da1f2; text-shadow: 1px 1px 2px black;"></i></a>
-        <a href="https://www.youtube.com/@technoscootalo/featured" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-youtube fa-bounce" style="color: red; text-shadow: 1px 1px 2px black;"></i></a>
-        <a href="https://github.com/IzumiiHD/Pixelit" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-github fa-bounce" style="color: white; text-shadow: 1px 1px 2px black;"></i></a>
+        <a href="https://discord.gg/ccARpDEKHU" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-discord" style="color: #5865f2; text-shadow: 1px 1px 2px black;"></i></a>
+        <a href="https://twitter.com/IzumiHD" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-twitter" style="color: #1da1f2; text-shadow: 1px 1px 2px black;"></i></a>
+        <a href="https://www.youtube.com/@technoscootalo/featured" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-youtube" style="color: red; text-shadow: 1px 1px 2px black;"></i></a>
+        <a href="https://github.com/IzumiiHD/Pixelit" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-github" style="color: white; text-shadow: 1px 1px 2px black;"></i></a>
       </h2>
       </div>  
     </br>
@@ -136,7 +119,7 @@
               Read our latest article by clicking the button below
             </h3>
             <button
-              style="width:auto; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
+              style="width:auto; font-size:20px; border-radius:5px; background-color: transparent; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
               position: absolute;
               top: 80%;
               left: 18%;"
@@ -145,7 +128,7 @@
               onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
               onclick="window.location.href='../site/news.html';"
             >
-              <i class="fa-solid fa-newspaper"></i>
+              <i class="fa-solid fa-newspaper" style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);"></i>
             </button>
           </center>
         </div>
@@ -157,10 +140,9 @@
           style="width:200px; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
           position: absolute;
           top: 50%;
-          left: 48%;
-        "
-          id="viewaccount"
-          onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          left: 48%;"
+          id="viewAccount"
+          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
           onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
         >
           View Account<i class="fa-solid fa-magnifying-glass"></i>
@@ -170,10 +152,9 @@
           style="width:200px; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
           position: absolute;
           top: 35%;
-          left: 48%;
-        "
-          id="viewplayer"
-          onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          left: 48%;"
+          id="tradePlayer"
+          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
           onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
         >
           Trade Player <i class="fa-solid fa-handshake"></i>
@@ -183,8 +164,7 @@
           pointer
           style="width:200px; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; pointer-events: auto; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; position: absolute; top: 20%; left: 48%;"
           id="spin"
-          onclick="spins()"
-          onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
           onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
         >
           Claim Tokens <i class="fa-solid fa-star"></i>
@@ -222,7 +202,7 @@
               Tokens: <span id="tokens"></span>
             </h3>
           </div>
-          <img src="../img/dashboard/token.png" alt="Token Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px; transform: rotate(20deg);" />
+          <img src="../img/dashboard/token.png" alt="Token Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px; transform: rotate(0deg);" />
         </div>
       </div>
 
@@ -259,6 +239,7 @@
     </h1>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="/javascript/dashboard.js"></script>
+    <script src="/javascript/screenSize.js"></script>
     <!--<script src="../api/mainpage.js"></script>-->
   </body>
 </html>

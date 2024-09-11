@@ -1,6 +1,5 @@
 body {
   font-family: Pixelify Sans;
-  overflow: hidden;
   color: white;
   margin: 0;
   padding: 0;
@@ -33,6 +32,11 @@ body {
   padding: 14px 16px;
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar a:hover {
+  transform: rotate(360deg);
 }
 .dropdown {
   float: left;
@@ -48,10 +52,7 @@ body {
   font-family: inherit;
   margin: 0;
 }
-.navbar a:hover,
-.dropdown:hover .dropbtn {
-  background-color: purple;
-}
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -72,9 +73,6 @@ body {
 }
 .dropdown-content a:hover {
   background-color: #d800ff;
-}
-.dropdown-content a:last-child:hover{
-  border-radius: 0 0 10px 10px;
 }
 .dropdown:hover .dropdown-content {
   display: block;
@@ -225,14 +223,14 @@ body {
 .box {
   height: 350px;
   width: 250px;
-  border-radius: 5px;
+  border-radius: 25px;
   box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
   padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   cursor: pointer;
-  background-color: #6f057a;
+  background: radial-gradient(circle, #3d0a43, #6f057a);
 }
 .box:hover {
   transform: scale(0.95);

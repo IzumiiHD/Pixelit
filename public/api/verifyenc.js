@@ -30,3 +30,23 @@ window.onload = () => {
     console.error('There was a problem with the fetch operation:', error);
   });
 };
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const socket = io();
+
+  const displaySiteSpeed = (data) => {
+    document.getElementById('latency').innerText = data.latency + ' ms';
+    document.getElementById('speed').innerText = data.speed + ' Mbps';
+  };
+
+  socket.on('updateStats', (data) => {
+    displaySiteSpeed(data);
+  });
+
+  const requestSiteSpeed = () => {
+    socket.emit('request-stats');
+  };
+
+  setInterval(requestSiteSpeed, 2000);
+});

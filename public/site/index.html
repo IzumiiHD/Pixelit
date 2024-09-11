@@ -46,7 +46,7 @@
       </h1>
       <br />
       <br />
-      <h2
+      <h1
         style="
           color: #fff;
           position: absolute;
@@ -57,9 +57,9 @@
         "
       >
         Programmed primarily in JavaScript! 
-      </h2>
+      </h1>
       <br />
-      <h2
+      <h1
         style="
           color: #fff;
           position: absolute;
@@ -70,22 +70,9 @@
         "
       >
         Created by IzumiiHD, Iamgamedude, Buenar, PrqYT and Packman28!
-      </h2>
+      </h1>
       <br />
-      <h3
-        style="
-          color: #fff;
-          position: absolute;
-          top: 83%;
-          left: 7%;
-          right: 7%;
-          text-shadow: #000 1px 0 13px;
-        "
-      >
-        Beta: 1.0.0
-      </h3>
-      <img src="../img/homeBlooksHD.png" alt="homesBlookHD" draggable="false" style="height: 50%; width: 50%; position: relative; left: 15%;"/>
-      
+      <img src="../img/homeBlooksHD.png" alt="homesBlookHD" draggable="false" style="height: 50%; width: 50%; position: relative; left: 15%; animation: float 3s ease-in-out infinite; cursor: pointer;" onclick="window.location.href='/register.html';"/>
       <h3 style="position: absolute; bottom: 8%; left: 15px;">
         <a href="/tos.html" style="color: #fff; text-decoration: underline;">Terms Of Service</a>
       </h3>
@@ -104,4 +91,8 @@
       </h2>
     </div>
   </body>
+  <script type="module">
+    import { displayVersion } from '/javascript/versionDisplay.js';
+    document.addEventListener('DOMContentLoaded', displayVersion);
+  </script>
 </html>

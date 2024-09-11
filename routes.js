@@ -118,7 +118,7 @@ router.get("/user", async (req, res) => {
       });
     }
   } else {
-    res.status(500).send("you are not logged in");
+    res.status(500).send("You are not logged in");
   }
 });
 router.post("/login", async (req, res) => {
@@ -143,7 +143,7 @@ router.post("/login", async (req, res) => {
         req.session.spinned = user.spinned;
         res.sendStatus(200);
       } else {
-        res.status(500).send("Password is incorrect!");
+        res.status(500).send("Username or Password is incorrect!");
       }
     } else {
       res.status(500).send("User not found!");
@@ -180,10 +180,10 @@ router.post("/register", limiter, async (req, res) => {
         });
         res.sendStatus(200);
       } else {
-        res.status(500).send("request has already been sent!");
+        res.status(500).send("Request has already been sent!");
       }
     } else {
-      res.status(500).send("user already exists!");
+      res.status(500).send("That username already exists!");
     }
   } catch (err) {
     console.error(err);
@@ -238,7 +238,7 @@ router.post("/addAccount", async (req, res) => {
             tokens: 0,
             spinned: 0,
             pfp: "logo.png",
-            banner: "defaultBanner.svg",
+            banner: "pixelitBanner.png",
             role: "Common",
             sent: 0,
             packs: await packs.find().toArray(),
@@ -747,6 +747,10 @@ router.get("/claim", async (req, res) => {
   } else {
     res.status(500).send(`Wait for ${(date.now() - user.spinned / 3600000).toFixed(2)} hours before claiming again`)
   }
+});
+
+// Router to handle selling a blook
+router.post("/sellBlook", async (req, res) => {
 });
 
 // Body parser middleware to handle JSON requests

@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Badge Editor</title>
+    <title>Badge Adder</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="icon" type="image/png" href="../img/favicon.ico" />
@@ -16,8 +16,8 @@
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="badgeadd.css">
     <link href="../enc/enc.css" rel="stylesheet" />
-    <link rel="stylesheet" href="bannerEditor.css">
   </head>
   <body>
     <body style="background-color: #800097;">
@@ -35,23 +35,34 @@
             <div> 
               <a href="../../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
               <a href="../enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
-              <a href="../ownerPanelPage/owner.html"
-                ><i class="fa-solid fa-code"></i
-              ></a>
+              <a href="../ownerPanelPage/owner.html"><i class="fa-solid fa-code"></i></a>
+              <a href="/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
             </div>
           </div> 
         </div>
         <div class="title_p" id="title_p">Pixelit</div>
       </div>
-    <body>
-      <div>
-        
-      </div>
-    </body>
+    </br>
+    </br>
+    <div class="container">
+      <h2>Badge Manager</h2>
+      <form id="badge-form">
+        <label for="badge-name">Badge Name:</label>
+        <input type="text" id="badge-name" name="badge-name" required />
+        <label for="badge-image">
+          Image Link:</label>
+        <input type="text" id="badge-image" name="badge-image" required />
+        <button type="submit" style="font-family: Pixelify Sans;">Add Badge</button>
+      </form>
+      <h3>Current Badges:</h3>
+      <ul class="badge-list" id="badge-list">
+        <!-- Badges will be displayed here -->
+      </ul>
+    </div>
 
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="../../api/verifyenc.js"></script>
-    <script src="./bannerEditor.js"></script>
+    <script src="./badgeadd.js"></script>
     <script src="/api/verifyOwner.js"></script>
   </body>
 </html>

@@ -10,15 +10,77 @@ function ge(id) {
 
 
 function addSpinClickListener() {
+  const TWO_HOURS_IN_MS = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+
   ge("spin").addEventListener("click", () => {
-    const tokensWon = Math.floor(Math.pow(Math.random(), 2.5) * 6) * 100 + 500
-    user.tokens += tokensWon;
-    tokens.innerHTML = user.tokens;
-    alert(`Congratulations! You claimed ${tokensWon} tokens!`);
+    const currentTime = Date.now();
+    const lastClaimTime = localStorage.getItem('lastClaimTime') || 0;
+    const timeSinceLastClaim = currentTime - lastClaimTime;
+
+    if (timeSinceLastClaim >= TWO_HOURS_IN_MS) {
+      const tokensWon = Math.floor(Math.pow(Math.random(), 2.5) * 6) * 100 + 500;
+      user.tokens += tokensWon;
+      tokens.innerHTML = user.tokens;
+      alert(`Congratulations! You claimed ${tokensWon} tokens!`);
+
+      // Update the last claim time
+      localStorage.setItem('lastClaimTime', currentTime.toString());
+
+      // Send update to server
+      fetch('/claim', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tokens: user.tokens })
+      });
+    } else {
+      const remainingTime = TWO_HOURS_IN_MS - timeSinceLastClaim;
+      const remainingMinutes = Math.ceil(remainingTime / 60000);
+      alert(`You can only claim tokens once every 2 hours. Please wait ${remainingMinutes} minute(s) before trying again.`);
+    }
   });
 }
 
 addSpinClickListener();
+
+// Function to update tokens on the server (implement this)
+function updateTokensOnServer(newTokenAmount) {
+  // Use fetch or another method to send an update to your server
+  // Example:
+  // fetch('/update-tokens', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ tokens: newTokenAmount })
+  
+ // });
+}
+
+window.onload = () => {
+  //document.body.style.pointerEvents = "none";
+  fetch("/user", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json(); // Parse JSON data
+      } else if (response.status === 500) {
+        return response.text().then((text) => {
+          alert(text);
+        });
+      } else {
+        console.error("Unexpected response status:", response.status);
+        throw new Error("Unexpected response status");
+      }
+    })
+    .then((data) => {
+      document.getElementById("tokens").innerHTML = data.tokens;
+    })
+    .catch((error) => {
+      console.error("There was a problem with the fetch operation:", error);
+    });
+};
 
 // Function to render badges
 function renderBadges(badges) {
@@ -161,6 +223,15 @@ socket.on("getUserBadges", (badges) => {
   }
   console.log(badges);
   renderBadges(badges);
+});
+
+
+document.getElementById('viewAccount').addEventListener('click', function() {
+  alert('This feature will be implemented later upon release');
+});
+
+document.getElementById('tradePlayer').addEventListener('click', function() {
+  alert('This feature will be implemented later upon release');
 });
 
 document.addEventListener('DOMContentLoaded', function() {

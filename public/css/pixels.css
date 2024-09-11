@@ -32,6 +32,11 @@ body {
   padding: 14px 16px;
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar a:hover {
+  transform: rotate(360deg);
 }
 .dropdown {
   float: left;
@@ -47,10 +52,7 @@ body {
   font-family: inherit;
   margin: 0;
 }
-.navbar a:hover,
-.dropdown:hover .dropbtn {
-  background-color: purple;
-}
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -129,10 +131,12 @@ body {
 }
 
 .badge {
+  box-shadow: 2px 2px 5px black;
+  text-shadow: 1px 1px 2px black;
   position: absolute;
-  top: -0%;
+  top: -2%;
   right: -5%;
-  background-color: #ff0000;
+  background-color: #ffffff;
   color: white;
   border-radius: 50%;
   padding: 5px 8px;
@@ -144,7 +148,7 @@ body {
   position: relative;
   width: 80px;
   height: 80px;
-  background-color: #222;
+  background-color: #9402a3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -157,7 +161,6 @@ body {
   max-height: 90%;
   cursor: pointer;
 }
-
 .blook-details {
   position: absolute;
   top: 25%;
@@ -196,4 +199,97 @@ body {
 
 .blook-details button:hover {
   background-color: #45a049;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #6f057a;
+  margin: 15% auto;
+  padding: 20px;
+  height: 300px;
+  width: 500px;
+  border-radius: 5px;
+  font-family: 'Pixelify Sans', sans-serif;
+  color: white;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pixel-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.pixel-info img {
+  width: 80px;
+  height: 80px;
+  margin-right: 10px;
+}
+
+.pixel-details p {
+  margin: 5px 0;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.button-group button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 16px;
+}
+
+#confirmSell {
+  background-color: #4CAF50;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+#confirmSell:hover {
+  transform: scale(1.1);
+}
+
+#cancelSell {
+  background-color: #f44336;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+#cancelSell:hover {
+  transform: scale(1.1);
 }
