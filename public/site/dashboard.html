@@ -19,227 +19,78 @@
     <link rel="stylesheet" href="../css/dashboard.css"> <!-- Link to your CSS file -->
     <title>Dashboard</title>
   </head>
-  <body style="background-color: #800097;">
+  <body style="background: #800097;">
     <img alt="Blooks Background" class="bg_img" />
-      <div class="navbar">
+    <div class="navbar">
         <div class="dropdown">
-          <div > 
-          <div> 
-            <a href="/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-            <a href="/chat.html"><i class="fa-solid fa-comments"></i></a>
-            <a href="/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
-            <a href="/market.html"><i class="fa-solid fa-store"></i></a>
-            <a href="/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
-            <a href="/auction.html"><i class="fa-solid fa-gavel"></i></a>
-            <a id="wrench-icon" href="../panel/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
-            <a href="/settings.html"><i class="fa-solid fa-gear"></i></a>
-            <a href="/news.html"><i class="fa-solid fa-newspaper"></i></a>
-            <a href="/store.html"><i class="fa-solid fa-shop"></i></a>
-            <a href="/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
+          <div>
+            <div>
+              <a href="/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
+              <a href="/chat.html"><i class="fa-solid fa-comments"></i></a>
+              <a href="/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
+              <a href="/market.html"><i class="fa-solid fa-store"></i></a>
+              <a href="/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
+              <a href="/auction.html"><i class="fa-solid fa-gavel"></i></a>
+              <a id="wrench-icon" href="../panel/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
+              <a href="/settings.html"><i class="fa-solid fa-gear"></i></a>
+              <a href="/news.html"><i class="fa-solid fa-newspaper"></i></a>
+              <a href="/store.html"><i class="fa-solid fa-shop"></i></a>
+              <a href="/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
+            </div>
           </div>
-          </div> 
-      </div>
-      <div class="title_p" id="title_p">Pixelit</div>
-    </div>
-
-      </br>
-      </br>
-      </br>
-
-    <div style="width: 700px; height: 480px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
-      ">    
-        <h1 style="color: #fff; text-shadow: #000 1px 0 13px;">Profile</h1> 
-      <div class="container" style="display: flex;justify-content: center;align-items: center;gap: 12px;/* margin-top: 16px; */">
-        <img id="pfp" src="../img/blooks/logo.png" alt="defaultBlook" draggable="false" style="
-            display: block;
-            /* margin-left: auto; */
-            /* margin-right: auto; */
-            border-radius: 5px;
-            height: auto;
-            width: 13%;
-            /* position: relative; */
-            left: -43%;
-            top: 25%;
-            filter: drop-shadow(0 0 5px rgba(0, 0, 0, .5));
-            cursor: pointer;
-          "
-          onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
-          onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
-          >
-        <div class="banner-container" style="
-          width: 311px;
-          height: 90.75px;
-          color: #fff;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          outline: none;
-          cursor: pointer;
-          font-family: Pixelify Sans !important;
-          "
-          onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
-          onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
-          >
-        <img id="banner" src="../img/banner/pixelitBanner.png" alt="pixelitBanner" draggable="false" style="
-          position: absolute;
-          cursor: pointer;
-          top: -1%;
-          left: 0%;
-          width: 100%;
-          height: 100%;
-          filter: drop-shadow(0 0 5px rgba(0, 0, 0, .5));
-          "
-          >
-          <div style="color: #fff;text-shadow: white;position: relative;z-index: 2;text-align: center;font-size: 20px;/* font-family: nunito; */font-weight: bold;/* color: initial; */margin-top: 7%;" class="rainbow-text" id="username">loading...</div> 
-          <div style="color: #fff;text-shadow: #000 1px 0 13px;position: relative;z-index: 2;" id="role">loading...</div>
         </div>
+        <div class="title_p" id="title_p">Pixelit</div>
       </div>
-      <h2 style="color: #fff" ><div draggable="false" id="badges" onmouseover="this.style.cursor='pointer';"></div></h2>
-      <h3 style="color: #fff; text-shadow: #000 1px 0 13px;" id="date">loading...</h3>
-      <h2>
-        <a href="https://discord.gg/ccARpDEKHU" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-discord" style="color: #5865f2; text-shadow: 1px 1px 2px black;"></i></a>
-        <a href="https://twitter.com/IzumiHD" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-twitter" style="color: #1da1f2; text-shadow: 1px 1px 2px black;"></i></a>
-        <a href="https://www.youtube.com/@technoscootalo/featured" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-youtube" style="color: red; text-shadow: 1px 1px 2px black;"></i></a>
-        <a href="https://github.com/IzumiiHD/Pixelit" style="text-shadow: 1px 1px 2px black;"><i class="fa-brands fa-github" style="color: white; text-shadow: 1px 1px 2px black;"></i></a>
-      </h2>
-      </div>  
-    </br>
-    </br>
-    </br>
-    </br>
 
+        <div class="main_container" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        </br>
+        </br>
+          <div class="profile_container">
+            <div style="display: flex; flex-direction: row; align-items: center; margin-bottom: 10px;">
+              <img id="pfp" src="../img/blooks/logo.png" alt="defaultBlook" style="border-radius: 5px; width: 100px; height: 100px; margin-right: 10px;" onmouseover="this.style.cursor='pointer'; this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';">
+              <div style="position: relative; display: inline-block; text-align: center;" onmouseover="this.style.cursor='pointer'; this.style.transform='scale(0.95)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';">
+                <img src="../img/banner/pixelitBanner.png" alt="Pixelit Banner" id="banner" style="width: 350px; height: 100px; display: block;  margin: 0 auto;">
+                <div id="username" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -100%); font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">loading...</div>
+                <div id="role" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, 0%); font-size: 18px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">loading...</div>
+              </div>
+                    <div id="badges-container" style="margin-top: 10px; padding: 10px; border-radius: 5px; background-color: #800097; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); margin-left: 20px;">
+                      <div id="badges" style="margin-top: 10px;"></div>
+              </div>
+          </div>
 
-        <div
-          style="width: 700px; height: 150px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px;
-
-        "
-        >
-          <center>
-            <h3 style="text-shadow: #000 1px 0 13px;">
-              Read our latest article by clicking the button below
-            </h3>
-            <button
-              style="width:auto; font-size:20px; border-radius:5px; background-color: transparent; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
-              position: absolute;
-              top: 80%;
-              left: 18%;"
-              id="viewplayer"
-              onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
-              onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
-              onclick="window.location.href='../site/news.html';"
-            >
-              <i class="fa-solid fa-newspaper" style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);"></i>
+          <div class="button_container" style="display: flex; gap: 20px;">
+            <button style="display: flex; align-items: center; justify-content: center; width: 200px; height: 40px; font-size: 16px; border-radius: 5px; background-color: #eb6234; color: white; border: none; padding: 15px 30px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto;" id="viewAccount" onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';">
+              <i class="fa-solid fa-magnifying-glass" style="margin-right: 10px; font-size: 16px;"></i>View Stats
             </button>
-          </center>
-        </div>
-
-      <br>
-      <br>
-
-        <button
-          style="width:200px; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
-          position: absolute;
-          top: 50%;
-          left: 48%;"
-          id="viewAccount"
-          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
-          onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
-        >
-          View Account<i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-
-        <button
-          style="width:200px; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer;
-          position: absolute;
-          top: 35%;
-          left: 48%;"
-          id="tradePlayer"
-          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
-          onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
-        >
-          Trade Player <i class="fa-solid fa-handshake"></i>
-        </button>
-
-        <button
-          pointer
-          style="width:200px; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; pointer-events: auto; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; position: absolute; top: 20%; left: 48%;"
-          id="spin"
-          onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
-          onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
-        >
-          Claim Tokens <i class="fa-solid fa-star"></i>
-        </button>
+            <button style="display: flex; align-items: center; justify-content: center; width: 200px; height: 40px; font-size: 16px; border-radius: 5px; background-color: #01c774; color: white; border: none; padding: 15px 30px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto;" id="tradePlayer" onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';">
+              <i class="fa-solid fa-handshake" style="margin-right: 10px; font-size: 16px;"></i>Trade
+            </button>
+            <button style="display: flex; align-items: center; justify-content: center; width: 200px; height: 40px; font-size: 16px; border-radius: 5px; background-color: #00c20c; color: white; border: none; padding: 15px 30px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto;" id="spin" onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';">
+              <i class="fa-solid fa-star" style="margin-right: 10px; font-size: 16px;"></i>Claim Tokens
+            </button>
+          </div>
     
-    <div style="
-      width: 550px;
-      height: 480px;
-      font-size: 18px;
-      border-radius: 5px;
-      background-color: #6f057a;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor;
-      box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
-      font-family: Pixelify Sans;
-      margin-left: 45px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 13%;
-      left: 66%;
-      ">
-        <h1 style="text-shadow: #000 1px 0 13px; position: absolute; top: 0%; left: 30%;">Statistics</h1>
-      </div>
-
-    <div class="statistics">
-      <div style="height: 50%; width: 50%; position: absolute; left: 75%; top: 25%;">
-        <div class="box box1" style="background-color: #800097;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
-          <div class="text">
-            <h3 style="color: #fff">
-              Tokens: <span id="tokens"></span>
-            </h3>
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+                <div class="stat_box" style="background: #5e046e; padding: 40px; border-radius: 15px; display: flex; align-items: center; font-size: 24px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); width: 60%; position: absolute; bottom: 50%; left: 50%; transform: translate(-50%, 50%); margin-top: 40px;">
+                  <div style="position: absolute; top: -20px; left: 3%; transform: translateX(-50%); background-color: #800097; padding: 10px 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); font-size: 24px;">Stats</div>
+                  <div style="display: flex; width: 100%; justify-content: space-between; align-items: center;">
+                    <div class="stat_box" style="background: #800097; padding: 20px; border-radius: 10px; display: flex; align-items: center; width: 23%; font-size: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
+                      Tokens: <span id="tokens" style="margin-left: 10px;">0</span>
+                      <img src="../img/dashboard/token.png" alt="Token Icon" style="display: inline-block; width: 36px; height: 36px; margin-left: 10px; transform: rotate(0deg);" />
+                    </div>
+                    <div class="stat_box" style="background: #800097; padding: 20px; border-radius: 10px; display: flex; align-items: center; width: 23%; font-size: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
+                      Packs Opened: <span id="packs" style="margin-left: 10px;">0</span>
+                      <img src="../img/dashboard/unlocked.png" alt="Unlocked Icon" style="display: inline-block; width: 36px; height: 36px; margin-left: 10px; transform: rotate(20deg);" />
+                    </div>
+                    <div class="stat_box" style="background: #800097; padding: 20px; border-radius: 10px; display: flex; align-items: center; width: 23%; font-size: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
+                      Messages Sent: <span id="messages" style="margin-left: 10px;">0</span>
+                      <img src="../img/dashboard/speech.png" alt="Speech Icon" style="display: inline-block; width: 36px; height: 36px; margin-left: 10px; transform: rotate(20deg);" />
+                    </div>
+                  </div>
+             </div>
           </div>
-          <img src="../img/dashboard/token.png" alt="Token Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px; transform: rotate(0deg);" />
-        </div>
-      </div>
-
-      <div style="height: 50%; width: 50%; position: absolute; left: 75%; top: 40%;">
-            <div class="box box2" style="background-color: #800097;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
-            <div class="text">
-              <h3 style="color: #fff;"> 
-                Packs Opened: <span id="packs"></span>
-              </h3>
-            </div>
-              <img src="../img/dashboard/unlocked.png" alt="Unlocked Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px; transform: rotate(20deg);" />
-          </div>
-
-        <div style="height: 50%; width: 50%; position: absolute; left: 0.5%; top: 30%;">
-            <div class="box box3" style="background-color: #800097;" onmouseover="this.style.transform='scale(1.1)' " onmouseout="this.style.transform='scale(1)'">
-            <div class="text">
-              <h3 style="color: #fff" >Messages Sent: <span id="messages"></span></h3>
-            </div>
-              <img src="../img/dashboard/speech.png" alt="Speech Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px; transform: rotate(20deg);"/>
-        </div>
-      </div>
-    </div>
-
-    <h1
-      style="
-        color: #fff;
-        position: absolute;
-        top: 80%;
-        left: 55%;
-        text-shadow: #000 1px 0 13px;
-      "
-    >
-      Welcome to the Dashboard
-    </h1>
-    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-    <script src="/javascript/dashboard.js"></script>
-    <script src="/javascript/screenSize.js"></script>
-    <!--<script src="../api/mainpage.js"></script>-->
   </body>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="/javascript/dashboard.js"></script>
+  <!--<script src="../api/mainpage.js"></script>-->
 </html>

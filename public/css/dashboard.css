@@ -224,18 +224,6 @@ body {
   size: 10%;
 }
 
-.button {
-  font-family: Pixelify Sans;
-  display: inline-block;
-  padding: 8px 12px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  background-color: #b011c2;
-  color: #fff;
-  margin-right: 5px;
-}
-
 /* Make sure that padding behaves as expected */
 * {
   box-sizing: border-box;
@@ -258,8 +246,8 @@ body {
 
 .badge {
   display: inline-block;
-  height: 60px;
-  width: 60px;
+  height: 45px;
+  width: 45px;
   user-drag: none;
   -webkit-user-drag: none;
 }
