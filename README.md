@@ -1,7 +1,7 @@
 # Pixelit
 
 <div align="center">
-  <img src="https://pixelit.replit.app/img/blooks/logo.png" alt="Project Logo" style="width: 200px; border-radius: 5px;">
+  <img src="https://pixelit.replit.app/img/blooks/logo.png" alt="Project Logo" style="width: 200px; border-radius: 10px;">
 </div>
 
 Pixelit is the very first Blooket private server to use pixel art as blooks and badges, created mostly in JavaScript! Created by IzumiiHD, Iamgamedude, Buenar, SOUNDGOD, Prq, and Packman28. 
