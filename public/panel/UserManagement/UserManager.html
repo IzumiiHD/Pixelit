@@ -18,53 +18,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="UserManager.css" rel="stylesheet" />
   </head>
-  <body>
-    <body style="background-color: #800097">
-      <img alt="Blooks Background" class="bg_img" />
-      <div class="navbar">
-        <div class="dropdown">
-          <div>
+<html>
+    <body>
+      <body style="background-color: #800097">
+        <img alt="Blooks Background" class="bg_img" />
+        <div class="navbar">
+          <div class="dropdown">
             <div>
-              <a href="../../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-              <a href="../enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
-              <a href="../ownerPanelPage/owner.html"><i class="fa-solid fa-code"></i></a>
-              <a href="/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
+              <div>
+                <a href="../../site/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
+                <a href="../enc/enc.html"><i class="fa-solid fa-wrench"></i></a>
+                <a href="../ownerPanelPage/owner.html"><i class="fa-solid fa-code"></i></a>
+                <a href="/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
+              </div>
             </div>
           </div>
+          <div class="title_p" id="title_p">Pixelit</div>
         </div>
-        <div class="title_p" id="title_p">Pixelit</div>
-      </div>
-  <body>
-    
-    <div class="user-management-panel">
-      <h2>User Management</h2>
-      <ul class="user-actions">
-        <li><button onclick="muteUser()"><i class="fa-solid fa-volume-mute"></i> Mute</button></li>
-        <li><button onclick="banUser()"><i class="fa-solid fa-ban"></i> Ban</button></li>
-      </ul>
-    </div>
-
-    <div class="user-list">
-      <h2>All Users</h2>
-      <ul id="user-list">
-        <!-- this would be where we would keep all of our users -->
-      </ul>
-    </div>
-
-    <script>
-      async function fetchUsers() {
-        const response = await fetch('/users'); 
-        const users = await response.json();
-        const userList = document.getElementById('user-list');
-        userList.innerHTML = '';
-        users.forEach(user => {
-          const li = document.createElement('li');
-          li.textContent = `${user.name} (${user.email})`;
-          userList.appendChild(li);
-        });
-      }
-
-      document.addEventListener('DOMContentLoaded', fetchUsers);
-    </script>
-  
-  </body>
+      <body>
+    </body>
+</html>
