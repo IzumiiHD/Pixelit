@@ -1,6 +1,6 @@
-# Pixelit Blooket Private Server
+# Pixelit
 
-_________
+![Project Logo](https://pixelit.replit.app/img/blooks/logo.png)
 
 Pixelit is the very first Blooket private server to use pixel art as blooks and badges, created mostly in JavaScript! Created by IzumiiHD, Iamgamedude, Buenar, SOUNDGOD, Prq, and Packman28. 
 
