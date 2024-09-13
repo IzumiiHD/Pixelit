@@ -4,6 +4,8 @@
   <img src="https://pixelit.replit.app/img/blooks/logo.png" alt="Project Logo" style="width: 200px; border-radius: 10px;">
 </div>
 
+## Contributors
+
 <div align="center">
   <p>Thanks to the following people who have contributed to this project:</p>
   <a href="https://github.com/IzumiiHD" target="_blank">
