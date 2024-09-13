@@ -1,9 +1,9 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -16,81 +16,355 @@
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="../img/favicon.ico" />
-    <link rel="stylesheet" href="../css/dashboard.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="../css/dashboard.css" />
     <title>Dashboard</title>
   </head>
-  <body style="background: #800097;">
+  <body style="background: #800097">
     <img alt="Blooks Background" class="bg_img" />
     <div class="navbar">
-        <div class="dropdown">
+      <div class="dropdown">
+        <div>
           <div>
-            <div>
-              <a href="/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
-              <a href="/chat.html"><i class="fa-solid fa-comments"></i></a>
-              <a href="/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
-              <a href="/market.html"><i class="fa-solid fa-store"></i></a>
-              <a href="/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
-              <a href="/auction.html"><i class="fa-solid fa-gavel"></i></a>
-              <a id="wrench-icon" href="../panel/enc/enc.html" style="display: none;"><i class="fa-solid fa-wrench"></i></a>
-              <a href="/settings.html"><i class="fa-solid fa-gear"></i></a>
-              <a href="/news.html"><i class="fa-solid fa-newspaper"></i></a>
-              <a href="/store.html"><i class="fa-solid fa-shop"></i></a>
-              <a href="/index.html"><i class="fa-solid fa-right-from-bracket" onclick="sessionStorage.clear(); location.reload(); "></i></a>
+            <a href="/dashboard.html"
+              ><i class="fa-solid fa-chart-column"></i
+            ></a>
+            <a href="/chat.html"><i class="fa-solid fa-comments"></i></a>
+            <a href="/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
+            <a href="/market.html"><i class="fa-solid fa-store"></i></a>
+            <a href="/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
+            <a href="/auction.html"><i class="fa-solid fa-gavel"></i></a>
+            <a
+              id="wrench-icon"
+              href="../panel/enc/enc.html"
+              style="display: none"
+              ><i class="fa-solid fa-wrench"></i
+            ></a>
+            <a href="/settings.html"><i class="fa-solid fa-gear"></i></a>
+            <a href="/news.html"><i class="fa-solid fa-newspaper"></i></a>
+            <a href="/store.html"><i class="fa-solid fa-shop"></i></a>
+            <a href="/index.html"
+              ><i
+                class="fa-solid fa-right-from-bracket"
+                onclick="sessionStorage.clear(); location.reload();"
+              ></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="title_p" id="title_p">Pixelit</div>
+    </div>
+    <div
+      class="main_container"
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      "
+    >
+      <br />
+      <br />
+      <div class="profile_container">
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 10px;
+          "
+        >
+          <img
+            id="pfp"
+            src="../img/blooks/logo.png"
+            alt="defaultBlook"
+            style="
+              border-radius: 5px;
+              width: 100px;
+              height: 100px;
+              margin-right: 10px;
+              cursor: pointer;
+            "
+            onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
+            onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          />
+          <div
+            style="
+              position: relative;
+              display: inline-block;
+              text-align: center;
+              cursor: pointer;
+            "
+            onmouseover="this.style.transform='scale(0.95)'; this.style.transition = 'transform 0.2s ease-in-out';"
+            onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          >
+            <img
+              src="../img/banner/pixelitBanner.png"
+              alt="Pixelit Banner"
+              id="banner"
+              style="
+                width: 350px;
+                height: 100px;
+                display: block;
+                margin: 0 auto;
+              "
+            />
+            <div
+              id="username"
+              style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -100%);
+                font-size: 24px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+              "
+            >
+              loading...
+            </div>
+            <div
+              id="role"
+              style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, 0%);
+                font-size: 18px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+              "
+            >
+              loading...
+            </div>
+          </div>
+          <div
+            id="badges-container"
+            style="
+              margin-top: 10px;
+              padding: 10px;
+              border-radius: 5px;
+              background-color: #800097;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+              margin-left: 20px;
+            "
+          >
+            <div id="badges" style="margin-top: 10px"></div>
+          </div>
+        </div>
+        <div class="button_container" style="display: flex; gap: 20px">
+          <button
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 200px;
+              height: 40px;
+              font-size: 16px;
+              border-radius: 5px;
+              background-color: #eb6234;
+              color: white;
+              border: none;
+              padding: 15px 30px;
+              cursor: pointer;
+              box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+              font-family: Pixelify Sans;
+              pointer-events: auto;
+            "
+            id="viewStats"
+            onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+            onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          >
+            <i
+              class="fa-solid fa-magnifying-glass"
+              style="margin-right: 10px; font-size: 16px"
+            ></i
+            >View Stats
+          </button>
+          <button
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 200px;
+              height: 40px;
+              font-size: 16px;
+              border-radius: 5px;
+              background-color: #01c774;
+              color: white;
+              border: none;
+              padding: 15px 30px;
+              cursor: pointer;
+              box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+              font-family: Pixelify Sans;
+              pointer-events: auto;
+            "
+            id="trade"
+            onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+            onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          >
+            <i
+              class="fa-solid fa-handshake"
+              style="margin-right: 10px; font-size: 16px"
+            ></i
+            >Trade
+          </button>
+          <button
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 200px;
+              height: 40px;
+              font-size: 16px;
+              border-radius: 5px;
+              background-color: #00c20c;
+              color: white;
+              border: none;
+              padding: 15px 30px;
+              cursor: pointer;
+              box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+              font-family: Pixelify Sans;
+              pointer-events: auto;
+            "
+            id="spin"
+            onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+            onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
+          >
+            <i
+              class="fa-solid fa-star"
+              style="margin-right: 10px; font-size: 16px"
+            ></i
+            >Claim Tokens
+          </button>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; width: 100%">
+          <div
+            class="stat_box"
+            style="
+              background: #5e046e;
+              padding: 40px;
+              border-radius: 15px;
+              display: flex;
+              align-items: center;
+              font-size: 24px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+              width: 60%;
+              position: absolute;
+              bottom: 50%;
+              left: 50%;
+              transform: translate(-50%, 50%);
+              margin-top: 40px;
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -20px;
+                left: 3%;
+                transform: translateX(-50%);
+                background-color: #800097;
+                padding: 10px 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                font-size: 24px;
+              "
+            >
+              Stats
+            </div>
+            <div
+              style="
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div
+                class="stat_box"
+                style="
+                  background: #800097;
+                  padding: 20px;
+                  border-radius: 10px;
+                  display: flex;
+                  align-items: center;
+                  width: 23%;
+                  font-size: 20px;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                "
+              >
+                Tokens: <span id="tokens" style="margin-left: 10px">0</span>
+                <img
+                  src="../img/dashboard/token.png"
+                  alt="Token Icon"
+                  style="
+                    display: inline-block;
+                    width: 36px;
+                    height: 36px;
+                    margin-left: 10px;
+                    transform: rotate(0deg);
+                  "
+                />
+              </div>
+              <div
+                class="stat_box"
+                style="
+                  background: #800097;
+                  padding: 20px;
+                  border-radius: 10px;
+                  display: flex;
+                  align-items: center;
+                  width: 23%;
+                  font-size: 20px;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                "
+              >
+                Packs Opened:
+                <span id="packs" style="margin-left: 10px">0</span>
+                <img
+                  src="../img/dashboard/unlocked.png"
+                  alt="Unlocked Icon"
+                  style="
+                    display: inline-block;
+                    width: fit-content;
+                    max-width: 36px;
+                    height: 36px;
+                    margin-left: 10px;
+                    transform: rotate(20deg);
+                  "
+                />
+              </div>
+              <div
+                class="stat_box"
+                style="
+                  background: #800097;
+                  padding: 20px;
+                  border-radius: 10px;
+                  display: flex;
+                  align-items: center;
+                  width: 23%;
+                  font-size: 20px;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                "
+              >
+                Messages Sent:
+                <span id="messages" style="margin-left: 10px">0</span>
+                <img
+                  src="../img/dashboard/speech.png"
+                  alt="Speech Icon"
+                  style="
+                    display: inline-block;
+                    width: 36px;
+                    height: 36px;
+                    margin-left: 10px;
+                    transform: rotate(20deg);
+                  "
+                />
+              </div>
             </div>
           </div>
         </div>
-        <div class="title_p" id="title_p">Pixelit</div>
       </div>
-
-        <div class="main_container" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-        </br>
-        </br>
-          <div class="profile_container">
-            <div style="display: flex; flex-direction: row; align-items: center; margin-bottom: 10px;">
-              <img id="pfp" src="../img/blooks/logo.png" alt="defaultBlook" style="border-radius: 5px; width: 100px; height: 100px; margin-right: 10px;" onmouseover="this.style.cursor='pointer'; this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';">
-              <div style="position: relative; display: inline-block; text-align: center;" onmouseover="this.style.cursor='pointer'; this.style.transform='scale(0.95)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';">
-                <img src="../img/banner/pixelitBanner.png" alt="Pixelit Banner" id="banner" style="width: 350px; height: 100px; display: block;  margin: 0 auto;">
-                <div id="username" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -100%); font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">loading...</div>
-                <div id="role" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, 0%); font-size: 18px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">loading...</div>
-              </div>
-                    <div id="badges-container" style="margin-top: 10px; padding: 10px; border-radius: 5px; background-color: #800097; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); margin-left: 20px;">
-                      <div id="badges" style="margin-top: 10px;"></div>
-              </div>
-          </div>
-
-          <div class="button_container" style="display: flex; gap: 20px;">
-            <button style="display: flex; align-items: center; justify-content: center; width: 200px; height: 40px; font-size: 16px; border-radius: 5px; background-color: #eb6234; color: white; border: none; padding: 15px 30px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto;" id="viewAccount" onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';">
-              <i class="fa-solid fa-magnifying-glass" style="margin-right: 10px; font-size: 16px;"></i>View Stats
-            </button>
-            <button style="display: flex; align-items: center; justify-content: center; width: 200px; height: 40px; font-size: 16px; border-radius: 5px; background-color: #01c774; color: white; border: none; padding: 15px 30px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto;" id="tradePlayer" onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';">
-              <i class="fa-solid fa-handshake" style="margin-right: 10px; font-size: 16px;"></i>Trade
-            </button>
-            <button style="display: flex; align-items: center; justify-content: center; width: 200px; height: 40px; font-size: 16px; border-radius: 5px; background-color: #00c20c; color: white; border: none; padding: 15px 30px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto;" id="spin" onmouseover="this.style.transform='scale(1.1)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';">
-              <i class="fa-solid fa-star" style="margin-right: 10px; font-size: 16px;"></i>Claim Tokens
-            </button>
-          </div>
-    
-            <div style="display: flex; justify-content: space-between; width: 100%;">
-                <div class="stat_box" style="background: #5e046e; padding: 40px; border-radius: 15px; display: flex; align-items: center; font-size: 24px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); width: 60%; position: absolute; bottom: 50%; left: 50%; transform: translate(-50%, 50%); margin-top: 40px;">
-                  <div style="position: absolute; top: -20px; left: 3%; transform: translateX(-50%); background-color: #800097; padding: 10px 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); font-size: 24px;">Stats</div>
-                  <div style="display: flex; width: 100%; justify-content: space-between; align-items: center;">
-                    <div class="stat_box" style="background: #800097; padding: 20px; border-radius: 10px; display: flex; align-items: center; width: 23%; font-size: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
-                      Tokens: <span id="tokens" style="margin-left: 10px;">0</span>
-                      <img src="../img/dashboard/token.png" alt="Token Icon" style="display: inline-block; width: 36px; height: 36px; margin-left: 10px; transform: rotate(0deg);" />
-                    </div>
-                    <div class="stat_box" style="background: #800097; padding: 20px; border-radius: 10px; display: flex; align-items: center; width: 23%; font-size: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
-                      Packs Opened: <span id="packs" style="margin-left: 10px;">0</span>
-                      <img src="../img/dashboard/unlocked.png" alt="Unlocked Icon" style="display: inline-block; width: 36px; height: 36px; margin-left: 10px; transform: rotate(20deg);" />
-                    </div>
-                    <div class="stat_box" style="background: #800097; padding: 20px; border-radius: 10px; display: flex; align-items: center; width: 23%; font-size: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
-                      Messages Sent: <span id="messages" style="margin-left: 10px;">0</span>
-                      <img src="../img/dashboard/speech.png" alt="Speech Icon" style="display: inline-block; width: 36px; height: 36px; margin-left: 10px; transform: rotate(20deg);" />
-                    </div>
-                  </div>
-             </div>
-          </div>
+    </div>
   </body>
   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
   <script src="/javascript/dashboard.js"></script>
-  <!--<script src="../api/mainpage.js"></script>-->
 </html>
