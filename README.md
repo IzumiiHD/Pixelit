@@ -15,14 +15,14 @@
   <a href="https://github.com/Buenar" target="_blank">
     <img src="https://github.com/Buenar.png?size=50" alt="Buenar" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
   </a>
-  <a href="https://github.com/SOUNDGOD" target="_blank">
-    <img src="https://github.com/SOUNDGOD.png?size=50" alt="SOUNDGOD" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
+  <a href="https://github.com/cbys10" target="_blank">
+    <img src="https://github.com/cbys10.png?size=50" alt="SOUNDGOD" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
   </a>
-  <a href="https://github.com/Prq" target="_blank">
-    <img src="https://github.com/Prq.png?size=50" alt="Prq" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
+  <a href="https://github.com/TTKayo" target="_blank">
+    <img src="https://github.com/TTKayo.png?size=50" alt="Prq" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
   </a>
-  <a href="https://github.com/Packman28" target="_blank">
-    <img src="https://github.com/Packman28.png?size=50" alt="Packman28" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
+  <a href="https://github.com/Packman28334" target="_blank">
+    <img src="https://github.com/Packman28334.png?size=50" alt="Packman28" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
   </a>
 </div>
 
