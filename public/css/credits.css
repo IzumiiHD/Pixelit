@@ -3,7 +3,7 @@ body {
   color: white;
   margin: 0;
   padding: 0;
-
+  overflow: hidden;
 }
 .navbar {
   overflow: hidden;
@@ -76,20 +76,6 @@ body {
   font-size: 26px;
   color: #fff;
   text-shadow: #000 1px 0 13px;
-}
-.div {
-  width: 320px;
-  height: 50px;
-  padding: 10px;
-  border: 5px solid gray;
-  margin: 0;
-}
-h3. {
-  text-align: center;
-}
-body {
-  overflow-y: scroll;
-  scrollbar-width: thin;
 }
 
 .bg_img {

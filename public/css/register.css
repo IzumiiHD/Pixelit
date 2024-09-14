@@ -122,6 +122,44 @@
   align-items: center;
 }
 
+.register-form {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 65px;
+  top: 0%;
+}
+.form-group {
+  position: relative;
+}
+.input-field {
+  font-family: 'Pixelify Sans', sans-serif;
+  background-color: transparent;
+  border: 2px solid purple;
+  border-radius: 5px;
+  padding-left: 10px;
+  width: 100%;
+  color: #FFFFFF;
+}
+.input-field:hover {
+  border-color: white;
+}
+.submit-btn {
+  width: auto;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #6f057a;
+  color: white;
+  border: 1px solid white;
+  padding: 15px 30px;
+  cursor: pointer;
+  font-family: 'Pixelify Sans', sans-serif;
+  margin-top: 20px;
+  transition: background-color 0.3s ease-in-out;
+}
+.submit-btn:hover {
+  background-color: #51005e;
+}
+
 /* MOBILE UI */
 
 @media screen and (max-width: 768px) {
