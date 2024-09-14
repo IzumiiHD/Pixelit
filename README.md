@@ -1,35 +1,31 @@
 # Pixelit
 
-<div align="center">
-  <img src="https://pixelit.replit.app/img/blooks/logo.png" alt="Project Logo" style="width: 200px; border-radius: 10px;">
-</div>
+Pixelit is the first Blooket private server featuring pixel art blooks and badges. It's primarily programmed in JavaScript!
 
-## Contributors
+## Usage
 
-<div align="center">
-  <p>Thanks to the following people who have contributed to this project:</p>
-  <a href="https://github.com/IzumiiHD" target="_blank">
-    <img src="https://github.com/IzumiiHD.png?size=50" alt="IzumiiHD" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
-  </a>
-  <a href="https://github.com/Iamgamedude" target="_blank">
-    <img src="https://github.com/Iamgamedude.png?size=50" alt="Iamgamedude" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
-  </a>
-  <a href="https://github.com/Buenar" target="_blank">
-    <img src="https://github.com/Buenar.png?size=50" alt="Buenar" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
-  </a>
-  <a href="https://github.com/cbys10" target="_blank">
-    <img src="https://github.com/cbys10.png?size=50" alt="SOUNDGOD" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
-  </a>
-  <a href="https://github.com/TTKayo" target="_blank">
-    <img src="https://github.com/TTKayo.png?size=50" alt="Prq" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
-  </a>
-  <a href="https://github.com/Packman28334" target="_blank">
-    <img src="https://github.com/Packman28334.png?size=50" alt="Packman28" style="border-radius: 50%; width: 50px; height: 50px; margin: 0 10px 10px 0;">
-  </a>
-</div>
+1. Visit the [Pixelit website]([[https://pixelit.replit.app])
+2. Register for an account or log in if you already have one
+4. Earn tokens, open packs and speak in the public chat!
 
-The very first Blooket private server to use pixel art as blooks and badges, created primarily in JavaScript!
+## Technologies Used
 
-Pixelit is currently still in development, Join our discord server for more updates on the game🐛 https://discord.gg/JMg9uy4Wzk 
+- HTML
+- CSS
+- JavaScript
+- Font Awesome for icons
+- Google Fonts (Pixelify Sans)
 
-Game: https://pixelit.replit.app/
+## Credits
+
+Pixelit was created by:
+- IzumiiHD
+- Iamgamedude
+- Buenar
+- PrqYT
+- Packman28
+
+## Links
+
+- [Discord Server](https://discord.gg/KXvHan3C8R)
+- [GitHub Repository](https://github.com/IzumiiHD/Pixelit)
