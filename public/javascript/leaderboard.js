@@ -1,4 +1,3 @@
-
 window.onload = () => {
   //document.body.style.pointerEvents = "none";
   fetch("/user", {
