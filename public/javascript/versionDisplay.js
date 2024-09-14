@@ -2,8 +2,8 @@ import { VERSION } from './version.js';
 
 export function displayVersion() {
   const versionString = VERSION.isBeta 
-    ? `Running Beta ${VERSION.number}`
-    : `Running v${VERSION.number}`;
+    ? `Running Pixelit Beta ${VERSION.number}`
+    : `Running Pixelit v${VERSION.number}`;
 
   const versionElement = document.createElement('div');
   versionElement.textContent = versionString;
