@@ -51,61 +51,58 @@
       </div>
       <div class="title_p" id="title_p">Pixelit</div>
     </div>
-
       </br>
       </br>
     <html>
       <body>
-        
-        <div class="auction-list" draggable="false"
-          style="width: 80%; height: 370px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; position: absolute; top: 10%; left: 0%; overflow-y: scroll; scrollbar-width: thin; scrollbar-color: #b011c2 #6f057a;">
-          <h2 style="color: #fff; text-shadow: #000 1px 0 13px;">Auction Items</h2>
+        <div class="auction-list" draggable="false">
+          <h2 class="auction-list-title">Auction Items</h2>
           <div id="auction-list" style="list-style:none; padding:0;">
             <div style="display:flex; flex-wrap:wrap;">
-              <div style="background-color:#800097; margin:5px; padding:8px; border-radius:5px; width:22%;">
-                <div style="display:flex; align-items:center; transition:transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
-                  <img src="../img/blooks/OG/Berry.png" alt="Berry" style="width:50px; height:50px;">
-                  <div style="margin-left:10px;">
+              <div class="auction-item">
+                <div class="auction-item-content">
+                  <img src="../img/blooks/OG/Berry.png" alt="Berry">
+                  <div class="auction-item-details">
                     <div>Pixel: Berry</div>
                     <div>Bid Price: $100</div>
                     <div>Date Listed: 2023-04-01</div>
                   </div>
                 </div>
               </div>
-              <div style="background-color:#800097; margin:5px; padding:8px; border-radius:5px; width:22%;">
-                <div style="display: flex; align-items: center; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(0.9)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
-                    <img src="../img/blooks/OG/SOUNDGOD.png" alt="SOUNDGOD" style="width:50px; height:50px;">
-                    <div style="margin-left: 10px;">
+              <div class="auction-item">
+                <div class="auction-item-content">
+                    <img src="../img/blooks/OG/SOUNDGOD.png" alt="SOUNDGOD">
+                    <div class="auction-item-details">
                         <div>Pixel: SOUNDGOD</div>
                         <div>Bid Price: $150</div>
                         <div>Date Listed: 2023-04-02</div>
                     </div>
                 </div>
               </div>
-              <div style="background-color:#800097; margin:5px; padding:8px; border-radius:5px; width:22%;">
-                <div style="display: flex; align-items: center; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
-                    <img src="../img/blooks/OG/IzumiiHD.png" alt="IzumiiHD" style="width:50px; height:50px;">
-                    <div style="margin-left: 10px;">
+              <div class="auction-item">
+                <div class="auction-item-content">
+                    <img src="../img/blooks/OG/IzumiiHD.png" alt="IzumiiHD">
+                    <div class="auction-item-details">
                         <div>Pixel: IzumiiHD</div>
                         <div>Bid Price: $200</div>
                         <div>Date Listed: 2023-04-03</div>
                     </div>
                 </div>
               </div>
-              <div style="background-color:#800097; margin:5px; padding:8px; border-radius:5px; width:22%;">
-                <div style="display: flex; align-items: center; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
-                    <img src="../img/blooks/OG/Solid_Snake.png" alt="Solid_Snake" style="width:50px; height:50px;">
-                    <div style="margin-left: 10px;">
+              <div class="auction-item">
+                <div class="auction-item-content">
+                    <img src="../img/blooks/OG/Solid_Snake.png" alt="Solid_Snake">
+                    <div class="auction-item-details">
                         <div>Pixel: Solid_Snake</div>
                         <div>Bid Price: $250</div>
                         <div>Date Listed: 2023-04-04</div>
                     </div>
                 </div>
               </div>
-              <div style="background-color:#800097; margin:5px; padding:8px; border-radius:5px; width:22%;">
-                <div style="display: flex; align-items: center; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(0.95)';this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
-                    <img src="../img/blooks/Tech/Camera.png" alt="Camera" style="width:50px; height:50px;">
-                    <div style="margin-left: 10px;">
+              <div class="auction-item">
+                <div class="auction-item-content">
+                    <img src="../img/blooks/Tech/Camera.png" alt="Camera">
+                    <div class="auction-item-details">
                         <div>Pixel: Camera</div>
                         <div>Bid Price: $300</div>
                         <div>Date Listed: 2023-04-05</div>
@@ -113,34 +110,29 @@
                 </div>
               </div>
             </div>
-              </div>
-            </div>
           </div>
         </div>
 
         <div class="information">
-          <div style="height: 50%; width: 100px; position: absolute; right: 0%; top: 10%; left: 85%;">
-            <div class="box box1" style="background-color: #6f057a;
-              " onmouseover="this.style.transform='scale(0.95)'; this.style.cursor='pointer';" onmouseout="this.style.transform='scale(1)';">
+          <div class="info-box">
+            <div class="info-box-content box box1">
               <div class="text">
-                  <h3 style="color: #fff;">Tokens: <span id="tokens"></span></h3>
+                  <h3 class="info-box-text">Tokens: <span id="tokens"></span></h3>
               </div>
-              <img src="../img/dashboard/token.png" alt="tokens" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px;" />
-
+              <img class="tokens-img" src="../img/dashboard/token.png" alt="tokens" />
             </div>
           </div>
         </div>
 
-        <div
-          style="width: 80%; height: 370px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; position: absolute; top: 55%; left: 0%; overflow-y: scroll; scrollbar-width: thin; scrollbar-color: #b011c2 #6f057a;">
-          <h2 style="color: #fff; text-shadow: #000 1px 0 13px;">Recent Auctions</h2>
+        <div class="recent-auctions">
+          <h2 class="recent-auctions-title">Recent Auctions</h2>
         </div>
 
-<button style="background-color: #800097; color: white; border: none; padding: 20px 40px; border-radius: 5px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); position: absolute; top: 80%; left: 10%; font-family: 'Pixelify Sans'; font-size: 24px; transition: transform 0.3s ease; position: absolute; top: 20%; left: 93.2%;" onmouseover="this.style.transform='scale(0.95)'" onmouseout="this.style.transform='scale(1)'" onclick="addAuction()">
-  <i class="fa-solid fa-plus" style="font-size: 32px;"></i>
+<button class="auction-button" style="left: 93.2%;" onclick="addAuction()">
+  <i class="fa-solid fa-plus"></i>
 </button>
-<button style="background-color: #800097; color: white; border: none; padding: 20px 40px; border-radius: 5px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); position: absolute; top: 80%; left: 10%; font-family: 'Pixelify Sans'; font-size: 24px; transition: transform 0.3s ease; position: absolute; top: 20%; left: 85%;" onmouseover="this.style.transform='scale(0.95)'" onmouseout="this.style.transform='scale(1)'" onclick="searchBlook()">
-  <i class="fa-solid fa-search" style="font-size: 32px;"></i>
+<button class="auction-button" style="left: 85%;" onclick="searchBlook()">
+  <i class="fa-solid fa-search"></i>
 </button>
   </body>
   </html> 
