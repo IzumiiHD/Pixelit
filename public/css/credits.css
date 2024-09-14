@@ -5,19 +5,6 @@ body {
   padding: 0;
 
 }
-.bg_img {
-  position: fixed;
-  width: 250%;
-  height: 250%;
-  top: 50%;
-  left: 50%;
-  z-index: -9999;
-  background-size: 550px;
-  background-position: -100px -100px;
-  background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
-  transform: translate(-50%, -50%) rotate(15deg);
-  opacity: 0.1;
-}
 .navbar {
   overflow: hidden;
   background-color: #b011c2;
@@ -104,17 +91,6 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
-.img {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: #000 4px 0 20px;
-}
 .div {
   width: 320px;
   height: 50px;
@@ -124,4 +100,23 @@ body {
 }
 h3. {
   text-align: center;
+}
+body {
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.bg_img {
+  position: fixed;
+  width: 250%;
+  height: 250%;
+  top: 50%;
+  left: 50%;
+  z-index: -9999;
+  background-size: 550px;
+  background-position: -100px -100px;
+  background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
+  transform: translate(-50%, -50%) rotate(15deg);
+  opacity: 0.1;
+  pointer-events: none;
 }
