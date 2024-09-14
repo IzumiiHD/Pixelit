@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../img/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-  <link rel="stylesheet" href="../css/index.css"> <!-- Link to your CSS file -->
+  <link rel="stylesheet" href="../css/index.css">
 <title>Login</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +21,7 @@
             font-size: 1rem;
         }
     </style>
-      <body style="background-color: #800097;">
+      <body style="background-color: #6d0180;">
         <img alt="Blooks Background" class="bg_img" /> 
     <body style="background-color:white;">
       <div class="navbar">
@@ -46,6 +46,7 @@
         </br>
         </br>
         </br>
+        </br>
         <div style="
               width: 25%;
               height: 420px;
@@ -54,17 +55,18 @@
               background-color: #6f057a;
               color: white;
               border: none;
+              box-sizing: border-box;
               padding: 10px 20px;
-              box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
               font-family: Pixelify Sans;
-              margin: 0 auto;
+              margin: 0 auto; 
+              box-shadow: inset 0 -0.365vw #5a0463;
               display: flex;
               flex-direction: column;
               justify-content: center;
               align-items: center;
               ">    
             <form onsubmit="login(event)">
-            <center><h1 style="position: absolute; top: 22%; left: 0%; width: 100%;">Login</h1></center>
+            <center><h1 style="position: absolute; top: 24%; left: 0%; width: 100%;">Login</h1></center>
             <div class="form-group" style="position: relative;">
                 <label for="uname" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: white;"></label>
                 <input type="text" placeholder="Enter Username" name="uname" id="uname" required style="font-family: 'Pixelify Sans', sans-serif; background-color: transparent; border: 2px solid purple; border-radius: 5px; padding-left: 10px; width: 100%; color: #FFFFFF;">
@@ -80,13 +82,14 @@
                   <input type="checkbox" checked="checked" name="remember" id="remember"> Remember me
                 </label>
             <div style="text-align: center;">
-                <button type="submit" id="submit" style="width:auto; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: 'Pixelify Sans', sans-serif; pointer-events: auto; cursor: pointer; 
+                <button type="submit" id="submit" style="width:auto; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: 1px solid white; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: 'Pixelify Sans', sans-serif; pointer-events: auto; cursor: pointer; 
                       position: absolute;
                       top: 58%;
                       left: 47%;
-                    " onmouseover="this.style.transform='scale(1.1)'; this.style.transition='transform 0.3s';" 
-                  onmouseout="this.style.transform='scale(1)'; this.style.transition='transform 0.3s';" 
-                      type="submit">Log In!</button>
+                    " 
+                    type="submit"
+                    onmouseover="this.style.transition='background-color 0.3s ease'; this.style.backgroundColor='#51005e';"
+                    onmouseout="this.style.transition='background-color 0.3s ease'; this.style.backgroundColor='#800097';">Log In!</button>
             </div>
         </form>
     </div>

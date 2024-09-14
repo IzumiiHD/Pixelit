@@ -20,7 +20,7 @@ body {
 }
 .navbar {
   overflow: hidden;
-  background-color: #b011c2;
+  background-color: #6f057a;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   box-shadow: #000 4px 0 20px;
@@ -71,7 +71,7 @@ body {
   text-align: left;
 }
 .dropdown-content a:hover {
-  background-color: #d800ff;
+  background-color: purple;
 }
 .dropdown-content a:last-child:hover{
   border-radius: 0 0 10px 10px;

@@ -19,7 +19,7 @@ body {
 }
 .navbar {
   overflow: hidden;
-  background-color: #b011c2;
+  background-color: #6f057a;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   box-shadow: #000 4px 0 20px;
@@ -70,30 +70,13 @@ body {
   text-align: left;
 }
 .dropdown-content a:hover {
-  background-color: #d800ff;
+  background-color: purple;
 }
 .dropdown-content a:last-child:hover{
   border-radius: 0 0 10px 10px;
 }
 .dropdown:hover .dropdown-content {
   display: block;
-}
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #800097;
-  text-align: center;
-  padding: 10px 0;
-  box-shadow: #000 4px 0 20px;
-}
-.footer a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-}
-.footer a:hover {
-  text-decoration: underline;
 }
 .title_p {
   margin-left: 92%;
@@ -114,12 +97,6 @@ body {
   background-color: #fff;
   box-shadow: #000 4px 0 20px;
 }
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
 .news-container {
   width: 60%;
   background: linear-gradient(to right, #b011c2, #8e038d, #61036d);

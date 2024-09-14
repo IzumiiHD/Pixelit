@@ -3,7 +3,7 @@
    color: black;
    margin: 0;
    padding: 0;
-   overflow: hidden; /* Make page non-scrollable */
+   overflow: hidden;
  }
 .bg_img {
   position: absolute;
@@ -18,13 +18,9 @@
   transform: translate(-50%, -50%) rotate(15deg);
   opacity: 0.1;
 }
- .scrollable-div {
-   overflow-y: auto; /* Make this div scrollable */
-   max-height: 100vh; /* Ensure div does not exceed viewport height */
-}
  .navbar {
    overflow: hidden;
-   background-color: #b011c2;
+   background-color: #6f057a;
    border-bottom-left-radius: 15px;
    border-bottom-right-radius: 15px;
    box-shadow: #000 4px 0 20px;
@@ -75,7 +71,7 @@
    text-align: left;
  }
  .dropdown-content a:hover {
-   background-color: #d800ff;
+   background-color: purple;
  }
 .dropdown-content a:last-child:hover{
   border-radius: 0 0 10px 10px;
