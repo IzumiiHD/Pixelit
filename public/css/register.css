@@ -106,8 +106,8 @@
  }
 
 .container {
-  width: 25%;
-  height: 420px;
+  width: 400px;
+  height: 460px;
   font-size: 18px;
   border-radius: 8px;
   background-color: #6f057a;
@@ -121,6 +121,7 @@
   justify-content: center;
   align-items: center;
 }
+
 /* MOBILE UI */
 
 @media screen and (max-width: 768px) {

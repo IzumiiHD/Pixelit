@@ -106,3 +106,40 @@ body {
   opacity: 0.1;
   pointer-events: none;
 }
+
+.credits-container {
+  width: 300px;
+  height: 300px;
+  font-size: 18px;
+  border-radius: 20px;
+  background-color: #6f057a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: inset 0 -0.365vw #5a0463, 3px 3px 15px rgba(0, 0, 0, 0.6);
+  font-family: 'Pixelify Sans';
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+.credits-container:hover {
+  transform: scale(0.9);
+}
+.credits-container h3 {
+  color: #fff;
+  text-shadow: #000 1px 0 13px;
+}
+.credits-container h3 img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  animation: slowAnimation 20s infinite;
+}
+.credits-container img {
+  width: 100px;
+  height: 100px;
+}
+.credits-container h4 {
+  color: #fff;
+  text-shadow: #000 1px 0 13px;
+}
