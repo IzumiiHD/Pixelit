@@ -51,314 +51,120 @@
       </div>
       <div class="title_p" id="title_p">Pixelit</div>
     </div>
-    <div
-      class="main_container"
-      style="
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-      "
-    >
+    <style>
+
+    </style>
+    <div class="main_container">
       <br />
       <br />
-      <div class="profile_container">
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            margin-bottom: 10px;
-          "
-        >
+      <div class="profile_wrapper">
+        <div class="profile_container">
           <img
             id="pfp"
             src="../img/blooks/logo.png"
             alt="pfp"
-            style="
-              border-radius: 5px;
-              width: 100px;
-              height: 100px;
-              margin-right: 10px;
-              cursor: pointer;
-            "
-            onmouseover="this.style.transform='scale(0.9)'; this.style.transition = 'transform 0.2s ease-in-out';"
-            onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
           />
-          <div
-            style="
-              position: relative;
-              display: inline-block;
-              text-align: center;
-              cursor: pointer;
-            "
-            onmouseover="this.style.transform='scale(0.95)'; this.style.transition = 'transform 0.2s ease-in-out';"
-            onmouseout="this.style.transform='scale(1)'; this.style.transition = 'transform 0.2s ease-in-out';"
-          >
+          <div class="banner-container">
             <img
               src="../img/banner/pixelitBanner.png"
               alt="Pixelit Banner"
               id="banner"
-              style="
-                width: 350px;
-                height: 100px;
-                display: block;
-                margin: 0 auto;
-              "
             />
-            <div
-              id="username"
-              style="
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -100%);
-                font-size: 24px;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-              "
-            >
-              loading...
-            </div>
-            <div
-              id="role"
-              style="
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, 0%);
-                font-size: 18px;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-              "
-            >
-              loading...
-            </div>
+            <div id="username">loading...</div>
+            <div id="role">loading...</div>
           </div>
-          <div
-            id="badges-container"
-            style="
-              margin-top: 10px;
-              padding: 10px;
-              border-radius: 5px;
-              background-color: #5a0463;
-              box-shadow: inset 0 -0.365vw #4a0452, 3px 3px 15px rgba(0, 0, 0, 0.6); 
-              margin-left: 20px;
-            "
-          >
+          <div id="badges-container">
             <div id="badges" style="margin-top: 10px"></div>
           </div>
         </div>
-        <div class="button_container" style="display: flex; gap: 20px">
-          <button
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 155px;
-              height: 40px;
-              font-size: 12px;
-              border-radius: 5px;
-              background-color: #eb6234;
-              color: white;
-              border: none;
-              padding: 15px 30px;
-              cursor: pointer;
-              box-shadow: inset 0 -0.365vw #c24f29, 3px 3px 15px rgba(0, 0, 0, 0.6);
-              font-family: Pixelify Sans;
-              pointer-events: auto;
-            "
-            id="viewStats"
-            onmouseover="this.style.transform='translateY(-5px)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='translateY(0)'; this.style.transition = 'transform 0.2s ease-in-out';"
+        <div class="button_container" style="margin-left: 0px; margin-top: 20px">
+        <button
+          class="button"
+          id="viewStats"
+        >
+          <i
+            class="fa-solid fa-magnifying-glass"
+            style="margin-right: 10px; font-size: 16px"
+          ></i
+          >View Stats
+        </button>
+        
+        <button
+          class="button trade"
+          id="trade"
           >
-            <i
-              class="fa-solid fa-magnifying-glass"
-              style="margin-right: 10px; font-size: 16px"
-            ></i
-            >View Stats
-          </button>
-          <button
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 155px;
-              height: 40px;
-              font-weight: 550;
-              font-size: 0.625vw;
-              border-radius: 5px;
-              background-color: #01c774;
-              color: white;
-              border: none;
-              padding: 15px 30px;
-              cursor: pointer;
-              box-shadow: inset 0 -0.365vw #009e5c, 3px 3px 15px rgba(0, 0, 0, 0.6);
-              font-family: Pixelify Sans;
-              pointer-events: auto;
-            "
-            id="trade"
-            onmouseover="this.style.transform='translateY(-5px)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='translateY(0)'; this.style.transition = 'transform 0.2s ease-in-out';"
-          >
-            <i
-              class="fa-solid fa-handshake"
-              style="margin-right: 10px; font-size: 16px"
-            ></i
-            >Trade
-          </button>
-          <button
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 155px;
-              height: 40px;
-              font-weight: 550;
-              font-size: 0.625vw;
-              border-radius: 5px;
-              background-color: #00c20c;
-              color: white;
-              border: none;
-              padding: 15px 30px;
-              cursor: pointer;
-              box-shadow: inset 0 -0.365vw #00ad0b, 3px 3px 15px rgba(0, 0, 0, 0.6);
-              font-family: Pixelify Sans;
-              pointer-events: auto;
-            "
-            id="spin"
-            onmouseover="this.style.transform='translateY(-5px)'; this.style.transition = 'transform 0.2s ease-in-out';" onmouseout="this.style.transform='translateY(0)'; this.style.transition = 'transform 0.2s ease-in-out';"
-          >
-            <i
-              class="fa-solid fa-star"
-              style="margin-right: 10px; font-size: 16px"
-            ></i
-            >Claim Tokens
-          </button>
-        </div>
-
-        <div style="display: flex; justify-content: space-between; width: 100%">
-          <div
-            class="stat_box"
-            style="
-              background: #5e046e;
-              padding: 40px;
-              border-radius: 15px;
-              display: flex;
-              align-items: center;
-              font-size: 24px;
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-              width: 60%;
-              position: absolute;
-              bottom: 50%;
-              left: 50%;
-              transform: translate(-50%, 50%);
-              margin-top: 40px;
-            "
-          >
-            <div
-              style="
-                position: absolute;
-                top: -20px;
-                left: 3%;
-                transform: translateX(-50%);
-                background-color: #800097;
-                padding: 10px 20px;
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-                font-size: 24px;
-              "
-            >
-              Stats
+          <i
+            class="fa-solid fa-handshake"
+            style="margin-right: 10px; font-size: 16px"
+          ></i
+          >Trade
+        </button>
+        
+        <button
+          class="button spin"
+          id="spin"
+        >
+          <i
+            class="fa-solid fa-star"
+            style="margin-right: 10px; font-size: 16px"
+          ></i
+          >Claim
+        </button>
+      </div>
+      <div style="display: flex; justify-content: space-between; width: 100%">
+        <div class="stat_box">
+          <div class="stat_header">
+            Stats
+          </div>
+          <div class="inner_stat_container">
+            <div class="token_stat_box">
+              Tokens: <span id="tokens" style="margin-left: 10px">0</span>
+              <img
+                src="../img/dashboard/token.png"
+                alt="Token Icon"
+                style="
+                  display: inline-block;
+                  width: 36px;
+                  height: 36px;
+                  margin-left: 10px;
+                  transform: rotate(0deg);
+                "
+              />
             </div>
-            <div
-              style="
-                display: flex;
-                width: 100%;
-                justify-content: space-between;
-                align-items: center;
-              "
-            >
-              <div
-                class="stat_box"
+            <div class="token_stat_box">
+              Packs Opened:
+              <span id="packs" style="margin-left: 10px">0</span>
+              <img
+                src="../img/dashboard/unlocked.png"
+                alt="Unlocked Icon"
                 style="
-                  background: #800097;
-                  padding: 20px;
-                  border-radius: 10px;
-                  display: flex;
-                  align-items: center;
-                  width: 23%;
-                  font-size: 20px;
-                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                  display: inline-block;
+                  width: fit-content;
+                  height: 36px;
+                  margin-left: 10px;
+                  transform: rotate(20deg);
                 "
-              >
-                Tokens: <span id="tokens" style="margin-left: 10px">0</span>
-                <img
-                  src="../img/dashboard/token.png"
-                  alt="Token Icon"
-                  style="
-                    display: inline-block;
-                    width: 36px;
-                    height: 36px;
-                    margin-left: 10px;
-                    transform: rotate(0deg);
-                  "
-                />
-              </div>
-              <div
-                class="stat_box"
+              />
+            </div>
+            <div class="token_stat_box">
+              Messages Sent:
+              <span id="messages" style="margin-left: 10px">0</span>
+              <img
+                src="../img/dashboard/speech.png"
+                alt="Speech Icon"
                 style="
-                  background: #800097;
-                  padding: 20px;
-                  border-radius: 10px;
-                  display: flex;
-                  align-items: center;
-                  width: 23%;
-                  font-size: 20px;
-                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                  display: inline-block;
+                  width: 36px;
+                  height: 36px;
+                  margin-left: 10px;
+                  transform: rotate(20deg);
                 "
-              >
-                Packs Opened:
-                <span id="packs" style="margin-left: 10px">0</span>
-                <img
-                  src="../img/dashboard/unlocked.png"
-                  alt="Unlocked Icon"
-                  style="
-                    display: inline-block;
-                    width: fit-content;
-                    
-                    height: 36px;
-                    margin-left: 10px;
-                    transform: rotate(20deg);
-                  "
-                />
-              </div>
-              <div
-                class="stat_box"
-                style="
-                  background: #800097;
-                  padding: 20px;
-                  border-radius: 10px;
-                  display: flex;
-                  align-items: center;
-                  width: 23%;
-                  font-size: 20px;
-                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-                "
-              >
-                Messages Sent:
-                <span id="messages" style="margin-left: 10px">0</span>
-                <img
-                  src="../img/dashboard/speech.png"
-                  alt="Speech Icon"
-                  style="
-                    display: inline-block;
-                    width: 36px;
-                    height: 36px;
-                    margin-left: 10px;
-                    transform: rotate(20deg);
-                  "
-                />
-              </div>
+              />
             </div>
           </div>
         </div>
+      </div>
+    </div>
       </div>
     </div>
   </body>
@@ -366,7 +172,7 @@
   <script src="/javascript/dashboard.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      fetch('/user')  // Adjust this to your actual API endpoint
+      fetch('/user') 
         .then(response => response.json())
         .then(data => {
           const userRole = data.role;
