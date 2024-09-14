@@ -10,7 +10,7 @@
       <link rel="icon" type="image/png" href="../img/favicon.ico">
       <meta name="viewport" content="width=device-width, initial-scale=1" /> 
       <link rel="stylesheet" href="../css/index.css">
-      <title>Home</title>
+      <title>Pixelit</title>
     </head>
   <body style="background-color: #800097;">
     <img alt="Blooks Background" class="bg_img" />
@@ -72,9 +72,15 @@
         Created by IzumiiHD, Iamgamedude, Buenar, PrqYT and Packman28!
       </h1>
       <br />
-      <img src="../img/homeBlooksHD.png" alt="homesBlookHD" draggable="false" style="height: 50%; width: 50%; position: relative; left: 15%; animation: float 3s ease-in-out infinite; cursor: pointer;" onclick="window.location.href='/register.html';"/>
-      <h3 style="position: absolute; bottom: 6%; left: 15px;">
-        <a href="/tos.html" style="color: #fff; text-decoration: underline;">Terms Of Service</a>
+      <img src="../img/homeBlooksHD.png" alt="Home Blooks" draggable="false" style="height: 50%; width: 50%; position: relative; left: 15%; animation: float 3s ease-in-out infinite; cursor: pointer;" onclick="window.location.href='/register.html';"/>
+
+      
+      <div id="pronunciation" style="position: absolute; bottom: 7%; left: 9%; font-size: 1.5em; cursor: pointer;">
+        <i class="fa-solid fa-volume-up" style="font-size: 1.5em; text-shadow: 2px 2px 4px #000;"></i><span style="position: relative; top: -0.2em; text-shadow: 2px 2px 4px #000;"> Pronunciation ("Pixel-it")</span>
+      </div>
+      
+      <h3 style="position: absolute; bottom: 1%; left: 93%;">
+        <a href="/tos.html" style="color: #fff; text-decoration: underline; font-size: 0.75vw;">Terms Of Service</a>
       </h3>
     </center>
   </body>
@@ -82,4 +88,5 @@
     import { displayVersion } from '/javascript/versionDisplay.js';
     document.addEventListener('DOMContentLoaded', displayVersion);
   </script>
+  <script src="/javascript/home.js"></script>
 </html>

@@ -93,3 +93,11 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
+
+#user-list {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 5px;
+}

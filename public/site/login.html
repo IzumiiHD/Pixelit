@@ -48,7 +48,7 @@
         </br>
         </br>
         <div style="
-              width: 500px;
+              width: 25%;
               height: 420px;
               font-size: 18px;
               border-radius: 5px;
@@ -66,28 +66,28 @@
               ">    
             <form onsubmit="login(event)">
             <center><h1 style="position: absolute; top: 28.5%; left: 0%; width: 100%;">Login</h1></center>
-            <div class="form-group">
-                <label for="uname"><i class="fa-solid fa-user"></i> Username:</label>
-                <input type="text" placeholder="Enter Username" name="uname" id="uname" required style="font-family: 'Pixelify Sans';">
+            <div class="form-group" style="position: relative;">
+                <label for="uname" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: white;"></label>
+                <input type="text" placeholder="Enter Username" name="uname" id="uname" required style="font-family: 'Pixelify Sans', sans-serif; background-color: transparent; border: 2px solid purple; border-radius: 5px; padding-left: 10px; width: 100%; color: #FFFFFF;">
             </div>
-            </br>
-            </br>
-            <div class="form-group">
-                <label for="password"><i class="fa-solid fa-lock"></i> Password:</label>
-                <input type="password" placeholder="Enter Password" name="psw" id="psw" required style="font-family: 'Pixelify Sans';">
-            </br>
-            </br>
+            <br/>
+            <div class="form-group" style="position: relative;">
+                <label for="password" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: purple;"></label>
+                <input type="password" placeholder="Enter Password" name="psw" id="psw" required style="font-family: 'Pixelify Sans', sans-serif; background-color: transparent; border: 2px solid purple; border-radius: 5px; padding-left: 10px; width: 100%; color: #FFFFFF;" onmouseover="this.style.borderColor='white';" onmouseout="this.style.borderColor='purple';">
+            <br/>
+            <br/>
             </div>
                 <label>
                   <input type="checkbox" checked="checked" name="remember" id="remember"> Remember me
                 </label>
             <div style="text-align: center;">
-                <button type="submit" id="submit" style="width:auto; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; cursor: pointer; 
+                <button type="submit" id="submit" style="width:auto; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; cursor; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: 'Pixelify Sans', sans-serif; pointer-events: auto; cursor: pointer; 
                       position: absolute;
-                      top: 73  %;
-                      left: 45%;
-                    " onmouseover="this.style.transform='scale(1.1)'; this.style.transition='transform 0.3s ease-in-out;'"
-                      onmouseout="this.style.transform='scale(1)'; this.style.transition='transform 0.3s ease-in-out;'" type="submit">Log In!</button>
+                      top: 58%;
+                      left: 47%;
+                    " onmouseover="this.style.transform='scale(1.1)'; this.style.transition='transform 0.3s';" 
+                  onmouseout="this.style.transform='scale(1)'; this.style.transition='transform 0.3s';" 
+                      type="submit">Log In!</button>
             </div>
         </form>
     </div>

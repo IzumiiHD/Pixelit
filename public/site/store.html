@@ -36,12 +36,12 @@
       </h1>
     </center>
     
-      <div style="width: 400px; height: 400px; font-size: 18px; border-radius: 5px; background-color: #6f057a; color: white; border: none; padding: 10px 20px; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; margin-left: 45px; display: flex; justify-content: center; align-items: center; position: absolute; top: 25%; left: 10%;">
+      <div class="perks">
         <h2>
           Click to view perks
         <div style="flex: 1; display: flex; justify-content: center; align-items: flex-end;">
           
-          <button style="width: 400px; font-size:20px; border-radius:5px; background-color: #800097; color: white; border: none; padding: 15px 30px; cursor: pointer; box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); font-family: Pixelify Sans; pointer-events: auto; transition: transform 0.3s ease-in-out; position: absolute; left: 5%; top: 80%;" onmouseover="this.style.transform='translateY(-5px)';" onmouseout="this.style.transform='translateY(0)';" onclick="window.location.href='../site/perks.html';">
+          <button class="perkButton" onmouseover="this.style.transform='translateY(-5px)';" onmouseout="this.style.transform='translateY(0)';" onclick="window.location.href='../site/perks.html';">
             Click Me
           </button>
         </div>
@@ -53,7 +53,7 @@
     
   </br>
   </br>
-    <footer style="position:fixed; bottom:0; width:100%; background-color:#800097; color:#fff; text-align:center; padding:0.1px 0; display: flex; justify-content: center; align-items: center;">
+    <footer class="footer">
       <div class="footer-content" style="text-align: center; width: 100%;">
         <p>Pixelit 2024</p>
       </div>
@@ -62,7 +62,7 @@
       src="https://js.stripe.com/v3/buy-button.js">
     </script>
 
-    <div style="position: absolute; top: 48.5%; left: 50%; transform: translate(-50%, -50%); background: #6b1d96; border-radius: 10px; padding: 30px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); text-align: center; width: 300px;">
+    <div class="buy-button-container">
       <stripe-buy-button 
         buy-button-id="buy_btn_1PrmJ1AE7YDfnyYkmCAqpvYB" 
         publishable-key="pk_test_51PrlRcAE7YDfnyYkLS8xnhT2XmUOdrXepniFIEJO4gfzYmSEOtZaptupJ1g4ZUT9hDNJcF9Bfz1WW3WXQwZxi9C900BCplZq4l">

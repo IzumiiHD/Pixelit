@@ -102,14 +102,73 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
-.img {
-  position: relative;
-  top: 50%;
+
+.perks {
+  width: 400px;
+  height: 400px;
+  font-size: 18px;
+  border-radius: 5px;
+  background-color: #6f057a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+  font-family: Pixelify Sans;
+  margin-left: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 25%;
+  left: 10%;
+}
+
+.perkButton {
+  width: 400px;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #800097;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+  font-family: Pixelify Sans;
+  pointer-events: auto;
+  transition: transform 0.3s ease-in-out;
+  position: absolute;
+  left: 5%;
+  top: 80%;
+}
+
+make it stand on top of eachother
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #800097;
+  color: #fff;
+  text-align: center;
+  padding: 0.1px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buy-button-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #6b1d96;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 300px;
+  top: 49%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: #000 4px 0 20px;
 }
