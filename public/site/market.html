@@ -48,20 +48,25 @@
       <canvas id="animationCanvas"></canvas>
     </br>
     </br>
-      <div style="padding-left: 16px">
-          <div class="boxToken" style="position: absolute; left: 1%;">
-            <h2>Tokens: <span id="tokens"></span></h2>
-            <img src="../img/dashboard/token.png" alt="Token Icon" style="display: inline-block; width: 32px; height: 32px; margin-left: 10px; transform: rotate(0deg);" />
-
-          </div>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
+      <div
+        class="token_box"
+      >
+        Tokens: <span id="tokens" style="margin-left: 10px">0</span>
+        <img
+          src="../img/dashboard/token.png"
+          alt="Token Icon"
+          style="
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            margin-left: 10px;
+            transform: rotate(0deg);
+          "
+        />
+      </div>
         </br>
         </div>
-          <div class="packContainer" id="packContainer" draggable="false" style="display: flex; flex-wrap: nowrap; gap: 1%;">
+          <div class="packContainer" id="packContainer" draggable="false" style="display: flex; flex-wrap: nowrap; gap: 1.5%;">
               <div onmouseover="this.style.transform='scale(0.95)'; this.style.transition='transform 0.3s ease';" onmouseout="this.style.transform='scale(1)';"></div>
           </div>
           <script src="/javascript/market.js"></script>

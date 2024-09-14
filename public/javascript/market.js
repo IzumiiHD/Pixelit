@@ -26,7 +26,7 @@ function createPackElement(pack) {
   const imgElem = document.createElement("img");
   imgElem.src = `/img/packs/${pack.image}`;
   imgElem.alt = pack.name;
-  imgElem.style.width = "250px";
+  imgElem.style.width = "165px";
 
   // Create paragraph element for pack cost
   const pElem = document.createElement("p");
