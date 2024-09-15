@@ -18,7 +18,6 @@
         />
         <link rel="icon" type="image/png" href="../img/favicon.ico" />
         <title>Pixelit Pack Manager</title>
-        <link href="../enc/enc.css" rel="stylesheet" />
         <link href="../packEditorPage/packeditor.css" rel="stylesheet" />
     </head>
     <body>
@@ -46,7 +45,6 @@
                 <div class="title_p" id="title_p">Pixelit</div>
               </div>
         <center>
-            <h1>Pixelit Pack Manager</h1>
 
             <div class="container">
                 <div class="form-group">
@@ -57,7 +55,7 @@
                         placeholder="Enter pack name (e.g. OG Pack)"
                     />
                 </div>
-            </br>
+                </br>
                 <div class="form-group">
                     <label for="packUrl">Image URL for Pack:</label>
                     <input
@@ -66,7 +64,7 @@
                         placeholder="Enter image URL for pack (e.g. OG/OG.png)"
                     />
                 </div>
-            </br>
+                </br>
                 <div class="form-group">
                     <label for="packCost">Cost of the Pack:</label>
                     <input
@@ -75,14 +73,12 @@
                         placeholder="Enter the cost of the pack (e.g. 15)"
                     />
                 </div>
-            </br>
+                </br>
                 <button onclick="createPack()">Create Pack</button>
             </div>
-
             <div id="packs">
                 <!-- Packs will be dynamically added here -->
             </div>
-
             <!--<button onclick="createPack()">Create Pack</button>-->
         </center>
         <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>

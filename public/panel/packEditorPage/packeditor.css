@@ -3,7 +3,6 @@ body {
   color: white;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 .bg_img {
   position: fixed;
@@ -57,7 +56,6 @@ body {
 
 /* Pack styles */
 .pack {
-  border: 1px solid #ccc; /* Add border around each pack */
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 20px;
@@ -111,6 +109,7 @@ body {
   background-color: #b011c2;
   color: #fff;
   cursor: pointer;
+  font-family: Pixelify Sans;
   transition: background-color 0.3s;
 }
 
@@ -158,7 +157,8 @@ footer {
 }
 
 /* Floating blook adder */
-.blook-adder {
+.blook-adder { 
+  font-family: Pixelify Sans;
   position: absolute;
   right: 20px;
   transform: translateY(-50%);
