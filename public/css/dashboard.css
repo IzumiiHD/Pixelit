@@ -191,7 +191,7 @@ body {
   display: flex;
   align-items: center;
   font-size: 24px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 -0.365vw #53055c, 3px 3px 15px rgba(0, 0, 0, 0.6);
   width: 60%;
   position: absolute;
   bottom: 40%;
@@ -216,7 +216,7 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.token_stat_box {
+.info_stat_box {
   background: #800097;
   padding: 20px;
   border-radius: 10px;
@@ -224,7 +224,7 @@ body {
   align-items: center;
   width: 23%;
   font-size: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 -0.365vw #570066, 3px 3px 15px rgba(0, 0, 0, 0.6);
 }
 
 .badge {

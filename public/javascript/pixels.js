@@ -152,7 +152,6 @@ function generatePacksHTML(packsData) {
 
         // Update button functions
         setPfpButton.onclick = () => {
-          // Handle setting as PFP
           fetch("/changePfp", {
             method: "POST",
             headers: {
@@ -267,10 +266,8 @@ window.onclick = function(event) {
   }
 }
 
-// Cancel selling
 cancelSellBtn.onclick = closeModal;
 
-// Confirm selling
 confirmSellBtn.onclick = function() {
   const name = modalPixelName.textContent;
   fetch('/sellBlook', {
@@ -284,10 +281,16 @@ confirmSellBtn.onclick = function() {
   .then(data => {
     alert(data.message);
     closeModal();
-    // You might want to refresh the pixel inventory here
+    fetch("/user")
+      .then(response => response.json())
+      .then(data => {
+        const packs = data.packs;
+        generatePacksHTML(packs);
+      });
   })
   .catch(error => {
     console.error('Error selling blook:', error);
+    alert('An error occurred while selling the blook');
   });
 };
 

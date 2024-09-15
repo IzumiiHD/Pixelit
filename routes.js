@@ -176,6 +176,7 @@ router.post("/register", limiter, async (req, res) => {
           salt: salt,
           tokens: 0,
           spinned: 0,
+          age: req.body.age,
           reason: req.body.reason,
           date: timezone,
         });
@@ -761,10 +762,6 @@ router.post('/spin', async (req, res) => {
     console.error("Error updating user data:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-});
-
-router.post("/sellBlook", async (req, res) => {
-  
 });
 
 // Body parser middleware to handle JSON requests
