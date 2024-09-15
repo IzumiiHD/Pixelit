@@ -169,21 +169,6 @@
     </div>
   </body>
   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-  <script src="/javascript/dashboard.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      fetch('/user') 
-        .then(response => response.json())
-        .then(data => {
-          const userRole = data.role;
-          const allowedRoles = ['Owner', 'Admin', 'Moderator', 'Helper'];
-          if (allowedRoles.includes(userRole)) {
-            document.getElementById('wrench-icon').style.display = 'inline';
-          }
-        })
-      .catch(error => {
-       console.error('Error fetching user role:', error);
-        });
-    });
-  </script>
+  <script src="/javascript/dashboard.js"></script>  
+  <script src="/javascript/dashboard2.js"></script>
 </html>

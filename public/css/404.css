@@ -18,23 +18,40 @@ body {
   transform: translate(-50%, -50%) rotate(15deg);
   opacity: 0.1;
 }
-  .errorBox {
-    width: 50%;
-    height: 75%;
-    font-size: 18px;
-    border-radius: 5px;
-    background-color: #6f057a;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    top: 10%;
-    left: 20%;
-    position: absolute;
-    box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
-    font-family: Pixelify Sans;
-    margin-left: 45px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.inner-container img {
+  max-width: 100%;
+  height: auto;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.inner-container h1 {
+  font-size: 3rem;
+  margin: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.inner-container p {
+  font-size: 1.5rem;
+}
+.back-link {
+  display: inline-block;
+  margin: 20px 0;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  color: white;
+  background-color: #800097;
+  text-decoration: none;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+  transform: scale(1);
+  transition: all 0.2s ease-in-out;
+}
+.back-link:hover {
+  transform: scale(0.98);
+}
