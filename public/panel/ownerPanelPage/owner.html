@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="owner.css">
   </head>
   <body>
-    <body style="background-color: #800097;">
+    <body style="background-color: #6d0180;">
       <div class="overlay-container" id="overlay">
         <div class="overlay-content">
           Verifying Connection...
@@ -50,21 +50,10 @@
       <br>
       <br>
 
-
       <button
         class="button"
-        style="
-          width: 240px;
-          font-size: 18px;
-          border-radius: 5px;
-          background-color: #b011c2;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          box-shadow: #000 4px 0 10px;
-        "
-        onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='#000 6px 0 10px'"
-        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='#000 4px 0 10px'"
+        onmouseover="this.style.transform='scale(1.1)';this.style.transition='transform 0.3s ease';this.style.boxShadow='#000 6px 0 10px'"
+        onmouseout="this.style.transform='scale(1)';this.style.transition='transform 0.3s ease';this.style.boxShadow='#000 4px 0 10px'"
         onclick="window.location.href='../packEditorPage/packeditor.html'"
       >
         Pack Editor <i class="fa-solid fa-store"></i></button>
@@ -73,85 +62,41 @@
 
       <button
         class="button"
-        style="
-          width: 240px;
-          font-size: 18px;
-          border-radius: 5px;
-          background-color: #b011c2;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          box-shadow: #000 4px 0 10px;
-        "
-        onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='#000 6px 0 10px'"
-        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='#000 4px 0 10px'"
+        onmouseover="this.style.transform='scale(1.1)';this.style.transition='transform 0.3s ease';this.style.boxShadow='#000 6px 0 10px'"
+        onmouseout="this.style.transform='scale(1)';this.style.transition='transform 0.3s ease';this.style.boxShadow='#000 4px 0 10px'"
         onclick="window.location.href='../badge/badgeeditor.html'"
       >
         Badge Editor <i class="fa-solid fa-ribbon"></i></button>
 
       <br>
 
-
       <button
         class="button"
-        style="
-          width: 240px;
-          font-size: 18px;
-          border-radius: 5px;
-          background-color: #b011c2;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          box-shadow: #000 4px 0 10px;
-        "
-        onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='#000 6px 0 10px'"
-        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='#000 4px 0 10px'"
+        onmouseover="this.style.transform='scale(1.1)';this.style.transition='transform 0.3s ease';this.style.boxShadow='#000 6px 0 10px'"
+        onmouseout="this.style.transform='scale(1)';this.style.transition='transform 0.3s ease';this.style.boxShadow='#000 4px 0 10px'"
         onclick="window.location.href='../addbadge/badgeadder.html'"
       >
         Badge Creator <i class="fa-solid fa-folder-plus"></i></button>
 
       <br>
 
-
       <button
         class="button"
-        style="
-          width: 240px;
-          font-size: 18px;
-          border-radius: 5px;
-          background-color: #b011c2;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          box-shadow: #000 4px 0 10px;
-        "
-        onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='#000 6px 0 10px'"
-        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='#000 4px 0 10px'"
+        onmouseover="this.style.transform='scale(1.1)';this.style.transition='transform 0.3s ease';this.style.boxShadow='#000 6px 0 10px'"
+        onmouseout="this.style.transform='scale(1)';this.style.transition='transform 0.3s ease';this.style.boxShadow='#000 4px 0 10px'"
         onclick="window.location.href='../news/newsedit.html'"
       >
         News Editor <i class="fa-solid fa-newspaper"></i></button>
 
       <br>
 
-
       <button
         class="button"
-        style="
-          width: 240px;
-          font-size: 18px;
-          border-radius: 5px;
-          background-color: #b011c2;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          box-shadow: #000 4px 0 10px;
-        "
-        onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='#000 6px 0 10px'"
-        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='#000 4px 0 10px'"
+        onmouseover="this.style.transform='scale(1.1)';this.style.transition='transform 0.3s ease';this.style.boxShadow='#000 6px 0 10px'"
+        onmouseout="this.style.transform='scale(1)';this.style.transition='transform 0.3s ease';this.style.boxShadow='#000 4px 0 10px'"
         onclick="window.location.href='../bannerEditor/bannerEditor.html'"
       >
         Banner Editor <i class="fa-solid fa-flag"></i></button>
-    </center>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="../../api/verifyenc.js"></script>
     <script src="/api/verifyOwner.js"></script>
