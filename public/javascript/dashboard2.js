@@ -3,12 +3,7 @@ document.getElementById('trade').addEventListener('click', function() {
 });
 
 document.getElementById('viewStats').addEventListener('click', function() {
-  const userName = prompt('Which user do you want to search?');
-});
-
-document.getElementById('goBack').addEventListener('click', function() {
-  document.getElementById('detailed-view').style.display = 'none';
-  document.getElementById('main-view').style.display = 'block';
+  alert('This feature will be added later upon release');
 });
 
 

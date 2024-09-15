@@ -76,7 +76,7 @@ body {
 }
 .dropdown-content a:last-child:hover{
   border-radius: 0 0 10px 10px;
-  box-shadow: inset 0 -0.365vw #777378, 3px 3px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #660066, 3px 3px 15px rgba(0, 0, 0, 0.6);
 }
 .dropdown:hover .dropdown-content {
   display: block;
