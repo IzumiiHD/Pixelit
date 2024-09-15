@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       }
     })
     .then((data) => {
-      accountRequests = data.slice(0, 50); // Allow only 50 requests to be displayed
+      accountRequests = data.slice(0, 100); // Allow only 100 requests to be displayed
       renderAccountRequests();
     })
     .catch((error) => {
@@ -57,7 +57,7 @@ function renderAccountRequests() {
 
       const passwordDiv = document.createElement("div");
       passwordDiv.classList.add("attribute");
-      passwordDiv.innerHTML = `<strong>Password:</strong> ${"*".repeat(request.password.length)}`;
+      passwordDiv.innerHTML = `<strong>Password:</strong> ${"#".repeat(request.password.length)}`;
 
       const ageDiv = document.createElement("div");
       ageDiv.classList.add("attribute");
@@ -95,7 +95,7 @@ function renderAccountRequests() {
       });
 
       div.appendChild(usernameDiv);
-      div.appendChild(passwordDiv);
+      div.appendChild(ageDiv);
       div.appendChild(reasonDiv);
       div.appendChild(acceptButton);
       div.appendChild(declineButton);

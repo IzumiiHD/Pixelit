@@ -7,19 +7,14 @@ function escapeHTML(str) {
 
 // Parse and sanitize the message
 function parseMessage(str) {
-    const safeStr = escapeHTML(str); // remove all HTML tags from the message (leaves just plaintext and markdown)
-    const parsed = marked.parse(safeStr); // parse markdown into HTML
-    const sanitized = DOMPurify.sanitize(parsed); // remove any unsafe HTML tags from parsed markdown
-    return sanitized;
+    const safeStr = escapeHTML(str);
+    const parsed = marked.parse(safeStr);
+    return DOMPurify.sanitize(parsed);
 }
 
-//----------------------------Variables-----------------------------------------
 function ge(id) {
     return document.getElementById(id);
 }
-
-const socket = io();
-console.log("Chat has been successfully loaded!");
 
 let messages = [];
 let users = [
@@ -48,8 +43,6 @@ fetch("/user")
     .catch((e) => {
         console.error(e);
     });
-
-//--------------------------Functions-------------------------------------------
 
 // Efficient DOM update for messages
 function createMessageHTML(message) {
@@ -90,71 +83,69 @@ function updateMessages(messages) {
         fragment.appendChild(messageHTML);
     });
 
-    messagesContainer.innerHTML = ""; // Clear existing content
-    messagesContainer.appendChild(fragment); // Append batched updates
-    messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to bottom
+    messagesContainer.innerHTML = "";
+    messagesContainer.appendChild(fragment);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
 // Utility to get byte size of a string
 const byte = (str) => new Blob([str]).size;
 
-//------------------------Socket io handlers-----------------------------------
-
-// Handle send message action
-ge("send").addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        const msg = e.target.value.trim();
-        if (msg === "") {
-            e.target.value = "";
-            return;
-        }
-        if (byte(msg) > 1000) {
-            alert("Message is too long!");
-            e.target.value = "";
-            return;
-        }
-        const chatMessage = { sender: username, msg, badges, pfp };
-        messages.push(chatMessage);
-        updateMessages(messages);
-        socket.emit("message", msg);
-        e.target.value = "";
-    }
-});
-
-// Initial fetch of chat messages
-socket.emit("getChat");
-
-// Handle chat updates
-socket.on("chatupdate", (data) => {
-    if (data === "get") {
-        socket.emit("getChat");
-        return;
-    }
-
-    // Create a set of existing message ids to prevent duplicate messages
-    const existingMessagesSet = new Set(messages.map(msg => msg._id));
-
-    // Check if there are new messages
-    if (JSON.stringify(data) !== JSON.stringify(messages)) {
-        // Filter out duplicate messages
-        data = data.filter(msg => !existingMessagesSet.has(msg._id));
-        messages = messages.concat(data);
-        updateMessages(messages);
-    }
-});
-
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('/user')  // Adjust this to your actual API endpoint
-    .then(response => response.json())
-    .then(data => {
-      const userRole = data.role;
-      const allowedRoles = ['Owner', 'Admin', 'Moderator', 'Helper'];
-      if (allowedRoles.includes(userRole)) {
-        document.getElementById('wrench-icon').style.display = 'inline';
-      }
-    })
-  .catch(error => {
-   console.error('Error fetching user role:', error);
+    const socket = io();
+    console.log("Chat has been successfully loaded!");
+
+    // Handle send message action
+    ge("send").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            const msg = e.target.value.trim();
+            if (msg === "") {
+                e.target.value = "";
+                return;
+            }
+            if (byte(msg) > 1000) {
+                alert("Message is too long!");
+                e.target.value = "";
+                return;
+            }
+            const chatMessage = { sender: username, msg, badges, pfp };
+            messages.push(chatMessage);
+            updateMessages(messages);
+            socket.emit("message", msg);
+            e.target.value = "";
+        }
     });
+
+    // Initial fetch of chat messages
+    socket.emit("getChat");
+
+    // Handle chat updates
+    socket.on("chatupdate", (data) => {
+        if (data === "get") {
+            socket.emit("getChat");
+            return;
+        }
+
+        const existingMessagesSet = new Set(messages.map(msg => msg._id));
+
+        if (JSON.stringify(data) !== JSON.stringify(messages)) {
+            data = data.filter(msg => !existingMessagesSet.has(msg._id));
+            messages = messages.concat(data);
+            updateMessages(messages);
+        }
+    });
+
+    fetch('/user')
+        .then(response => response.json())
+        .then(data => {
+            const userRole = data.role;
+            const allowedRoles = ['Owner', 'Admin', 'Moderator', 'Helper'];
+            if (allowedRoles.includes(userRole)) {
+                document.getElementById('wrench-icon').style.display = 'inline';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user role:', error);
+        });
 });

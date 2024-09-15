@@ -12,6 +12,11 @@ let reason = ge("rea")
 
 function register(event) {
   event.preventDefault()
+  const forbiddenChars = /[^a-zA-Z0-9]/;
+  if (forbiddenChars.test(username.value)) {
+    ge('error-message').textContent = 'Username contains forbidden characters. Only letters and numbers are allowed.';
+    return;
+  }
   const requestBody = {
     username: username.value,
     password: password.value,
@@ -27,7 +32,7 @@ function register(event) {
   })
   .then(response => {
     if (response.status === 200) {
-    alert("your request has been sent to the admins, Please wait for them to review your form. May take up to 12 hours.")
+    alert("The request has been sent to the admins, Please wait for them to review your form. May take up to 12 hours.")
     } else if (response.status === 500) {
       return response.text().then(text => {
         alert(text);
@@ -39,6 +44,6 @@ function register(event) {
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
   });
-  ge('id01').style.display='none' 
+  ge('id01').style.display='none'
   socket.emit("getrequests")
 }

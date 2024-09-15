@@ -18,105 +18,103 @@
     <link rel="icon" type="image/png" href="../img/favicon.ico" />
     <link rel="stylesheet" href="../css/chat.css" />
     <title>Chat</title>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/javascript/purify.min.js"></script>
   </head>
   <body style="background: #6d0180">
     <img alt="Blooks Background" class="bg_img" />
     <div class="navbar">
       <div>
-          <div>
-            <a href="/dashboard.html"
-              ><i class="fa-solid fa-chart-column"></i
-            ></a>
-            <a href="/chat.html"><i class="fa-solid fa-comments"></i></a>
-            <a href="/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
-            <a href="/market.html"><i class="fa-solid fa-store"></i></a>
-            <a href="/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
-            <a href="/auction.html"><i class="fa-solid fa-gavel"></i></a>
-            <a
-              id="wrench-icon"
-              href="../panel/enc/enc.html"
-              style="display: none"
-              ><i class="fa-solid fa-wrench"></i
-            ></a>
-            <a href="/settings.html"><i class="fa-solid fa-gear"></i></a>
-            <a href="/news.html"><i class="fa-solid fa-newspaper"></i></a>
-            <a href="/store.html"><i class="fa-solid fa-shop"></i></a>
-            <a href="/index.html"
-              ><i
-                class="fa-solid fa-right-from-bracket"
-                onclick="sessionStorage.clear(); location.reload();"
-              ></i
-            ></a>
-          </div>
+        <div>
+          <a href="/dashboard.html"><i class="fa-solid fa-chart-column"></i></a>
+          <a href="/chat.html"><i class="fa-solid fa-comments"></i></a>
+          <a href="/leaderboard.html"><i class="fa-solid fa-trophy"></i></a>
+          <a href="/market.html"><i class="fa-solid fa-store"></i></a>
+          <a href="/pixels.html"><i class="fa-solid fa-suitcase"></i></a>
+          <a href="/auction.html"><i class="fa-solid fa-gavel"></i></a>
+          <a
+            id="wrench-icon"
+            href="../panel/enc/enc.html"
+            style="display: none"
+          ><i class="fa-solid fa-wrench"></i></a>
+          <a href="/settings.html"><i class="fa-solid fa-gear"></i></a>
+          <a href="/news.html"><i class="fa-solid fa-newspaper"></i></a>
+          <a href="/store.html"><i class="fa-solid fa-shop"></i></a>
+          <a href="/index.html"
+            ><i
+              class="fa-solid fa-right-from-bracket"
+              onclick="sessionStorage.clear(); location.reload();"
+            ></i
+          ></a>
+        </div>
       </div>
       <div class="title_p" id="title_p">Pixelit</div>
     </div>
-      <div class="profileBody">
-        <br />
-        <div class="chatContainer" id="chatContainer">
-          <div class="message">
-            <div class="pfp">
-              <img
-                src="../img/blooks/OG/SOUNDGOD.png"
-                alt="pfp"
-                draggable="false"
-                style="filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5))"
-              />
-            </div>
-            <div class="messageContainer">
-              <div class="usernameAndBadges">
-                <div class="username">Loading...</div>
-                <div class="badges">
-                  <img
-                    src="../img/badges/Admin.png"
-                    draggable="false"
-                    class="badge"
-                  />
-                </div>
-              </div>
-              <div class="messageText">Loading...</div>
-            </div>
+    <div class="profileBody">
+      <br />
+      <div class="chatContainer" id="chatContainer">
+        <div class="message">
+          <div class="pfp">
+            <img
+              src="../img/blooks/OG/SOUNDGOD.png"
+              alt="pfp"
+              draggable="false"
+              style="filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5))"
+            />
           </div>
-          <div class="message">
-            <div class="pfp">
-              <img
-                src="../img/blooks/logo.png"
-                alt="pfp"
-                draggable="false"
-                style="filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5))"
-              />
-            </div>
-            <div class="messageContainer">
-              <div class="usernameAndBadges">
-                <div class="username">Loading...</div>
-                <div class="badges">
-                  <img
-                    src="../img/badges/Admin.png"
-                    draggable="false"
-                    class="badge"
-                  /><img
-                    src="../img/badges/Artist.png"
-                    draggable="false"
-                    class="badge"
-                  />
-                </div>
+          <div class="messageContainer">
+            <div class="usernameAndBadges">
+              <div class="username">Loading...</div>
+              <div class="badges">
+                <img
+                  src="../img/badges/Admin.png"
+                  draggable="false"
+                  class="badge"
+                />
               </div>
-              <div class="messageText">Loading...</div>
             </div>
+            <div class="messageText">Loading...</div>
           </div>
         </div>
-        <div class="inputContainer">
-          <input
-            type="text"
-            class="sendInput"
-            id="send"
-            placeholder="Type your message here..." style="font-size: 1.5em;"
-          <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-          <script src="/javascript/purify.min.js"></script>
-          <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" async></script>
-          <script src="/javascript/chat.js" defer></script>
+        <div class="message">
+          <div class="pfp">
+            <img
+              src="../img/blooks/logo.png"
+              alt="pfp"
+              draggable="false"
+              style="filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5))"
+            />
+          </div>
+          <div class="messageContainer">
+            <div class="usernameAndBadges">
+              <div class="username">Loading...</div>
+              <div class="badges">
+                <img
+                  src="../img/badges/Admin.png"
+                  draggable="false"
+                  class="badge"
+                /><img
+                  src="../img/badges/Artist.png"
+                  draggable="false"
+                  class="badge"
+                />
+              </div>
+            </div>
+            <div class="messageText">Loading...</div>
+          </div>
         </div>
       </div>
+      <div class="inputContainer">
+        <input
+          type="text"
+          class="sendInput"
+          id="send"
+          placeholder="Type your message here..."
+          style="font-size: 1.5em;"
+        />
+      </div>
     </div>
+    <script src="/javascript/chat.js" defer></script>
   </body>
 </html>
