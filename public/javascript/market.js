@@ -11,31 +11,32 @@ function createPackElement(pack) {
   const divBox = document.createElement("div");
   divBox.classList.add("box", "box2");
 
-  // Create center element
   const centerElem = document.createElement("center");
 
-  // Create div element with class "text"
   const divText = document.createElement("div");
   divText.classList.add("text");
 
-  // Create h2 element for pack name
   const h2Elem = document.createElement("h2");
   h2Elem.textContent = pack.name;
 
-  // Create img element for pack image
   const imgElem = document.createElement("img");
   imgElem.src = `/img/packs/${pack.image}`;
   imgElem.alt = pack.name;
   imgElem.style.width = "165px";
 
-  // Create paragraph element for pack cost
   const pElem = document.createElement("p");
-  pElem.textContent = "Cost: " + pack.cost;
+  pElem.innerHTML = `Cost: ${pack.cost}`;
 
-  // Append h2, p, and img elements to divText
+  
+  const tokenImgElem = document.createElement("img");
+  tokenImgElem.src = "/img/dashboard/token.png";
+  tokenImgElem.alt = "Token Image";
+  tokenImgElem.style.width = "25px";
+    
+  divText.appendChild(imgElem);
   divText.appendChild(h2Elem);
   divText.appendChild(pElem);
-  divText.appendChild(imgElem);
+  divText.appendChild(tokenImgElem);
 
   // Append divText to center element
   centerElem.appendChild(divText);

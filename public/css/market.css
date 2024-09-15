@@ -50,7 +50,7 @@ body {
 }
 
 .box {
-  height: 270px;
+  height: 285px;
   width: 250px;
   border-radius: 5px;
   box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
@@ -71,13 +71,14 @@ body {
  	background: #6f057a;
  	padding: 20px;
  	border-radius: 5px;
- 	width: 250px;
+ 	width: 260px;
  	display: flex;
  	align-items: center;
  	font-size: 20px;
  	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
  	margin-left: 20px;
 }
+
 #animationCanvas {
   display: none;
   margin: 0;

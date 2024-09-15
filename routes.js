@@ -123,6 +123,7 @@ router.get("/user", async (req, res) => {
 });
 router.post("/login", async (req, res) => {
   try {
+    //await client.connect();
     const db = client.db(db_name);
     const collection = db.collection("users");
     const name = req.body.username;
@@ -142,16 +143,17 @@ router.post("/login", async (req, res) => {
         req.session.spinned = user.spinned;
         res.sendStatus(200);
       } else {
-        res.status(401).send("Invalid username or password");
+        res.status(500).send("Username or Password is incorrect!");
       }
     } else {
-      res.status(404).send("User not found");
+      res.status(500).send("User not found!");
     }
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal Server Error");
+    res.status(502).send("Server error!");
   }
 });
+
 router.post("/register", limiter, async (req, res) => {
   try {
     //await client.connect();
@@ -761,8 +763,8 @@ router.post('/spin', async (req, res) => {
   }
 });
 
-// Router to handle selling a blook
 router.post("/sellBlook", async (req, res) => {
+  
 });
 
 // Body parser middleware to handle JSON requests
