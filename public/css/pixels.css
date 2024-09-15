@@ -49,10 +49,9 @@ body {
 .container {
   width: 50%;
   background-color: #6f057a;
+  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6);
   padding: 15px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  margin: 20px auto;
   position: absolute;
   top: 10%;
   left: 5%;
@@ -112,7 +111,7 @@ body {
   background-color: #6f057a;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6);
   color: white;
   width: 400px;
   height: 430px;
