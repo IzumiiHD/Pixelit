@@ -40,7 +40,7 @@ function renderAccountRequests() {
   const container = document.getElementById("requests");
   container.innerHTML = "";
   const header = document.createElement("h2");
-  header.textContent = "Account Requests:";
+  header.textContent = "Requests";
   container.appendChild(header);
 
   if (Object.keys(accountRequests).length === 0) {
@@ -67,33 +67,30 @@ function renderAccountRequests() {
       reasonDiv.classList.add("attribute");
       reasonDiv.innerHTML = `<strong>Reason:</strong> ${request.reason}`;
 
-      const acceptButton = document.createElement("button");
-      acceptButton.classList.add("button", "accept");
-      acceptButton.textContent = "Accept";
-      acceptButton.addEventListener("click", () => {
-        handleRequest(
-          {
-            username: request.username,
-            password: request.password,
-            salt: request.salt,
-          },
-          true,
-        );
+      const declineButton = document.createElement("button");
+      declineButton.classList.add("button", "decline");
+      declineButton.style.marginRight = "10px";
+      declineButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      declineButton.addEventListener("click", () => {
+        handleRequest({
+          username: request.username,
+          password: request.password,
+          salt: request.salt,
+        },
+        false);
         socket.emit("getrequests");
       });
 
-      const declineButton = document.createElement("button");
-      declineButton.classList.add("button", "decline");
-      declineButton.textContent = "Decline";
-      declineButton.addEventListener("click", () => {
-        handleRequest(
-          {
-            username: request.username,
-            password: request.password,
-            salt: request.salt,
-          },
-          false,
-        );
+      const acceptButton = document.createElement("button");
+      acceptButton.classList.add("button", "accept");
+      acceptButton.innerHTML = '<i class="fa-solid fa-check"></i>';
+      acceptButton.addEventListener("click", () => {
+        handleRequest({
+          username: request.username,
+          password: request.password,
+          salt: request.salt,
+        },
+        true);
         socket.emit("getrequests");
       });
 
