@@ -764,6 +764,18 @@ router.post('/spin', async (req, res) => {
   }
 });
 
+const express = require('express');
+const app = express();
+
+app.get('/users', async (req, res) => {
+  try {
+    const users = await User.find().select('username tokens rarity');
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching users' });
+  }
+});
+
 // Body parser middleware to handle JSON requests
 router.use(bodyParser.json());
 

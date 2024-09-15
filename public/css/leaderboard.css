@@ -38,6 +38,7 @@ body {
 .navbar a:hover {
   transform: rotate(360deg);
 }
+
 .title_p {
   margin-left: 92%;
   position: absolute;
@@ -46,62 +47,23 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
-.podium {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 40px;
-  padding: 40px;
-  border-radius: 25px;
+
+.leaderboard_Container {
+  width: 75%;
+  height: 80%;
+  background-color: #a001bc;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: inset 0 -0.565vw #61056b;
 }
-.podium-1st {
-  text-align: center;
-  font-size: 4em;
-}
-.podium-2nd {
-  text-align: center;
-  font-size: 4em;
-  color: #767474;
-}
-.podium-3rd {
-  text-align: center;
-  font-size: 4em;
-  color: #643412;
-}
-.podium-1st .podium-metal {
-  background-color: #ffd700;
-  height: 450px;
-  width: 350px;
-  border-radius: 25px;
-  box-shadow: 0 20px 40px #00000080;
-}
-.podium-2nd .podium-metal {
-  background-color: #c0c0c0;
-  height: 420px;
-  width: 350px;
-  border-radius: 25px;
-  box-shadow: 0 20px 40px #00000080;
-}
-.podium-3rd .podium-metal {
-  background-color: #cd7f32;
-  height: 390px;
-  width: 350px;
-  border-radius: 25px;
-  box-shadow: 0 20px 40px #00000080;
-}
-.podium-person {
-  padding: 20px;
+
+.username {
   font-size: 2em;
-  border-radius: 25px;
-  margin-bottom: 20px;
-  box-shadow: 0 8px 16px #00000080;
-}
-.podium-1st .podium-person {
-  background-color: #ffd700;
-}
-.podium-2nd .podium-person {
-  background-color: #c0c0c0;
-}
-.podium-3rd .podium-person {
-  background-color: #cd7f32;
+  color: #fff;
+  text-shadow: #000 1px 0 13px;
+  text-align: center;
+  margin: 2% 0;
 }
