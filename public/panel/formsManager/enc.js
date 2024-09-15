@@ -159,7 +159,7 @@ function handleRequest(request, accepted) {
 function createNoRequestsDiv(parentDiv) {
   // Create the "no account requests found" div element
   const noRequestsDiv = document.createElement("div");
-  noRequestsDiv.textContent = "No account requests found";
+  noRequestsDiv.textContent = "No account requests found, please come again later.";
   noRequestsDiv.classList.add("no-requests-message"); // Add CSS class for styling
   parentDiv.appendChild(noRequestsDiv);
 }

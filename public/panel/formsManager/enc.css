@@ -156,6 +156,13 @@ button:hover {
   font-family: Pixelify Sans;
 }
 
+.display-centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .account-request {
   font-family: Pixelify Sans;
   padding: 20px;
@@ -173,6 +180,7 @@ button:hover {
 .account-request:hover {
   transform: scale(0.95);
 }
+
 .attribute {
   margin-bottom: 10px;
 }
@@ -208,51 +216,7 @@ button:hover {
 
 .no-requests-message {
   padding: 10px;
-  background-color: #f2f2f2;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  color: #ffffff;
   text-align: center;
-}
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-  font-size: larger;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 350px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 10px;
-  position: absolute;
-  z-index: 1;
-  top: 150%;
-  left: 50%;
-  margin-left: -125px;
-  opacity: 0;
-  transition: opacity 0.5s, width 0.5s ease-in-out;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-  width: 350px;
-}
-
-.tooltip-button {
-  border: none;
-  color: #fff;
-  padding: 20px 40px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 18px;
-  margin: 6px 3px;
-  cursor: pointer;
-  border-radius: 5px;
+  background: none;
 }
