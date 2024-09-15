@@ -11,37 +11,35 @@ function ge(id) {
 function addSpinClickListener() {
   const spinButton = document.getElementById('spin');
   const tokensDisplay = document.getElementById('tokens');
-  const TWO_HOURS = 2 * 60 * 60 * 1000; 
+  const countdownDisplay = document.createElement('span');
+  spinButton.parentNode.insertBefore(countdownDisplay, spinButton.nextSibling);
+  const TWO_HOURS = 2 * 60 * 60 * 1000;
 
-  function updateSpinButtonState() {
+  function updateCountdown() {
     const currentTime = Date.now();
     const lastSpinTime = parseInt(localStorage.getItem('lastSpinTime') || '0');
-    const timeElapsed = currentTime - lastSpinTime;
+    const timeLeft = Math.max(0, TWO_HOURS - (currentTime - lastSpinTime));
 
-    if (timeElapsed < TWO_HOURS) {
+    if (timeLeft > 0) {
+      const secondsLeft = Math.ceil(timeLeft / 1000);
+      countdownDisplay.textContent = ` Next spin in ${secondsLeft} seconds`;
       spinButton.disabled = true;
       spinButton.style.display = 'none';
-
-      const remainingTime = TWO_HOURS - timeElapsed;
-      setTimeout(() => {
-        spinButton.disabled = false;
-        spinButton.style.display = 'inline-block';
-      }, remainingTime);
+      setTimeout(updateCountdown, 1000);
     } else {
+      countdownDisplay.textContent = '';
       spinButton.disabled = false;
       spinButton.style.display = 'inline-block';
     }
   }
+
+  updateCountdown();
 
   spinButton.addEventListener('click', async () => {
     const currentTime = Date.now();
     const lastSpinTime = parseInt(localStorage.getItem('lastSpinTime') || '0');
 
     if (currentTime - lastSpinTime < TWO_HOURS) {
-      const remainingTime = TWO_HOURS - (currentTime - lastSpinTime);
-      const hours = Math.floor(remainingTime / (60 * 60 * 1000));
-      const minutes = Math.floor((remainingTime % (60 * 60 * 1000)) / (60 * 1000));
-      alert(`Please wait ${hours} hours and ${minutes} minutes before spinning again.`);
       return;
     }
 
@@ -62,7 +60,7 @@ function addSpinClickListener() {
         alert(`Congratulations! You won ${tokensWon} tokens!`);
 
         localStorage.setItem('lastSpinTime', currentTime.toString());
-        updateSpinButtonState();
+        updateCountdown();
       } else {
         alert("Error: " + data.message);
       }
@@ -71,11 +69,10 @@ function addSpinClickListener() {
       alert("An error occurred while spinning.");
     }
   });
-
-  updateSpinButtonState();
 }
 
 addSpinClickListener();
+
 
 window.onload = () => {
   //document.body.style.pointerEvents = "none";
@@ -213,17 +210,6 @@ if (sessionStorage.loggedin == "true") {
   updateTokens();
 } else {
 }
-
-// Display current date and time
-const today = new Date();
-const dateOptions = {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
-};
-date.innerHTML = today.toLocaleDateString("en-US", dateOptions);
 
 // Function to update tokens
 function updateTokens() {
