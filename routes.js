@@ -722,29 +722,42 @@ router.post("/removeBadge", async (req, res) => {
   }
 });
 
-router.get("/claim", async (req, res) => {
+router.post('/spin', async (req, res) => {
   const session = req.session;
-  if (session == null || !session.loggedIn) return;
+  if (!session.loggedIn) {
+    return res.status(401).json({ message: "You are not logged in" });
+  }
 
-  const user = await users.findOne({ username: req.session.username });
+  const tokensWon = req.body.tokens;
+  if (typeof tokensWon !== 'number' || isNaN(tokensWon)) {
+    return res.status(400).json({ message: "Invalid token amount" });
+  }
 
-  if (date.now() - user.spinned < 1000 * 60 * 60) {
-    const tokenValues = [
-      500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000,
-    ];
-    const randomIndex = Math.floor(Math.random() * tokenValues.length);
-    const tokensWon = tokenValues[randomIndex];
+  try {
+    const db = client.db(db_name);
+    const collection = db.collection("users");
 
-    const result = await users.updateOne(
+    const result = await collection.updateOne(
       { username: session.username },
-      { $inc: { tokens: tokensWon }, $set: { spinned: Date.now() } },
+      { 
+        $inc: { 
+          tokens: tokensWon,
+          spinned: 1
+        }
+      }
     );
-    if (result.modifiedCount > 0) {
-      console.log("Tokens won:", tokensWon);
-      res.status(200).send({ tokens: tokensWon });
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: "User not found" });
     }
-  } else {
-    res.status(500).send(`Wait for ${(date.now() - user.spinned / 3600000).toFixed(2)} hours before claiming again`)
+
+    res.status(200).json({ 
+      message: "Spin successful", 
+      tokensWon: tokensWon 
+    });
+  } catch (error) {
+    console.error("Error updating user data:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 

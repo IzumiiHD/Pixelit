@@ -9,49 +9,73 @@ function ge(id) {
 }
 
 function addSpinClickListener() {
-  const TWO_HOURS_IN_MS = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+  const spinButton = document.getElementById('spin');
+  const tokensDisplay = document.getElementById('tokens');
+  const TWO_HOURS = 2 * 60 * 60 * 1000; 
 
-  ge("spin").addEventListener("click", () => {
+  function updateSpinButtonState() {
     const currentTime = Date.now();
-    const lastClaimTime = localStorage.getItem('lastClaimTime') || 0;
-    const timeSinceLastClaim = currentTime - lastClaimTime;
+    const lastSpinTime = parseInt(localStorage.getItem('lastSpinTime') || '0');
+    const timeElapsed = currentTime - lastSpinTime;
 
-    if (timeSinceLastClaim >= TWO_HOURS_IN_MS) {
-      const tokensWon = Math.floor(Math.pow(Math.random(), 2.5) * 6) * 100 + 500;
-      user.tokens += tokensWon;
-      tokens.innerHTML = user.tokens;
-      alert(`Congratulations! You claimed ${tokensWon} tokens!`);
+    if (timeElapsed < TWO_HOURS) {
+      spinButton.disabled = true;
+      spinButton.style.display = 'none';
 
-      // Update the last claim time
-      localStorage.setItem('lastClaimTime', currentTime.toString());
-
-      // Send update to server
-      fetch('/claim', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tokens: user.tokens })
-      });
+      const remainingTime = TWO_HOURS - timeElapsed;
+      setTimeout(() => {
+        spinButton.disabled = false;
+        spinButton.style.display = 'inline-block';
+      }, remainingTime);
     } else {
-      const remainingTime = TWO_HOURS_IN_MS - timeSinceLastClaim;
-      const remainingMinutes = Math.ceil(remainingTime / 60000);
-      alert(`You can only claim tokens once every 2 hours. Please wait ${remainingMinutes} minute(s) before trying again.`);
+      spinButton.disabled = false;
+      spinButton.style.display = 'inline-block';
+    }
+  }
+
+  spinButton.addEventListener('click', async () => {
+    const currentTime = Date.now();
+    const lastSpinTime = parseInt(localStorage.getItem('lastSpinTime') || '0');
+
+    if (currentTime - lastSpinTime < TWO_HOURS) {
+      const remainingTime = TWO_HOURS - (currentTime - lastSpinTime);
+      const hours = Math.floor(remainingTime / (60 * 60 * 1000));
+      const minutes = Math.floor((remainingTime % (60 * 60 * 1000)) / (60 * 1000));
+      alert(`Please wait ${hours} hours and ${minutes} minutes before spinning again.`);
+      return;
+    }
+
+    const tokensWon = Math.floor(Math.pow(Math.random(), 2.5) * 6) * 100 + 500;
+
+    try {
+      const response = await fetch('/spin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tokens: tokensWon })
+      });
+
+      const data = await response.json();
+
+      if (data.message === "Spin successful") {
+        const newTokens = parseInt(tokensDisplay.textContent) + tokensWon;
+        tokensDisplay.textContent = newTokens;
+        alert(`Congratulations! You won ${tokensWon} tokens!`);
+
+        localStorage.setItem('lastSpinTime', currentTime.toString());
+        updateSpinButtonState();
+      } else {
+        alert("Error: " + data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert("An error occurred while spinning.");
     }
   });
+
+  updateSpinButtonState();
 }
 
 addSpinClickListener();
-
-// Function to update tokens on the server (implement this)
-function updateTokensOnServer(newTokenAmount) {
-  // Use fetch or another method to send an update to your server
-  // Example:
-  // fetch('/update-tokens', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({ tokens: newTokenAmount })
-
- // });
-}
 
 window.onload = () => {
   //document.body.style.pointerEvents = "none";
