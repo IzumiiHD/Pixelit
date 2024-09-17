@@ -93,12 +93,13 @@ function generatePacksHTML(packsData) {
       itemDiv.classList.add("item");
       // No border is applied to itemDiv
       const img = document.createElement("img");
-      img.src = blook.owned > 0 ? blook.image : "/img/lock-icon.png"; // Show blook image if owned, else lock icon
-      img.alt = blook.owned > 0 ? blook.name : "Locked";
+      img.src = blook.owned > 0 ? blook.image : "";
+      img.alt = blook.owned > 0 ? blook.name : "";
 
       const badge = document.createElement("div");
       badge.classList.add("badge");
       badge.textContent = blook.owned;
+      badge.style.textShadow = "1px 1px 2px black";
       if (blook.rarity === "uncommon") {
         badge.style.backgroundColor = "#4bc22e";
       }
@@ -118,14 +119,12 @@ function generatePacksHTML(packsData) {
         badge.style.backgroundColor = "#9935dd";
       }
 
-      
-
       itemDiv.appendChild(img);
       itemDiv.appendChild(badge);
       itemDiv.addEventListener("click", () => {
         const name = blook.name || "Unknown Blook";
         const imageSrc = blook.image;
-        const rarity = blook.rarity || "Uncommon";
+        const rarity = blook.rarity || "Rarity";
         const owned = blook.owned || "0";
         if (owned <= 0) return
 

@@ -156,8 +156,6 @@ router.post("/register", limiter, async (req, res) => {
         await userRequests.insertOne({
           username: req.body.username,
           password: hashedPassword,
-          tokens: 0,
-          spinned: 0,
           age: req.body.age,
           reason: req.body.reason,
           date: timezone,

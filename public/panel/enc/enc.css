@@ -73,6 +73,8 @@ body {
 .panel-button:hover {
   transform: scale(1.1);
   box-shadow: #000 6px 0 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: scale(0.9);
 }
 
 .server-stats, .server-stats-modal {
