@@ -294,7 +294,6 @@ confirmSellBtn.onclick = function() {
   });
 };
 
-// Modify the existing sell button click handler
 sellButton.onclick = () => {
   const name = blookName.textContent;
   const imageSrc = blookImage.src;

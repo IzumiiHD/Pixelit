@@ -8,6 +8,7 @@ const rateLimit = require("express-rate-limit");
 const Stripe = require("stripe");
 const bodyParser = require("body-parser");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const bcrypt = require('bcrypt');
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -29,6 +30,7 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+
 let requests;
 function formatDateTime(dateTime) {
   const options = {
@@ -41,6 +43,7 @@ function formatDateTime(dateTime) {
   };
   return dateTime.toLocaleString(undefined, options);
 }
+
 const timezoneOffset = new Date().getTimezoneOffset();
 const localTime = new Date(Date.now() - timezoneOffset * 60 * 1000);
 async function run() {
@@ -69,34 +72,16 @@ const badges = db.collection("badges");
 const news = db.collection("news");
 const chatm = db.collection("chat"); // mongodb chat
 const packs = db.collection("packs");
-const encpass = process.env["encpass"]; // encryption password
-function encrypt(text, pass) {
-  var encrypted = CryptoJS.AES.encrypt(text, pass).toString();
-  return encrypted;
+
+async function hashPassword(password) {
+  const saltRounds = 10;
+  return await bcrypt.hash(password, saltRounds);
 }
 
-function decrypt(text, pass) {
-  var decrypted = CryptoJS.AES.decrypt(text, pass).toString(CryptoJS.enc.Utf8);
-  return decrypted;
+async function validatePassword(password, hashedPassword) {
+  return await bcrypt.compare(password, hashedPassword);
 }
 
-function generatePasswordHash(password, salt) {
-  let passwordWordArray = CryptoJS.enc.Utf8.parse(password);
-  const saltWordArray = CryptoJS.enc.Hex.parse(salt);
-  passwordWordArray.concat(saltWordArray);
-  return CryptoJS.HmacSHA256(passwordWordArray, encpass).toString(
-    CryptoJS.enc.Hex,
-  );
-}
-
-function generateSalt() {
-  return CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
-}
-
-function validatePassword(password, saved_hash, salt) {
-  const generated_hash = generatePasswordHash(password, salt);
-  return generated_hash == saved_hash;
-}
 router.get("/user", async (req, res) => {
   const session = req.session;
   if (session.loggedIn) {
@@ -123,14 +108,13 @@ router.get("/user", async (req, res) => {
 });
 router.post("/login", async (req, res) => {
   try {
-    //await client.connect();
     const db = client.db(db_name);
     const collection = db.collection("users");
     const name = req.body.username;
     const pass = req.body.password;
     const user = await collection.findOne({ username: name });
     if (user) {
-      if (validatePassword(pass, user.password, user.salt)) {
+      if (await validatePassword(pass, user.password)) {
         req.session.loggedIn = true;
         req.session.username = user.username;
         req.session.tokens = user.tokens;
@@ -156,7 +140,6 @@ router.post("/login", async (req, res) => {
 
 router.post("/register", limiter, async (req, res) => {
   try {
-    //await client.connect();
     const db = client.db(db_name);
     const users = db.collection("users");
     const userRequests = db.collection("requests");
@@ -168,12 +151,11 @@ router.post("/register", limiter, async (req, res) => {
       });
       if (request === null) {
         console.log("adding request");
-        const salt = generateSalt();
+        const hashedPassword = await hashPassword(req.body.password);
         const timezone = formatDateTime(localTime);
         await userRequests.insertOne({
           username: req.body.username,
-          password: generatePasswordHash(req.body.password, salt),
-          salt: salt,
+          password: hashedPassword,
           tokens: 0,
           spinned: 0,
           age: req.body.age,
@@ -192,6 +174,7 @@ router.post("/register", limiter, async (req, res) => {
     res.status(502).send("Server Error!");
   }
 });
+
 router.get("/requests", async (req, res) => {
   //await client.connect();
   if (req.session.loggedIn) {
@@ -217,11 +200,9 @@ router.get("/requests", async (req, res) => {
   }
 });
 router.post("/addAccount", async (req, res) => {
-  //await client.connect();
   const db = client.db(db_name);
   const users = db.collection("users");
   const userRequests = db.collection("requests");
-  //const epass = encrypt(pass, encpass);
 
   const person = await users.findOne({ username: req.session.username });
   if (
@@ -233,15 +214,15 @@ router.post("/addAccount", async (req, res) => {
       if (request !== null) {
         if (req.body.accepted == true) {
           await userRequests.deleteOne({ username: req.body.username });
+          // Use the hashed password from the request
           await users.insertOne({
             username: req.body.username,
-            password: req.body.password,
-            salt: req.body.salt,
-            tokens: 0,
-            spinned: 0,
+            password: request.password,
             pfp: "logo.png",
             banner: "pixelitBanner.png",
-            role: "Common",
+            role: "Player",
+            tokens: 0,
+            spinned: 0,
             sent: 0,
             packs: await packs.find().toArray(),
             badges: [],
@@ -266,7 +247,6 @@ router.post("/addAccount", async (req, res) => {
 });
 
 router.post("/changePassword", async (req, res) => {
-  //await client.connect();
   const db = client.db(db_name);
   const users = db.collection("users");
 
@@ -275,11 +255,12 @@ router.post("/changePassword", async (req, res) => {
   if (user && user.role == "Owner") {
     const person = await users.findOne({ username: req.body.username });
     if (person != null) {
-      users.updateOne(
+      const hashedPassword = await hashPassword(req.body.new_password);
+      await users.updateOne(
         { username: req.body.username },
         {
           $set: {
-            password: generatePasswordHash(req.body.new_password, person.salt),
+            password: hashedPassword,
           },
         },
       );
@@ -764,7 +745,6 @@ router.post('/spin', async (req, res) => {
   }
 });
 
-const express = require('express');
 const app = express();
 
 app.get('/users', async (req, res) => {

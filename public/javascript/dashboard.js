@@ -123,7 +123,7 @@ const user = {
   pfp: "/img/blooks/logo.png",
   banner: "/img/banner/defaultBanner.svg",
   badges: [],
-  role: "Common",
+  role: "Player",
   spinned: 0,
   stats: { sent: 0, packsOpened: 0 },
 };

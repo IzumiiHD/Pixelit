@@ -128,22 +128,13 @@ function decrypt(text, pass) {
   return decrypted;
 }
 
-function generatePasswordHash(password, salt) {
-  let passwordWordArray = CryptoJS.enc.Utf8.parse(password);
-  const saltWordArray = CryptoJS.enc.Hex.parse(salt);
-  passwordWordArray.concat(saltWordArray);
-  return CryptoJS.HmacSHA256(passwordWordArray, encpass).toString(
-    CryptoJS.enc.Hex,
-  );
+async function hashPassword(password) {
+  const saltRounds = 10;
+  return await bcrypt.hash(password, saltRounds);
 }
 
-function generateSalt() {
-  return CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
-}
-
-function validatePassword(password, saved_hash, salt) {
-  const generated_hash = generatePasswordHash(password, salt);
-  return generated_hash == saved_hash;
+async function validatePassword(password, hashedPassword) {
+  return await bcrypt.compare(password, hashedPassword);
 }
 
 function rand(min, max) {
