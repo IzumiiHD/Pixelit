@@ -1,5 +1,13 @@
 {
   "files": {
+    "public/api/register.js": [
+      {
+        "id": "539b46d2-99e7-42a4-909d-0e3ae1606a1f",
+        "line": 12,
+        "version": 168,
+        "index": 175
+      }
+    ],
     "public/javascript/trade.js": [
       {
         "id": "a372c302-ff81-4f5c-ab14-bb2c4be6b2d7",

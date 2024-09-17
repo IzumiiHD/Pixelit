@@ -17,16 +17,12 @@ body {
   background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
   transform: translate(-50%, -50%) rotate(15deg);
   opacity: 0.1;
-  animation: moveBg 3s linear infinite;
+  animation: moveBackground 25s linear infinite ;
 }
 
-@keyframes moveBg {
-  0% {
-    transform: translate(-50%, -50%) rotate(15deg);
-  }
-  100% {
-    transform: translate(-50%, calc(-50% + 10px)) rotate(15deg);
-  }
+@keyframes moveBackground {
+  from { background-position: -100px -100px; }
+  to { background-position: -100px 1100px; }
 }
 .navbar {
   overflow: hidden;

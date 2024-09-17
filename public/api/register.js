@@ -12,9 +12,9 @@ let reason = ge("rea")
 
 function register(event) {
   event.preventDefault()
-  const forbiddenChars = /[^a-zA-Z0-9]/;
-  if (forbiddenChars.test(username.value)) {
-    ge('error-message').textContent = 'Username contains forbidden characters. Only letters and numbers are allowed.';
+  const forbiddenChars = /[^a-zA-Z0-9_]/;
+  if (forbiddenChars.test(username.value) || username.value.length < 3 || username.value.length > 20) {
+    ge('error-message').textContent = 'Username must be 3-20 characters long and contain only letters, numbers, and underscores.';
     return;
   }
   const requestBody = {
