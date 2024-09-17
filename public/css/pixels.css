@@ -236,3 +236,27 @@ body {
 #cancelSell:hover {
   transform: scale(1.1);
 }
+
+.button-style {
+  width: 300px;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #800097;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  pointer-events: auto;
+  cursor: pointer;
+  box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+  font-family: Pixelify Sans;
+  display: none;
+  transition: transform 0.2s ease;
+}
+
+.button-hover-scale {
+  transform: scale(0.95);
+}
+
+.button-release-scale {
+  transform: scale(1);
+}

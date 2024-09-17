@@ -17,6 +17,16 @@ body {
   background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
   transform: translate(-50%, -50%) rotate(15deg);
   opacity: 0.1;
+  animation: moveBg 3s linear infinite;
+}
+
+@keyframes moveBg {
+  0% {
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  100% {
+    transform: translate(-50%, calc(-50% + 10px)) rotate(15deg);
+  }
 }
 .navbar {
   overflow: hidden;
@@ -113,8 +123,7 @@ body {
 .pronunciation-text { position: relative; top: -0.2em; text-shadow: 2px 2px 4px #000; }
 .socials { position: absolute; bottom: 1%; left: 50%; transform: translateX(-50%); }
 .social-link { margin: 0 10px; color: inherit; text-decoration: none; font-size: 2.2em; }
-.terms-of-service { position: absolute; bottom: 2%; left: 93%; color: white; text-decoration: underline; font-size: 0.75vw; }
-
+.terms-of-service { position: absolute; bottom: 2%; left: 93%; color: white; text-decoration: underline; font-size: 0.75vw; text-shadow: #000 1px 0 13px; }
 
 @media only screen 
   and (device-width: 428px) 

@@ -13,5 +13,6 @@ export function displayVersion() {
   versionElement.style.color = '#f0f0f0';
   versionElement.style.fontFamily = 'Pixelify Sans, sans-serif';
   versionElement.style.fontSize = '0.75vw';
+  versionElement.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
   document.body.appendChild(versionElement);
 }
