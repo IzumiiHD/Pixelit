@@ -51,13 +51,13 @@ body {
 .leaderboard_Container {
   width: 75%;
   height: 80%;
-  background-color: #a001bc;
+  background-color: #61056b;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
-  box-shadow: inset 0 -0.565vw #61056b;
+  box-shadow: inset 0 -0.565vw #5c056b;
 }
 
 .username {
