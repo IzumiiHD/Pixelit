@@ -75,13 +75,12 @@ body {
 
 .badge {
   box-shadow: 2px 2px 5px black;
-  text-shadow: 1px 1px 2px black;
   position: absolute;
   top: -2%;
   right: -5%;
   background-color: #ffffff;
   color: white;
-  border-radius: 50%;
+  border-radius: 60%;
   padding: 5px 8px;
   font-size: 12px;
   font-weight: bold;
@@ -91,7 +90,7 @@ body {
   position: relative;
   width: 80px;
   height: 80px;
-  background-color: #9402a3;
+  background-color: #9003a0;
   display: flex;
   justify-content: center;
   align-items: center;

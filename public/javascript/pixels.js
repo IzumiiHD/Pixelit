@@ -93,7 +93,7 @@ function generatePacksHTML(packsData) {
       itemDiv.classList.add("item");
       // No border is applied to itemDiv
       const img = document.createElement("img");
-      img.src = blook.owned > 0 ? blook.image : "";
+      img.src = blook.owned > 0 ? "https://pixelit.replit.app/img/blooks/" + blook.image : "";
       img.alt = blook.owned > 0 ? blook.name : "";
 
       const badge = document.createElement("div");
@@ -123,14 +123,14 @@ function generatePacksHTML(packsData) {
       itemDiv.appendChild(badge);
       itemDiv.addEventListener("click", () => {
         const name = blook.name || "Unknown Blook";
-        const imageSrc = blook.image;
+        const ImageSrc = "https://pixelit.replit.app/img/blooks/" + blook.src;
         const rarity = blook.rarity || "Rarity";
         const owned = blook.owned || "0";
         if (owned <= 0) return
 
         // Update the details section
         blookName.textContent = name;
-        blookImage.src = imageSrc;
+        const imageSrc = "https://pixelit.replit.app/img/blooks/" + blook.image;
         blookImage.style.display = "block";
         blookRarity.innerHTML = rarity === 'uncommon' 
           ? `<span style='color: #4bc22e;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`
@@ -230,7 +230,7 @@ const modalPixelRarity = document.getElementById("modalPixelRarity");
 
 // Function to open the modal
 function openModal(name, imageSrc, rarity) {
-  modalPixelImage.src = imageSrc;
+  modalPixelImage.src = "https://pixelit.replit.app/img/blooks/" + imageSrc;
   modalPixelName.textContent = name;
   if (rarity === 'uncommon') {
     modalPixelRarity.innerHTML = `<span style='color: 4bc22e;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
@@ -295,7 +295,7 @@ confirmSellBtn.onclick = function() {
 
 sellButton.onclick = () => {
   const name = blookName.textContent;
-  const imageSrc = blookImage.src;
+  const imageSrc = "https://pixelit.replit.app/img/blooks/" + blookImage.src;
   const rarity = blookRarity.textContent;
   openModal(name, imageSrc, rarity);
 };

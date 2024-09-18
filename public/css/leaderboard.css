@@ -50,10 +50,10 @@ body {
 
 .leaderboard_Container {
   width: 75%;
-  height: 90%;
+  height: 85%;
   background-color: #750881;
   position: absolute;
-  top: 50%;
+  top: 53%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
