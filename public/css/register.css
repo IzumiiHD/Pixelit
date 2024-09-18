@@ -130,10 +130,12 @@ body {
   border: 2px solid purple;
   border-radius: 5px;
   padding: 10px;
-  width: 100%;
   color: #FFFFFF;
   font-size: 1rem;
   box-sizing: border-box;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .form-group input:hover {
@@ -151,7 +153,7 @@ body {
   border-radius: 5px;
   background-color: #6f057a;
   color: white;
-  border: 1px solid white;
+  border: 0.1px solid white;
   padding: 15px 30px;
   cursor: pointer;
   font-family: 'Pixelify Sans', sans-serif;
@@ -173,5 +175,5 @@ body {
 }
 
 .spacer {
-  height: 160px;
+  height: 150px;
 }

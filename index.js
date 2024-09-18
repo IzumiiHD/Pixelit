@@ -198,12 +198,14 @@ io.on("connection", (socket) => {
         const d = new Date();
         d.setHours(d.getHours() - 4); // todo: don't hardwire timezone
         const user = await users.findOne({ username: name });
-        const chatmessage = {
+        const chatMessage = {
+          _id: uuidv4(),
           sender: name,
           msg: message,
           badges: user.badges,
           pfp: user.pfp,
         };
+        await chatm.insertOne(chatMessage);
 
         await chatm.insertOne(chatmessage);
         await users.updateOne(

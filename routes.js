@@ -757,26 +757,52 @@ app.get('/users', async (req, res) => {
 // Body parser middleware to handle JSON requests
 router.use(bodyParser.json());
 
-// Create a checkout session for "Pixelit Plus"
-router.post("/create-checkout-session", async (req, res) => {
-  const { priceId } = req.body;
+app.post('/create-checkout-session', async (req, res) => {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: [
+      {
+        price: '1.00', 
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: 'https://pixelit.replit.app/success',
+    cancel_url: 'https://pixelit.replit.app/cancel',
+    client_reference_id: req.session.username, 
+  });
+
+  res.json({ id: session.id });
+});
+
+app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  let event;
+
   try {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      mode: "subscription", // Use 'payment' for one-time payments
-      success_url: `${req.headers.origin}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.origin}/cancelled.html`,
-    });
-    res.status(200).json({ id: session.id });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+  } catch (err) {
+    return res.status(400).send(`Webhook Error: ${err.message}`);
   }
+
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+
+    const userId = session.client_reference_id;
+
+    try {
+      const filter = { username: userId };
+      const update = { $set: { role: 'Plus' } };
+
+      await users.updateOne(filter, update);
+
+      console.log(`User ${userId} has been upgraded to the Plus role`);
+    } catch (error) {
+      console.error('Error updating user role:', error);
+    }
+  }
+
+  res.json({received: true});
 });
 
 module.exports = router;

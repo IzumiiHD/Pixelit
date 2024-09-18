@@ -17,13 +17,9 @@ function ge(id) {
 }
 
 let messages = [];
-let users = [
-    {
-        username: "Pixelit",
-        pfp: "/img/blooks/logo.png",
-        badges: ["/img/blooks/logo.png", "e"]
-    },
-];
+let localMessageIds = new Set();
+let messageQueue = [];
+let isSending = false;
 
 let username, pfp, badges;
 
@@ -73,17 +69,17 @@ function createMessageHTML(message) {
 }
 
 // Batch update messages to reduce reflows
-function updateMessages(messages) {
+function updateMessages(newMessages) {
     const messagesContainer = ge("chatContainer");
     const fragment = document.createDocumentFragment();
-
-    messages.forEach(message => {
-        const messageHTML = document.createElement('div');
-        messageHTML.innerHTML = createMessageHTML(message);
-        fragment.appendChild(messageHTML);
+    newMessages.forEach(message => {
+        if (!localMessageIds.has(message._id)) {
+            const messageHTML = document.createElement('div');
+            messageHTML.innerHTML = createMessageHTML(message);
+            fragment.appendChild(messageHTML);
+            localMessageIds.add(message._id);
+        }
     });
-
-    messagesContainer.innerHTML = "";
     messagesContainer.appendChild(fragment);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
@@ -91,49 +87,66 @@ function updateMessages(messages) {
 // Utility to get byte size of a string
 const byte = (str) => new Blob([str]).size;
 
+async function sendMessageFromQueue() {
+    if (isSending || messageQueue.length === 0) return;
+
+    isSending = true;
+    const msg = messageQueue.shift();
+
+    try {
+        await socket.emit("message", msg);
+        // Wait for server confirmation before sending next message
+        setTimeout(sendMessageFromQueue, 100);
+    } catch (error) {
+        console.error("Error sending message:", error);
+        messageQueue.unshift(msg); // Put the message back in the queue
+    } finally {
+        isSending = false;
+    }
+}
+
+const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     const socket = io();
     console.log("Chat has been successfully loaded!");
+
+    const debouncedSendMessage = debounce(() => {
+        const input = ge("send");
+        const msg = input.value.trim();
+        if (msg === "" || byte(msg) > 1000) return;
+
+        messageQueue.push(msg);
+        sendMessageFromQueue();
+
+        input.value = "";
+    }, 300);
 
     // Handle send message action
     ge("send").addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
-            const msg = e.target.value.trim();
-            if (msg === "") {
-                e.target.value = "";
-                return;
-            }
-            if (byte(msg) > 1000) {
-                alert("Message is too long!");
-                e.target.value = "";
-                return;
-            }
-            const chatMessage = { sender: username, msg, badges, pfp };
-            messages.push(chatMessage);
-            updateMessages(messages);
-            socket.emit("message", msg);
-            e.target.value = "";
+            debouncedSendMessage();
         }
     });
 
     // Initial fetch of chat messages
     socket.emit("getChat");
 
-    // Handle chat updates
     socket.on("chatupdate", (data) => {
         if (data === "get") {
             socket.emit("getChat");
             return;
         }
-
-        const existingMessagesSet = new Set(messages.map(msg => msg._id));
-
-        if (JSON.stringify(data) !== JSON.stringify(messages)) {
-            data = data.filter(msg => !existingMessagesSet.has(msg._id));
-            messages = messages.concat(data);
-            updateMessages(messages);
-        }
+        const newMessages = data.filter(msg => !localMessageIds.has(msg._id));
+        messages = messages.concat(newMessages);
+        updateMessages(newMessages);
     });
 
     fetch('/user')
