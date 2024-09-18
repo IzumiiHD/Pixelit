@@ -156,73 +156,73 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/home.");
 });
 
-  io.on("connection", (socket) => {
-    console.log("a user connected");
-    socket.on("disconnect", () => {
-      console.log("user disconnected");
-    });
-    socket.on("message", async (message) => {
-      try {
-        if (byte(message) > 1000 || message.trim() === "") {
-          return;
-        }
-        const cookief = socket.handshake.headers.cookie;
-        const response = await axios.get(
-          "https://pixelit.replit.app/user",
-          {
-            headers: {
-              Cookie: cookief,
-            },
-            validateStatus: function (status) {
-              return (status >= 200 && status < 300) || status === 500;
-            },
-            withCredentials: true,
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+  socket.on("getTokens", async (name) => {
+    //await client.connect();
+    const user = await users.findOne({ username: name });
+    if (user === null) return;
+    //console.log(user)
+    //const jsonData1 = fs.readFileSync(fileName, 'utf8');
+    //accounts = JSON.parse(jsonData1);
+    io.to(socket.id).emit("tokens", user.tokens, user.sent, user.packsOpened);
+  });
+  socket.on("message", async (message) => {
+    try {
+      //await client.connect();
+
+      if (byte(message) > 1000 || message.trim() === "") {
+        return;
+      }
+
+      const cookief = socket.handshake.headers.cookie;
+
+      const response = await axios.get(
+        "https://pixelit.replit.app/user",
+        {
+          headers: {
+            Cookie: cookief,
           },
+          validateStatus: function (status) {
+            return (status >= 200 && status < 300) || status === 500; // Ignore 500 errors
+          },
+          withCredentials: true,
+        },
+      );
+
+      if (response.status !== 500) {
+        const name = response.data.username;
+        const d = new Date();
+        d.setHours(d.getHours() - 4); // todo: don't hardwire timezone
+        const user = await users.findOne({ username: name });
+        const chatmessage = {
+          sender: name,
+          msg: message,
+          badges: user.badges,
+          pfp: user.pfp,
+        };
+
+        await chatm.insertOne(chatmessage);
+        await users.updateOne(
+          { username: name },
+          { $set: { sent: user.sent + 1 } },
         );
-        if (response.status !== 500) {
-          const name = response.data.username;
-          const user = await users.findOne({ username: name });
+        await users.updateOne(
+          { username: name },
+          { $set: { tokens: user.tokens + 1 } },
+        );
 
-          const chatmessage = {
-            _id: new ObjectId(),
-            sender: name,
-            msg: message,
-            badges: user.badges,
-            pfp: user.pfp,
-            timestamp: new Date(),
-          };
-          await chatm.insertOne(chatmessage);
-          await users.updateOne(
-            { username: name },
-            { 
-              $inc: { 
-                sent: 1,
-                tokens: 1
-              } 
-            }
-          );
-          io.emit("chatupdate", [chatmessage]);
-        } else {
-          socket.emit("error", response.data);
-        }
-      } catch (error) {
-        console.error("Error during message handling:", error);
-        socket.emit("error", "An error occurred while processing your message.");
+        io.emit("chatupdate", "get");
+      } else {
+        socket.emit("error", response.data);
       }
-    });
-    socket.on("getChat", async () => {
-      try {
-        const chatMessages = await chatm.find()
-          .sort({ timestamp: -1 })
-          .limit(50)
-          .toArray();
-
-        socket.emit("chatupdate", chatMessages.reverse());
-      } catch (error) {
-        console.error("Error fetching chat history:", error);
-        socket.emit("error", "An error occurred while fetching chat history.");
-      }
-    });
+    } catch (error) {
+      console.error("Error during message handling:", error);
+    }
+  });
 
   socket.on("getChat", async () => {
     //await client.connect();

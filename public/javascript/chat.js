@@ -73,19 +73,17 @@ function createMessageHTML(message) {
 }
 
 // Batch update messages to reduce reflows
-function updateMessages(newMessages) {
+function updateMessages(messages) {
     const messagesContainer = ge("chatContainer");
     const fragment = document.createDocumentFragment();
 
-    newMessages.forEach(message => {
-        if (!messages.some(m => m._id === message._id)) {
-            const messageHTML = document.createElement('div');
-            messageHTML.innerHTML = createMessageHTML(message);
-            fragment.appendChild(messageHTML);
-            messages.push(message);
-        }
+    messages.forEach(message => {
+        const messageHTML = document.createElement('div');
+        messageHTML.innerHTML = createMessageHTML(message);
+        fragment.appendChild(messageHTML);
     });
 
+    messagesContainer.innerHTML = "";
     messagesContainer.appendChild(fragment);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
@@ -102,12 +100,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === "Enter") {
             e.preventDefault();
             const msg = e.target.value.trim();
-            if (msg === "" || byte(msg) > 1000) {
+            if (msg === "") {
                 e.target.value = "";
                 return;
             }
-            const chatMessage = { sender: username, msg, badges, pfp, _id: Date.now().toString() };
-            updateMessages([chatMessage]); // Update locally
+            if (byte(msg) > 1000) {
+                alert("Message is too long!");
+                e.target.value = "";
+                return;
+            }
+            const chatMessage = { sender: username, msg, badges, pfp };
+            messages.push(chatMessage);
+            updateMessages(messages);
             socket.emit("message", msg);
             e.target.value = "";
         }
@@ -123,9 +127,12 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const newMessages = data.filter(msg => !messages.some(m => m._id === msg._id));
-        if (newMessages.length > 0) {
-            updateMessages(newMessages);
+        const existingMessagesSet = new Set(messages.map(msg => msg._id));
+
+        if (JSON.stringify(data) !== JSON.stringify(messages)) {
+            data = data.filter(msg => !existingMessagesSet.has(msg._id));
+            messages = messages.concat(data);
+            updateMessages(messages);
         }
     });
 

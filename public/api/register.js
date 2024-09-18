@@ -1,8 +1,8 @@
+const socket = io()
+
 function ge(id) {
   return document.getElementById(id)
 }
-
-const socket = io()
 
 let username = ge("uname")
 let password = ge("psw")
@@ -44,6 +44,5 @@ function register(event) {
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
   });
-  ge('id01').style.display='none'
   socket.emit("getrequests")
 }

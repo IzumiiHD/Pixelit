@@ -150,7 +150,7 @@ body {
 .pfp img{
   width: 65px;
   height: auto;
-  border-radius: 12px;
+  border-radius: 5px;
 }
 .messageContainer{
   display: flex;
