@@ -13,13 +13,16 @@ function addSpinClickListener() {
   const tokensDisplay = document.getElementById('tokens');
   const countdownDisplay = document.createElement('span');
   spinButton.parentNode.insertBefore(countdownDisplay, spinButton.nextSibling);
-  const TWO_HOURS = 2 * 60 * 60 * 1000;
+  const SIX_PM = new Date();
+  SIX_PM.setHours(18, 0, 0, 0);
 
   function updateCountdown() {
-    const currentTime = Date.now();
-    const lastSpinTime = parseInt(localStorage.getItem('lastSpinTime') || '0');
-    const timeLeft = Math.max(0, TWO_HOURS - (currentTime - lastSpinTime));
-
+    const currentTime = new Date();
+    if (currentTime >= SIX_PM) {
+      SIX_PM.setDate(SIX_PM.getDate() + 1);
+    }
+    const timeLeft = SIX_PM - currentTime;
+    
     if (timeLeft > 0) {
       const secondsLeft = Math.ceil(timeLeft / 1000);
       countdownDisplay.textContent = ` Next spin in ${secondsLeft} seconds`;
@@ -36,10 +39,9 @@ function addSpinClickListener() {
   updateCountdown();
 
   spinButton.addEventListener('click', async () => {
-    const currentTime = Date.now();
-    const lastSpinTime = parseInt(localStorage.getItem('lastSpinTime') || '0');
+    const currentTime = new Date();
 
-    if (currentTime - lastSpinTime < TWO_HOURS) {
+    if (currentTime < SIX_PM) {
       return;
     }
 
@@ -59,7 +61,7 @@ function addSpinClickListener() {
         tokensDisplay.textContent = newTokens;
         alert(`Congratulations! You won ${tokensWon} tokens!`);
 
-        localStorage.setItem('lastSpinTime', currentTime.toString());
+        SIX_PM.setDate(SIX_PM.getDate() + 1);
         updateCountdown();
       } else {
         alert("Error: " + data.message);
