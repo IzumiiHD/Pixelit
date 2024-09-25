@@ -7,19 +7,27 @@ const uri = process.env["mongoURL"];
 const axios = require("axios");
 
 const path = require('path');
-// Serve static files
+
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public', 'site')));
-// URL rewriting middleware
+
 app.use((req, res, next) => {
-  if (req.path.startsWith('/site/')) {
+  console.log('Request URL:', req.url);
+  next();
+});
+
+app.use((req, res, next) => {
+  if (req.path !== '/' && req.path.startsWith('/site/')) {
     req.url = req.url.replace('/site', '');
   }
   if (req.path.endsWith('.html')) {
-    res.redirect(301, req.path.slice(0, -5));
-  } else {
-    next();
+    return res.redirect(301, req.path.slice(0, -5));
   }
+  next();
+});
+
+app.get(['/', '/index', '/index.html'], (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'site', 'index.html'));
 });
 
     
