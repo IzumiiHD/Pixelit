@@ -185,7 +185,7 @@ body {
 .stat_box {
   background: #5e046e;
   padding: 40px;
-  border-radius: 15px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   font-size: 24px;
@@ -203,11 +203,11 @@ body {
   left: 1%;
   transform: translateX(-50%);
   padding: 10px 20px;
-  border-radius: 8px;
-  background: linear-gradient(#800097,#800097 50%,#540066 50.01%,#540066);
+  border-radius: 5px;
+  background: linear-gradient(#800097,#800097 50%,#6f0288 50.01%,#6f0288);
   font-size: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #53055c, 3px 3px 15px rgba(0, 0, 0, 0.6);
 }
 .stat_header::before {
   content: ' ';
@@ -228,14 +228,13 @@ body {
 .info_stat_box {
   background: #800097;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   width: 23%;
   font-size: 20px;
   box-shadow: inset 0 -0.365vw #570066, 3px 3px 15px rgba(0, 0, 0, 0.6);
 }
-
 .badge {
   display: inline-block;
   height: 45px;
