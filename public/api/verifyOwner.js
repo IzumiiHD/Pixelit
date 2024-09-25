@@ -23,7 +23,7 @@ window.onload = () => {
       document.getElementById("overlay").style.display = "none";
       document.body.style.pointerEvents = "auto";
     } else {
-      window.location.href = '/';
+      window.location.href = '../site/dashboard.html';
     }
   })
   .catch(error => {

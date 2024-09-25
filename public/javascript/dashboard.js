@@ -13,38 +13,25 @@ function addSpinClickListener() {
   const tokensDisplay = document.getElementById('tokens');
   const countdownDisplay = document.createElement('span');
   spinButton.parentNode.insertBefore(countdownDisplay, spinButton.nextSibling);
-  const SIX_PM = new Date();
-  SIX_PM.setHours(18, 0, 0, 0);
 
   function updateCountdown() {
     const currentTime = new Date();
+    const SIX_PM = new Date();
+    SIX_PM.setHours(18, 0, 0, 0);
     if (currentTime >= SIX_PM) {
       SIX_PM.setDate(SIX_PM.getDate() + 1);
     }
     const timeLeft = SIX_PM - currentTime;
-    
-    if (timeLeft > 0) {
-      const secondsLeft = Math.ceil(timeLeft / 1000);
-      countdownDisplay.textContent = ` Next spin in ${secondsLeft} seconds`;
-      spinButton.disabled = true;
-      spinButton.style.display = 'none';
-      setTimeout(updateCountdown, 1000);
-    } else {
-      countdownDisplay.textContent = '';
-      spinButton.disabled = false;
-      spinButton.style.display = 'inline-block';
-    }
+    const secondsLeft = Math.ceil(timeLeft / 1000);
+    countdownDisplay.textContent = ` Next spin in ${secondsLeft} seconds`;
+    spinButton.disabled = timeLeft > 0;
+    spinButton.style.display = timeLeft > 0 ? 'none' : 'inline-block';
+    if (timeLeft > 0) setTimeout(updateCountdown, 1000);
   }
 
   updateCountdown();
 
   spinButton.addEventListener('click', async () => {
-    const currentTime = new Date();
-
-    if (currentTime < SIX_PM) {
-      return;
-    }
-
     const tokensWon = Math.floor(Math.pow(Math.random(), 2.5) * 6) * 100 + 500;
 
     try {
@@ -53,15 +40,11 @@ function addSpinClickListener() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tokens: tokensWon })
       });
-
       const data = await response.json();
 
       if (data.message === "Spin successful") {
-        const newTokens = parseInt(tokensDisplay.textContent) + tokensWon;
-        tokensDisplay.textContent = newTokens;
+        tokensDisplay.textContent = parseInt(tokensDisplay.textContent) + tokensWon;
         alert(`Congratulations! You won ${tokensWon} tokens!`);
-
-        SIX_PM.setDate(SIX_PM.getDate() + 1);
         updateCountdown();
       } else {
         alert("Error: " + data.message);
