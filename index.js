@@ -1,15 +1,29 @@
 const express = require("express");
-const app = express();
 const CryptoJS = require("crypto-js");
 const stringifySafe = require("json-stringify-safe");
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const uri = process.env["mongoURL"];
 const axios = require("axios");
-
 const path = require('path');
+const session = require("express-session");
+const http = require("http");
+const { Server } = require("socket.io");
+const fs = require("fs");
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server, { pingInterval: 2000, pingTimeout: 5000 });
 
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public', 'site')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+  name: "cookie",
+  secret: process.env["cookieSecret"],
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 3 * 24 * 60 * 60 * 1000 },
+}));
 
 app.use((req, res, next) => {
   console.log('Request URL:', req.url);
@@ -26,12 +40,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get(['/', '/index', '/index.html'], (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'site', 'index.html'));
-});
-
-    
-// Handle requests for pages without .html extension
+// commented out route handling
 //app.get('*', (req, res) => {
 //  let filePath = path.join(__dirname, 'public', 'site', `${req.path}.html`);
 //app.get('/', (req, res) => {
@@ -44,96 +53,25 @@ app.get(['/', '/index', '/index.html'], (req, res) => {
 //  });
 //});
 
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 function formatDateTime(dateTime) {
   const options = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
+    year: "numeric", month: "numeric", day: "numeric",
+    hour: "numeric", minute: "numeric", hour12: true,
   };
   return dateTime.toLocaleString(undefined, options);
 }
-const session = require("express-session");
-app.use(
-  session({
-    name: "cookie",
-    secret: process.env["cookieSecret"],
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 3 * 24 * 60 * 60 * 1000 },
-  }),
-);
-const timezoneOffset = new Date().getTimezoneOffset();
-const localTime = new Date(Date.now() - timezoneOffset * 60 * 1000);
-const router = require("./routes.js");
-app.use(router);
-const db_name = "pixelit";
 
 const byte = (str) => {
   let size = new Blob([str]).size;
   return size;
 };
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
-let requests;
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db(db_name).command({ ping: 1 }); /*
-    const packs = await client.db("pixelit").collection("packs").find().toArray()
-    console.log(packs[0].blooks)*/
-
-    requests = await client.db(db_name).collection("requests").find().toArray();
-    //console.log(requests);
-
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!",
-    );
-  } catch (e) {
-    console.log(e);
-  }
-}
-run().catch(console.dir);
-
-const db = client.db(db_name);
-const users = db.collection("users");
-const badges = db.collection("badges");
-const news = db.collection("news");
-const chatm = db.collection("chat"); // mongodb chat
-const packs = db.collection("packs");
-// socket.io setup
-const http = require("http");
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server, { pingInterval: 2000, pingTimeout: 5000 });
-
-const port = 3000;
-
-const fs = require("fs");
-
-const encpass = process.env["encpass"]; // encryption password
 function encrypt(text, pass) {
-  var encrypted = CryptoJS.AES.encrypt(text, pass).toString();
-  return encrypted;
+  return CryptoJS.AES.encrypt(text, pass).toString();
 }
 
 function decrypt(text, pass) {
-  var decrypted = CryptoJS.AES.decrypt(text, pass).toString(CryptoJS.enc.Utf8);
-  return decrypted;
+  return CryptoJS.AES.decrypt(text, pass).toString(CryptoJS.enc.Utf8);
 }
 
 async function hashPassword(password) {
@@ -146,8 +84,47 @@ async function validatePassword(password, hashedPassword) {
 }
 
 function rand(min, max) {
-  return /*Math.floor(*/ Math.random() * (max - min + 1) /*)*/ + min;
+  return Math.random() * (max - min + 1) + min;
 }
+
+const uri = process.env["mongoURL"];
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+const db_name = "pixelit";
+const db = client.db(db_name);
+const users = db.collection("users");
+const badges = db.collection("badges");
+const news = db.collection("news");
+const chatm = db.collection("chat");
+const packs = db.collection("packs");
+
+async function run() {
+  try {
+    await client.connect();
+    await client.db(db_name).command({ ping: 1 });
+    requests = await client.db(db_name).collection("requests").find().toArray();
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } catch (e) {
+    console.log(e);
+  }
+}
+run().catch(console.dir);
+
+// Additional setup
+const timezoneOffset = new Date().getTimezoneOffset();
+const localTime = new Date(Date.now() - timezoneOffset * 60 * 1000);
+const router = require("./routes.js");
+app.use(router);
+
+const port = 3000;
+const encpass = process.env["encpass"];
+
 /*
 file.key = "new value";
 
