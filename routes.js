@@ -710,6 +710,10 @@ router.post('/spin', async (req, res) => {
     return res.status(401).json({ message: "You are not logged in" });
   }
 
+  if (session.lastSpin && ((Date.now() - session.lastSpin) < 8 * 60 * 60 * 1000)) {
+    return res.status(429).json({ message: "You can spin only once every 8 hours" });
+  }
+
   const tokensWon = req.body.tokens;
   if (typeof tokensWon !== 'number' || isNaN(tokensWon)) {
     return res.status(400).json({ message: "Invalid token amount" });
@@ -733,9 +737,11 @@ router.post('/spin', async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    session.lastSpin = Date.now();
+
     res.status(200).json({ 
       message: "Spin successful", 
-      tokensWon: tokensWon 
+      tokensWon: tokensWon
     });
   } catch (error) {
     console.error("Error updating user data:", error);

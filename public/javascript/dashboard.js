@@ -11,27 +11,17 @@ function ge(id) {
 function addSpinClickListener() {
   const spinButton = document.getElementById('spin');
   const tokensDisplay = document.getElementById('tokens');
-  const countdownDisplay = document.createElement('span');
-  spinButton.parentNode.insertBefore(countdownDisplay, spinButton.nextSibling);
-
-  function updateCountdown() {
-    const currentTime = new Date();
-    const SIX_PM = new Date();
-    SIX_PM.setHours(18, 0, 0, 0);
-    if (currentTime >= SIX_PM) {
-      SIX_PM.setDate(SIX_PM.getDate() + 1);
-    }
-    const timeLeft = SIX_PM - currentTime;
-    const secondsLeft = Math.ceil(timeLeft / 1000);
-    countdownDisplay.textContent = ` Next spin in ${secondsLeft} seconds`;
-    spinButton.disabled = timeLeft > 0;
-    spinButton.style.display = timeLeft > 0 ? 'none' : 'inline-block';
-    if (timeLeft > 0) setTimeout(updateCountdown, 1000);
-  }
-
-  updateCountdown();
+  const EIGHT_HOURS = 8 * 60 * 60 * 1000;
+  let lastSpinTime = 0;
 
   spinButton.addEventListener('click', async () => {
+    const currentTime = Date.now();
+
+    if (currentTime - lastSpinTime < EIGHT_HOURS) {
+      alert('You can only claim tokens every 8 hours. Please try later.');
+      return;
+    }
+
     const tokensWon = Math.floor(Math.pow(Math.random(), 2.5) * 6) * 100 + 500;
 
     try {
@@ -40,24 +30,35 @@ function addSpinClickListener() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tokens: tokensWon })
       });
+
       const data = await response.json();
 
       if (data.message === "Spin successful") {
-        tokensDisplay.textContent = parseInt(tokensDisplay.textContent) + tokensWon;
-        alert(`Congratulations! You won ${tokensWon} tokens!`);
-        updateCountdown();
+        const newTokens = parseInt(tokensDisplay.textContent) + tokensWon;
+        tokensDisplay.textContent = newTokens;
+        alert('Congratulations! You won ' + tokensWon + ' tokens!');
+
+        lastSpinTime = currentTime;
+        spinButton.disabled = true;
+        spinButton.style.display = 'none';
+
+        setTimeout(() => {
+          if (lastSpinTime + EIGHT_HOURS <= Date.now()) {
+            spinButton.disabled = false;
+            spinButton.style.display = 'inline-block';
+          }
+        }, EIGHT_HOURS);
       } else {
-        alert("Error: " + data.message);
+        alert('Error: ' + data.message);
       }
     } catch (error) {
       console.error('Error:', error);
-      alert("An error occurred while spinning.");
+      alert('An error occurred while spinning.');
     }
   });
 }
 
 addSpinClickListener();
-
 
 window.onload = () => {
   //document.body.style.pointerEvents = "none";
@@ -108,7 +109,7 @@ const user = {
   pfp: "/img/blooks/logo.png",
   banner: "/img/banner/defaultBanner.svg",
   badges: [],
-  role: "Player",
+  role: "Common",
   spinned: 0,
   stats: { sent: 0, packsOpened: 0 },
 };
@@ -196,6 +197,17 @@ if (sessionStorage.loggedin == "true") {
 } else {
 }
 
+// Display current date and time
+const today = new Date();
+const dateOptions = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+};
+date.innerHTML = today.toLocaleDateString("en-US", dateOptions);
+
 // Function to update tokens
 function updateTokens() {
   socket.emit("getTokens", sessionStorage.username);
@@ -217,4 +229,19 @@ socket.on("getUserBadges", (badges) => {
   }
   console.log(badges);
   renderBadges(badges);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/user')  // Adjust this to your actual API endpoint
+    .then(response => response.json())
+    .then(data => {
+      const userRole = data.role;
+      const allowedRoles = ['Owner', 'Admin', 'Moderator', 'Helper'];
+      if (allowedRoles.includes(userRole)) {
+        document.getElementById('wrench-icon').style.display = 'inline';
+      }
+    })
+  .catch(error => {
+   console.error('Error fetching user role:', error);
+    });
 });

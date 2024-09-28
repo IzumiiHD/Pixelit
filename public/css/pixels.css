@@ -76,12 +76,12 @@ body {
 .badge {
   box-shadow: 2px 2px 5px black;
   position: absolute;
-  top: -2%;
-  right: -5%;
+  top: 0;
+  right: -10%;
   background-color: #ffffff;
   color: white;
-  border-radius: 60%;
-  padding: 5px 8px;
+  border-radius: 50%;
+  padding: 3px 6px;
   font-size: 12px;
   font-weight: bold;
 }
@@ -96,7 +96,7 @@ body {
   align-items: center;
   border-radius: 5px;
   border: none;
-  }
+}
 
 .item img {
   max-width: 90%;
