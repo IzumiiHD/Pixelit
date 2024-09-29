@@ -78,7 +78,6 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
-
 .bg_img {
   position: fixed;
   width: 250%;
@@ -93,12 +92,19 @@ body {
   opacity: 0.1;
   pointer-events: none;
 }
-
+.credits-containers {
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 20px; 
+  text-align: center; 
+  cursor: pointer;
+}
 .credits-container {
   width: 300px;
   height: 300px;
   font-size: 18px;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: #6f057a;
   color: white;
   border: none;

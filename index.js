@@ -8,7 +8,6 @@ const session = require("express-session");
 const http = require("http");
 const { Server } = require("socket.io");
 const fs = require("fs");
-
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { pingInterval: 2000, pingTimeout: 5000 });

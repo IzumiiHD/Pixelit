@@ -8,6 +8,7 @@ function ge(id) {
   return document.getElementById(id);
 }
 
+/*
 function addSpinClickListener() {
   const spinButton = document.getElementById('spin');
   const tokensDisplay = document.getElementById('tokens');
@@ -59,6 +60,7 @@ function addSpinClickListener() {
 }
 
 addSpinClickListener();
+*/
 
 window.onload = () => {
   //document.body.style.pointerEvents = "none";

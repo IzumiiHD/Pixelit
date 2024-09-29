@@ -1,12 +1,3 @@
-document.getElementById('trade').addEventListener('click', function() {
-  alert('This feature will be added later upon release');
-});
-
-document.getElementById('viewStats').addEventListener('click', function() {
-  alert('This feature will be added later upon release');
-});
-
-
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/user') 
     .then(response => response.json())

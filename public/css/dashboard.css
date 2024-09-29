@@ -127,7 +127,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 155px;
+  width: 135px;
   height: 40px;
   font-size: 12px;
   border-radius: 5px;
@@ -144,16 +144,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 155px;
+  width: 135px;
   height: 40px;
   font-size: 12px;
   border-radius: 5px;
-  background-color: #37eb76;
+  background-color: rgb(255, 163, 30);
   color: white;
   border: none;
   padding: 15px 30px;
   cursor: pointer;
-  box-shadow: inset 0 -0.365vw #2fbc60, 3px 3px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 -0.250vw rgb(169, 107, 20), 3px 3px 15px rgba(0, 0, 0, 0.6);
   font-family: Pixelify Sans;
   pointer-events: auto;
 }
@@ -178,9 +178,9 @@ body {
 .trade {
   font-weight: 550;
 }
-.spin {
-  background-color: #00c20c;
-  box-shadow: inset 0 -0.365vw #00ad0b, 3px 3px 15px rgba(0, 0, 0, 0.6);
+.manageBlooks {
+  background-color: rgb(30, 146, 255);
+  box-shadow: inset 0 -0.250vw rgb(18, 76, 130), 3px 3px 15px rgba(0, 0, 0, 0.6);
 }
 .stat_box {
   background: #5e046e;
@@ -192,7 +192,7 @@ body {
   box-shadow: inset 0 -0.365vw #53055c, 3px 3px 15px rgba(0, 0, 0, 0.6);
   width: 60%;
   position: absolute;
-  bottom: 40%;
+  bottom: 30%;
   left: 50%;
   transform: translate(-50%, 50%);
   margin-top: 40px;
