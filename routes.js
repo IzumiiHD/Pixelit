@@ -11,18 +11,17 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const bcrypt = require('bcrypt');
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 15, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  windowMs: 15 * 60 * 1000,
+  max: 15, 
   message: "Too many requests, please try again after 15 minutes",
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  standardHeaders: true, 
+  legacyHeaders: false, 
 });
 
 function rand(min, max) {
   return /*Math.floor(*/ Math.random() * (max - min + 1) /*)*/ + min;
 }
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -710,7 +709,12 @@ router.post('/spin', async (req, res) => {
     return res.status(401).json({ message: "You are not logged in" });
   }
 
-  if (session.lastSpin && ((Date.now() - session.lastSpin) < 8 * 60 * 60 * 1000)) {
+  const db = client.db(db_name);
+  const spinsCollection = db.collection("spins");
+
+  const userSpinData = await spinsCollection.findOne({ username: session.username });
+  const now = Date.now();
+  if (userSpinData && ((now - userSpinData.lastSpin) < 8 * 60 * 60 * 1000)) {
     return res.status(429).json({ message: "You can spin only once every 8 hours" });
   }
 
@@ -720,10 +724,9 @@ router.post('/spin', async (req, res) => {
   }
 
   try {
-    const db = client.db(db_name);
-    const collection = db.collection("users");
+    const usersCollection = db.collection("users");
 
-    const result = await collection.updateOne(
+    const result = await usersCollection.updateOne(
       { username: session.username },
       { 
         $inc: { 
@@ -737,7 +740,12 @@ router.post('/spin', async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    session.lastSpin = Date.now();
+    const spinData = { username: session.username, lastSpin: now };
+    await spinsCollection.updateOne( 
+      { username: session.username }, 
+      { $set: spinData }, 
+      { upsert: true } 
+    );
 
     res.status(200).json({ 
       message: "Spin successful", 
