@@ -33,6 +33,9 @@ app.use((req, res, next) => {
   if (req.path !== '/' && req.path.startsWith('/site/')) {
     req.url = req.url.replace('/site', '');
   }
+  if (req.path !== '/' && req.path.startsWith('/panel/')) {
+    req.url = req.url.replace('/panel', '');
+  }
   if (req.path.endsWith('.html')) {
     return res.redirect(301, req.path.slice(0, -5));
   }
