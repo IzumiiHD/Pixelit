@@ -18,7 +18,6 @@ body {
   transform: translate(-50%, -50%) rotate(15deg);
   opacity: 0.1;
 }
-
 .maintenance_container {
   background: #8a02a2;
   position: absolute;
