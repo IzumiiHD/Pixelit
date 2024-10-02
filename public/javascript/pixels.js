@@ -91,7 +91,6 @@ function generatePacksHTML(packsData) {
     pack.blooks.forEach((blook) => {
       const itemDiv = document.createElement("div");
       itemDiv.classList.add("item");
-      // No border is applied to itemDiv
       const img = document.createElement("img");
       img.src = blook.owned > 0 ? "https://pixelit.replit.app/img/blooks/" + blook.image : "";
       img.alt = blook.owned > 0 ? blook.name : "";
@@ -128,10 +127,12 @@ function generatePacksHTML(packsData) {
         const owned = blook.owned || "0";
         if (owned <= 0) return
 
-        // Update the details section
         blookName.textContent = name;
-        const imageSrc = "https://pixelit.replit.app/img/blooks/" + blook.image;
-        blookImage.style.display = "block";
+        const imageSrc = blook.owned > 0 
+          ? "https://pixelit.replit.app/img/blooks/" + blook.image 
+          : "";
+        blookImage.src = imageSrc;
+        blookImage.style.display = blook.owned > 0 ? "block" : "none";
         blookRarity.innerHTML = rarity === 'uncommon' 
           ? `<span style='color: #4bc22e;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`
           : rarity === 'rare'
@@ -149,7 +150,6 @@ function generatePacksHTML(packsData) {
         setPfpButton.style.display = "block";
         sellButton.style.display = "block";
 
-        // Update button functions
         setPfpButton.onclick = () => {
           fetch("/changePfp", {
             method: "POST",
@@ -219,7 +219,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Get modal elements
 const modal = document.getElementById("sellModal");
 const closeBtn = document.getElementsByClassName("close")[0];
 const confirmSellBtn = document.getElementById("confirmSell");
@@ -228,9 +227,11 @@ const modalPixelImage = document.getElementById("modalPixelImage");
 const modalPixelName = document.getElementById("modalPixelName");
 const modalPixelRarity = document.getElementById("modalPixelRarity");
 
-// Function to open the modal
 function openModal(name, imageSrc, rarity) {
-  modalPixelImage.src = "https://pixelit.replit.app/img/blooks/" + imageSrc;
+  modalPixelImage.src = imageSrc.includes("http") 
+    ? imageSrc 
+    : "https://pixelit.replit.app/img/blooks/" + imageSrc;
+  modalPixelImage.style.display = "block";
   modalPixelName.textContent = name;
   if (rarity === 'uncommon') {
     modalPixelRarity.innerHTML = `<span style='color: 4bc22e;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
@@ -250,15 +251,12 @@ function openModal(name, imageSrc, rarity) {
   modal.style.display = "block";
 }
 
-// Function to close the modal
 function closeModal() {
   modal.style.display = "none";
 }
 
-// Close modal when clicking on <span> (x)
 closeBtn.onclick = closeModal;
 
-// Close modal when clicking outside of it
 window.onclick = function(event) {
   if (event.target == modal) {
     closeModal();
@@ -293,9 +291,16 @@ confirmSellBtn.onclick = function() {
   });
 };
 
-sellButton.onclick = () => {
-  const name = blookName.textContent;
-  const imageSrc = "https://pixelit.replit.app/img/blooks/" + blookImage.src;
-  const rarity = blookRarity.textContent;
-  openModal(name, imageSrc, rarity);
+  sellButton.onclick = () => {
+    const name = blookName.textContent;
+    const imageSrc = blookImage.src.includes("/blooks/")
+      ? blookImage.src
+      : "https://pixelit.replit.app/img/blooks/" + blookImage.src;
+    const rarity = blookRarity.textContent;
+
+    const modalContent = document.getElementById('modal-content');
+    modalContent.querySelector('.modal-name').textContent = name;
+    modalContent.querySelector('.modal-image').src = imageSrc;
+    modalContent.querySelector('.modal-rarity').textContent = rarity;
+    document.getElementById('modal').style.display = 'block';
 };
