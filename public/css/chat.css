@@ -109,23 +109,33 @@ body {
   font-family: 'Pixelify Sans';
 }
 
-.sendInput{
+.sendInput {
   width: 150%;
   height: 85%;
-  background: #621e7d;
+  background: #1a0005;
+  border: 2px solid #ff6600;
   border-right: none;
   left: 0;
-  border: none;
   position: relative;
-  border-bottom: none;
-  color: #fff !important;
-  font-family: 'Pixelify Sans';
+  color: #ff6600 !important;
+  font-family: 'Pixelify Sans', sans-serif;
   padding: 20px;
-  box-shadow: 2px 2px 5px rgb(255, 255, 255, 0.3);
-  border-radius: 0px;
+  box-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
+  border-radius: 5px 0 0 5px;
   overflow: hidden;
   display: flex;
   align-items: center;
+  transition: all 0.3s ease;
+}
+
+.sendInput:focus {
+  outline: none;
+  box-shadow: 0 0 15px rgba(255, 102, 0, 0.5);
+  background: #2c0e0e;
+}
+
+.sendInput::placeholder {
+  color: rgba(255, 102, 0, 0.7);
 }
 .chatContainer{
   width: 100%;

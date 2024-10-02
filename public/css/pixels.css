@@ -47,8 +47,8 @@ body {
 }
 .container {
   width: 50%;
-  background-color: #6f057a;
-  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6);
+  background-color: #1a0005;
+  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
   padding: 15px;
   border-radius: 5px;
   position: absolute;
@@ -56,6 +56,8 @@ body {
   left: 5%;
   overflow-y: auto;
   max-height: 80vh;
+  border: 2px solid #ff6600;
+  color: #ff6600;
 }
 
 .pack {
@@ -64,6 +66,7 @@ body {
 
 .pack h2 {
   margin-bottom: 10px;
+  color: #ff6600;
 }
 
 .items {
@@ -73,28 +76,29 @@ body {
 }
 
 .badge {
-  box-shadow: 2px 2px 5px black;
+  box-shadow: 2px 2px 5px #ff6600;
   position: absolute;
   top: 0;
   right: -10%;
-  background-color: #ffffff;
-  color: white;
+  background-color: #2c0e0e;
+  color: #ff6600;
   border-radius: 50%;
   padding: 3px 6px;
   font-size: 12px;
   font-weight: bold;
+  border: 1px solid #ff6600;
 }
 
 .item {
   position: relative;
   width: 80px;
   height: 80px;
-  background-color: #9003a0;
+  background-color: #2c0e0e;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  border: none;
+  border: 2px solid #ff6600;
 }
 
 .item img {
@@ -102,17 +106,19 @@ body {
   max-height: 90%;
   cursor: pointer;
 }
+
 .blook-details {
   position: absolute;
   top: 25%;
   right: 10%;
-  background-color: #6f057a;
+  background-color: #1a0005;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6);
-  color: white;
+  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  color: #ff6600;
   width: 400px;
   height: 430px;
+  border: 2px solid #ff6600;
 }
 
 .blook-details h3 {
@@ -124,23 +130,24 @@ body {
   margin: 5px 0;
 }
 
-.blook-details button {
+.blook-details button, .button-style {
   margin-top: 10px;
-  font-family: Pixelify Sans;
+  font-family: 'Pixelify Sans', sans-serif;
   padding: 10px 15px;
-  background-color: #8c099a;
-  color: white;
-  border: none;
+  background-color: #2c0e0e;
+  color: #ff6600;
+  border: 2px solid #ff6600;
   border-radius: 4px;
   cursor: pointer;
-  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6);
-  transition: background-color 0.5s ease-in-out;
+  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  transition: all 0.3s ease;
   width: 100%;
   box-sizing: border-box;
 }
 
-.blook-details button:hover {
-  background-color: #6f057a;
+.blook-details button:hover, .button-style:hover {
+  background-color: #4a0e4e;
+  transform: scale(0.95);
 }
 
 .modal {
@@ -151,24 +158,25 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(26, 0, 5, 0.8);
 }
 
 .modal-content {
-  background-color: #6f057a;
+  background-color: #1a0005;
   margin: 15% auto;
   padding: 20px;
   height: 300px;
   width: 500px;
   border-radius: 5px;
   font-family: 'Pixelify Sans', sans-serif;
-  color: white;
+  color: #ff6600;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(255, 102, 0, 0.6);
+  border: 2px solid #ff6600;
 }
 
 .close {
-  color: #aaa;
+  color: #ff6600;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -177,79 +185,27 @@ body {
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: #4a0e4e;
   text-decoration: none;
   cursor: pointer;
 }
 
-.pixel-info {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
-}
-
-.pixel-info img {
-  width: 80px;
-  height: 80px;
-  margin-right: 10px;
-}
-
-.pixel-details p {
-  margin: 5px 0;
-}
-
-.button-group {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-}
-
 .button-group button {
   padding: 10px 20px;
-  border: none;
+  border: 2px solid #ff6600;
   border-radius: 5px;
   cursor: pointer;
   font-family: 'Pixelify Sans', sans-serif;
   font-size: 16px;
+  background-color: #2c0e0e;
+  color: #ff6600;
+  box-shadow: 0 4px 8px rgba(255, 102, 0, 0.6);
+  transition: all 0.3s ease;
 }
 
-#confirmSell {
-  background-color: #4CAF50;
-  color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
-}
-
-#confirmSell:hover {
-  transform: scale(1.1);
-}
-
-#cancelSell {
-  background-color: #f44336;
-  color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
-}
-
-#cancelSell:hover {
-  transform: scale(1.1);
-}
-
-.button-style {
-  width: 300px;
-  font-size: 20px;
-  border-radius: 5px;
-  background-color: #800097;
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  pointer-events: auto;
-  cursor: pointer;
-  box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
-  font-family: Pixelify Sans;
-  display: none;
-  transition: transform 0.2s ease;
+#confirmSell:hover, #cancelSell:hover {
+  background-color: #4a0e4e;
+  transform: scale(1.05);
 }
 
 .button-hover-scale {

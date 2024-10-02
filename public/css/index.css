@@ -60,7 +60,15 @@ body {
 
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-  background-color: #4a0e4e; 
+  background-color: #4a0e4e;
+  color: #ff6600;
+  box-shadow: 0 0 15px rgba(255, 102, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+.navbar a:hover i,
+.dropdown:hover .dropbtn i {
+  transform: scale(1.1);
 }
 
 .dropdown-content {
@@ -84,7 +92,14 @@ body {
 }
 
 .dropdown-content a:hover {
-  background-color: #4a0e4e; 
+  background-color: #4a0e4e;
+  color: #ff6600;
+  box-shadow: inset 0 0 10px rgba(255, 102, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.dropdown-content a:hover i {
+  transform: scale(1.1);
 }
 
 .dropdown-content a:last-child:hover {

@@ -21,14 +21,6 @@ body {
 
 .navbar {
   overflow: hidden;
-  background-color: #6f057a;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6);
-}
-
-.navbar {
-  overflow: hidden;
   background-color: #1a0005;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -63,7 +55,15 @@ body {
 
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-  background-color: #4a0e4e; 
+  background-color: #4a0e4e;
+  color: #ff6600;
+  box-shadow: 0 0 15px rgba(255, 102, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+.navbar a:hover i,
+.dropdown:hover .dropbtn i {
+  transform: scale(1.1);
 }
 
 .dropdown-content {
@@ -87,12 +87,23 @@ body {
 }
 
 .dropdown-content a:hover {
-  background-color: #4a0e4e; 
+  background-color: #4a0e4e;
+  color: #ff6600;
+  box-shadow: inset 0 0 10px rgba(255, 102, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.dropdown-content a:hover i {
+  transform: scale(1.1);
 }
 
 .dropdown-content a:last-child:hover {
   border-radius: 0 0 10px 10px;
   box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 .dropdown:hover .dropdown-content {
@@ -112,20 +123,21 @@ body {
   width: 440px;
   font-size: 18px;
   border-radius: 5px;
-  background-color: #6f057a;
-  color: white;
-  border: none;
+  background-color: #1a0005;
+  color: #ff6600;
+  border: 2px solid #ff6600;
   box-sizing: border-box;
   padding: 20px;
-  font-family: Pixelify Sans;
+  font-family: 'Pixelify Sans', sans-serif;
   margin: 40px auto 0;
-  box-shadow: inset 0 -0.365vw #5a0463, 3px 3px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
 }
 
 .register-title {
   font-size: 40px;
   text-align: center;
   margin-bottom: 20px;
+  color: #ff6600;
 }
 
 .form-group {
@@ -135,7 +147,7 @@ body {
 .form-group input {
   font-family: 'Pixelify Sans', sans-serif;
   background-color: transparent;
-  border: 2px solid purple;
+  border: 2px solid #ff6600;
   border-radius: 5px;
   padding: 10px;
   color: #FFFFFF;
@@ -147,7 +159,7 @@ body {
 }
 
 .form-group input:hover {
-  border-color: white;
+  border-color: #4a0e4e;
 }
 
 .button-container {
@@ -159,17 +171,19 @@ body {
   width: auto;
   font-size: 20px;
   border-radius: 5px;
-  background-color: #6f057a;
-  color: white;
-  border: 0.1px solid white;
+  background-color: #2c0e0e;
+  color: #ff6600;
+  border: 2px solid #ff6600;
   padding: 15px 30px;
   cursor: pointer;
   font-family: 'Pixelify Sans', sans-serif;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #ff6600;
 }
 
 .submit-btn:hover {
-  background-color: #51005e;
+  background-color: #4a0e4e;
+  box-shadow: 0 0 15px #ff6600;
 }
 
 #error-message {
