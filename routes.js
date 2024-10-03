@@ -327,43 +327,43 @@ router.get("/packs", async (req, res) => {
   res.status(200).send(packs);
 });
 
-router.get("/openPack", async (req, res) => {
+const packOpenLimiter = rateLimit({
+  windowMs: 1000,
+  max: 2, 
+  message: "Too many pack openings, please try again later.",
+  handler: (req, res) => {
+    res.status(429).redirect('/site/index.html');
+  }
+});
+
+router.get("/openPack", packOpenLimiter, async (req, res) => {
   const session = req.session;
   if (session && session.loggedIn) {
     //await client.connect();
     //console.log("openpackreq");
-
     const user = {
       name: session.username,
     };
-
     const opack = req.query.pack;
-
     // Retrieve user data from MongoDB
     const person = await users.findOne({ username: user.name });
     //console.log("Retrieved user data:", person); // Log retrieved user data
-
     if (person === null) return;
-
     // Validate password
     /*if (!validatePassword(user.pass, person.password, person.salt)) {
       console.log("False password");
       return;
     }*/
-
     // Retrieve pack data from MongoDB
     /*console.log(opack)
     console.log(await packs.find().toArray())*/
     const pack = await packs.findOne({ name: opack });
     //console.log("Retrieved pack data:", pack); // Log retrieved pack data
-
     if (pack === null) {
       console.log("Invalid pack");
       return;
     }
-
     if (person.tokens < pack.cost) return;
-
     const blooks = pack.blooks;
     let totalchance = 0;
     for (const b of blooks) {
@@ -371,21 +371,16 @@ router.get("/openPack", async (req, res) => {
     }
     const randnum = rand(0, totalchance);
     let currentchance = 0;
-
     //console.log(pack);
-
     //console.log("test", randnum, totalchance);
-
     for (const b of blooks) {
       const blook = b;
       //console.log("Current blook:", blook); // Log current blook
-
       if (
         randnum >= currentchance &&
         randnum <= currentchance + Number(blook.chance)
       ) {
         //console.log("Selected blook:", blook); // Log selected blook
-
         // Update user data in MongoDB
         /*await users
               .updateOne(
@@ -439,11 +434,9 @@ router.get("/openPack", async (req, res) => {
           { username: user.name },
           { $inc: { tokens: -pack.cost } },
         );
-
         console.log(
           `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
         );
-
         res.status(200).send({ pack: pack.name, blook: blook });
         /*io.to(socket.id).emit("openPack", {
           pack: pack.name,
@@ -451,11 +444,12 @@ router.get("/openPack", async (req, res) => {
         });*/
         //const testuser = await users.findOne({ username: user.name });
         //io.to(socket.id).emit("tokens", await testuser.tokens);
-
         console.log(`${user.name} opened ${pack.name} and got ${blook.name}`);
       }
       currentchance += Number(blook.chance);
     }
+  } else {
+    res.status(401).send("Unauthorized");
   }
 });
 
@@ -817,6 +811,73 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) =
   }
 
   res.json({received: true});
+});
+
+const RARITY_SELL_PRICES = {
+  'uncommon': 5,
+  'rare': 20,
+  'epic': 75,
+  'legendary': 200,
+  'chroma': 300,
+  'mystical': 1000
+};
+
+router.post('/sellBlook', async (req, res) => {
+  const session = req.session;
+  if (!session.loggedIn) {
+    return res.status(401).json({ success: false, message: "You are not logged in" });
+  }
+
+  const { name: blookName } = req.body;
+
+  try {
+    const user = await users.findOne({ username: session.username });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    let blookFound = false;
+    let sellValue = 0;
+
+    for (const pack of user.packs) {
+      const blookIndex = pack.blooks.findIndex(blook => blook.name === blookName);
+      if (blookIndex !== -1 && pack.blooks[blookIndex].owned > 0) {
+        blookFound = true;
+        const blook = pack.blooks[blookIndex];
+        sellValue = RARITY_SELL_PRICES[blook.rarity] || 0;
+        await users.updateOne(
+          { username: session.username, "packs.name": pack.name, "packs.blooks.name": blookName },
+          { 
+            $inc: { 
+              tokens: sellValue,
+              [`packs.$[pack].blooks.$[blook].owned`]: -1
+            }
+          },
+          {
+            arrayFilters: [
+              { "pack.name": pack.name },
+              { "blook.name": blookName }
+            ]
+          }
+        );
+        
+        break;
+      }
+    }
+
+    if (!blookFound) {
+      return res.status(404).json({ success: false, message: "Blook not found in user's inventory" });
+    }
+
+    res.status(200).json({ 
+      success: true, 
+      message: `Successfully sold ${blookName} for ${sellValue} tokens`
+    });
+
+  } catch (error) {
+    console.error("Error selling blook:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
 });
 
 module.exports = router;

@@ -109,32 +109,6 @@
         <button id="sell-blook" class="button-style" onmouseover="this.classList.add('button-hover-scale');" onmouseout="this.classList.remove('button-hover-scale');">
           Sell Pixel <i class="fa-solid fa-dollar-sign"></i>
         </button>
-</button>
-        </div>
-    <div id="sellModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Sell Pixel</h2>
-        <h3>Are you sure you want to sell this Pixel?</h3>
-        <div class="pixel-info">
-          <img id="modalPixelImage" src="" alt="Pixel Image">
-          <div class="pixel-details">
-            <p id="modalPixelName"></p>
-            <p id="modalPixelRarity"></p>
-          </div>
-        </div>
-        <div class="button-group">
-          <button id="confirmSell">Yes</button>
-          
-          <label for="sellAmount" style="font-size: 1.5em;">Amount:</label>
-          <input type="number" id="sellAmount" min="1" style="width: 50px; border-radius: 5px" />
-          <span></span>
-          <span id="totalBlooksOwned"></span>
-          <button id="cancelSell">No</button>
-        </div>
-      </div>
-    </div>
-      </center>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="/javascript/pixels.js"></script>
   </body>

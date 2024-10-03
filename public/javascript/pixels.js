@@ -219,88 +219,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-const modal = document.getElementById("sellModal");
-const closeBtn = document.getElementsByClassName("close")[0];
-const confirmSellBtn = document.getElementById("confirmSell");
-const cancelSellBtn = document.getElementById("cancelSell");
-const modalPixelImage = document.getElementById("modalPixelImage");
-const modalPixelName = document.getElementById("modalPixelName");
-const modalPixelRarity = document.getElementById("modalPixelRarity");
+sellButton.onclick = () => {
+  const name = document.querySelector('.blook-details h3').textContent;
+  const confirmation = confirm(`Are you sure you want to sell ${name}?`);
 
-function openModal(name, imageSrc, rarity) {
-  modalPixelImage.src = imageSrc.includes("http") 
-    ? imageSrc 
-    : "https://pixelit.replit.app/img/blooks/" + imageSrc;
-  modalPixelImage.style.display = "block";
-  modalPixelName.textContent = name;
-  if (rarity === 'uncommon') {
-    modalPixelRarity.innerHTML = `<span style='color: 4bc22e;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
-  } else if (rarity === 'rare') {
-    modalPixelRarity.innerHTML = `<span style='color: blue;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
-  } else if (rarity === 'epic') {
-    modalPixelRarity.innerHTML = `<span style='color: #be0000;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
-  } else if (rarity === 'legendary') {
-    modalPixelRarity.innerHTML = `<span style='color: #ff910f;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
-  } else if (rarity === 'chroma') {
-    modalPixelRarity.innerHTML = `<span style='color: #00ccff;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
-  } else if (rarity === 'mystical') {
-    modalPixelRarity.innerHTML = `<span style='color: #9935dd;'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
-  } else {
-    modalPixelRarity.textContent = rarity.charAt(0).toUpperCase() + rarity.slice(1);
+  if (confirmation) {
+    fetch("/sellBlook", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: name }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(data.message);
+        location.reload();
+      } else {
+        alert("Failed to sell blook: " + data.message);
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("An error occurred while trying to sell the blook.");
+    });
   }
-  modal.style.display = "block";
-}
-
-function closeModal() {
-  modal.style.display = "none";
-}
-
-closeBtn.onclick = closeModal;
-
-window.onclick = function(event) {
-  if (event.target == modal) {
-    closeModal();
-  }
-}
-
-cancelSellBtn.onclick = closeModal;
-
-confirmSellBtn.onclick = function() {
-  const name = modalPixelName.textContent;
-  fetch('/sellBlook', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name }),
-  })
-  .then(response => response.json())
-  .then(data => {
-    alert(data.message);
-    closeModal();
-    fetch("/user")
-      .then(response => response.json())
-      .then(data => {
-        const packs = data.packs;
-        generatePacksHTML(packs);
-      });
-  })
-  .catch(error => {
-    console.error('Error selling blook:', error);
-    alert('An error occurred while selling the blook');
-  });
-};
-
-  sellButton.onclick = () => {
-    const name = blookName.textContent;
-    const imageSrc = blookImage.src.includes("/blooks/")
-      ? blookImage.src
-      : "https://pixelit.replit.app/img/blooks/" + blookImage.src;
-    const rarity = blookRarity.textContent;
-
-    const modalContent = document.getElementById('modal-content');
-    modalContent.querySelector('.modal-name').textContent = name;
-    modalContent.querySelector('.modal-image').src = imageSrc;
-    modalContent.querySelector('.modal-rarity').textContent = rarity;
-    document.getElementById('modal').style.display = 'block';
 };
