@@ -3,6 +3,7 @@ body {
   color: white;
   margin: 0;
   padding: 0;
+  overflow: auto;
 }
 .bg_img {
   position: fixed;
@@ -24,7 +25,6 @@ body {
   border-bottom-right-radius: 15px;
   box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
 }
-
 .navbar a {
   float: left;
   font-size: 16px;
@@ -34,12 +34,10 @@ body {
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
 }
-
 .dropdown {
   float: left;
   overflow: hidden;
 }
-
 .dropdown .dropbtn {
   font-size: 16px;
   border: none;
@@ -50,7 +48,6 @@ body {
   font-family: inherit;
   margin: 0;
 }
-
 .navbar a:hover,
 .dropdown:hover .dropbtn {
   background-color: #4a0e4e;
@@ -58,12 +55,10 @@ body {
   box-shadow: 0 0 15px rgba(255, 102, 0, 0.8);
   transition: all 0.3s ease;
 }
-
 .navbar a:hover i,
 .dropdown:hover .dropbtn i {
   transform: scale(1.1);
 }
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -74,7 +69,6 @@ body {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-
 .dropdown-content a {
   float: none;
   color: #ff6600; 
@@ -83,23 +77,19 @@ body {
   display: block;
   text-align: left;
 }
-
 .dropdown-content a:hover {
   background-color: #4a0e4e;
   color: #ff6600;
   box-shadow: inset 0 0 10px rgba(255, 102, 0, 0.5);
   transition: all 0.3s ease;
 }
-
 .dropdown-content a:hover i {
   transform: scale(1.1);
 }
-
 .dropdown-content a:last-child:hover {
   border-radius: 0 0 10px 10px;
   box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
 }
-
 .dropdown:hover .dropdown-content {
   display: block;
 }
@@ -114,17 +104,6 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
-.img {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: #000 4px 0 20px;
-}
 .news-container {
   width: 45%;
   background-color: #1a0005;
@@ -138,7 +117,6 @@ body {
   transition: all 0.3s ease-in-out;
   border: 2px solid #ff6600;
 }
-
 .news-container:hover {
   transform: scale(1.05);
   box-shadow: 0px 25px 35px rgba(255, 102, 0, 0.4);
