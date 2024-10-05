@@ -112,7 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const chatMessage = { sender: username, msg, badges, pfp };
             messages.push(chatMessage);
             updateMessages(messages);
-            socket.emit("message", msg);
+            fetch()
+            //socket.emit("message", msg);
             e.target.value = "";
         }
     });
