@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .bg_img {
   position: fixed;
   width: 250%;
@@ -18,6 +19,7 @@ body {
   transform: translate(-50%, -50%) rotate(15deg);
   opacity: 0.1;
 }
+
 .navbar {
   overflow: hidden;
   background-color: #1a0005;
@@ -35,9 +37,11 @@ body {
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
 }
+
 .navbar a:hover {
   transform: rotate(360deg);
 }
+
 .title_p {
   margin-left: 92%;
   position: absolute;
@@ -46,6 +50,7 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
+
 .box {
   height: 285px;
   width: 250px;
@@ -89,6 +94,28 @@ body {
   background: #2c0e0e;
   box-shadow: 0 0 20px rgba(255, 102, 0, 0.8);
 }
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 200px;
+  height: 280px; 
+  margin: 10px;
+  text-align: center;
+}
+
+.box img {
+  max-width: 100%;
+  height: auto;
+}
+
+.box p {
+  margin: 5px 0;
+}
+
 #animationCanvas {
   display: none;
   margin: 0;
@@ -96,4 +123,27 @@ body {
   border-radius: 5px; 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
   position: fixed;
+}
+
+.box[data-pack-name] {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.box[data-pack-name]:hover {
+  transform: scale(1.05);
+}
+.box.opening {
+  animation: packOpening 2s ease-in-out;
+}
+
+.opening {
+  animation: packOpening 1.5s ease-in-out;
+}
+
+@keyframes packOpening {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(-5deg); }
+  50% { transform: scale(1.2) rotate(5deg); }
+  75% { transform: scale(1.1) rotate(-3deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }

@@ -1,198 +1,224 @@
-//const socket = io();
+let userTokens = 0;
+let userPacks = [];
 
-const c = document.getElementById("animationCanvas");
-const ctx = c.getContext("2d");
-c.height = window.innerHeight;
-c.width = window.innerWidth;
+document.addEventListener('DOMContentLoaded', () => {
+  fetchUserData();
+  fetchPacks();
+});
 
-// Function to dynamically create pack elements
-function createPackElement(pack) {
-  // Create div element with class "box" and "box2"
-  const divBox = document.createElement("div");
-  divBox.classList.add("box", "box2");
+async function fetchUserData() {
+  try {
+    const response = await fetch('/user');
+    const userData = await response.json();
+    userTokens = userData.tokens;
+    updateTokenDisplay();
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+}
 
-  const centerElem = document.createElement("center");
+function updateTokenDisplay() {
+  const tokenDisplay = document.getElementById('tokens');
+  if (tokenDisplay) {
+    tokenDisplay.textContent = userTokens;
+  }
+}
 
-  const divText = document.createElement("div");
-  divText.classList.add("text");
+async function fetchPacks() {
+  try {
+    const response = await fetch('/packs');
+    const packs = await response.json();
+    displayPacks(packs);
+  } catch (error) {
+    console.error('Error fetching packs:', error);
+  }
+}
 
-  const h2Elem = document.createElement("h2");
-  h2Elem.textContent = pack.name;
-
-  const imgElem = document.createElement("img");
-  imgElem.src = `/img/packs/${pack.image}`;
-  imgElem.alt = pack.name;
-  imgElem.style.width = "115px";
-
-  const pElem = document.createElement("p");
-  pElem.innerHTML = `Cost: ${pack.cost}`;
-
-  
-  const tokenImgElem = document.createElement("img");
-  tokenImgElem.src = "/img/dashboard/token.png";
-  tokenImgElem.alt = "Token Image";
-  tokenImgElem.style.width = "25px";
-    
-  divText.appendChild(imgElem);
-  divText.appendChild(h2Elem);
-  divText.appendChild(pElem);
-  divText.appendChild(tokenImgElem);
-
-  // Append divText to center element
-  centerElem.appendChild(divText);
-
-  // Append center element to divBox
-  divBox.appendChild(centerElem);
-  divBox.id = pack.name;
-
-  // Add onclick event listener to divBox
-  divBox.addEventListener("click", () => {
-    divBox.style.pointerEvents = "none";
-    fetch("/openPack?pack=" + pack.name, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Pack opened successfully");
-          divBox.style.pointerEvents = "auto";
-          return response.json();
-        } else {
-          console.log("Failed to open pack");
-          divBox.style.pointerEvents = "auto";
-        }
-      })
-      .then((data) => {
-        alert(`You have opened the ${data.pack} and got ${data.blook.name}!`);
-        fetch("/user", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => {
-            if (response.status === 200) {
-              return response.json(); // Parse JSON data
-            } else if (response.status === 500) {
-              return response.text().then((text) => {
-                alert(text);
-              });
-            } else {
-              console.error("Unexpected response status:", response.status);
-              throw new Error("Unexpected response status");
-            }
-          })
-          .then((data) => {
-            document.getElementById("tokens").innerHTML = data.tokens;
-          })
-          .catch((error) => {
-            console.error(
-              "There was a problem with the fetch operation:",
-              error,
-            );
-          });
-      });
+function displayPacks(packs) {
+  const packContainer = document.getElementById('packContainer');
+  packContainer.innerHTML = '';
+  packs.forEach(pack => {
+    const packElement = createPackElement(pack);
+    packContainer.appendChild(packElement);
   });
+}
+
+function createPackElement(pack) {
+  const divBox = document.createElement('div');
+  divBox.className = 'box';
+  divBox.setAttribute('data-pack-name', pack.name);
+
+  const packImage = document.createElement('img');
+  packImage.src = `/img/packs/${pack.image}`;
+  packImage.alt = pack.name;
+  packImage.style.width = '100px';
+  packImage.style.height = '100px';
+
+  const packName = document.createElement('p');
+  packName.textContent = pack.name;
+  packName.style.margin = '10px 0 5px 0'; 
+
+  const packCost = document.createElement('p');
+  packCost.textContent = `${pack.cost} tokens`;
+  packCost.style.margin = '5px 0';
+
+  divBox.appendChild(packImage);
+  divBox.appendChild(packName);
+  divBox.appendChild(packCost);
+
+  divBox.addEventListener('click', () => openPack(pack.name, pack.cost));
 
   return divBox;
 }
 
-// Function to render packs
-function renderPacks(packs) {
-  const container = document.getElementById("packContainer");
-  console.log(container);
-  packs.forEach((pack) => {
-    const packElement = createPackElement(pack);
-    container.appendChild(packElement);
-  });
+async function openPack(packName, packCost) {
+  if (userTokens < packCost) {
+    alert('Not enough tokens to open this pack!');
+    return;
+  }
+
+  const packElement = document.querySelector(`[data-pack-name="${packName}"]`);
+  packElement.classList.add('opening');
+
+  try {
+    const response = await fetch(`/openPack?pack=${encodeURIComponent(packName)}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to open pack');
+    }
+
+    const result = await response.json();
+    console.log("Server response:", result);
+
+    userTokens -= packCost;
+    updateTokenDisplay();
+
+    setTimeout(() => {
+      packElement.classList.remove('opening');
+      showPackContents(result.blook);
+    }, 2000);
+
+  } catch (error) {
+    console.error('Error opening pack:', error);
+    alert('Failed to open pack. Please try again.');
+    packElement.classList.remove('opening');
+  }
 }
 
-//socket.emit("getPacks");
-//socket.emit("getTokens", sessionStorage.username);
-window.onload = () => {
-  //document.body.style.pointerEvents = "none";
-  fetch("/user", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (response.status === 200) {
-        return response.json(); // Parse JSON data
-      } else if (response.status === 500) {
-        return response.text().then((text) => {
-          alert(text);
-        });
-      } else {
-        console.error("Unexpected response status:", response.status);
-        throw new Error("Unexpected response status");
-      }
-    })
-    .then((data) => {
-      document.getElementById("tokens").innerHTML = data.tokens;
-    })
-    .catch((error) => {
-      console.error("There was a problem with the fetch operation:", error);
-    });
-};
+function showPackContents(result) {
+  console.log("Pack contents:", result);
 
-fetch("/packs", {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-  },
-})
-  .then((response) => {
-    if (response.status === 200) {
-      return response.json(); // Parse JSON data
-    } else if (response.status === 500) {
-      const text = response.text();
-      alert(text);
-    } else {
-      console.error("Unexpected response status:", response.status);
-      throw new Error("Unexpected response status");
-    }
-  })
-  .then(async (data) => {
-    renderPacks(data);
-  })
-  .catch((error) => {
-    console.error("There was a problem with the fetch operation:", error);
-  });
+  const blook = result.blook || result;
 
-// Call renderPacks function with the packs array
-/*socket.on("getPacks", (packs) => {
-  if (packs === "get") return;
-  renderPacks(packs);
-});
+  const overlay = document.createElement('div');
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+  overlay.style.zIndex = '999';
+  overlay.onclick = () => document.body.removeChild(overlay);
 
-socket.on("openPack", (info) => {
-  const pack = info.pack;
-  const blook = info.blook;
-  console.log(pack);
-  console.log(blook);
-  console.log("opened pack");
-  document.getElementById(pack).style.pointerEvents = "auto";
-  alert(
-    `Opened pack ${pack} and got ${blook.name}, which is a ${blook.rarity} and has ${blook.chance}% chance`,
-  );
-});
-*/
+  const modal = document.createElement('div');
+  modal.className = 'box';
+  modal.style.position = 'fixed';
+  modal.style.top = '50%';
+  modal.style.left = '50%';
+  modal.style.transform = 'translate(-50%, -50%)';
+  modal.style.zIndex = '1000';
+  modal.style.textAlign = 'center';
 
-document.addEventListener('DOMContentLoaded', function() {
-  fetch('/user') 
-    .then(response => response.json())
-    .then(data => {
-      const userRole = data.role;
-      const allowedRoles = ['Owner', 'Admin', 'Moderator', 'Helper'];
-      if (allowedRoles.includes(userRole)) {
-        document.getElementById('wrench-icon').style.display = 'inline';
-      }
-    })
-  .catch(error => {
-   console.error('Error fetching user role:', error);
-    });
-});
+  const blookImage = document.createElement('img');
+  blookImage.src = `/img/blooks/${blook.image}`;
+  blookImage.alt = blook.name || 'Unknown Blook';
+  blookImage.style.width = '150px';
+  blookImage.style.height = '150px';
+  blookImage.style.borderRadius = '5px';
+  blookImage.onerror = function() {
+    console.error("Failed to load image:", this.src);
+    this.src = '/img/blooks/logo.png';
+  };
+
+  const blookName = document.createElement('p');
+  blookName.textContent = `You got: ${blook.name || 'Unknown Blook'}`;
+  blookName.style.margin = '10px 0';
+
+  const blookInfo = document.createElement('p');
+  blookInfo.textContent = `Rarity: ${blook.rarity || 'Unknown'}`;
+  blookInfo.style.margin = '5px 0';
+
+  const closeButton = document.createElement('button');
+  closeButton.textContent = 'Close';
+  closeButton.onclick = () => document.body.removeChild(overlay);
+  closeButton.style.marginTop = '10px';
+
+  modal.appendChild(blookImage);
+  modal.appendChild(blookName);
+  modal.appendChild(blookInfo);
+  modal.appendChild(closeButton);
+  overlay.appendChild(modal);
+
+  document.body.appendChild(overlay);
+}
+
+const style = document.createElement('style');
+style.textContent = `
+  .pack-element {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+
+  .pack-element:hover {
+    transform: scale(1.05);
+  }
+
+  .opening {
+    animation: packOpening 2s ease-in-out;
+  }
+
+  @keyframes packOpening {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(-5deg); }
+    50% { transform: scale(1.2) rotate(5deg); }
+    75% { transform: scale(1.1) rotate(-3deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+
+  .pack-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .pack-content {
+    background-color: #1a0005;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 15px #ff6600;
+  }
+
+  .pack-content button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #ff6600;
+    color: #1a0005;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+`;
+document.head.appendChild(style);

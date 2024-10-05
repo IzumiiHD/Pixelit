@@ -18,6 +18,15 @@ const limiter = rateLimit({
   legacyHeaders: false, 
 });
 
+const packOpenLimiter = rateLimit({
+  windowMs: 1000,
+  max: 2, 
+  message: "Too many pack openings, please try again later.",
+  handler: (req, res) => {
+    res.status(429).json({ error: "Too many requests, please try again later." });
+  }
+});
+
 function rand(min, max) {
   return /*Math.floor(*/ Math.random() * (max - min + 1) /*)*/ + min;
 }
@@ -327,131 +336,7 @@ router.get("/packs", async (req, res) => {
   res.status(200).send(packs);
 });
 
-const packOpenLimiter = rateLimit({
-  windowMs: 1000,
-  max: 2, 
-  message: "Too many pack openings, please try again later.",
-  handler: (req, res) => {
-    res.status(429).redirect('/site/index.html');
-  }
-});
 
-router.get("/openPack", packOpenLimiter, async (req, res) => {
-  const session = req.session;
-  if (session && session.loggedIn) {
-    //await client.connect();
-    //console.log("openpackreq");
-    const user = {
-      name: session.username,
-    };
-    const opack = req.query.pack;
-    // Retrieve user data from MongoDB
-    const person = await users.findOne({ username: user.name });
-    //console.log("Retrieved user data:", person); // Log retrieved user data
-    if (person === null) return;
-    // Validate password
-    /*if (!validatePassword(user.pass, person.password, person.salt)) {
-      console.log("False password");
-      return;
-    }*/
-    // Retrieve pack data from MongoDB
-    /*console.log(opack)
-    console.log(await packs.find().toArray())*/
-    const pack = await packs.findOne({ name: opack });
-    //console.log("Retrieved pack data:", pack); // Log retrieved pack data
-    if (pack === null) {
-      console.log("Invalid pack");
-      return;
-    }
-    if (person.tokens < pack.cost) return;
-    const blooks = pack.blooks;
-    let totalchance = 0;
-    for (const b of blooks) {
-      totalchance += Number(b.chance);
-    }
-    const randnum = rand(0, totalchance);
-    let currentchance = 0;
-    //console.log(pack);
-    //console.log("test", randnum, totalchance);
-    for (const b of blooks) {
-      const blook = b;
-      //console.log("Current blook:", blook); // Log current blook
-      if (
-        randnum >= currentchance &&
-        randnum <= currentchance + Number(blook.chance)
-      ) {
-        //console.log("Selected blook:", blook); // Log selected blook
-        // Update user data in MongoDB
-        /*await users
-              .updateOne(
-                { username: person.name },
-                { $inc: { [`packs.${pack.name}.blooks.${blook.name}.owned`]: 1 } },
-              )
-              .then((result) => {
-                console.log("Update operation result:", result);
-              })
-              .catch((error) => {
-                console.error("Error updating database:", error);
-              });*/
-        /*
-            await users
-              .updateOne(
-                { username: person.name }, // Identify the user based on some unique identifier
-                {
-                  $inc: {
-                    "packs.$[packName].blooks.$[blookName].owned": 1, // Update the owned property of the specific blook
-                  },
-                },
-                {
-                  arrayFilters: [
-                    { "packName.name": pack.name }, // Filter to find the specific pack within the packs array
-                    { "blookName.name": blook.name }, // Filter to find the specific blook within the blooks array of the selected pack
-                  ],
-                },
-              )
-              .then((result) => {
-                console.log("Update operation result+$:37&+:", result);
-              });
-    */
-        // Emit openPack event with selected blook
-        const result = await users.updateOne(
-          {
-            username: user.name,
-            "packs.name": pack.name,
-            "packs.blooks.name": blook.name,
-          },
-          {
-            $inc: { "packs.$[pack].blooks.$[blook].owned": 1, packsOpened: 1 },
-          },
-          {
-            arrayFilters: [
-              { "pack.name": pack.name },
-              { "blook.name": blook.name },
-            ],
-          },
-        );
-        await users.updateOne(
-          { username: user.name },
-          { $inc: { tokens: -pack.cost } },
-        );
-        console.log(
-          `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
-        );
-        res.status(200).send({ pack: pack.name, blook: blook });
-        /*io.to(socket.id).emit("openPack", {
-          pack: pack.name,
-          blook: blook,
-        });*/
-        //const testuser = await users.findOne({ username: user.name });
-        //io.to(socket.id).emit("tokens", await testuser.tokens);
-        console.log(`${user.name} opened ${pack.name} and got ${blook.name}`);
-      }
-      currentchance += Number(blook.chance);
-    }
-  } else {
-    res.status(401).send("Unauthorized");
-  }
-});
 
 router.get("/users", async (req, res) => {
   const session = req.session;
@@ -841,6 +726,95 @@ router.post("/sellBlook", async (req, res) => {
   } catch (error) {
     console.error("Error selling blook:", error);
     res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+router.get("/user", async (req, res) => {
+  const session = req.session;
+  if (session.loggedIn) {
+    try {
+      const user = await users.findOne({ username: session.username });
+      if (user) {
+        res.status(200).json({
+          username: user.username,
+          tokens: user.tokens,
+          packs: user.packs,
+          // Add any other user data you want to send to the frontend
+        });
+      } else {
+        res.status(404).send("User not found");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      res.status(500).send("Internal server error");
+    }
+  } else {
+    res.status(401).send("You are not logged in");
+  }
+});
+// Route to get all packs
+router.get("/packs", async (req, res) => {
+  try {
+    const allPacks = await packs.find().toArray();
+    res.status(200).json(allPacks);
+  } catch (error) {
+    console.error("Error fetching packs:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+router.get("/openPack", packOpenLimiter, async (req, res) => {
+  const session = req.session;
+  if (session && session.loggedIn) {
+    const user = { name: session.username };
+    const packName = req.query.pack;
+    try {
+      const person = await users.findOne({ username: user.name });
+      const pack = await packs.findOne({ name: packName });
+      if (!person || !pack) {
+        return res.status(404).json({ error: "User or pack not found" });
+      }
+      if (person.tokens < pack.cost) {
+        return res.status(400).json({ error: "Not enough tokens" });
+      }
+      const blooks = pack.blooks;
+      let totalChance = blooks.reduce((sum, blook) => sum + Number(blook.chance), 0);
+      const randNum = rand(0, totalChance);
+      let currentChance = 0;
+      let selectedBlook;
+      for (const blook of blooks) {
+        if (randNum >= currentChance && randNum <= currentChance + Number(blook.chance)) {
+          selectedBlook = blook;
+          break;
+        }
+        currentChance += Number(blook.chance);
+      }
+      if (!selectedBlook) {
+        return res.status(500).json({ error: "Failed to select a blook" });
+      }
+      await users.updateOne(
+        { username: user.name },
+        {
+          $inc: { 
+            tokens: -pack.cost,
+            [`packs.$[pack].blooks.$[blook].owned`]: 1,
+            packsOpened: 1
+          }
+        },
+        {
+          arrayFilters: [
+            { "pack.name": pack.name },
+            { "blook.name": selectedBlook.name }
+          ]
+        }
+      );
+      res.status(200).json({ pack: pack.name, blook: selectedBlook });
+      console.log(`${user.name} opened ${pack.name} and got ${selectedBlook.name}`);
+    } catch (error) {
+      console.error("Error opening pack:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  } else {
+    res.status(401).json({ error: "Unauthorized" });
   }
 });
 
