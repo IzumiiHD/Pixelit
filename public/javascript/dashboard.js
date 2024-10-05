@@ -145,27 +145,19 @@ if (sessionStorage.loggedin == "true") {
 } else {
 }
 
-// Display current date and time
-const today = new Date();
-const dateOptions = {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
-};
-date.innerHTML = today.toLocaleDateString("en-US", dateOptions);
-
-// Function to update tokens
 function updateTokens() {
   socket.emit("getTokens", sessionStorage.username);
 }
 
-// Socket event listeners for real-time updates
+function formatNumber(num) {
+  if (num === null || num === undefined) return '0';
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
+
 socket.on("tokens", (tokensr, sentr, packsOpenedr) => {
-  tokens.innerHTML = tokensr;
-  sent.innerHTML = sentr;
-  packsOpened.innerHTML = packsOpenedr;
+  document.getElementById('tokens').textContent = formatNumber(tokensr);
+  document.getElementById('messages').textContent = formatNumber(sentr);
+  document.getElementById('packs').textContent = formatNumber(packsOpenedr);
 });
 
 socket.emit("getUserBadges", sessionStorage.username);

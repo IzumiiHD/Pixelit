@@ -159,62 +159,57 @@ io.on("connection", (socket) => {
   });
   socket.on("message", async (message) => {
     try {
-      //await client.connect();
+        if (byte(message) > 1000 || message.trim() === "") {
+            return;
+        }
 
-      if (byte(message) > 1000 || message.trim() === "") {
-        return;
-      }
+        const cookief = socket.handshake.headers.cookie;
 
-      const cookief = socket.handshake.headers.cookie;
-
-      const response = await axios.get(
-        "https://pixelit.replit.app/user",
-        {
-          headers: {
-            Cookie: cookief,
-          },
-          validateStatus: function (status) {
-            return (status >= 200 && status < 300) || status === 500; // Ignore 500 errors
-          },
-          withCredentials: true,
-        },
-      );
-
-      if (response.status !== 500) {
-        const name = response.data.username;
-        const d = new Date();
-        d.setHours(d.getHours() - 4); // todo: don't hardwire timezone
-        const user = await users.findOne({ username: name });
-        const chatmessage = {
-          sender: name,
-          msg: message,
-          badges: user.badges,
-          pfp: user.pfp,
-        };
-
-        await chatm.insertOne(chatmessage);
-        await users.updateOne(
-          { username: name },
-          { $set: { sent: user.sent + 1 } },
-        );
-        await users.updateOne(
-          { username: name },
-          { $set: { tokens: user.tokens + 1 } },
+        const response = await axios.get(
+            "https://pixelit.replit.app/user",
+            {
+                headers: {
+                    Cookie: cookief,
+                },
+                validateStatus: function (status) {
+                    return (status >= 200 && status < 300) || status === 500; // Ignore 500 errors
+                },
+                withCredentials: true,
+            },
         );
 
-        io.emit("chatupdate", "get");
-      } else {
-        socket.emit("error", response.data);
-      }
+        if (response.status !== 500) {
+            const name = response.data.username;
+            const d = new Date();
+            d.setHours(d.getHours() - 4); // todo: don't hardwire timezone
+            const user = await users.findOne({ username: name });
+            const chatmessage = {
+                sender: name,
+                msg: message,
+                badges: user.badges,
+                pfp: user.pfp,
+            };
+
+            await chatm.insertOne(chatmessage);
+            await users.updateOne(
+                { username: name },
+                { $set: { sent: user.sent + 1 } },
+            );
+            await users.updateOne(
+                { username: name },
+                { $set: { tokens: user.tokens + 1 } },
+            );
+
+            io.emit("chatupdate", "get");
+        } else {
+            socket.emit("error", response.data);
+        }
     } catch (error) {
-      console.error("Error during message handling:", error);
+        console.error("Error during message handling:", error);
     }
   });
 
   socket.on("getChat", async () => {
-    //await client.connect();
-    //const jsonData1 = fs.readFileSync("./chat.json", "utf8");
-    //const chat = JSON.parse(jsonData1);
     socket.emit("chatupdate", await chatm.find().toArray());
   });
   

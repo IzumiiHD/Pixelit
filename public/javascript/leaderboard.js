@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/user') 
     .then(response => response.json())
