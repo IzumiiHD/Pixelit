@@ -204,8 +204,56 @@ socket.on("getUserPacks", (packs) => {
 // Call the function to generate HTML on page load
 //window.onload = generatePacksHTML;
 
+function sellBlook() {
+  const name = document.getElementById("blook-name").textContent;
+  const rarity = document.getElementById("blook-rarity").textContent.toLowerCase();
+  const owned = parseInt(document.getElementById("blook-owned").textContent.split(": ")[1]);
+
+  if (owned <= 0) {
+    alert("You don't have any of this blook to sell!");
+    return;
+  }
+
+  const rarityValues = {
+    uncommon: 5,
+    rare: 20,
+    epic: 75,
+    legendary: 200,
+    chroma: 300,
+    mystical: 1000
+  };
+
+  const tokensToAdd = rarityValues[rarity] || 0;
+
+  fetch("/sellBlook", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, rarity, tokensToAdd }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(`Successfully sold ${name} for ${tokensToAdd} tokens!`);
+        document.getElementById("blook-owned").textContent = `Owned: ${owned - 1}`;
+        if (owned - 1 <= 0) {
+          sellButton.style.display = "none";
+        }
+      } else {
+        alert("Failed to sell blook. Please try again.");
+      }
+    })
+    .catch(error => {
+      console.error("Error selling blook:", error);
+      alert("An error occurred while selling the blook. Please try again.");
+    });
+}
+
+sellButton.addEventListener("click", sellBlook);
+
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('/user')  // Adjust this to your actual API endpoint
+  fetch('/user')
     .then(response => response.json())
     .then(data => {
       const userRole = data.role;
@@ -218,31 +266,3 @@ document.addEventListener('DOMContentLoaded', function() {
    console.error('Error fetching user role:', error);
     });
 });
-
-sellButton.onclick = () => {
-  const name = document.querySelector('.blook-details h3').textContent;
-  const confirmation = confirm(`Are you sure you want to sell ${name}?`);
-
-  if (confirmation) {
-    fetch("/sellBlook", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name: name }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        alert(data.message);
-        location.reload();
-      } else {
-        alert("Failed to sell blook: " + data.message);
-      }
-    })
-    .catch(error => {
-      console.error("Error:", error);
-      alert("An error occurred while trying to sell the blook.");
-    });
-  }
-};

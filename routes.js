@@ -813,70 +813,34 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) =
   res.json({received: true});
 });
 
-const RARITY_SELL_PRICES = {
-  'uncommon': 5,
-  'rare': 20,
-  'epic': 75,
-  'legendary': 200,
-  'chroma': 300,
-  'mystical': 1000
-};
+router.post("/sellBlook", async (req, res) => {
+  const { name, rarity, tokensToAdd } = req.body;
+  const username = req.session.username;
 
-router.post('/sellBlook', async (req, res) => {
-  const session = req.session;
-  if (!session.loggedIn) {
-    return res.status(401).json({ success: false, message: "You are not logged in" });
+  if (!username) {
+    return res.status(401).json({ success: false, message: "User not authenticated" });
   }
-
-  const { name: blookName } = req.body;
-
   try {
-    const user = await users.findOne({ username: session.username });
-    if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
-    }
-
-    let blookFound = false;
-    let sellValue = 0;
-
-    for (const pack of user.packs) {
-      const blookIndex = pack.blooks.findIndex(blook => blook.name === blookName);
-      if (blookIndex !== -1 && pack.blooks[blookIndex].owned > 0) {
-        blookFound = true;
-        const blook = pack.blooks[blookIndex];
-        sellValue = RARITY_SELL_PRICES[blook.rarity] || 0;
-        await users.updateOne(
-          { username: session.username, "packs.name": pack.name, "packs.blooks.name": blookName },
-          { 
-            $inc: { 
-              tokens: sellValue,
-              [`packs.$[pack].blooks.$[blook].owned`]: -1
-            }
-          },
-          {
-            arrayFilters: [
-              { "pack.name": pack.name },
-              { "blook.name": blookName }
-            ]
-          }
-        );
-        
-        break;
+    const result = await users.updateOne(
+      { username: username },
+      { 
+        $inc: { 
+          tokens: tokensToAdd,
+          [`packs.$[].blooks.$[blook].owned`]: -1
+        }
+      },
+      {
+        arrayFilters: [{ "blook.name": name }]
       }
+    );
+    if (result.modifiedCount > 0) {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false, message: "Failed to update user data" });
     }
-
-    if (!blookFound) {
-      return res.status(404).json({ success: false, message: "Blook not found in user's inventory" });
-    }
-
-    res.status(200).json({ 
-      success: true, 
-      message: `Successfully sold ${blookName} for ${sellValue} tokens`
-    });
-
   } catch (error) {
     console.error("Error selling blook:", error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    res.status(500).json({ success: false, message: "Server error" });
   }
 });
 
