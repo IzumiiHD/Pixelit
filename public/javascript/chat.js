@@ -112,8 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const chatMessage = { sender: username, msg, badges, pfp };
             messages.push(chatMessage);
             updateMessages(messages);
-            fetch()
-            //socket.emit("message", msg);
+            socket.emit("message", msg);
             e.target.value = "";
         }
     });
@@ -149,4 +148,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error('Error fetching user role:', error);
         });
+
+    socket.on("error", (e) => {
+        alert(e)
+    })
 });

@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .bg_img {
   position: fixed;
   width: 250%;
@@ -17,6 +18,7 @@ body {
   transform: translate(-50%, -50%) rotate(15deg);
   opacity: 0.1;
 }
+
 .navbar {
   overflow: hidden;
   background-color: #1a0005;
@@ -34,9 +36,11 @@ body {
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
 }
+
 .navbar a:hover {
   transform: rotate(360deg);
 }
+
 .title_p {
   margin-left: 92%;
   position: absolute;
@@ -45,6 +49,7 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
+
 .container {
   width: 50%;
   background-color: #1a0005;
@@ -93,7 +98,7 @@ body {
 .badge {
   box-shadow: 2px 2px 5px #ff6600;
   position: absolute;
-  top: 0;
+  top: -10%;
   right: -10%;
   background-color: #2c0e0e;
   color: #ff6600;

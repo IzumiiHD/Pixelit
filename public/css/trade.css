@@ -1,0 +1,184 @@
+body {
+  font-family: Pixelify Sans;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.bg_img {
+  position: fixed;
+  width: 250%;
+  height: 250%;
+  top: 50%;
+  left: 50%;
+  z-index: -9999;
+  background-size: 550px;
+  background-position: -100px -100px;
+  background-image: url("https://ac.blooket.com/dashboard/assets/BlookCheckers-BykpA7vd.png");
+  transform: translate(-50%, -50%) rotate(15deg);
+  opacity: 0.1;
+}
+
+.pfp-trade {
+  box-shadow: 0 2px 4px rgb(224, 99, 16, 0.2);
+  border-radius: 5px;
+  margin: 10px 20px;
+  width: 250px;
+  height: 250px;
+}
+
+.pfp {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+.inventory {
+  background-color: #6f057a;
+  color: white;
+  border-radius: 5px;
+  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 380px;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.inventory::-webkit-scrollbar {
+  width: 10px;
+}
+
+.inventory::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+.inventory::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+.inventory::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.search-bar {
+  width: 95%;
+  padding: 12px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 2px solid #d3d3d3;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: Pixelify Sans;
+  background: none;
+  transition: border-color 0.3s ease;
+  text-align: center;
+}
+
+.search-bar:focus {
+  border-color: #8a2be2;
+  outline: none;
+}
+
+.btn-accept {
+  width: 60%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin: 0 auto;
+  border-radius: 5px;
+  font-family: Pixelify Sans;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease, top 0.3s ease, background-color 0.3s ease;
+  box-shadow: inset 0 -0.265vw #316d33, 3px 3px 15px rgba(0, 0, 0, 0.6);
+}
+
+.btn-accept:hover {
+  background-color: #3e8e41;
+}
+
+.btn-cancel {
+  width: 60%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #f44336;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin: 0 auto;
+  border-radius: 5px;
+  font-family: Pixelify Sans;
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease, top 0.3s ease, background-color 0.3s ease;
+  box-shadow: inset 0 -0.265vw #93271f, 3px 3px 15px rgba(0, 0, 0, 0.6);
+}
+
+.btn-cancel:hover {
+  background-color: #c0392b;
+}
+
+.blooks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 10px;
+}
+
+.blook-item {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.blook-item:hover {
+  transform: scale(1.1);
+}
+
+.blook-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.badge {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background-color: #4bc22e;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000;
+}

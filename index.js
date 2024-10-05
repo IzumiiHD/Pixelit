@@ -158,13 +158,15 @@ io.on("connection", (socket) => {
     io.to(socket.id).emit("tokens", user.tokens, user.sent, user.packsOpened);
   });
   socket.on("message", async (message) => {
+    console.log("sending message")
     try {
         if (byte(message) > 1000 || message.trim() === "") {
+          console.log("message too long")
             return;
         }
 
         const cookief = socket.handshake.headers.cookie;
-
+        console.log("getting response")
         const response = await axios.get(
             "https://pixelit.replit.app/user",
             {
@@ -177,7 +179,7 @@ io.on("connection", (socket) => {
                 withCredentials: true,
             },
         );
-
+        console.log(response)
         if (response.status !== 500) {
             const name = response.data.username;
             const d = new Date();
@@ -201,6 +203,7 @@ io.on("connection", (socket) => {
             );
 
             io.emit("chatupdate", "get");
+            console.log("message sent")
         } else {
             socket.emit("error", response.data);
         }
