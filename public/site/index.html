@@ -10,6 +10,7 @@
       <link rel="icon" type="image/png" href="../img/favicon.ico">
       <meta name="viewport" content="width=device-width, initial-scale=1" /> 
       <link rel="stylesheet" href="../css/index.css">
+      <link rel="stylesheet" href="/css/themes.css">
       <title>Pixelit</title>
     </head>
   <body class="body-bg-color">
@@ -60,10 +61,11 @@
         <a href="../tos.html" style="color: white; text-shadow: 0 0 10px orange;">Terms Of Service</a>
       </h3>
     </center>
+    <script type="module">
+      import { displayVersion } from '/javascript/versionDisplay.js';
+      document.addEventListener('DOMContentLoaded', displayVersion);
+    </script>
+    <script src="/javascript/home.js"></script>
+    <script src="/javascript/themes.js"></script>
   </body>
-  <script type="module">
-    import { displayVersion } from '/javascript/versionDisplay.js';
-    document.addEventListener('DOMContentLoaded', displayVersion);
-  </script>
-  <script src="/javascript/home.js"></script>
 </html>

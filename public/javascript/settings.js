@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", async function() {
   const usernameElement = document.getElementById("username");
   const roleElement = document.getElementById("role");
   const uidElement = document.getElementById("uid");
-  const passwordElement = document.getElementById("badges");
   const tokensElement = document.getElementById("tokens");
+
 
   const userData = await fetchUserData();
 
@@ -67,7 +67,7 @@ window.onload = () => {
   })
     .then((response) => {
       if (response.status === 200) {
-        return response.json(); // Parse JSON data
+        return response.json(); 
       } else if (response.status === 500) {
         return response.text().then((text) => {
           alert(text);
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('/user') 
+  fetch('/user')
     .then(response => response.json())
     .then(data => {
       const userRole = data.role;
@@ -139,3 +139,22 @@ document.addEventListener('DOMContentLoaded', function() {
    console.error('Error fetching user role:', error);
     });
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  themeToggleBtn.addEventListener('click', function() {
+    toggleTheme();
+    updateButtonText();
+  });
+
+  updateButtonText();
+});
+
+function updateButtonText() {
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  if (document.body.className === 'light-green-theme') {
+    themeToggleBtn.textContent = 'Toggle Default Theme';
+  } else {
+    themeToggleBtn.textContent = 'Toggle Light Green Theme';
+  }
+}
