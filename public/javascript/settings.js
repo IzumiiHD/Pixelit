@@ -2,7 +2,6 @@ if (localStorage.loggedin == "true") {
   sessionStorage = localStorage;
 }
 
-// Function to fetch user data from server
 async function fetchUserData() {
   try {
     const response = await fetch('/user');
@@ -14,7 +13,6 @@ async function fetchUserData() {
   }
 }
 
-// Wait for the DOM to fully load
 document.addEventListener("DOMContentLoaded", async function() {
   const usernameElement = document.getElementById("username");
   const roleElement = document.getElementById("role");
@@ -22,11 +20,8 @@ document.addEventListener("DOMContentLoaded", async function() {
   const passwordElement = document.getElementById("badges");
   const tokensElement = document.getElementById("tokens");
 
-
-  // Fetching user data
   const userData = await fetchUserData();
 
-  // If user data is found, update the text content of the elements
   if (userData) {
     if (usernameElement) {
       usernameElement.textContent = `Username: ${userData.username}`;
@@ -44,7 +39,6 @@ document.addEventListener("DOMContentLoaded", async function() {
       tokensElement.textContent = `Tokens: ${userData.tokens}`;
     }
   } else {
-    // Handle the case where user data could not be fetched
     if (usernameElement) {
       usernameElement.textContent = `Username: Unavailable`;
     }
@@ -117,7 +111,7 @@ document.getElementById('notification-toggle').addEventListener('click', functio
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('/user')  // Adjust this to your actual API endpoint
+  fetch('/user')
     .then(response => response.json())
     .then(data => {
       const userRole = data.role;
@@ -132,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('/user')  // Adjust this to your actual API endpoint
+  fetch('/user') 
     .then(response => response.json())
     .then(data => {
       const userRole = data.role;

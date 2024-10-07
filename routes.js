@@ -56,19 +56,13 @@ const timezoneOffset = new Date().getTimezoneOffset();
 const localTime = new Date(Date.now() - timezoneOffset * 60 * 1000);
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db(db_name).command({ ping: 1 }); /*
-    const packs = await client.db("pixelit").collection("packs").find().toArray()
-    console.log(packs[0].blooks)*/
+    await client.db(db_name).command({ ping: 1 }); 
 
     requests = await client.db(db_name).collection("requests").find().toArray();
-    //console.log(requests);
   } catch {
     console.log("mongodb connection error");
   } /*finally {
-    // Ensures that the client will close when you finish/error
     await client.close();
   }*/
 }
@@ -78,7 +72,7 @@ const db = client.db(db_name);
 const users = db.collection("users");
 const badges = db.collection("badges");
 const news = db.collection("news");
-const chatm = db.collection("chat"); // mongodb chat
+const chatm = db.collection("chat");
 const packs = db.collection("packs");
 
 async function hashPassword(password) {

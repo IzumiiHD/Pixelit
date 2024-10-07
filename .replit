@@ -1,10 +1,6 @@
 modules = ["nodejs-20:v8-20230920-bd784b9"]
 run = "node index.js"
 
-[[ports]]
-localPort = 3000
-externalPort = 3000
-
 [rules]
 
 [rules.formatter]
@@ -20,3 +16,7 @@ run = ["sh", "-c", "node index.js"]
 
 [objectStorage]
 defaultBucketID = "replit-objstore-d45f6b65-fc20-4b84-83e7-29aa9c4a9e2d"
+
+[[ports]]
+localPort = 3000
+externalPort = 3000

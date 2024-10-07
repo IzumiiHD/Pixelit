@@ -111,7 +111,7 @@ async function run() {
     await client.connect();
     await client.db(db_name).command({ ping: 1 });
     requests = await client.db(db_name).collection("requests").find().toArray();
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    console.log("Successfully connected to the database");
   } catch (e) {
     console.log(e);
   }
@@ -595,9 +595,8 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-  console.log(process.env["mongoURL"]);
+app.listen(port, () => {
+  console.log(`Server started successfully on port ${port}`);
+  console.log(`Server is running at http://localhost:${port}`);
 });
-//3.6 mil ms in an hour
-console.log("Server loaded");
+console.log("Initializing server...");
