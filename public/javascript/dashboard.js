@@ -99,11 +99,11 @@ fetch("/user")
     const usernameElement = ge("username");
     usernameElement.innerHTML = user.username;
     if (user.role === "Owner") {
-        usernameElement.style.background = "url('/img/dasboard/rainbow.gif')";
+        usernameElement.style.background = "url('/img/dashboard/rainbow.gif')";
         usernameElement.style.backgroundClip = "text";
         usernameElement.style.webkitBackgroundClip = "text";
         usernameElement.style.color = "transparent";
-        ge("role").style.background = "url('/img/rainbow.gif')";
+        ge("role").style.background = "url('/img/dashboard/rainbow.gif')";
         ge("role").style.backgroundClip = "text";
         ge("role").style.webkitBackgroundClip = "text";
         ge("role").style.color = "transparent";
