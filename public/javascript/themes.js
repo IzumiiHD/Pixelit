@@ -1,3 +1,4 @@
+/*
 function setTheme(themeName) {
   localStorage.setItem('theme', themeName);
   document.body.className = themeName;
@@ -18,3 +19,5 @@ function toggleTheme() {
     setTheme('default-theme');
   }
 })();
+
+*/

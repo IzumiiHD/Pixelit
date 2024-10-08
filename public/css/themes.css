@@ -1,4 +1,4 @@
-/* Light green theme */
+/* Light green theme 
 body.light-green-theme {
   background-color: #22b922 !important;
 }
@@ -29,7 +29,7 @@ body.light-green-theme .navbar a {
 }
 
 .navbar a:hover {
-  background-color: #025f02;
+  background-color: rgba(2, 95, 2, 0.5);
 }
 
 .navbar a i,
@@ -94,7 +94,7 @@ body.light-green-theme .sign-out:hover {
   text-shadow: 0 0 5px #90EE90 !important;
 }
 
-/* Default theme (optional, for reverting back) */
+/* Default theme (optional, for reverting back) 
 body.default-theme {
   background-color: #1a0800 !important;
   color: white !important;
