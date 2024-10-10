@@ -225,28 +225,40 @@ function sellBlook() {
 
   const tokensToAdd = rarityValues[rarity] || 0;
 
+  console.log("Attempting to sell blook:", { name, rarity, tokensToAdd, owned });
+
   fetch("/sellBlook", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, rarity, tokensToAdd }),
+    body: JSON.stringify({ name, rarity, tokensToAdd, quantity: 1 }),
   })
-    .then(response => response.json())
+    .then(response => {
+      console.log("Response status:", response.status);
+      if (!response.ok) {
+        return response.text().then(text => {
+          throw new Error(`HTTP error! status: ${response.status}, message: ${text}`);
+        });
+      }
+      return response.json();
+    })
     .then(data => {
+      console.log("Response data:", data);
       if (data.success) {
         alert(`Successfully sold ${name} for ${tokensToAdd} tokens!`);
-        document.getElementById("blook-owned").textContent = `Owned: ${owned - 1}`;
-        if (owned - 1 <= 0) {
+        const newOwnedCount = data.newOwnedCount;
+        document.getElementById("blook-owned").textContent = `Owned: ${newOwnedCount}`;
+        if (newOwnedCount <= 0) {
           sellButton.style.display = "none";
         }
       } else {
-        alert("Failed to sell blook. Please try again.");
+        alert(data.message || "Failed to sell blook. Please try again.");
       }
     })
     .catch(error => {
       console.error("Error selling blook:", error);
-      alert("An error occurred while selling the blook. Please try again.");
+      alert(`An error occurred while selling the blook: ${error.message}`);
     });
 }
 

@@ -122,6 +122,7 @@ body {
 }
 
 .item img {
+  border-radius: 5px;
   max-width: 90%;
   max-height: 90%;
   cursor: pointer;

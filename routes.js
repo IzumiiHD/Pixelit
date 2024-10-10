@@ -692,34 +692,51 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) =
   res.json({received: true});
 });
 
-router.post("/sellBlook", async (req, res) => {
-  const { name, rarity, tokensToAdd } = req.body;
+app.post("/sellBlook", async (req, res) => {
+  console.log("Received sell blook request:", req.body);
+  const { name, rarity, tokensToAdd, quantity } = req.body;
   const username = req.session.username;
 
+  console.log("User session:", req.session);
+
   if (!username) {
-    return res.status(401).json({ success: false, message: "User not authenticated" });
+    return res.status(401).json({ success: false, message: "User not authenticated." });
   }
+
   try {
-    const result = await users.updateOne(
-      { username: username },
-      { 
-        $inc: { 
-          tokens: tokensToAdd,
-          [`packs.$[].blooks.$[blook].owned`]: -1
-        }
-      },
-      {
-        arrayFilters: [{ "blook.name": name }]
-      }
-    );
-    if (result.modifiedCount > 0) {
-      res.json({ success: true });
-    } else {
-      res.json({ success: false, message: "Failed to update user data" });
+    const user = await users.findOne({ username: username });
+    console.log("User found:", user ? user.username : "No user found");
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found." });
     }
+
+    const pack = user.packs.find(p => p.blooks.some(b => b.name === name));
+    console.log("Pack found:", pack ? pack.name : "No pack found");
+
+    if (!pack) {
+      return res.status(404).json({ success: false, message: "Blook not found in user's inventory." });
+    }
+
+    const blook = pack.blooks.find(b => b.name === name);
+    console.log("Blook found:", blook ? blook.name : "No blook found");
+
+    if (!blook || blook.owned < quantity) {
+      return res.status(400).json({ success: false, message: "Not enough blooks to sell." });
+    }
+
+    blook.owned -= quantity;
+    user.tokens += tokensToAdd * quantity;
+
+    console.log("Updating user:", { blookOwned: blook.owned, userTokens: user.tokens });
+
+    const updateResult = await users.updateOne({ username: username }, user);
+    console.log("Update result:", updateResult);
+
+    res.json({ success: true, newOwnedCount: blook.owned });
   } catch (error) {
     console.error("Error selling blook:", error);
-    res.status(500).json({ success: false, message: "Server error" });
+    res.status(500).json({ success: false, message: `Server error: ${error.message}` });
   }
 });
 
