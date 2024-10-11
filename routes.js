@@ -579,7 +579,7 @@ router.post("/removeBadge", async (req, res) => {
 router.post('/spin', async (req, res) => {
   const session = req.session;
   if (!session.loggedIn) {
-    return res.status(401).json({ message: "You are not logged in" });
+    return res.status(401).json({ message: "You are not logged in", nextSpinIn: "8 hours" });
   }
 
   const db = client.db(db_name);
@@ -588,7 +588,13 @@ router.post('/spin', async (req, res) => {
   const userSpinData = await spinsCollection.findOne({ username: session.username });
   const now = Date.now();
   if (userSpinData && ((now - userSpinData.lastSpin) < 8 * 60 * 60 * 1000)) {
-    return res.status(429).json({ message: "You can spin only once every 8 hours" });
+    const timeRemaining = 8 * 60 * 60 * 1000 - (now - userSpinData.lastSpin);
+    const hours = Math.floor(timeRemaining / (60 * 60 * 1000));
+    const minutes = Math.floor((timeRemaining % (60 * 60 * 1000)) / (60 * 1000));
+    return res.status(429).json({ 
+      message: "You can spin only once every 8 hours", 
+      nextSpinIn: `${hours}h ${minutes}m` 
+    });
   }
 
   const tokensWon = req.body.tokens;
@@ -622,7 +628,8 @@ router.post('/spin', async (req, res) => {
 
     res.status(200).json({ 
       message: "Spin successful", 
-      tokensWon: tokensWon
+      tokensWon: tokensWon,
+      nextSpinIn: "8 hours"
     });
   } catch (error) {
     console.error("Error updating user data:", error);
