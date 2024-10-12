@@ -12,7 +12,7 @@ window.onload = () => {
   })
     .then((response) => {
       if (response.status === 200) {
-        return response.json(); // Parse JSON data
+        return response.json();
       } else if (response.status === 500) {
         return response.text().then((text) => {
           alert(text);
@@ -36,43 +36,9 @@ const blookOwned = document.getElementById("blook-owned");
 const setPfpButton = document.getElementById("set-pfp");
 const sellButton = document.getElementById("sell-blook");
 
-/*blookItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    const name = item.getAttribute("data-name") || "Unknown Blook";
-    const imageSrc = item.querySelector("img").getAttribute("src");
-    const rarity = item.getAttribute("data-rarity") || "Common";
-    const owned = item.getAttribute("data-owned") || "0";
-
-    // Update the details section
-    blookName.textContent = name;
-    blookImage.src = imageSrc;
-    blookImage.style.display = "block";
-    blookRarity.textContent = `Rarity: ${rarity}`;
-    blookOwned.textContent = `${owned} Owned`;
-    setPfpButton.style.display = "block";
-    sellButton.style.display = "block";
-
-    // Update button functions
-    setPfpButton.onclick = () => {
-      // Handle setting as PFP
-      alert(`Set ${name} as PFP`);
-      // Emit an event to the backend if necessary
-      // socket.emit('setPfp', { name });
-    };
-
-    sellButton.onclick = () => {
-      // Handle selling
-      alert(`Sell ${name}`);
-      // Emit an event to the backend if necessary
-      // socket.emit('sellBlook', { name });
-    };
-  });
-});*/
-
-// Function to generate HTML for packs and blooks dynamically
 function generatePacksHTML(packsData) {
   const container = document.querySelector(".container");
-  container.innerHTML = ""; // Clear existing content
+  container.innerHTML = "";
 
   packsData.forEach((pack) => {
     const packDiv = document.createElement("div");
@@ -193,7 +159,6 @@ fetch("/user", {
     const packs = data.packs;
     generatePacksHTML(packs);
   });
-
 /*socket.emit("getUserPacks", sessionStorage.username)
 
 socket.on("getUserPacks", (packs) => {
@@ -201,13 +166,24 @@ socket.on("getUserPacks", (packs) => {
   generatePacksHTML(packs)
 })*/
 
-// Call the function to generate HTML on page load
 //window.onload = generatePacksHTML;
 
+document.addEventListener('DOMContentLoaded', function() {
+  const sellButton = document.getElementById('sell-blook');
+  if (sellButton) {
+    sellButton.addEventListener('click', sellBlook);
+  } else {
+    console.error('Sell button not found');
+  }
+});
+
 function sellBlook() {
+  console.log('Sell button clicked');
   const name = document.getElementById("blook-name").textContent;
   const rarity = document.getElementById("blook-rarity").textContent.toLowerCase();
-  const owned = parseInt(document.getElementById("blook-owned").textContent.split(": ")[1]);
+  const ownedElement = document.getElementById("blook-owned");
+  const owned = parseInt(ownedElement.textContent.split(": ")[1]);
+  const sellButton = document.getElementById('sell-blook');
 
   if (owned <= 0) {
     alert("You don't have any of this blook to sell!");
@@ -225,44 +201,69 @@ function sellBlook() {
 
   const tokensToAdd = rarityValues[rarity] || 0;
 
-  console.log("Attempting to sell blook:", { name, rarity, tokensToAdd, owned });
-
   fetch("/sellBlook", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, rarity, tokensToAdd, quantity: 1 }),
+    body: JSON.stringify({ name, rarity, tokensToAdd }),
   })
-    .then(response => {
-      console.log("Response status:", response.status);
-      if (!response.ok) {
-        return response.text().then(text => {
-          throw new Error(`HTTP error! status: ${response.status}, message: ${text}`);
-        });
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-      console.log("Response data:", data);
       if (data.success) {
+        const newOwned = owned - 1;
+        ownedElement.textContent = `Owned: ${newOwned}`;
         alert(`Successfully sold ${name} for ${tokensToAdd} tokens!`);
-        const newOwnedCount = data.newOwnedCount;
-        document.getElementById("blook-owned").textContent = `Owned: ${newOwnedCount}`;
-        if (newOwnedCount <= 0) {
+
+        if (newOwned <= 0) {
           sellButton.style.display = "none";
         }
       } else {
         alert(data.message || "Failed to sell blook. Please try again.");
+
+        if (data.message === "You don't have any of this blook to sell") {
+          ownedElement.textContent = "Owned: 0";
+          sellButton.style.display = "none";
+        }
       }
     })
     .catch(error => {
       console.error("Error selling blook:", error);
-      alert(`An error occurred while selling the blook: ${error.message}`);
+      alert("An error occurred while selling the blook. Please try again.");
     });
 }
 
-sellButton.addEventListener("click", sellBlook);
+function updateBlookInfo(blook) {
+  const name = blook.name || "Unknown Blook";
+  const imageSrc = "https://pixelit.replit.app/img/blooks/" + blook.image;
+  const rarity = blook.rarity || "Rarity";
+  const owned = blook.owned || 0;
+
+  document.getElementById("blook-name").textContent = name;
+  document.getElementById("blook-image").src = imageSrc;
+  document.getElementById("blook-image").style.display = owned > 0 ? "block" : "none";
+  document.getElementById("blook-rarity").innerHTML = getRaritySpan(rarity);
+  document.getElementById("blook-owned").textContent = `Owned: ${owned}`;
+  document.getElementById("set-pfp").style.display = "block";
+
+  const sellButton = document.getElementById("sell-blook");
+  if (sellButton) {
+    sellButton.style.display = owned > 0 ? "block" : "none";
+  }
+}
+
+function getRaritySpan(rarity) {
+  const colors = {
+    uncommon: "#4bc22e",
+    rare: "blue",
+    epic: "#be0000",
+    legendary: "#ff910f",
+    chroma: "#00ccff",
+    mystical: "#9935dd"
+  };
+  const color = colors[rarity.toLowerCase()] || "black";
+  return `<span style='color: ${color};'>${rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>`;
+}
 
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/user')
