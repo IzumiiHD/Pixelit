@@ -286,7 +286,7 @@ router.post("/changePfp", async (req, res) => {
       if (!pack || pack === null) return;
       const blook = pack.blooks.find((blook) => blook.name == body.name);
       console.log(blook);
-      if (session.pfp == blook.image) {
+      if (session.pfp == blook.imageUrl) {
         res
           .status(200)
           .send({ message: "This is already your profile picture" });
@@ -295,7 +295,7 @@ router.post("/changePfp", async (req, res) => {
       if (blook && blook.owned >= 1) {
         const result = await users.updateOne(
           { username: session.username },
-          { $set: { pfp: blook.image } },
+          { $set: { pfp: blook.imageUrl } },
         );
         if (result.modifiedCount > 0) {
           res
@@ -693,56 +693,38 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) =
 });
 
 router.post("/sellBlook", async (req, res) => {
-  const { name, rarity, tokensToAdd } = req.body;
-  const username = req.session.username;
+  const session = req.session;
+  if (session == null || !session.loggedIn) return res.status(401).json({ success: false, message: "Not logged in" });
 
-  if (!username) {
-    return res.status(401).json({ success: false, message: "User not authenticated" });
-  }
+  const { name, rarity, tokensToAdd, quantity } = req.body;
 
   try {
-    const user = await users.findOne(
-      { 
-        username: username,
-        "packs.blooks": { $elemMatch: { name: name } }
-      },
-      { "packs.blooks.$": 1 }
-    );
+    const user = await users.findOne({ username: session.username });
+    const pack = user.packs.find(p => p.blooks.some(b => b.name === name));
 
-    if (!user || !user.packs[0] || !user.packs[0].blooks[0]) {
-      return res.json({ success: false, message: "Blook not found" });
+    if (!pack) {
+      return res.status(404).json({ success: false, message: "Blook not found" });
     }
 
-    const blook = user.packs[0].blooks[0];
+    const blook = pack.blooks.find(b => b.name === name);
 
-    if (blook.owned <= 0) {
-      return res.json({ success: false, message: "You don't have any of this blook to sell" });
+    if (!blook || blook.owned < quantity) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "You don't have enough of this blook to sell",
+        actualOwned: blook ? blook.owned : 0
+      });
     }
 
-    const result = await users.updateOne(
-      { 
-        username: username,
-        "packs.blooks": { $elemMatch: { name: name, owned: { $gt: 0 } } }
-      },
-      { 
-        $inc: { 
-          tokens: tokensToAdd,
-          "packs.$[].blooks.$[blook].owned": -1
-        }
-      },
-      {
-        arrayFilters: [{ "blook.name": name }]
-      }
-    );
+    blook.owned -= quantity;
+    user.tokens += tokensToAdd;
 
-    if (result.modifiedCount > 0) {
-      res.json({ success: true });
-    } else {
-      res.json({ success: false, message: "Failed to update user data" });
-    }
+    await users.updateOne({ username: session.username }, { $set: { packs: user.packs, tokens: user.tokens } });
+
+    res.json({ success: true });
   } catch (error) {
     console.error("Error selling blook:", error);
-    res.status(500).json({ success: false, message: "Server error" });
+    res.status(500).json({ success: false, message: "An error occurred while selling the blook" });
   }
 });
 
