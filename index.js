@@ -118,7 +118,6 @@ async function run() {
 }
 run().catch(console.dir);
 
-// Additional setup
 const timezoneOffset = new Date().getTimezoneOffset();
 const localTime = new Date(Date.now() - timezoneOffset * 60 * 1000);
 const router = require("./routes.js");
@@ -174,7 +173,7 @@ io.on("connection", (socket) => {
                     Cookie: cookief,
                 },
                 validateStatus: function (status) {
-                    return (status >= 200 && status < 300) || status === 500; // Ignore 500 errors
+                    return (status >= 200 && status < 300) || status === 500; 
                 },
                 withCredentials: true,
             },
@@ -300,10 +299,10 @@ io.on("connection", (socket) => {
           {
             $push: {
               blooks: {
-                name: blook.name, // Example: New blook name
-                imageUrl: blook.image, // Example: URL of the blook image
-                rarity: blook.rarity, // Example: Rarity of the blook
-                chance: blook.chance, // Example: Chance of getting the blook (in percentage)
+                name: blook.name,
+                imageUrl: blook.image, 
+                rarity: blook.rarity,
+                chance: blook.chance, 
                 parent: blook.parent,
                 color: blook.color,
                 owned: 0,
@@ -319,9 +318,9 @@ io.on("connection", (socket) => {
         });
       await users
         .updateMany(
-          { "packs.name": blook.parent }, // Match documents where the parent pack exists
-          { $addToSet: { "packs.$[pack].blooks": blook } }, // Add the blook to the blooks array of the specified pack
-          { arrayFilters: [{ "pack.name": blook.parent }] }, // Specify the array filter to identify the pack to update
+          { "packs.name": blook.parent },
+          { $addToSet: { "packs.$[pack].blooks": blook } },
+          { arrayFilters: [{ "pack.name": blook.parent }] },
         )
         .then((result) => {
           console.log("Update operation result:", result);
@@ -359,8 +358,8 @@ io.on("connection", (socket) => {
         });
       await users
         .updateMany(
-          { "packs.name": pack.name }, // Match documents where the pack exists in the packs array
-          { $pull: { packs: { name: pack.name } } }, // Remove the pack from the packs array
+          { "packs.name": pack.name }, 
+          { $pull: { packs: { name: pack.name } } },
         )
         .then((result) => {
           console.log("Update operation result:", result);
@@ -405,9 +404,9 @@ io.on("connection", (socket) => {
         });
       await users
         .updateMany(
-          { "packs.name": blook.parent, "packs.blooks.name": blook.name }, // Match documents where the parent pack contains the blook
-          { $pull: { "packs.$[pack].blooks": { name: blook.name } } }, // Remove the blook from the specified pack
-          { arrayFilters: [{ "pack.name": blook.parent }] }, // Specify the array filter to identify the pack to update
+          { "packs.name": blook.parent, "packs.blooks.name": blook.name },
+          { $pull: { "packs.$[pack].blooks": { name: blook.name } } },
+          { arrayFilters: [{ "pack.name": blook.parent }] },
         )
         .then((result) => {
           console.log("Update operation result:", result);
@@ -426,24 +425,17 @@ io.on("connection", (socket) => {
     io.to(socket.id).emit("getPacks", packsArray);
   });
   socket.on("openPack", async (opack, user) => {
-    //await client.connect();
-    //console.log("openpackreq");
 
-    // Retrieve user data from MongoDB
     const person = await users.findOne({ username: user.name });
-    //console.log("Retrieved user data:", person); // Log retrieved user data
 
     if (person === null) return;
 
-    // Validate password
     if (!validatePassword(user.pass, person.password, person.salt)) {
       console.log("False password");
       return;
     }
 
-    // Retrieve pack data from MongoDB
     const pack = await packs.findOne({ name: opack.name });
-    //console.log("Retrieved pack data:", pack); // Log retrieved pack data
 
     if (pack === null) {
       console.log("Invalid pack");
@@ -460,10 +452,7 @@ io.on("connection", (socket) => {
     const randnum = rand(0, totalchance);
     let currentchance = 0;
 
-    //console.log(pack);
-
-    //console.log("test", randnum, totalchance);
-
+    
     for (const b of blooks) {
       const blook = b;
       //console.log("Current blook:", blook); // Log current blook
