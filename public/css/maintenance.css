@@ -18,13 +18,3 @@ body {
   transform: translate(-50%, -50%) rotate(15deg);
   opacity: 0.1;
 }
-.maintenance_container {
-  background: #8a02a2;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 500px;
-  height: 500px;
-  border-radius: 10px;
-  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px;
-}

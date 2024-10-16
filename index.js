@@ -42,19 +42,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// commented out route handling
-//app.get('*', (req, res) => {
-//  let filePath = path.join(__dirname, 'public', 'site', `${req.path}.html`);
-//app.get('/', (req, res) => {
-//  res.sendFile(path.join(__dirname, 'public', 'site', 'home.html'));
-//});
-//  res.sendFile(filePath, (err) => {
-//    if (err) {
-//      res.status(404).sendFile(path.join(__dirname, 'public', 'site', '404.html'));
-//    }
-//  });
-//});
-
 function formatDateTime(dateTime) {
   const options = {
     year: "numeric", month: "numeric", day: "numeric",
@@ -452,7 +439,7 @@ io.on("connection", (socket) => {
     const randnum = rand(0, totalchance);
     let currentchance = 0;
 
-    
+  
     for (const b of blooks) {
       const blook = b;
       //console.log("Current blook:", blook); // Log current blook

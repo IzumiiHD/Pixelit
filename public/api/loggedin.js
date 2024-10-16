@@ -1,3 +1,3 @@
 if (sessionStorage.loggedIn == "true") {
-  window.location.href = "/site/dashboard.html"
+  window.location.href = "/dashboard.html"
 }
