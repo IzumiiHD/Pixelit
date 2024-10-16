@@ -597,6 +597,6 @@ io.on("connection", (socket) => {
 
 app.listen(port, () => {
   console.log(`Server started successfully on port ${port}`);
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at ${process.env["DEV_LINK"]}:${port}`);
 });
 console.log("Initializing server...");
