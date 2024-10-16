@@ -19,89 +19,63 @@ body {
 }
 .navbar {
   overflow: hidden;
-  background-color: #1a0005;
+  background-color: #6f057a;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6)
 }
-
 .navbar a {
   float: left;
   font-size: 16px;
-  color: #ff6600; 
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
 }
-
 .dropdown {
   float: left;
   overflow: hidden;
 }
-
 .dropdown .dropbtn {
   font-size: 16px;
   border: none;
   outline: none;
-  color: #ff6600;
+  color: white;
   padding: 14px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
 }
-
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-  background-color: #4a0e4e;
-  color: #ff6600;
-  box-shadow: 0 0 15px rgba(255, 102, 0, 0.8);
-  transition: all 0.3s ease;
+  background-color: purple;
 }
-
-.navbar a:hover i,
-.dropdown:hover .dropbtn i {
-  transform: scale(1.1);
-}
-
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #2c0e0e; 
+  background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #777378, 3px 3px 15px rgba(0, 0, 0, 0.6);
   z-index: 1;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-
 .dropdown-content a {
   float: none;
-  color: #ff6600; 
+  color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
   text-align: left;
-}
 
+}
 .dropdown-content a:hover {
-  background-color: #4a0e4e;
-  color: #ff6600;
-  box-shadow: inset 0 0 10px rgba(255, 102, 0, 0.5);
-  transition: all 0.3s ease;
+  background-color: purple;
 }
-
-.dropdown-content a:hover i {
-  transform: scale(1.1);
-}
-
-.dropdown-content a:last-child:hover {
+.dropdown-content a:last-child:hover{
   border-radius: 0 0 10px 10px;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
+  box-shadow: inset 0 -0.365vw #660066, 3px 3px 15px rgba(0, 0, 0, 0.6);
 }
 .dropdown:hover .dropdown-content {
   display: block;
@@ -118,86 +92,72 @@ body {
   width: 440px;
   font-size: 18px;
   border-radius: 5px;
-  background-color: #1a0005;
-  color: #ff6600;
-  border: 2px solid #ff6600;
+  background-color: #6f057a;
+  color: white;
+  border: none;
   box-sizing: border-box;
   padding: 10px 20px;
-  font-family: 'Pixelify Sans', sans-serif;
+  font-family: Pixelify Sans;
   margin: 0 auto; 
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #5a0463, 3px 3px 15px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
 .login-title {
   font-size: 40px;
   text-align: center;
   margin-bottom: 20px;
-  color: #ff6600;
 }
-
 .form-group input {
   font-family: 'Pixelify Sans', sans-serif;
   background-color: transparent;
-  border: 2px solid #ff6600;
+  border: 2px solid purple;
   border-radius: 5px;
   padding-left: 10px;
   width: 100%;
   color: #FFFFFF;
 }
-
 .form-group input {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
 }
-
 .form-group input#psw:hover {
-  border-color: #4a0e4e;
+  border-color: white;
 }
-
 .form-group input#psw {
-  border-color: #ff6600;
+  border-color: purple;
 }
-
 .remember-label {
   text-align: center;
   display: block;
-  color: #ff6600;
 }
-
 .button-container {
   text-align: center;
 }
-
 .submit-button {
   width: auto;
   font-size: 20px;
   border-radius: 5px;
-  background-color: #2c0e0e;
-  color: #ff6600;
-  border: 2px solid #ff6600;
+  background-color: #6f057a;
+  color: white;
+  border: 0.1px solid white;
   padding: 15px 30px;
-  font-family: 'Pixelify Sans', sans-serif;
+  cursor; font-family: 'Pixelify Sans', sans-serif;
   pointer-events: auto;
   cursor: pointer; 
   position: relative;
   top: 0;
   left: 0;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px #ff6600;
+  transition: background-color 0.3s ease;
 }
-
 .submit-button:hover {
-  background-color: #4a0e4e;
-  box-shadow: 0 0 15px #ff6600;
+  background-color: #51005e;
 }
-
-.submit-button:active {
-  background-color: #1a0005;
+.submit-button:mouseout {
+  background-color: #6f057a;
 }
 #error-message {
   color: red;

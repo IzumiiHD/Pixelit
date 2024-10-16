@@ -19,20 +19,20 @@ body {
 }
 .navbar {
   overflow: hidden;
-  background-color: #1a0005;
+  background-color: #6f057a;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6)
 }
-
 .navbar a {
   float: left;
   font-size: 16px;
-  color: #ff6600; 
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .navbar a:hover {
@@ -46,4 +46,24 @@ body {
   font-size: 26px;
   color: #fff;
   text-shadow: #000 1px 0 13px;
+}
+
+.leaderboard_Container {
+  width: 75%;
+  height: 85%;
+  background-color: #750881;
+  position: absolute;
+  top: 53%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6);
+}
+
+.username {
+  font-size: 2em;
+  color: #fff;
+  text-shadow: #000 1px 0 13px;
+  text-align: center;
+  margin: 2% 0;
 }

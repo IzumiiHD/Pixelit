@@ -19,20 +19,20 @@ body {
 }
 .navbar {
   overflow: hidden;
-  background-color: #1a0005;
+  background-color: #6f057a;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6)
 }
-
 .navbar a {
   float: left;
   font-size: 16px;
-  color: #ff6600; 
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
+  transition: transform 0.3s ease-in-out;
 }
 .navbar a:hover {
   transform: rotate(360deg);
@@ -45,7 +45,6 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
-
 .center {
   display: block;
   margin-left: auto;
@@ -53,18 +52,15 @@ body {
   width: 10%;
   size: 10%;
 }
-
 *
 {
   box-sizing: border-box;
 }
-
 .container {
   position: relative;
   text-align: center;
   color: white;
 }
-
 .centered {
   position: absolute;
   top: 20%;
@@ -73,7 +69,6 @@ body {
   text-align: center;
   transform: translate(-50%, -50%);
 }
-
 .badge {
   display: inline-block;
   height: 100px;
@@ -86,7 +81,6 @@ body {
    top: 0;
    left: 0;
 }
-
 .profileBody{
   width: 100%;
   height: calc(100% - 4.52vh);
@@ -97,7 +91,6 @@ body {
   overflow-x: hidden;
   overflow-y: hidden;
 }
-
 .inputContainer{
   position: relative;
   top: 1%;
@@ -108,34 +101,23 @@ body {
   border: none;
   font-family: 'Pixelify Sans';
 }
-
-.sendInput {
+.sendInput{
   width: 150%;
   height: 85%;
-  background: #1a0005;
-  border: 2px solid #ff6600;
+  background: #621e7d;
   border-right: none;
   left: 0;
+  border: none;
   position: relative;
-  color: #ff6600 !important;
-  font-family: 'Pixelify Sans', sans-serif;
+  border-bottom: none;
+  color: #fff !important;
+  font-family: 'Pixelify Sans';
   padding: 20px;
-  box-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
-  border-radius: 5px 0 0 5px;
+  box-shadow: 2px 2px 5px rgb(255, 255, 255, 0.3);
+  border-radius: 0px;
   overflow: hidden;
   display: flex;
   align-items: center;
-  transition: all 0.3s ease;
-}
-
-.sendInput:focus {
-  outline: none;
-  box-shadow: 0 0 15px rgba(255, 102, 0, 0.5);
-  background: #2c0e0e;
-}
-
-.sendInput::placeholder {
-  color: rgba(255, 102, 0, 0.7);
 }
 .chatContainer{
   width: 100%;

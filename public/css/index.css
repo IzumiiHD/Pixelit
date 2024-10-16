@@ -26,87 +26,64 @@ body {
 }
 .navbar {
   overflow: hidden;
-  background-color: #1a0005;
+  background-color: #6f057a;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6)
 }
-
 .navbar a {
   float: left;
   font-size: 16px;
-  color: #ff6600; 
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
 }
-
 .dropdown {
   float: left;
   overflow: hidden;
 }
-
 .dropdown .dropbtn {
   font-size: 16px;
   border: none;
   outline: none;
-  color: #ff6600;
+  color: white;
   padding: 14px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
 }
-
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-  background-color: #4a0e4e;
-  color: #ff6600;
-  box-shadow: 0 0 15px rgba(255, 102, 0, 0.8);
-  transition: all 0.3s ease;
+  background-color: purple;
 }
-
-.navbar a:hover i,
-.dropdown:hover .dropbtn i {
-  transform: scale(1.1);
-}
-
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #2c0e0e; 
+  background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #777378, 3px 3px 15px rgba(0, 0, 0, 0.6);
   z-index: 1;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-
 .dropdown-content a {
   float: none;
-  color: #ff6600; 
+  color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
   text-align: left;
-}
 
+}
 .dropdown-content a:hover {
-  background-color: #4a0e4e;
-  color: #ff6600;
-  box-shadow: inset 0 0 10px rgba(255, 102, 0, 0.5);
-  transition: all 0.3s ease;
+  background-color: purple;
 }
-
-.dropdown-content a:hover i {
-  transform: scale(1.1);
-}
-
-.dropdown-content a:last-child:hover {
+.dropdown-content a:last-child:hover{
   border-radius: 0 0 10px 10px;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #660066, 3px 3px 15px rgba(0, 0, 0, 0.6);
 }
-
 .dropdown:hover .dropdown-content {
   display: block;
 }
@@ -131,76 +108,18 @@ body {
   }
 }
 
-.body-bg-color { 
-  background-color: #1a0800; 
-}
-
-.title-text { 
-  color: #fff; 
-  text-shadow: #000 1px 0 13px; 
-}
-
-.title-text-1, .title-text-2, .title-text-3 {
-  position: absolute;
-  left: 7%;
-  width: 23%;
-}
-
-.title-text-1 { top: 17%; }
-.title-text-2 { top: 41%; }
-.title-text-3 { top: 61%; }
-
-.float-img { 
-  height: 50%; 
-  width: 50%; 
-  position: relative; 
-  left: 15%; 
-  animation: float 3s ease-in-out infinite; 
-  cursor: pointer;
-}
-
-.pronunciation { 
-  position: absolute; 
-  bottom: 7%; 
-  left: 9%; 
-  font-size: 1.5em; 
-  cursor: pointer; 
-}
-
-.pronunciation-icon { 
-  font-size: 1.5em; 
-  text-shadow: 2px 2px 4px #000; 
-}
-
-.pronunciation-text { 
-  position: relative; 
-  top: -0.2em; 
-  text-shadow: 2px 2px 4px #000; 
-}
-
-.socials { 
-  position: absolute; 
-  bottom: 1%; 
-  left: 50%; 
-  transform: translateX(-50%); 
-}
-
-.social-link { 
-  margin: 0 10px; 
-  color: inherit; 
-  text-decoration: none; 
-  font-size: 2.2em; 
-}
-
-.terms-of-service { 
-  position: absolute; 
-  bottom: 2%; 
-  right: 1%; 
-  color: white; 
-  text-decoration: underline; 
-  font-size: 0.75vw; 
-  text-shadow: #000 1px 0 13px; 
-}
+.body-bg-color { background-color: #6d0180; }
+.title-text { color: #fff; position: absolute; text-shadow: #000 1px 0 13px; }
+.title-text-1 { top: 17%; left: 7%; right: 70%; }
+.title-text-2 { top: 41%; left: 7%; right: 70%; }
+.title-text-3 { top: 61%; left: 7%; right: 70%; }
+.float-img { height: 50%; width: 50%; position: relative; left: 15%; animation: float 3s ease-in-out infinite; cursor: pointer; }
+.pronunciation { position: absolute; bottom: 7%; left: 9%; font-size: 1.5em; cursor: pointer; }
+.pronunciation-icon { font-size: 1.5em; text-shadow: 2px 2px 4px #000; }
+.pronunciation-text { position: relative; top: -0.2em; text-shadow: 2px 2px 4px #000; }
+.socials { position: absolute; bottom: 1%; left: 50%; transform: translateX(-50%); }
+.social-link { margin: 0 10px; color: inherit; text-decoration: none; font-size: 2.2em; }
+.terms-of-service { position: absolute; bottom: 2%; left: 93%; color: white; text-decoration: underline; font-size: 0.75vw; text-shadow: #000 1px 0 13px; }
 
 @media only screen 
   and (device-width: 428px) 

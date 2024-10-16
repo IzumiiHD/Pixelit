@@ -19,20 +19,20 @@ body {
 }
 .navbar {
   overflow: hidden;
-  background-color: #1a0005;
+  background-color: #6f057a;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6)
 }
-
 .navbar a {
   float: left;
   font-size: 16px;
-  color: #ff6600; 
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .navbar a:hover {
@@ -42,8 +42,10 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+  background-color: #800097;
   text-align: center;
   padding: 10px 0;
+  box-shadow: #000 4px 0 20px;
 }
 .footer a {
   color: white;
@@ -61,16 +63,17 @@ body {
   color: #fff;
   text-shadow: #000 1px 0 13px;
 }
+
 .perks {
   width: 400px;
   height: 400px;
   font-size: 18px;
   border-radius: 5px;
-  background-color: #1a0005;
+  background-color: #6f057a;
   color: white;
-  border: 2px solid #ff6600;
+  border: none;
   padding: 10px 20px;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
   font-family: Pixelify Sans;
   margin-left: 45px;
   display: flex;
@@ -80,16 +83,17 @@ body {
   top: 25%;
   left: 10%;
 }
+
 .perkButton {
   width: 400px;
   font-size: 20px;
   border-radius: 5px;
-  background-color: #1a0005;
-  color: #ff6600;
+  background-color: #6d0180;
+  color: white;
   border: none;
   padding: 15px 30px;
   cursor: pointer;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
   font-family: Pixelify Sans;
   pointer-events: auto;
   transition: transform 0.3s ease-in-out;
@@ -97,29 +101,30 @@ body {
   left: 5%;
   top: 80%;
 }
+
 .footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  color: #ff6600;
+  background-color: #6d0180;
+  color: #fff;
   text-align: center;
   padding: 0.1px 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .buy-button-container {
   position: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #1a0005;
-  color: #ff6600;
+  background: #6d0180;
   border-radius: 10px;
   padding: 30px;
-  border: 2px solid #ff6600;
-  box-shadow: inset 0 -0.365vw #ff6600, 3px 3px 15px rgba(255, 102, 0, 0.6);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
   text-align: center;
   width: 300px;
   top: 49%;
