@@ -1,9 +1,7 @@
 const socket = io();
 
-// Array of news post objects
 const newsPosts = [];
 
-// Function to create the HTML structure for each news post
 function createNewsPost(author, date, header, content) {
   const newsContainer = document.createElement("div");
   newsContainer.classList.add("news-container");
@@ -42,9 +40,8 @@ function createNewsPost(author, date, header, content) {
   return newsContainer;
 }
 
-// Function to automatically generate news posts from an array of post objects
 function generateNewsPosts(postsArray) {
-  const container = document.getElementById("container"); // Assuming there's a container element in your HTML where you want to append the news posts
+  const container = document.getElementById("container"); 
   container.innerHTML = "";
 
   for (let i = postsArray.length - 1; i >= 0; i--) {
