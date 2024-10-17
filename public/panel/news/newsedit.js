@@ -25,5 +25,6 @@ function postnews(e) {
 
   document.getElementById("title").value = ""
   document.getElementById("content").value = ""
-  alert("published news")
+    document.getElementById("success-message").style.color = "green";
+    document.getElementById("success-message").innerHTML = "News has been successfully posted.";
 }
