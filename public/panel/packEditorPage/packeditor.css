@@ -51,14 +51,12 @@ body {
   text-shadow: 0 1px 13px #000000;
 }
 
-/* Main content container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Pack styles */
 .pack {
   border-radius: 5px;
   padding: 20px;
@@ -71,7 +69,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* Section styles */
 .section {
   background-color: #ffffff;
   border-radius: 5px;
@@ -85,53 +82,48 @@ body {
   margin-bottom: 20px;
 }
 
-/* Form styles */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 40px; 
+  display: flex;
+  align-items: center;
 }
 
 .form-group label {
-  display: block;
+  display: inline-block;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-right: 20px; 
 }
 
 .form-group input[type='text'] {
-  width: 100%;
+  width: calc(100% - 20px);
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #cccccc;
 }
 
-/* Button styles */
 .button {
   padding: 10px 20px;
   font-size: 16px;
   border: none;
   border-radius: 5px;
-  background-color: #b011c2;
+  background-color: #6f057a;
+  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6);
   color: #ffffff;
   cursor: pointer;
   font-family: 'Pixelify Sans', sans-serif;
   transition: background-color 0.3s;
 }
 
-.button:hover {
-  background-color: #8e038d;
-}
-
-/* Your CSS styles go here */
 .container {
   display: flex;
   flex-wrap: wrap;
 }
 
 .pack {
-  border: 1px solid #cccccc;
   border-radius: 5px;
   padding: 20px;
-  margin: 0 10px 20px 0; /* Add spacing between packs */
+  margin: 0 10px 20px 0;
   padding-top: 100px;
   padding-bottom: 200px;
 }
@@ -141,18 +133,13 @@ body {
 }
 
 .blook {
-  margin-top: 10px; /* Add spacing between blooks */
+  margin-top: 10px; 
 }
 
 .button {
-  margin-top: 10px; /* Add spacing between buttons */
+  margin-top: 10px; 
 }
 
-.button:hover {
-  background-color: #67005b; /* Adjust hover color */
-}
-
-/* Floating blook adder */
 .blook-adder { 
   font-family: 'Pixelify Sans', sans-serif;
   position: absolute;
@@ -162,7 +149,7 @@ body {
   padding: 20px;
   border: 1px solid #cccccc;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 -0.365vw #cfc9c9, 3px 3px 15px rgba(0, 0, 0, 0.6);
   width: calc(25% - 20px);
 }
 
@@ -175,7 +162,6 @@ body {
   width: 100%;
 }
 
-/* Form input styles */
 .form-group input[type='text'],
 .form-group input[type='number'] {
   width: 100%;
@@ -183,31 +169,29 @@ body {
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #cccccc;
-  margin-top: 5px; /* Add margin to separate inputs */
+  margin-top: 5px;
 }
 
-/* Style placeholder text */
 .form-group input[type='text']::placeholder,
 .form-group input[type='number']::placeholder {
-  color: #999999; /* Adjust placeholder color */
+  color: #999999;
 }
 
-/* Style the 'Create Pack' button */
 .form-group .button {
   width: 100%;
   padding: 10px 20px;
   font-size: 16px;
   border: none;
   border-radius: 5px;
-  background-color: #b011c2;
+  background-color: #6f057a;
   color: #ffffff;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-top: 10px; /* Add margin below inputs */
+  margin-top: 10px; 
 }
 
 .form-group .button:hover {
-  background-color: #8e038d;
+  background-color: #6f057a;
 }
 
 .overlay-container {
@@ -230,8 +214,8 @@ body {
 }
 
 .loader {
-  border: 8px solid #f3f3f3; /* Light grey */
-  border-top: 8px solid #D240DC; /* Blue */
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #D240DC; 
   border-radius: 50%;
   width: 25px;
   height: 25px;
@@ -245,4 +229,28 @@ body {
 
 h1 {
   margin-top: 30px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6f057a #ffffff;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #6f057a;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #d240dc;
 }

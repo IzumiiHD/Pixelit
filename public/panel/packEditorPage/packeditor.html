@@ -45,14 +45,13 @@
                 <div class="title_p" id="title_p">Pixelit</div>
               </div>
         <center>
-
             <div class="container">
                 <div class="form-group">
                     <label for="packName">Pack Name:</label>
                     <input
                         type="text"
                         id="packName"
-                        placeholder="Enter pack name (e.g. OG Pack)"
+                        placeholder="(e.g. OG Pack)"
                     />
                 </div>
                 </br>
@@ -61,7 +60,7 @@
                     <input
                         type="text"
                         id="packUrl"
-                        placeholder="Enter image URL for pack (e.g. OG/OG.png)"
+                        placeholder="(e.g. OG/OG.png)"
                     />
                 </div>
                 </br>
@@ -70,16 +69,15 @@
                     <input
                         type="number"
                         id="packCost"
-                        placeholder="Enter the cost of the pack (e.g. 15)"
+                        placeholder="(e.g. 15)"
                     />
                 </div>
                 </br>
-                <button onclick="createPack()">Create Pack</button>
+                <center>
+                <button class="button" onclick="createPack()">Add</button>
+                </center>
             </div>
-            <div id="packs">
-                <!-- Packs will be dynamically added here -->
-            </div>
-            <!--<button onclick="createPack()">Create Pack</button>-->
+            <div id="packs"></div>
         </center>
         <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
         <script src="../../api/verifyenc.js"></script>

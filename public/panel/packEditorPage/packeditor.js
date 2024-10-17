@@ -52,7 +52,7 @@ function createPack() {
                 .then((data) => {
                     renderPacks(data.packs);
                 });
-            packDiv.parentNode.removeChild(packDiv); // Remove the packDiv
+            packDiv.parentNode.removeChild(packDiv);
         };
         packDiv.appendChild(removePackButton);
 
@@ -83,15 +83,6 @@ function createPack() {
             .catch((e) => {
                 console.log(e);
             });
-        /*socket.emit(
-            "addPack",
-            {
-                name: packName,
-                cost: packCost,
-                image: packUrl,
-            },
-            { name: sessionStorage.username, pass: sessionStorage.password },
-        );*/
         console.log("Added pack");
     }
 }
@@ -100,25 +91,29 @@ function addBlook(packDiv, packName) {
     var containerDiv = document.createElement("div");
     containerDiv.classList.add("blook-adder");
 
+    var createBlookText = document.createElement("h1");
+    createBlookText.textContent = "Create Blook";
+    createBlookText.style.color = "#6f057a";
+    containerDiv.appendChild(createBlookText);
+
     var blookNameInput = document.createElement("input");
     blookNameInput.type = "text";
-    blookNameInput.placeholder = "Enter blook name (e.g. Packman28)";
+    blookNameInput.placeholder = "(e.g. Packman28)";
 
     var imageUrlInput = document.createElement("input");
     imageUrlInput.type = "text";
-    imageUrlInput.placeholder = "Enter image URL for blook (e.g. OG/Packman28.png)";
+    imageUrlInput.placeholder = "(e.g. OG/Packman28.png)";
 
     var blookRarityInput = document.createElement("select");
-    //blookRarityInput.type = "text";
     blookRarityInput.innerHTML =
         "<option value='common'>Common</option><option value='uncommon'>Uncommon</option><option value='rare'>Rare</option><option value='epic'>Epic</option><option value='legendary'>Legendary</option><option value='chroma'>Chroma</option><option value='mystical'>Mystical</option>";
     blookRarityInput.placeholder =
-        "Enter the rarity of the blook (common, uncommon, rare)";
+        "Enter the rarity of the blook";
 
     var blookChanceInput = document.createElement("input");
     blookChanceInput.type = "text";
     blookChanceInput.placeholder =
-        "Enter the chance of getting this blook (in percentage, without the percentage sign)";
+        "(in percentage, without the percentage sign)";
 
     var blookColorInput = document.createElement("input");
     blookColorInput.type = "text";
@@ -126,7 +121,7 @@ function addBlook(packDiv, packName) {
 
     var addButton = document.createElement("button");
     addButton.textContent = "Add This Blook";
-    addButton.classList.add("button"); // Add button class
+    addButton.classList.add("button");
     addButton.onclick = function () {
         var blookName = blookNameInput.value;
         var imageUrl = imageUrlInput.value;
@@ -140,8 +135,8 @@ function addBlook(packDiv, packName) {
             var blookImg = document.createElement("img");
             blookImg.src = imageUrl;
             blookImg.alt = blookName;
-            blookImg.style.width = "50px"; // Set blook image width
-            blookImg.style.height = "auto"; // Maintain aspect ratio
+            blookImg.style.width = "50px"; 
+            blookImg.style.height = "auto";
             blookDiv.appendChild(blookImg);
 
             var raritySpan = document.createElement("span");
@@ -151,7 +146,7 @@ function addBlook(packDiv, packName) {
 
             var removeButton = document.createElement("button");
             removeButton.textContent = "Remove";
-            removeButton.classList.add("button"); // Add button class
+            removeButton.classList.add("button"); 
             removeButton.onclick = function () {
                 fetch("/removeBlook", {
                     method: "POST",
@@ -214,41 +209,35 @@ function addBlook(packDiv, packName) {
             // );
         }
     };
-
     containerDiv.appendChild(addButton);
     containerDiv.appendChild(document.createElement("br"));
     containerDiv.appendChild(blookNameInput);
     containerDiv.appendChild(document.createElement("br"));
     containerDiv.appendChild(imageUrlInput);
     containerDiv.appendChild(document.createElement("br"));
-    containerDiv.appendChild(blookRarityInput);
-    containerDiv.appendChild(document.createElement("br"));
     containerDiv.appendChild(blookChanceInput);
     containerDiv.appendChild(document.createElement("br"));
     containerDiv.appendChild(blookColorInput);
     containerDiv.appendChild(document.createElement("br"));
+    containerDiv.appendChild(blookRarityInput);
+    containerDiv.appendChild(document.createElement("br"));
+    containerDiv.appendChild(addButton);
     packDiv.appendChild(containerDiv);
 }
 
-// Assuming packsArray is an array of pack objects, where each pack object contains an array of blooks
 function renderPacks(packsArray) {
     var packsContainer = document.getElementById("packs");
 
-    // Clear any existing packs in the container
     packsContainer.innerHTML = "";
 
-    // Iterate over the array of packs
     packsArray.forEach(function (pack) {
-        // Create a div element for the pack
         var packDiv = document.createElement("div");
         packDiv.classList.add("pack");
 
-        // Create an h2 element for the pack name and cost
         var packHeader = document.createElement("h2");
         packHeader.textContent = pack.name + " - $" + pack.cost;
         packDiv.appendChild(packHeader);
 
-        // Create an img element for the pack image
         var packImg = document.createElement("img");
         packImg.src = `/img/packs/${pack.image}`;
         packImg.alt = pack.name;
@@ -256,17 +245,7 @@ function renderPacks(packsArray) {
 
         packImg.style.width = "100px";
         packImg.style.height = "auto";
-        /*
-        // Create a button to add blooks to the pack
-        var addBlookButton = document.createElement("button");
-        addBlookButton.textContent = "Add Blook";
-        addBlookButton.classList.add("button"); // Add button class
-        addBlookButton.onclick = function() {
-            addBlook(packDiv, pack.name);
-        };
-        packDiv.appendChild(addBlookButton);*/
 
-        // // Create a button to remove the pack
         var removePackButton = document.createElement("button");
         removePackButton.textContent = "Remove Pack";
         removePackButton.classList.add("button"); // Add button class
@@ -290,21 +269,14 @@ function renderPacks(packsArray) {
                 .then((data) => {
                     renderPacks(data.packs);
                 });
-            // socket.emit("removePack", pack, {
-            //     name: sessionStorage.username,
-            //     pass: sessionStorage.password,
-            // });
-            packDiv.parentNode.removeChild(packDiv); // Remove the packDiv
+            packDiv.parentNode.removeChild(packDiv); 
         };
         packDiv.appendChild(removePackButton);
 
-        // Iterate over the array of blooks for this pack
         pack.blooks.forEach(function (blook) {
-            // Create a div element for the blook
             var blookDiv = document.createElement("div");
             blookDiv.classList.add("blook");
 
-            // Create an img element for the blook image
             var blookImg = document.createElement("img");
             blookImg.src = `/img/blooks/${blook.imageUrl}`;
             blookImg.alt = blook.name;
@@ -319,8 +291,9 @@ function renderPacks(packsArray) {
             blookImg.style.height = "auto"; // Maintain aspect ratio
 
             var removeButton = document.createElement("button");
-            removeButton.textContent = "Remove";
-            removeButton.classList.add("button"); // Add button class
+            removeButton.textContent = "";
+            removeButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+            removeButton.classList.add("button");
             removeButton.onclick = function () {
                 fetch("/removeBlook", {
                     method: "POST",
@@ -338,21 +311,15 @@ function renderPacks(packsArray) {
                         console.log(response.statusText);
                     }
                 });
-                // socket.emit("removeBlook", blook, {
-                //     name: sessionStorage.username,
-                //     pass: sessionStorage.password,
-                // });
                 packDiv.removeChild(blookDiv);
             };
             blookDiv.appendChild(removeButton);
 
-            // Append the blookDiv to the packDiv
             packDiv.appendChild(blookDiv);
         });
 
         addBlook(packDiv, pack.name);
 
-        // Append the packDiv to the packsContainer
         packsContainer.appendChild(packDiv);
     });
 }
