@@ -32,12 +32,6 @@ document.addEventListener("DOMContentLoaded", async function() {
     if (uidElement) {
       uidElement.textContent = `UID: ${userData.uid}`;
     }
-    if (badgesElement) {
-      badgesElement.textContent = `Badges: ${userData.badges.length}`;
-    }
-    if (tokensElement) {
-      tokensElement.textContent = `Tokens: ${userData.tokens}`;
-    }
   } else {
     if (usernameElement) {
       usernameElement.textContent = `Username: Unavailable`;
@@ -50,9 +44,6 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
     if (badgesElement) {
       badgesElement.textContent = `Badges: Unavailable`;
-    }
-    if (tokensElement) {
-      tokensElement.textContent = `Tokens: Unavailable`;
     }
   }
 });
@@ -157,4 +148,18 @@ function updateButtonText() {
   } else {
     themeToggleBtn.textContent = 'Toggle Light Green Theme';
   }
+}
+
+function logout() {
+  fetch('/logout', { method: 'POST' })
+    .then(response => {
+      if (response.ok) {
+        sessionStorage.clear();
+        localStorage.removeItem('loggedIn');
+        window.location.href = '/index.html';
+      } else {
+        console.error('Logout failed');
+      }
+    })
+    .catch(error => console.error('Error:', error));
 }

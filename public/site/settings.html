@@ -45,14 +45,13 @@
             <a href="/index.html"
               ><i
                 class="fa-solid fa-right-from-bracket"
-                onclick="sessionStorage.clear(); location.reload();"
+                onclick="logout()"
               ></i
             ></a>
           </div>
       </div>
       <div class="title_p" id="title_p">Pixelit</div>
     </div>
-    
     <div class="main-content">
       <h1 class="page-title">Settings</h1>
       <div class="content-container">
@@ -64,12 +63,15 @@
             <h3><span id="uid"></span></h3>
             <h3><span id="role"></span></h3>
             <h3><span id="badges"></span></h3>
-            <h3>Tokens: <span id="tokens"></span></h3>
             <h3 id="date">Date:</h3>
-            <h3><a href="/index.html" class="sign-out" onclick="sessionStorage.clear(); location.reload();">Sign Out <i class="fa-solid fa-right-from-bracket"></i></a></h3>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h3><a href="/index.html" class="sign-out" onclick="logout()">Sign Out <i class="fa-solid fa-right-from-bracket"></i></a></h3>
           </div>
         </div>
-        
+
         <div class="theme-section">
           <div class="misc-section">
             <h1>Miscellaneous</h1>
@@ -80,7 +82,7 @@
             </div>
             <div class="feature">
               <h3>Notifications</h3>
-              <button id="notification-toggle" class="feature-toggle-btn" style="background-color: #800097; font-family: 'Pixelify Sans', sans-serif; color: white; border: 2px solid white; border-radius: 8px; padding: 10px 20px; cursor: pointer; transition: all 0.3s ease;">Toggle Notifications</button>
+              <button id="notification-toggle" class="notification-toggle" style="">Toggle Notifications</button>
             </div>
           </div>
             <div class="feature" id="plus-perk" style="display: none;">
@@ -89,7 +91,7 @@
                 <label for="name-color-picker">Name Color:</label>
                 <input type="color" id="name-color-picker" name="name-color-picker" value="#000000" />
               </div>
-            </div>
+          </div>
       </div>
     </div>
     <script src="/javascript/settings.js"></script>

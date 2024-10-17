@@ -108,6 +108,7 @@ router.get("/user", async (req, res) => {
     res.status(500).send("You are not logged in");
   }
 });
+
 router.post("/login", async (req, res) => {
   try {
     const db = client.db(db_name);
@@ -138,6 +139,17 @@ router.post("/login", async (req, res) => {
     console.error(err);
     res.status(502).send("Server error!");
   }
+});
+
+router.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      res.status(500).send("Error logging out");
+    } else {
+      res.sendStatus(200);
+    }
+  });
 });
 
 router.post("/register", limiter, async (req, res) => {

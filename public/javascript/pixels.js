@@ -208,3 +208,17 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Sell button not found');
   }
 });
+
+function logout() {
+  fetch('/logout', { method: 'POST' })
+    .then(response => {
+      if (response.ok) {
+        sessionStorage.clear();
+        localStorage.removeItem('loggedIn');
+        window.location.href = '/index.html';
+      } else {
+        console.error('Logout failed');
+      }
+    })
+    .catch(error => console.error('Error:', error));
+}

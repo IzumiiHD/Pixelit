@@ -78,10 +78,21 @@ body {
   border-radius: 100px;
   margin: 10px 0;
 }
+.notification-toggle {
+  background-color: #800097; 
+  font-family: 'Pixelify Sans', sans-serif; 
+  color: white; 
+  border: 2px solid white; 
+  border-radius: 8px; 
+  padding: 10px 20px;
+  cursor: pointer; 
+  transition: all 0.3s ease;
+}
 .theme-toggle-btn {
   width: 100%;
   padding: 10px 20px;
-  background-color: #5CDB95;
+  background-color: #0fcf0c;
+  box-shadow: inset 0 -0.365vw #099207, 3px 3px 15px rgba(0, 0, 0, 0.6);
   color: white;
   border: none;
   border-radius: 5px;
