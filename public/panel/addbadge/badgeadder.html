@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Badge Adder</title>
+    <title>Badge Manager</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="icon" type="image/png" href="../img/favicon.ico" />
@@ -52,14 +52,12 @@
         <label for="badge-image">
           Image Link:</label>
         <input type="text" id="badge-image" name="badge-image" required />
-        <button type="submit" style="font-family: Pixelify Sans;">Add Badge</button>
+        <button class="add-badge-button" type="submit" style="font-family: Pixelify Sans;">Add Badge</button>
       </form>
       <h3>Current Badges:</h3>
       <ul class="badge-list" id="badge-list">
-        <!-- Badges will be displayed here -->
       </ul>
     </div>
-
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="../../api/verifyenc.js"></script>
     <script src="./badgeadd.js"></script>
