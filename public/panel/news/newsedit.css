@@ -79,7 +79,7 @@ input[type="text"], textarea {
   margin-bottom: 10px;
 }
 
-input[type="Post"] {
+input[type="submit"] {
   text-align: center;
   padding: 10px 20px;
   font-family: Pixelify Sans;
