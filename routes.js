@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require("express");
 const router = express.Router();
 const { MongoClient, ServerApiVersion } = require("mongodb");
@@ -603,6 +604,12 @@ router.post('/spin', async (req, res) => {
     return res.status(429).json({ message: "You can spin only once every 8 hours" });
   }
 
+  await spinsCollection.updateOne(
+    { username: session.username }, 
+    { $set: { visible: false } },
+    { upsert: true }
+  );
+
   const tokensWon = req.body.tokens;
   if (typeof tokensWon !== 'number' || isNaN(tokensWon)) {
     return res.status(400).json({ message: "Invalid token amount" });
@@ -653,7 +660,6 @@ app.get('/users', async (req, res) => {
   }
 });
 
-// Body parser middleware to handle JSON requests
 router.use(bodyParser.json());
 
 app.post('/create-checkout-session', async (req, res) => {
