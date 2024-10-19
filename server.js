@@ -113,16 +113,6 @@ app.use(router);
 const port = 3000;
 const encpass = process.env["encpass"];
 
-/*
-file.key = "new value";
-
-fs.writeFile(fileName, JSON.stringify(file), function writeJSON(err) {
-  if (err) return console.log(err);
-  console.log(JSON.stringify(file, null, 2));
-  console.log('writing to ' + fileName);
-});
-*/
-
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
