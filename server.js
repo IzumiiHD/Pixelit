@@ -21,7 +21,7 @@ app.use(session({
   secret: process.env["cookieSecret"],
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 3 * 24 * 60 * 60 * 1000 },
+  cookie: { maxAge: 3 * 24 * 60 * 60 * 1000,secure:true },
 }));
 
 app.use((req, res, next) => {
@@ -561,7 +561,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server started successfully on port ${port}`);
   console.log(`Server is running at ${process.env["DEV_LINK"]}:${port}`);
 });

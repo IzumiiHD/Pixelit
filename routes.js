@@ -748,6 +748,7 @@ router.post("/sellBlook", async (req, res) => {
 
 router.get("/user", async (req, res) => {
   const session = req.session;
+  console.log(session)
   if (session.loggedIn) {
     try {
       const user = await users.findOne({ username: session.username });
