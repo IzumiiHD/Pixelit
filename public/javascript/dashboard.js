@@ -23,6 +23,9 @@ window.onload = () => {
         return response.text().then((text) => {
           alert(text);
         });
+      } else if (response.status === 401) {
+        sessionStorage.clear();
+        window.location.href = "/login.html";
       } else {
         console.error("Unexpected response status:", response.status);
         throw new Error("Unexpected response status");

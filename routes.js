@@ -106,7 +106,7 @@ router.get("/user", async (req, res) => {
       });
     }
   } else {
-    res.status(500).send("You are not logged in");
+    res.status(401).send("You are not logged in");
   }
 });
 

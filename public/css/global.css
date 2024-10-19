@@ -1,4 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 @import url("/css/themes.css")
 @import url("/css/navbar.css")
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
+
+body {
+  background-color: #6d0180;
+  color: white;
+  font-family: Pixelify Sans;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.body-bg-color { 
+  background-color: #6d0180; 
+}
+
+.title-text { 
+  color: #fff; 
+  position: absolute; 
+  text-shadow: #000 1px 0 13px; 
+}
+
+.title-text-1 { 
+  top: 17%; 
+  left: 7%; 
+  right: 70%; 
+}
+
+.title-text-2 { 
+  top: 41%; 
+  left: 7%; 
+  right: 70%; 
+}
+
+.title-text-3 { 
+  top: 61%; 
+  left: 7%; 
+  right: 70%; 
+}
+
+.float-img { 
+  height: 50%; 
+  width: 50%; 
+  position: relative; 
+  left: 15%; 
+  animation: float 3s ease-in-out infinite; 
+  cursor: pointer; 
+}
+
+.pronunciation { 
+  position: absolute; 
+  bottom: 7%; 
+  left: 9%; 
+  font-size: 1.5em; 
+  cursor: pointer; 
+}
+
+.pronunciation-icon { 
+  font-size: 1.5em; 
+  text-shadow: 2px 2px 4px #000; 
+}
+
+.pronunciation-text { 
+  position: relative; 
+  top: -0.2em; 
+  text-shadow: 2px 2px 4px #000; 
+}
+
+.socials { 
+  position: absolute; 
+  bottom: 1%; 
+  left: 50%; 
+  transform: translateX(-50%); 
+}
+
+.social-link { 
+  margin: 0 10px; 
+  color: inherit; 
+  text-decoration: none; 
+  font-size: 2.2em; 
+}
+
+.terms-of-service { 
+  position: absolute; 
+  bottom: 2%; 
+  left: 93%; 
+  color: white; 
+  text-decoration: underline; 
+  font-size: 0.75vw; 
+  text-shadow: #000 1px 0 13px; 
+}
+
+@media only screen 
+  and (device-width: 428px) 
+  and (device-height: 926px) 
+  and (-webkit-device-pixel-ratio: 3) {
+  .container {
+    max-width: 428px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  .title_p {
+    margin-left: 0;
+    text-align: center;
+    position: static;
+    padding: 10px 0;
+  }
+  .title-text {
+    position: static;
+    margin: 15px 0;
+    text-align: center;
+    font-size: 16px;
+  }
+  .title-text-1, .title-text-2, .title-text-3 {
+    left: initial;
+    right: initial;
+  }
+  .float-img {
+    display: none;
+  }
+  .pronunciation {
+    position: static;
+    text-align: center;
+    margin: 15px 0;
+  }
+  .socials {
+    position: static;
+    text-align: center;
+    margin: 15px 0;
+  }
+  .terms-of-service {
+    position: static;
+    text-align: center;
+    margin: 15px 0;
+    font-size: 32px;
+  }
+}
