@@ -135,7 +135,7 @@ function showPackContents(result) {
   modal.style.textAlign = 'center';
 
   const blookImage = document.createElement('img');
-  blookImage.src = `/img/blooks/${blook.image}`;
+  blookImage.src = `https://pixelit.replit.app/img/blooks/${blook.image}`;
   blookImage.alt = blook.name || 'Unknown Blook';
   blookImage.style.width = '150px';
   blookImage.style.height = '150px';
@@ -146,16 +146,37 @@ function showPackContents(result) {
   };
 
   const blookName = document.createElement('p');
-  blookName.textContent = `You got: ${blook.name || 'Unknown Blook'}`;
+  blookName.textContent = `${blook.name || 'Unknown Blook'}`;
   blookName.style.margin = '10px 0';
 
+  const RARITY_COLORS = {
+    uncommon: "#4bc22e",
+    rare: "blue",
+    epic: "#be0000",
+    legendary: "#ff910f",
+    chroma: "#00ccff",
+    mystical: "#9935dd"
+  };
+  
   const blookInfo = document.createElement('p');
-  blookInfo.textContent = `Rarity: ${blook.rarity || 'Unknown'}`;
+  const rarityColor = RARITY_COLORS[blook.rarity?.toLowerCase()] || 'black';
+  blookInfo.textContent = `${blook.rarity || 'Unknown'}`;
   blookInfo.style.margin = '5px 0';
+  blookInfo.style.color = rarityColor;
 
   const closeButton = document.createElement('button');
-  closeButton.textContent = 'Close';
+  closeButton.textContent = 'Proceed';
   closeButton.onclick = () => document.body.removeChild(overlay);
+  closeButton.style.backgroundColor = '#6f057a';
+  closeButton.style.boxShadow = 'inset 0 -0.265vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6)';
+  closeButton.style.border = 'none';
+  closeButton.style.padding = '10px 20px';
+  closeButton.style.borderRadius = '5px';
+  closeButton.style.fontFamily = 'Pixelify Sans';
+  closeButton.style.color = 'white';
+  closeButton.style.cursor = 'pointer';
+  closeButton.style.transform = 'scale(0.95)';
+  closeButton.style.transition = 'transform 0.3s ease';
   closeButton.style.marginTop = '10px';
 
   modal.appendChild(blookImage);

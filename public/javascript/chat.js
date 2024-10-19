@@ -1,11 +1,9 @@
-// Utility function to escape HTML
 function escapeHTML(str) {
     const div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
 }
 
-// Parse and sanitize the message
 function parseMessage(str) {
     const safeStr = escapeHTML(str);
     const parsed = marked.parse(safeStr);
@@ -27,7 +25,6 @@ let users = [
 
 let username, pfp, badges;
 
-// Fetch user data
 fetch("/user")
     .then((response) => {
         if (!response.ok) {
@@ -44,7 +41,6 @@ fetch("/user")
         console.error(e);
     });
 
-// Efficient DOM update for messages
 function createMessageHTML(message) {
     const username = escapeHTML(message.sender);
     const badgesHTML = (message.badges || []).map(
@@ -72,7 +68,6 @@ function createMessageHTML(message) {
     `;
 }
 
-// Batch update messages to reduce reflows
 function updateMessages(messages) {
     const messagesContainer = ge("chatContainer");
     const fragment = document.createDocumentFragment();
@@ -88,14 +83,12 @@ function updateMessages(messages) {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// Utility to get byte size of a string
 const byte = (str) => new Blob([str]).size;
 
 document.addEventListener('DOMContentLoaded', function() {
     const socket = io();
     console.log("Chat has been successfully loaded!");
 
-    // Handle send message action
     ge("send").addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
@@ -117,10 +110,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initial fetch of chat messages
     socket.emit("getChat");
 
-    // Handle chat updates
     socket.on("chatupdate", (data) => {
         if (data === "get") {
             socket.emit("getChat");
