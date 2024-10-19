@@ -99,7 +99,7 @@ textarea {
 }
 
 @media screen and (max-width: 768px) {
-form {
+  form {
   width: 90%;
-}
+ }
 }
