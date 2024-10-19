@@ -1,5 +1,6 @@
 //const socket = io();
 
+
 function createPack() {
     var packName = document.getElementById("packName").value; //prompt("Enter pack name:");
     var packUrl = document.getElementById("packUrl").value; //prompt("Enter image URL for pack:");
@@ -191,22 +192,6 @@ function addBlook(packDiv, packName) {
                     console.log(response.statusText);
                 }
             });
-            // socket.emit(
-            //     "addBlook",
-            //     {
-            //         name: blookNameInput.value,
-            //         image: imageUrlInput.value,
-            //         rarity: blookRarityInput.value,
-            //         chance: blookChanceInput.value,
-            //         parent: packName,
-            //         owned: 0,
-            //         color: blookColor,
-            //     },
-            //     {
-            //         name: sessionStorage.username,
-            //         pass: sessionStorage.password,
-            //     },
-            // );
         }
     };
     containerDiv.appendChild(addButton);
@@ -247,7 +232,7 @@ function renderPacks(packsArray) {
         packImg.style.height = "auto";
 
         var removePackButton = document.createElement("button");
-        removePackButton.textContent = "Remove Pack";
+        removePackButton.textContent = "Delete Pack";
         removePackButton.classList.add("button"); // Add button class
         removePackButton.onclick = function () {
             fetch("/removePack", {
