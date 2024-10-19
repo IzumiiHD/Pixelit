@@ -53,6 +53,7 @@ body {
   color: white;
   text-align: center;
 }
+
 .button {
   width: 240px;
   font-size: 18px;
@@ -65,8 +66,6 @@ body {
   margin: 10px 0;
   font-family: Pixelify Sans;
   cursor: pointer;
-  text-align: center;
-  text-decoration: none;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .button:hover {
