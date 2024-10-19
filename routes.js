@@ -832,4 +832,5 @@ router.get("/openPack", packOpenLimiter, async (req, res) => {
 router.use((req, res, next) => {
   res.status(404).sendFile(path.join(__dirname, 'public', 'site', '404.html'));
 });
+
 module.exports = router;
