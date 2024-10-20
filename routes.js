@@ -131,14 +131,14 @@ router.post("/login", async (req, res) => {
         req.session.spinned = user.spinned;
         res.sendStatus(200);
       } else {
-        res.status(500).send("Username or Password is incorrect!");
+        res.status(401).send("Username or Password is incorrect!");
       }
     } else {
-      res.status(500).send("User not found!");
+      res.status(401).send("User not found!");
     }
   } catch (err) {
     console.error(err);
-    res.status(502).send("Server error!");
+    res.status(500).send("Server error!");
   }
 });
 
@@ -342,8 +342,6 @@ router.get("/packs", async (req, res) => {
   const packs = await collection.find().toArray();
   res.status(200).send(packs);
 });
-
-
 
 router.get("/users", async (req, res) => {
   const session = req.session;

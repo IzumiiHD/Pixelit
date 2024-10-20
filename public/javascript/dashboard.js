@@ -9,7 +9,6 @@ function ge(id) {
 }
 
 window.onload = () => {
-  //document.body.style.pointerEvents = "none";
   fetch("/user", {
     method: "GET",
     headers: {
@@ -18,7 +17,7 @@ window.onload = () => {
   })
     .then((response) => {
       if (response.status === 200) {
-        return response.json(); // Parse JSON data
+        return response.json();
       } else if (response.status === 500) {
         return response.text().then((text) => {
           alert(text);
@@ -39,7 +38,6 @@ window.onload = () => {
     });
 };
 
-// Function to render badges
 function renderBadges(badges) {
   const badgeContainer = ge("badges");
   badgeContainer.style.display = "block";
@@ -51,7 +49,6 @@ function renderBadges(badges) {
   });
 }
 
-// Initialize the user object
 const user = {
   username: "username",
   uid: 0,
@@ -65,14 +62,12 @@ const user = {
   stats: { sent: 0, packsOpened: 0 },
 };
 
-// Get references to DOM elements
 const username = ge("username");
 const tokens = ge("tokens");
 const sent = ge("messages");
 const spin = ge("spin");
 const packsOpened = ge("packs");
 
-// Fetch user data from the server
 fetch("/user")
   .then((response) => {
     if (!response.ok) {
@@ -175,7 +170,7 @@ socket.on("getUserBadges", (badges) => {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('/user')  // Adjust this to your actual API endpoint
+  fetch('/user') 
     .then(response => response.json())
     .then(data => {
       const userRole = data.role;

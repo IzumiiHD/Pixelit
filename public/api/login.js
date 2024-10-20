@@ -38,17 +38,21 @@ function login(event) {
     if (response.status === 200) {
       sessionStorage.setItem("loggedIn", true);
       window.location.href = '/dashboard.html';
-    } else if (response.status === 500) {
+    } else if (response.status === 401) {
       return response.text().then(text => {
         alert(text);
         ge('error-message').innerText = text;
       });
+    } else if (response.status === 500) {
+      return response.text().then(text => {
+        alert("Internal server error: " + text);
+      });
     } else {
-      ge('error-message').innerText = 'Unexpected response status (Username or password may be incorrect): ' + response.status;
+      ge('error-message').innerText = 'Unexpected response status: ' + response.status;
     }
   })
   .catch(error => {
-    ge('error-message').innerText = 'There was a problem with the fetch operation (Username or password may be incorrect): ' + error;
+    ge('error-message').innerText = 'There was a problem with the fetch operation: ' + error;
   });
 }
 

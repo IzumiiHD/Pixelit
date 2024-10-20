@@ -46,7 +46,6 @@ const client = new MongoClient(process.env["mongoURL"], {
     }
 }
 
-
 async function updateUser(username) {
     try {
         const db = client.db("pixelit_testing");
@@ -66,7 +65,6 @@ async function updateUser(username) {
         console.log("ERROR IN UPDATEUSER");
         console.log(e);
     } finally {
-        //await client.close();
     }
 }
 
