@@ -63,9 +63,7 @@ async function run() {
     requests = await client.db(db_name).collection("requests").find().toArray();
   } catch {
     console.log("mongodb connection error");
-  } /*finally {
-    await client.close();
-  }*/
+  }
 }
 run().catch(console.dir);
 
@@ -189,7 +187,6 @@ router.post("/register", limiter, async (req, res) => {
 });
 
 router.get("/requests", async (req, res) => {
-  //await client.connect();
   if (req.session.loggedIn) {
     const db = client.db(db_name);
     const collection = db.collection("users");
@@ -227,7 +224,6 @@ router.post("/addAccount", async (req, res) => {
       if (request !== null) {
         if (req.body.accepted == true) {
           await userRequests.deleteOne({ username: req.body.username });
-          // Use the hashed password from the request
           await users.insertOne({
             username: req.body.username,
             password: request.password,
@@ -290,7 +286,6 @@ router.post("/changePfp", async (req, res) => {
   const session = req.session;
   if (session && session.loggedIn) {
     try {
-      //await client.connect();
       console.log(req.body);
       const db = client.db(db_name);
       const users = db.collection("users");
@@ -426,8 +421,8 @@ router.post("/removePack", async (req, res) => {
       });
     await users
       .updateMany(
-        { "packs.name": pack.name }, // Match documents where the pack exists in the packs array
-        { $pull: { packs: { name: pack.name } } }, // Remove the pack from the packs array
+        { "packs.name": pack.name },
+        { $pull: { packs: { name: pack.name } } },
       )
       .then((result) => {
         console.log("Update operation result:", result);
@@ -460,10 +455,10 @@ router.post("/addBlook", async (req, res) => {
         {
           $push: {
             blooks: {
-              name: blook.name, // Example: New blook name
-              imageUrl: blook.image, // Example: URL of the blook image
-              rarity: blook.rarity, // Example: Rarity of the blook
-              chance: blook.chance, // Example: Chance of getting the blook (in percentage)
+              name: blook.name,
+              imageUrl: blook.image, 
+              rarity: blook.rarity, 
+              chance: blook.chance,
               parent: blook.parent,
               color: blook.color,
               owned: 0,
@@ -478,9 +473,9 @@ router.post("/addBlook", async (req, res) => {
         console.error("Error updating database:", error);
       });
     await users.updateMany(
-      { "packs.name": blook.parent }, // Match documents where the parent pack exists
-      { $addToSet: { "packs.$[pack].blooks": blook } }, // Add the blook to the blooks array of the specified pack
-      { arrayFilters: [{ "pack.name": blook.parent }] }, // Specify the array filter to identify the pack to update
+      { "packs.name": blook.parent },
+      { $addToSet: { "packs.$[pack].blooks": blook } }, 
+      { arrayFilters: [{ "pack.name": blook.parent }] }, 
     );
   } catch (e) {
     console.log(e);
@@ -517,9 +512,9 @@ router.post("/removeBlook", async (req, res) => {
     });
   await users
     .updateMany(
-      { "packs.name": blook.parent, "packs.blooks.name": blook.name }, // Match documents where the parent pack contains the blook
-      { $pull: { "packs.$[pack].blooks": { name: blook.name } } }, // Remove the blook from the specified pack
-      { arrayFilters: [{ "pack.name": blook.parent }] }, // Specify the array filter to identify the pack to update
+      { "packs.name": blook.parent, "packs.blooks.name": blook.name }, 
+      { $pull: { "packs.$[pack].blooks": { name: blook.name } } }, 
+      { arrayFilters: [{ "pack.name": blook.parent }] }, 
     )
     .then((result) => {
       console.log("Update operation result:", result);
@@ -531,7 +526,6 @@ router.post("/removeBlook", async (req, res) => {
   res.status(200).send("Removed blook");
 });
 
-// Badge-related Routes from badgeeditor.js
 router.get("/getAccounts", async (req, res) => {
   try {
     const usersList = await users.find().toArray();

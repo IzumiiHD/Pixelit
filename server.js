@@ -13,7 +13,7 @@ const server = http.createServer(app);
 const io = new Server(server, { pingInterval: 2000, pingTimeout: 5000 });
 
 app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, 'public', 'site')));
+app.use(express.static(path.join(__dirname, 'public', 'views')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
@@ -30,8 +30,8 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  if (req.path !== '/' && req.path.startsWith('/site/')) {
-    req.url = req.url.replace('/site', '');
+  if (req.path !== '/' && req.path.startsWith('/views/')) {
+    req.url = req.url.replace('/views', '');
   }
   if (req.path !== '/' && req.path.startsWith('/panel/')) {
     req.url = req.url.replace('/panel', '');
@@ -125,12 +125,8 @@ io.on("connection", (socket) => {
     console.log("user disconnected");
   });
   socket.on("getTokens", async (name) => {
-    //await client.connect();
     const user = await users.findOne({ username: name });
     if (user === null) return;
-    //console.log(user)
-    //const jsonData1 = fs.readFileSync(fileName, 'utf8');
-    //accounts = JSON.parse(jsonData1);
     io.to(socket.id).emit("tokens", user.tokens, user.sent, user.packsOpened);
   });
   socket.on("message", async (message) => {
@@ -222,8 +218,6 @@ io.on("connection", (socket) => {
       cost: pack.cost,
       blooks: [],
     };
-    //console.log(pack);
-    //console.log(user);
     const person = await users.findOne({ username: user.name });
     if (
       validatePassword(user.pass, person.password, person.salt) &&
@@ -257,14 +251,6 @@ io.on("connection", (socket) => {
     } else console.log("addpack verification denied " + user.name);
   });
   socket.on("addBlook", async (blook, user) => {
-    //await client.connect();
-    //const parent = blook.parent;
-    /*const blook = {
-      name: blook.name,
-      image: blook.image,
-      rarity: blook.cost,
-      chance: blook.chance,
-    };*/
     const person = await users.findOne({ username: user.name });
     if (
       validatePassword(user.pass, person.password, person.salt) &&
@@ -307,19 +293,16 @@ io.on("connection", (socket) => {
         });
       console.log(`added new blook to ${blook.parent}: ` + blook.name);
       io.to(socket.id).emit("getPacks", "get");
-      //console.log(await packs.findOne({name: blook.parent}));
     } else console.log("addblook verification denied " + user.name);
   });
   socket.on("removePack", async (pack, user) => {
-    //await client.connect(); /*
     const newpack = {
       name: pack.name,
       image: pack.image,
       cost: pack.cost,
       blooks: [],
     };
-    //console.log(pack);
-    //console.log(user);
+
     const person = await users.findOne({ username: user.name });
     if (
       validatePassword(user.pass, person.password, person.salt) &&
@@ -349,14 +332,6 @@ io.on("connection", (socket) => {
     } else console.log("removepack verification denied " + user.name);
   });
   socket.on("removeBlook", async (blook, user) => {
-    //await client.connect();
-    //const parent = blook.parent;
-    /*const blook = {
-      name: blook.name,
-      image: blook.image,
-      rarity: blook.cost,
-      chance: blook.chance,
-    };*/
     const person = await users.findOne({ username: user.name });
     if (
       validatePassword(user.pass, person.password, person.salt) &&
@@ -393,11 +368,9 @@ io.on("connection", (socket) => {
         });
       console.log(`removed blook from ${blook.parent}: ` + blook.name);
       io.to(socket.id).emit("getPacks", "get");
-      //console.log(await packs.findOne({name: blook.parent}));
     } else console.log("removeblook verification denied " + user.name);
   });
   socket.on("getPacks", async () => {
-    //await client.connect();
     const packsArray = await packs.find().toArray();
     io.to(socket.id).emit("getPacks", packsArray);
   });
@@ -432,47 +405,11 @@ io.on("connection", (socket) => {
   
     for (const b of blooks) {
       const blook = b;
-      //console.log("Current blook:", blook); // Log current blook
 
       if (
         randnum >= currentchance &&
         randnum <= currentchance + Number(blook.chance)
       ) {
-        //console.log("Selected blook:", blook); // Log selected blook
-
-        // Update user data in MongoDB
-        /*await users
-          .updateOne(
-            { username: person.name },
-            { $inc: { [`packs.${pack.name}.blooks.${blook.name}.owned`]: 1 } },
-          )
-          .then((result) => {
-            console.log("Update operation result:", result);
-          })
-          .catch((error) => {
-            console.error("Error updating database:", error);
-          });*/
-        /*
-        await users
-          .updateOne(
-            { username: person.name }, // Identify the user based on some unique identifier
-            {
-              $inc: {
-                "packs.$[packName].blooks.$[blookName].owned": 1, // Update the owned property of the specific blook
-              },
-            },
-            {
-              arrayFilters: [
-                { "packName.name": pack.name }, // Filter to find the specific pack within the packs array
-                { "blookName.name": blook.name }, // Filter to find the specific blook within the blooks array of the selected pack
-              ],
-            },
-          )
-          .then((result) => {
-            console.log("Update operation result+$:37&+:", result);
-          });
-*/
-        // Emit openPack event with selected blook
         const result = await users.updateOne(
           {
             username: user.name,
@@ -511,14 +448,11 @@ io.on("connection", (socket) => {
     }
   });
   socket.on("getUserPacks", async (name) => {
-    //await client.connect();
     const user = await users.findOne({ username: name });
     if (user === null) return;
-    //console.log(user.packs)
     io.to(socket.id).emit("getUserPacks", user.packs);
   });
   socket.on("getAccounts", async () => {
-    //await client.connect();
     const accounts = await users.find().toArray();
 
     io.to(socket.id).emit("getAccounts", accounts);
