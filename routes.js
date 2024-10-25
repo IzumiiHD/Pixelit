@@ -63,7 +63,9 @@ async function run() {
     requests = await client.db(db_name).collection("requests").find().toArray();
   } catch {
     console.log("mongodb connection error");
-  }
+  } /*finally {
+    await client.close();
+  }*/
 }
 run().catch(console.dir);
 
@@ -83,66 +85,53 @@ async function validatePassword(password, hashedPassword) {
   return await bcrypt.compare(password, hashedPassword);
 }
 
-router.get("/user", async (req, res) => {
-  const session = req.session;
-  if (session.loggedIn) {
-    const db = client.db(db_name);
-    const collection = db.collection("users");
-    const user = await collection.findOne({ username: session.username });
-    if (user) {
-      res.status(200).send({
-        username: user.username,
-        uid: user._id,
-        tokens: user.tokens,
-        packs: user.packs,
-        pfp: user.pfp,
-        banner: user.banner,
-        badges: user.badges,
-        role: user.role,
-        spinned: user.spinned,
-        stats: { sent: user.sent, packsOpened: user.packsOpened },
-      });
-    }
-  } else {
-    res.status(401).send("You are not logged in");
-  }
-});
 
 router.post("/login", async (req, res) => {
   try {
-    const db = client.db(db_name);
-    const usersCollection = db.collection("users");
-
     const { username, password } = req.body;
-
+    const db = client.db("pixelit");
+    const usersCollection = db.collection("users");
     const user = await usersCollection.findOne({ username });
+    if (user && await validatePassword(password, user.password)) {
+      req.session.loggedIn = true;
+      req.session.username = user.username;
+      return res.status(200).send({ message: "Login successful" });
+    }
+    res.status(401).send({ message: "Invalid username or password" });
+  } catch (error) {
+    console.error("Login Error:", error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+});
 
+router.get("/user", async (req, res) => {
+  if (!req.session || !req.session.loggedIn) {
+    return res.status(401).send("You are not logged in");
+  }
+  try {
+    const db = client.db("pixelit");
+    const usersCollection = db.collection("users");
+    const user = await usersCollection.findOne({ username: req.session.username });
     if (!user) {
-      return res.status(401).send("User not found!");
+      return res.status(404).send("User not found");
     }
-
-    const isPasswordValid = await validatePassword(password, user.password);
-
-    if (!isPasswordValid) {
-      return res.status(401).send("Username or Password is incorrect!");
-    }
-
-    req.session.loggedIn = true;
-    req.session.username = user.username;
-    req.session.tokens = user.tokens;
-    req.session.uid = user._id;
-    req.session.packs = user.packs;
-    req.session.stats = { sent: user.sent, packsOpened: user.packsOpened };
-    req.session.pfp = user.pfp;
-    req.session.banner = user.banner;
-    req.session.badges = user.badges;
-    req.session.spinned = user.spinned;
-
-    res.sendStatus(200);
-
-  } catch (err) {
-    console.error("Error during login:", err);
-    res.status(500).send("Server error!");
+    res.status(200).json({
+      username: user.username,
+      tokens: user.tokens,
+      packs: user.packs,
+      pfp: user.pfp,
+      banner: user.banner,
+      badges: user.badges,
+      role: user.role,
+      spinned: user.spinned,
+      stats: {
+        sent: user.stats.sent,
+        packsOpened: user.stats.packsOpened
+      }
+    });
+  } catch (error) {
+    console.error("Fetch user data error:", error);
+    res.status(500).send("Internal server error");
   }
 });
 
@@ -182,6 +171,7 @@ router.post("/register", limiter, async (req, res) => {
 });
 
 router.get("/requests", async (req, res) => {
+  //await client.connect();
   if (req.session.loggedIn) {
     const db = client.db(db_name);
     const collection = db.collection("users");
@@ -281,6 +271,7 @@ router.post("/changePfp", async (req, res) => {
   const session = req.session;
   if (session && session.loggedIn) {
     try {
+      //await client.connect();
       console.log(req.body);
       const db = client.db(db_name);
       const users = db.collection("users");
@@ -332,6 +323,8 @@ router.get("/packs", async (req, res) => {
   const packs = await collection.find().toArray();
   res.status(200).send(packs);
 });
+
+
 
 router.get("/users", async (req, res) => {
   const session = req.session;
@@ -416,8 +409,8 @@ router.post("/removePack", async (req, res) => {
       });
     await users
       .updateMany(
-        { "packs.name": pack.name },
-        { $pull: { packs: { name: pack.name } } },
+        { "packs.name": pack.name }, // Match documents where the pack exists in the packs array
+        { $pull: { packs: { name: pack.name } } }, // Remove the pack from the packs array
       )
       .then((result) => {
         console.log("Update operation result:", result);
@@ -450,10 +443,10 @@ router.post("/addBlook", async (req, res) => {
         {
           $push: {
             blooks: {
-              name: blook.name,
-              imageUrl: blook.image, 
-              rarity: blook.rarity, 
-              chance: blook.chance,
+              name: blook.name, // Example: New blook name
+              imageUrl: blook.image, // Example: URL of the blook image
+              rarity: blook.rarity, // Example: Rarity of the blook
+              chance: blook.chance, // Example: Chance of getting the blook (in percentage)
               parent: blook.parent,
               color: blook.color,
               owned: 0,
@@ -468,9 +461,9 @@ router.post("/addBlook", async (req, res) => {
         console.error("Error updating database:", error);
       });
     await users.updateMany(
-      { "packs.name": blook.parent },
-      { $addToSet: { "packs.$[pack].blooks": blook } }, 
-      { arrayFilters: [{ "pack.name": blook.parent }] }, 
+      { "packs.name": blook.parent }, // Match documents where the parent pack exists
+      { $addToSet: { "packs.$[pack].blooks": blook } }, // Add the blook to the blooks array of the specified pack
+      { arrayFilters: [{ "pack.name": blook.parent }] }, // Specify the array filter to identify the pack to update
     );
   } catch (e) {
     console.log(e);
@@ -507,9 +500,9 @@ router.post("/removeBlook", async (req, res) => {
     });
   await users
     .updateMany(
-      { "packs.name": blook.parent, "packs.blooks.name": blook.name }, 
-      { $pull: { "packs.$[pack].blooks": { name: blook.name } } }, 
-      { arrayFilters: [{ "pack.name": blook.parent }] }, 
+      { "packs.name": blook.parent, "packs.blooks.name": blook.name }, // Match documents where the parent pack contains the blook
+      { $pull: { "packs.$[pack].blooks": { name: blook.name } } }, // Remove the blook from the specified pack
+      { arrayFilters: [{ "pack.name": blook.parent }] }, // Specify the array filter to identify the pack to update
     )
     .then((result) => {
       console.log("Update operation result:", result);
@@ -521,6 +514,7 @@ router.post("/removeBlook", async (req, res) => {
   res.status(200).send("Removed blook");
 });
 
+// Badge-related Routes from badgeeditor.js
 router.get("/getAccounts", async (req, res) => {
   try {
     const usersList = await users.find().toArray();
@@ -733,30 +727,6 @@ router.post("/sellBlook", async (req, res) => {
   }
 });
 
-router.get("/user", async (req, res) => {
-  const session = req.session;
-  console.log(session)
-  if (session.loggedIn) {
-    try {
-      const user = await users.findOne({ username: session.username });
-      if (user) {
-        res.status(200).json({
-          username: user.username,
-          tokens: user.tokens,
-          packs: user.packs,
-        });
-      } else {
-        res.status(404).send("User not found");
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      res.status(500).send("Internal server error");
-    }
-  } else {
-    res.status(401).send("You are not logged in");
-  }
-});
-
 router.get("/packs", async (req, res) => {
   try {
     const allPacks = await packs.find().toArray();
@@ -824,7 +794,7 @@ router.get("/openPack", packOpenLimiter, async (req, res) => {
 });
 
 router.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, 'public', 'site', '404.html'));
+  res.status(404).sendFile(path.join(__dirname, 'public', 'views', '404.html'));
 });
 
 module.exports = router;

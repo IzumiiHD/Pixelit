@@ -1,147 +1,103 @@
-const socket = io();
+const getElement = (id) => document.getElementById(id);
 
-function ge(id) {
-  return document.getElementById(id);
-}
+const fetchUserData = async () => {
+  try {
+    const response = await fetch("/user", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include"
+    });
 
-function initializeUserSession() {
-  if (localStorage.loggedin === "true") {
-    sessionStorage.loggedIn = 'true';
-    sessionStorage.username = localStorage.username;
+    if (!response.ok) {
+      handleErrorResponse(response);
+      return;
+    }
+
+    const data = await response.json();
+    updateUserInterface(data);
+  } catch (error) {
+    console.error("Error fetching user data:", error);
   }
-
-  if (sessionStorage.loggedIn !== 'true') {
-    window.location.href = '/login.html';
-    return;
-  }
-}
-
-window.onload = () => {
-  initializeUserSession();
-
-  fetch("/user", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then(response => {
-      if (response.ok) return response.json();
-      throw new Error(`Unexpected status code: ${response.status}`);
-    })
-    .then(data => updateUserInterface(data))
-    .catch(error => handleFetchError(error));
 };
 
-function updateUserInterface(data) {
-  const user = parseUserData(data);
-  updateDOMElements(user);
-  renderBadges(user.badges);
-  setupRoleBasedUI(user.role);
-}
-
-function handleFetchError(error) {
-  console.error("There was a problem with the fetch operation:", error);
-  sessionStorage.clear();
-  window.location.href = '/login.html';
-}
-
-function parseUserData(data) {
-  return {
-    username: data.username || 'Guest',
-    tokens: data.tokens || 0,
-    uid: data.uid || 0,
-    packs: data.packs || [],
-    pfp: data.pfp || '/img/blooks/logo.png',
-    banner: data.banner || '/img/banner/defaultBanner.svg',
-    badges: data.badges || [],
-    role: data.role || 'Common',
-    spinned: data.spinned || 0,
-    stats: data.stats || { sent: 0, packsOpened: 0 },
-  };
-}
-
-function updateDOMElements(user) {
-  ge('username').textContent = user.username;
-  ge('tokens').textContent = formatNumber(user.tokens);
-  ge('messages').textContent = formatNumber(user.stats.sent);
-  ge('packs').textContent = formatNumber(user.stats.packsOpened);
-  ge('pfp').src = `/img/blooks/${user.pfp}`;
-  ge('pfp').onerror = () => this.src = "/img/blooks/logo.png";
-  ge('banner').src = `/img/banner/${user.banner}`;
-  ge('role').textContent = user.role;
-}
-
-function setupRoleBasedUI(role) {
-  const roleColors = {
-    'Owner': ['url("/img/dashboard/rainbow.gif")', 'transparent'],
-    'Plus': ['blue'],
-    'Tester': ['#24e2d8'],
-    'Helper': ['#1973a0'],
-    'Moderator': ['#bb1bc7'],
-    'Admin': ['#bd0404']
-  };
-
-  if (role in roleColors) {
-    const [color, textColor] = roleColors[role];
-    ge("username").style.color = color;
-    ge("role").style.color = color;
-    if (textColor) {
-      ge("username").style.background = color;
-      ge("role").style.background = color;
-      ge("username").style.webkitBackgroundClip = 'text';
-      ge("role").style.webkitBackgroundClip = 'text';
-      ge("username").style.color = textColor;
-      ge("role").style.color = textColor;
-    }
+const handleErrorResponse = (response) => {
+  if (response.status === 401) {
+    console.warn("Unauthorized access. Redirecting to login.");
+    sessionStorage.clear();
+    window.location.href = "/login.html";
+  } else {
+    console.error(`Unexpected response: ${response.status} - ${response.statusText}`);
   }
-}
+};
 
-function renderBadges(badges) {
-  const badgeContainer = ge("badges");
-  badgeContainer.style.display = "block";
+const updateUserInterface = (data) => {
+  if (!data) return;
+
+  const elements = {
+    username: getElement('username'),
+    tokens: getElement('tokens'),
+    messages: getElement('messages'),
+    packs: getElement('packs'),
+    pfp: getElement('pfp'),
+    banner: getElement('banner'),
+    role: getElement('role')
+  };
+
+  elements.username.textContent = data.username;
+  elements.tokens.textContent = formatLargeNumber(data.tokens);
+  elements.messages.textContent = formatLargeNumber(data.stats.sent);
+  elements.packs.textContent = formatLargeNumber(data.stats.packsOpened);
+  elements.pfp.src = `/img/blooks/${data.pfp}`;
+  elements.banner.src = `/img/banner/${data.banner}`;
+  elements.role.textContent = data.role;
+
+  elements.pfp.onerror = () => { elements.pfp.src = "/img/blooks/logo.png"; };
+  styleUserRole(elements.username, elements.role, data.role);
+  displayBadges(data.badges);
+};
+
+const styleUserRole = (usernameEl, roleEl, role) => {
+  const roleStyles = {
+    Owner: { bg: "url('/img/dashboard/rainbow.gif')", color: "transparent" },
+    Plus: { color: "blue" },
+    Tester: { color: "#24e2d8" },
+    Helper: { color: "#1973a0" },
+    Moderator: { color: "#bb1bc7" },
+    Admin: { color: "#bd0404" }
+  };
+
+  const styles = roleStyles[role] || {};
+  if (styles.bg) {
+    usernameEl.style.background = styles.bg;
+    roleEl.style.background = styles.bg;
+    usernameEl.style.webkitBackgroundClip = "text";
+    roleEl.style.webkitBackgroundClip = "text";
+    usernameEl.style.color = styles.color;
+    roleEl.style.color = styles.color;
+  } else {
+    usernameEl.style.color = styles.color || "";
+    roleEl.style.color = styles.color || "";
+  }
+};
+
+const displayBadges = (badges) => {
+  const badgeContainer = getElement("badges");
   badgeContainer.innerHTML = '';
+  badgeContainer.style.display = "block";
   badges.forEach(badge => {
     const badgeElement = document.createElement("div");
     badgeElement.classList.add("badge");
     badgeElement.innerHTML = `<img src="${badge.image}" alt="${badge.name}">`;
     badgeContainer.appendChild(badgeElement);
   });
-}
+};
 
-function formatNumber(num) {
-  if (num === null || num === undefined) return '0';
-  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-}
+const formatLargeNumber = (num) => num ? num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") : '0';
 
-
-// Our socket setup for the Dashboard
-
-if (sessionStorage.loggedIn === "true") {
-  socket.emit("getTokens", sessionStorage.username);
-
-  socket.on("tokens", (tokensr, sentr, packsOpenedr) => {
-    ge('tokens').textContent = formatNumber(tokensr);
-    ge('messages').textContent = formatNumber(sentr);
-    ge('packs').textContent = formatNumber(packsOpenedr);
-  });
-
-  socket.emit("getUserBadges", sessionStorage.username);
-
-  socket.on("getUserBadges", renderBadges);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  fetch('/user')
-    .then(response => response.json())
-    .then(data => {
-      const userRole = data.role;
-      const allowedRoles = ['Owner', 'Admin', 'Moderator', 'Helper'];
-      if (allowedRoles.includes(userRole)) {
-        ge("wrench-icon").style.display = 'inline';
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching user role:', error);
-    });
-});
+window.onload = () => {
+  if (sessionStorage.getItem("loggedIn") === "true") {
+    fetchUserData();
+  } else {
+    window.location.href = "/login.html";
+  }
+};

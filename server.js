@@ -12,17 +12,18 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { pingInterval: 2000, pingTimeout: 5000 });
 
-app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, 'public', 'views')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  name: "cookie",
-  secret: process.env["cookieSecret"],
+  name: "session_id",
+  secret: process.env.cookieSecret,
   resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 3 * 24 * 60 * 60 * 1000, secure: true },
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 3 * 24 * 60 * 60 * 1000,
+    secure: process.env.NODE_ENV === "production",
+  },
 }));
 
 app.use((req, res, next) => {
