@@ -1,23 +1,22 @@
-const socket = io()
+const socket = io();
 
 function ge(id) {
-  return document.getElementById(id)
+  return document.getElementById(id);
 }
 
-const uname = ge("uname")
-const psw = ge("psw")
-const submit = ge("submit")
-const rem = ge("remember")
+const uname = ge("uname");
+const psw = ge("psw");
+const submit = ge("submit");
+const rem = ge("remember");
 
 window.onload = () => {
   if (sessionStorage["username"] && sessionStorage["password"] && sessionStorage.rem == "true") {
-    uname.value = sessionStorage["username"]
-    psw.value = sessionStorage["password"]
+    uname.value = sessionStorage["username"];
+    psw.value = sessionStorage["password"];
   } else {
-    rem.checked = false
+    rem.checked = false;
   }
 }
-
 
 function login(event) {
   event.preventDefault();
@@ -25,7 +24,7 @@ function login(event) {
   const pv = psw.value;
   const requestBody = {
     username: uv,
-    password: pv
+    password: pv,
   };
   fetch('/login', {
     method: 'POST',
@@ -36,7 +35,7 @@ function login(event) {
   })
   .then(response => {
     if (response.status === 200) {
-      sessionStorage.setItem("loggedIn", true);
+      sessionStorage.setItem("loggedIn", 'true');
       window.location.href = '/dashboard.html';
     } else if (response.status === 401) {
       return response.text().then(text => {
@@ -56,3 +55,4 @@ function login(event) {
   });
 }
 
+submit.addEventListener('click', login);

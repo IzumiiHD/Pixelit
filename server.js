@@ -16,12 +16,13 @@ app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public', 'views')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(session({
   name: "cookie",
   secret: process.env["cookieSecret"],
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 3 * 24 * 60 * 60 * 1000,secure:true },
+  cookie: { maxAge: 3 * 24 * 60 * 60 * 1000, secure: true },
 }));
 
 app.use((req, res, next) => {

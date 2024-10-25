@@ -111,44 +111,39 @@ router.get("/user", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const db = client.db(db_name);
-    const collection = db.collection("users");
-    const name = req.body.username;
-    const pass = req.body.password;
-    const user = await collection.findOne({ username: name });
-    if (user) {
-      if (await validatePassword(pass, user.password)) {
-        req.session.loggedIn = true;
-        req.session.username = user.username;
-        req.session.tokens = user.tokens;
-        req.session.uid = user._id;
-        req.session.packs = user.packs;
-        req.session.stats = { sent: user.sent, packsOpened: user.packsOpened };
-        req.session.pfp = user.pfp;
-        req.session.banner = user.banner;
-        req.session.badges = user.badges;
-        req.session.spinned = user.spinned;
-        res.sendStatus(200);
-      } else {
-        res.status(401).send("Username or Password is incorrect!");
-      }
-    } else {
-      res.status(401).send("User not found!");
+    const usersCollection = db.collection("users");
+
+    const { username, password } = req.body;
+
+    const user = await usersCollection.findOne({ username });
+
+    if (!user) {
+      return res.status(401).send("User not found!");
     }
+
+    const isPasswordValid = await validatePassword(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).send("Username or Password is incorrect!");
+    }
+
+    req.session.loggedIn = true;
+    req.session.username = user.username;
+    req.session.tokens = user.tokens;
+    req.session.uid = user._id;
+    req.session.packs = user.packs;
+    req.session.stats = { sent: user.sent, packsOpened: user.packsOpened };
+    req.session.pfp = user.pfp;
+    req.session.banner = user.banner;
+    req.session.badges = user.badges;
+    req.session.spinned = user.spinned;
+
+    res.sendStatus(200);
+
   } catch (err) {
-    console.error(err);
+    console.error("Error during login:", err);
     res.status(500).send("Server error!");
   }
-});
-
-router.post("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error destroying session:", err);
-      res.status(500).send("Error logging out");
-    } else {
-      res.sendStatus(200);
-    }
-  });
 });
 
 router.post("/register", limiter, async (req, res) => {
