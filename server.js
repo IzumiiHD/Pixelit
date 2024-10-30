@@ -12,18 +12,16 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { pingInterval: 2000, pingTimeout: 5000 });
 
+app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public', 'site')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  name: "session_id",
-  secret: process.env.cookieSecret,
+  name: "cookie",
+  secret: process.env["cookieSecret"],
   resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 3 * 24 * 60 * 60 * 1000,
-    secure: process.env.NODE_ENV === "production",
-  },
+  saveUninitialized: true,
+  cookie: { maxAge: 3 * 24 * 60 * 60 * 1000,secure:true },
 }));
 
 app.use((req, res, next) => {
@@ -32,8 +30,8 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  if (req.path !== '/' && req.path.startsWith('/views/')) {
-    req.url = req.url.replace('/views', '');
+  if (req.path !== '/' && req.path.startsWith('/site/')) {
+    req.url = req.url.replace('/site', '');
   }
   if (req.path !== '/' && req.path.startsWith('/panel/')) {
     req.url = req.url.replace('/panel', '');
