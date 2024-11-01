@@ -18,10 +18,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
   name: "cookie",
-  secret: process.env["cookieSecret"],
+  secret: process.env['cookieSecret'],
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 3 * 24 * 60 * 60 * 1000,secure:true },
+  cookie: { maxAge: 3 * 24 * 60 * 60 * 1000 },
 }));
 
 app.use((req, res, next) => {

@@ -24,6 +24,7 @@ body {
   from { background-position: -100px -100px; }
   to { background-position: -100px 1100px; }
 }
+
 .navbar {
   overflow: hidden;
   background-color: #6f057a;
@@ -31,6 +32,7 @@ body {
   border-bottom-right-radius: 15px;
   box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6)
 }
+
 .navbar a {
   float: left;
   font-size: 16px;
@@ -40,10 +42,12 @@ body {
   text-decoration: none;
   text-shadow: #000 1px 0 13px;
 }
+
 .dropdown {
   float: left;
   overflow: hidden;
 }
+
 .dropdown .dropbtn {
   font-size: 16px;
   border: none;
@@ -54,10 +58,12 @@ body {
   font-family: inherit;
   margin: 0;
 }
+
 .navbar a:hover,
 .dropdown:hover .dropbtn {
   background-color: purple;
 }
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -68,6 +74,7 @@ body {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+
 .dropdown-content a {
   float: none;
   color: black;
@@ -77,16 +84,20 @@ body {
   text-align: left;
 
 }
+
 .dropdown-content a:hover {
   background-color: purple;
 }
+
 .dropdown-content a:last-child:hover{
   border-radius: 0 0 10px 10px;
   box-shadow: inset 0 -0.365vw #660066, 3px 3px 15px rgba(0, 0, 0, 0.6);
 }
+
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
 .title_p {
   margin-left: 92%;
   position: absolute;
