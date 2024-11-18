@@ -87,15 +87,14 @@ body {
 }
 
 .item {
+  border: 3px solid #8d079c;
+  border-radius: 5px;
   position: relative;
   width: 80px;
   height: 80px;
-  background-color: #9003a0;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
-  border: none;
 }
 
 .item img {

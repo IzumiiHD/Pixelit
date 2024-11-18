@@ -1,0 +1,28 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 15px;
+  margin-top: 20px;
+}
+
+.hole {
+  width: 150px;
+  height: 150px;
+  background-color: #5a0168;
+  border-radius: 50%;
+  box-shadow: inset 0 -0.365vw #61056b, 3px 3px 15px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.mole {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
