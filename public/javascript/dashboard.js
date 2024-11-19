@@ -116,9 +116,9 @@ fetch("/user")
       ge("role").style.color = "#24e2d8";
 
     }
-    if (user.role === "Helper") {
-      usernameElement.style.color = "#1973a0";
-      ge("role").style.color = "#1973a0";
+    if (user.role === "VIP") {
+      usernameElement.style.color = "#FFD700";
+      ge("role").style.color = "#FFD700";
 
     }
     if (user.role === "Moderator") {
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
       const userRole = data.role;
-      const allowedRoles = ['Owner', 'Admin', 'Moderator', 'Helper'];
+      const allowedRoles = ['Owner', 'Admin', 'Moderator', 'VIP'];
       if (allowedRoles.includes(userRole)) {
         document.getElementById('wrench-icon').style.display = 'inline';
       }
